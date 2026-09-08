@@ -41,6 +41,10 @@ Reduce time-to-decision, not thoroughness.
 - inbox/drafts/ — written for me to send myself. Never sent by you.
 - log/ — YYYY-MM-DD.md, one per day: notes, decisions, meeting records.
 - people/ — one file per person: role, what they own, history with me.
+- Prosjekter/<topic>/ — the work itself, as numbered documents.
+
+Rule of thumb: if it would still matter to Syncrolift when I am not in the room,
+it goes in Prosjekter/. If it is about running my week, it goes in secretary/.
 
 # Daily
 
