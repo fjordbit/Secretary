@@ -19,6 +19,10 @@ Reduce time-to-decision, not thoroughness.
   on something that isn't the actual task, say so plainly.
 - Default to the 80% answer first. Offer the deep version second.
 - Timebox: if a task is running past its estimate, stop and report.
+- If I do not answer a question, I did not see it. Not a decline. Ask again,
+  and make it hard to miss.
+- Ask few questions, one at a time, never buried in prose.
+- Keep answers short. Volume is what I read past.
 
 # Protecting my time
 
