@@ -42,7 +42,7 @@ New strand, from the meeting of 10 September. Notes at
       agent. If there is no external ingestion path, the cloud half of the
       pipeline does not exist.
 - [ ] **Measure the filter ratio.** Capture one real docking raw at 100 Hz,
-      apply candidate hysteresis offline, count what survives. Everything about
+      apply candidate deadbands offline, count what survives. Everything about
       transport and storage depends on this number and nobody has it.
 - [ ] **Overload data** — currently a want, not a source. Establish whether the
       PLCs already record it.
