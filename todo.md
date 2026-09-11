@@ -108,3 +108,18 @@ breaks. So, applying his own rule from CLAUDE.md:
 day, it becomes a written recommendation handed to whoever owns it — not his
 build. Deciding that after the conversation is prudent; deciding it after three
 days of work is not.
+
+## Logging → Maintenance, settle in this order
+
+From `Prosjekter/logging-maintenance/03_Logging_Rate_and_Storage.md`. The first
+question governs all the others; answering them out of order wastes the work.
+
+- [ ] **What is the fastest event we must not miss?** Not "how fast can we log".
+      10 Hz is generous for running hours and load cycles; it may miss a snatch
+      load entirely. Different answers buy very different systems.
+- [ ] **How does data reach SQL today** — WinCC Tag Logging on an HMI, or
+      something else? Currently unknown.
+- [ ] **Count the tags per hoist**, then check what PowerTag and archive-tag
+      licences the sites already hold. Small job, prices the whole approach.
+- [ ] **How long must data be kept?** Months or decades. Decides SQL Server
+      versus a time-series store, and that choice is cheap now, expensive later.
