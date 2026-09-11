@@ -25,6 +25,25 @@ people in the same building has three days, and Wednesday is already gone.
 - [ ] **AI policy review.** Due this week. **Blocked:** the document is not on
       this machine and nobody has sent it. Chase whoever owns the draft.
 
+## Logging → Maintenance
+
+New strand, from the meeting of 10 September. Notes at
+`Prosjekter/logging-maintenance/01_Concept_and_Open_Questions.md`.
+
+- [ ] **Find the "Tosibox on steroids" product.** Name was not caught in the
+      meeting. Needed: name, link, price. Ask whoever mentioned it — faster than
+      guessing from the market.
+- [ ] **Get the address-standardisation document** (PLC IO ↔ maintenance
+      objects, POS numbering) and the copy held in the management system. Not on
+      this machine.
+- [ ] **Ramin's wire rope / fleet angle calculations** — where they live, what
+      form.
+- [ ] **Confirm EG Maintenance's ingestion interface.** API, file drop, database,
+      agent. If there is no external ingestion path, the cloud half of the
+      pipeline does not exist.
+- [ ] **Overload data** — currently a want, not a source. Establish whether the
+      PLCs already record it.
+
 ## Waiting on someone else
 
 - [ ] AI policy document — from whoever is drafting it.
