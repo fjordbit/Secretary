@@ -62,6 +62,24 @@ New strand, from the meeting of 10 September. Notes at
 - [ ] **Steel price feed.** Not yet specified. Small: fetch a current price from
       a public source, nothing more.
 
+## MAx — show-and-tell, then API
+
+Decided 2026-10-29 (see that day's log).
+
+- [ ] **ADR: CLI providers on subscriptions for the demo phase.** Write it into
+      `max/docs/decisions/` once U0 has landed. U0 may take number 0005.
+- [ ] **Mail to Syncrolift: prepaid API accounts** (Anthropic + OpenAI), paid by
+      the company, not reimbursed. Send it on the visit the week before
+      20 November, after the demo. Draft it to `inbox/drafts/` before the visit.
+- [ ] **Demo on that visit:** main GUI, the idea, the workspace. What has to
+      work by then follows from that (U0 → U1-CLI → U4 → U5).
+- [ ] **One home for the repos.** Today there are five copies: `fjordbit/max`, `fjordbit/SWS`,
+      `MAx-Flow/SWS-Documentation`, local `D:/git/prosjekter.git`, and `publish/SWS`. Move to
+      the MAx-Flow org, archive the fjordbit copies, and make publishing one automatic push
+      (scan → push) instead of Kai pushing to two remotes. Raised 2026-10-30, not urgent.
+- [ ] **Hosting** (separate task, later): run MAx locally on the tower, reach
+      it from the phone. Not started; nobody has a plan yet.
+
 ## Paper
 
 - [ ] Apply the section 5 rewording (`05_Section5_Cloud_Rewording.md`) and cut
