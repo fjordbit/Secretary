@@ -77,6 +77,9 @@ Decided 2026-10-29 (see that day's log).
       `MAx-Flow/SWS-Documentation`, local `D:/git/prosjekter.git`, and `publish/SWS`. Move to
       the MAx-Flow org, archive the fjordbit copies, and make publishing one automatic push
       (scan → push) instead of Kai pushing to two remotes. Raised 2026-10-30, not urgent.
+- [ ] **SWS spec: missing drawings.** The live Claude Doc (rev 127) has 5 interactive charts that the docx export drops. Find or export them and add them to the page. Another day (Stian, 2026-10-30).
+- [ ] **4 broken references** in `sws/data/sws_data_sources.md` (the spec owner's master): Goudsmit grades PDF (404), Mennens EN 12927 page (404), iteh.es and technickenormy.cz (domains gone). Stian or the spec owner picks replacements. URLs are in C:/Users/stian/agent-notes/u07-work.md.
+- [ ] **Remove the unredacted spec docx** from `max/sws/` once Word has closed it (copy in `Prosjekter/new/spec_2026-10-30/`).
 - [ ] **Hosting** (separate task, later): run MAx locally on the tower, reach
       it from the phone. Not started; nobody has a plan yet.
 
