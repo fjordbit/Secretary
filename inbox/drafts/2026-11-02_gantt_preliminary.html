@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delivery Plan — Preliminary</title>
+<style>
+:root{
+  --bg:#f7f7f5; --surface:#ffffff; --ink:#1d1f21; --ink-2:#5b6066; --rule:#dcdcd8;
+  --done:#7a8a99; --plan:#2f6f8f; --sws:#8a6a2f; --twin:#4f7a4a; --max:#2f6f8f; --ops:#7a4f7a;
+  --ms:#b23a2e; --today:#b23a2e;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181a; --surface:#1f2225; --ink:#e6e6e3; --ink-2:#a3a8ad; --rule:#33373b;
+    --done:#6c7884; --sws:#c29a52; --twin:#7fae78; --max:#5fa3c4; --ops:#b58ab5; --ms:#e06a5c; --today:#e06a5c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181a; --surface:#1f2225; --ink:#e6e6e3; --ink-2:#a3a8ad; --rule:#33373b;
+  --done:#6c7884; --sws:#c29a52; --twin:#7fae78; --max:#5fa3c4; --ops:#b58ab5; --ms:#e06a5c; --today:#e06a5c;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; padding:24px 16px 48px}
+.page{max-width:1200px; margin:0 auto}
+h1{font-size:26px; margin:0 0 4px}
+.lede{color:var(--ink-2); margin:0 0 18px; max-width:80ch}
+.legend{display:flex; flex-wrap:wrap; gap:6px 18px; font-size:12px; color:var(--ink-2); margin-bottom:14px}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.sw{width:14px; height:10px; border-radius:2px; display:inline-block}
+.wrap{overflow-x:auto; background:var(--surface); border:1px solid var(--rule); border-radius:6px}
+.g{display:grid; grid-template-columns:260px repeat(14, minmax(46px,1fr)); min-width:900px; position:relative}
+.h{font-size:11px; color:var(--ink-2); padding:6px 4px; border-bottom:1px solid var(--rule); border-left:1px solid var(--rule); text-align:center; white-space:nowrap}
+.h.first{text-align:left; border-left:none; padding-left:12px}
+.grp{grid-column:1 / -1; font-weight:600; font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding:10px 12px 4px; border-top:1px solid var(--rule); color:var(--ink-2)}
+.lbl{padding:5px 12px; font-size:13px; border-top:1px solid color-mix(in srgb,var(--rule) 50%,transparent)}
+.lbl small{color:var(--ink-2)}
+.cell{border-left:1px solid color-mix(in srgb,var(--rule) 60%,transparent); border-top:1px solid color-mix(in srgb,var(--rule) 50%,transparent)}
+.bar{align-self:center; height:16px; border-radius:3px; margin:0 2px; position:relative; z-index:1}
+.bar.done{background:var(--done)}
+.bar.max{background:var(--max)} .bar.sws{background:var(--sws)} .bar.twin{background:var(--twin)} .bar.ops{background:var(--ops)}
+.bar.soft{opacity:.55; background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(255,255,255,.35) 5px 8px)}
+.ms{align-self:center; justify-self:end; width:12px; height:12px; background:var(--ms); transform:rotate(45deg); margin-right:4px; z-index:2}
+.today{position:absolute; top:0; bottom:0; width:2px; background:var(--today); opacity:.7; z-index:3; pointer-events:none}
+.notes{margin-top:18px; color:var(--ink-2); font-size:13px}
+.notes li{margin:3px 0}
+table.m{border-collapse:collapse; margin-top:18px; width:100%; background:var(--surface); border:1px solid var(--rule); border-radius:6px; font-size:13px}
+table.m th, table.m td{text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); vertical-align:top}
+table.m th{font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-2)}
+@media print{ body{background:#fff; padding:0} .wrap{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Delivery plan — preliminary</h1>
+  <p class="lede">Digital systems: MAx agentic platform, shiplift twin, Safe Wire Sensor (SWS), logging → maintenance. Internal targets only. No external dates are fixed yet, and work is currently ahead of plan. Status 2 November 2026.</p>
+
+  <div class="legend">
+    <span><i class="sw" style="background:var(--done)"></i>Done</span>
+    <span><i class="sw" style="background:var(--max)"></i>MAx / Studio</span>
+    <span><i class="sw" style="background:var(--twin)"></i>Twin</span>
+    <span><i class="sw" style="background:var(--sws)"></i>SWS</span>
+    <span><i class="sw" style="background:var(--ops)"></i>Logging → maintenance</span>
+    <span><i class="sw" style="background:var(--plan);opacity:.55"></i>Hatched: needs input / not yet scoped</span>
+    <span><i class="sw" style="background:var(--ms);transform:rotate(45deg);width:10px;height:10px"></i>Milestone</span>
+  </div>
+
+  <div class="wrap">
+    <div class="g" id="g"></div>
+  </div>
+
+  <table class="m">
+    <tr><th>#</th><th>Milestone</th><th>Done when</th><th>Target</th></tr>
+    <tr><td>M1</td><td>Studio demo build</td><td>Front end, 3D view and flow chart merged; one launch command; short demo script; chart format 0.2 decided</td><td>Fri 13 Nov</td></tr>
+    <tr><td>M2</td><td>Demo visit</td><td>Demo shown (GUI, idea, workspace); request for API accounts sent</td><td>Week of 16 Nov</td></tr>
+    <tr><td>M3</td><td>Test model v0 accepted</td><td>First-principles shiplift model verified against hand calculations; modelling stack decided</td><td>Fri 20 Nov</td></tr>
+    <tr><td>M4</td><td>Model drives Studio</td><td>Studio shows test-model output instead of the scripted demo</td><td>Fri 4 Dec</td></tr>
+    <tr><td>M5</td><td>MAx real runs</td><td>A real agent run animates live in Studio</td><td>Fri 11 Dec</td></tr>
+    <tr><td>M6</td><td>SWS design frozen</td><td>3D FEM done, hardware selected, specification frozen for a prototype</td><td>Fri 18 Dec</td></tr>
+    <tr><td>M7</td><td>Reference lift in the twin</td><td>Real general arrangement in the 3D view and model parameters</td><td>January</td></tr>
+    <tr><td>M8</td><td>Logging → maintenance</td><td>Filter ratio measured; maintenance-system ingestion confirmed</td><td>January</td></tr>
+  </table>
+
+  <ul class="notes">
+    <li>Already delivered (Oct–Nov): SWS documentation site; Studio front end with module selector; SWS flow chart with zoom to sensor channels; simplified 3D view with click-through; test model v0 (9 hand-calculation checks passing).</li>
+    <li>M7 depends on a reference lift's general arrangement and datasheets (rope, gearbox, motor, brake).</li>
+    <li>Open design questions carried on the chart: SWS transport (MQTT from base station or direct read), SWS per hoist, base station vs MCC grouping.</li>
+  </ul>
+</div>
+
+<script>
+// Weeks start Monday. 14 columns from 26 Oct 2026.
+const start = new Date(2026, 9, 26);
+const weeks = 14;
+const DAY = 864e5;
+const col = d => Math.floor((d - start) / DAY / 7) + 2; // grid column (1 = label)
+const D = (m, d) => new Date(2026 + (m < 9 ? 1 : 0), m, d); // months 0-based; Jan..Aug -> 2027
+
+const rows = [
+  {g:"Studio / MAx"},
+  {l:"U13 Studio front end + SWS chart", c:"done", a:D(9,30), b:D(10,1)},
+  {l:"U14 3D view + mouse zoom", c:"done", a:D(10,1), b:D(10,2)},
+  {l:"Merge, demo script, chart 0.2 decision", c:"max", a:D(10,2), b:D(10,13), ms:"M1"},
+  {l:"Demo visit", c:"max", a:D(10,16), b:D(10,20), ms:"M2"},
+  {l:"U12 / U1 providers, U3 rules", c:"max", a:D(10,9), b:D(10,27)},
+  {l:"U4 orchestrator", c:"max", a:D(10,23), b:D(11,4)},
+  {l:"U5 live view on real runs", c:"max", a:D(11,7), b:D(11,11), ms:"M5"},
+  {g:"Twin"},
+  {l:"U15 test model v0", c:"done", a:D(10,1), b:D(10,2)},
+  {l:"Stack decision + review", c:"twin", a:D(10,9), b:D(10,20), ms:"M3"},
+  {l:"Model output into Studio", c:"twin", a:D(10,23), b:D(11,4), ms:"M4"},
+  {l:"Reference lift GA + real parameters", c:"twin soft", a:D(0,4), b:D(0,29), ms:"M7"},
+  {g:"SWS"},
+  {l:"U8 3D magnetostatic FEM", c:"sws", a:D(9,26), b:D(11,4)},
+  {l:"U9 hardware selection", c:"sws", a:D(10,16), b:D(11,18), ms:"M6"},
+  {l:"Prototype build", c:"sws soft", a:D(0,4), b:D(0,29)},
+  {g:"Logging → maintenance"},
+  {l:"Filter ratio, ingestion path", c:"ops soft", a:D(0,4), b:D(0,29), ms:"M8"},
+];
+
+const g = document.getElementById("g");
+const el = (cls, txt, style) => { const e = document.createElement("div"); e.className = cls; if (txt) e.innerHTML = txt; if (style) e.style.cssText = style; g.appendChild(e); return e; };
+
+el("h first", "Work package");
+for (let i = 0; i < weeks; i++) {
+  const d = new Date(start.getTime() + i * 7 * DAY);
+  el("h", d.toLocaleDateString("en-GB", {day:"numeric", month:"short"}));
+}
+let r = 2;
+for (const x of rows) {
+  if (x.g) { el("grp", x.g, `grid-row:${r}`); r++; continue; }
+  el("lbl", x.l, `grid-row:${r}; grid-column:1`);
+  for (let i = 0; i < weeks; i++) el("cell", "", `grid-row:${r}; grid-column:${i + 2}`);
+  const a = Math.max(2, col(x.a)), b = Math.min(weeks + 1, col(x.b));
+  el("bar " + x.c, "", `grid-row:${r}; grid-column:${a} / ${b + 1}`).title = x.l;
+  if (x.ms) el("ms", "", `grid-row:${r}; grid-column:${b}`).title = x.ms;
+  r++;
+}
+// Today line
+const today = new Date(2026, 10, 2);
+const frac = (today - start) / DAY / 7;
+requestAnimationFrame(() => {
+  const head = g.children[1].getBoundingClientRect(), base = g.getBoundingClientRect();
+  const w = head.width;
+  const line = document.createElement("div"); line.className = "today";
+  line.style.left = (head.left - base.left + frac * w) + "px";
+  line.title = "Today, 2 Nov";
+  g.appendChild(line);
+});
+</script>
+</body>
+</html>

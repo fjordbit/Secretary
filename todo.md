@@ -62,6 +62,22 @@ New strand, from the meeting of 10 September. Notes at
 - [ ] **Steel price feed.** Not yet specified. Small: fetch a current price from
       a public source, nothing more.
 
+## Delivery milestones — Stian's own plan (proposed 2026-11-01)
+
+No external dates are fixed. These targets are internal, there to give clear parts to
+deliver. Ahead of schedule as of 1 Nov. Move them freely.
+
+| # | Deliverable | Done when | Target |
+|---|---|---|---|
+| M1 | Studio demo build | U13 + U14 merged to main, one launch command, a short demo script, chart@0.2 decided | Fri 13 Nov |
+| M2 | Demo visit + API mail | Demo shown (GUI, idea, workspace); prepaid API mail sent | Week of 16 Nov |
+| M3 | Test model v0 | U15 verified against hand calcs; stack ADR decided | Fri 20 Nov |
+| M4 | Model drives Studio | Studio shows U15 output instead of the DEMO replay | Fri 4 Dec |
+| M5 | MAx real runs | U1/U12 → U3 → U4 → U5: a real `max run` animates in Studio | Fri 11 Dec |
+| M6 | SWS design frozen | U8 3D FEM done, U9 hardware selected, spec rev frozen for a prototype | Fri 18 Dec |
+| M7 | Reference lift in the twin | Real GA in U14 layout + U15 parameters (needs the reference lift) | January |
+| M8 | Logging → maintenance | Filter ratio measured; EG Maintenance ingestion confirmed | January |
+
 ## MAx — show-and-tell, then API
 
 Decided 2026-10-29 (see that day's log).
