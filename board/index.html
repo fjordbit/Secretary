@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dev board</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#fff; --fg:#1b2130; --mu:#6b7385; --line:#e2e5eb; --soft:#eef0f4;
+  --ws-MAx:#2f6fd6; --ws-Twin:#14917f; --ws-SWS:#d4761c; --ws-Logging:#8a4fd1;
+  --c-running:#2f6fd6; --c-waiting:#c2410c; --c-ready:#a16207; --c-done:#4d7c0f; --c-merged:#6b7385; --c-notstarted:#a3a9b6;
+  --q:#b45309; --qbg:#fff4e0; --today:#d6336c; --link:#2f6fd6;
+}
+:root[data-theme=dark]{
+  --bg:#12151b; --panel:#1b1f27; --fg:#e3e6ec; --mu:#8d95a5; --line:#2b313c; --soft:#232833;
+  --ws-MAx:#5b93f0; --ws-Twin:#2cc0a8; --ws-SWS:#f0954a; --ws-Logging:#b083f0;
+  --c-running:#5b93f0; --c-waiting:#f07a4a; --c-ready:#e0b030; --c-done:#8cc63f; --c-merged:#8d95a5; --c-notstarted:#5d6474;
+  --q:#f0b048; --qbg:#3a2c12; --today:#f06595; --link:#7fb0ff;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --bg:#12151b; --panel:#1b1f27; --fg:#e3e6ec; --mu:#8d95a5; --line:#2b313c; --soft:#232833;
+    --ws-MAx:#5b93f0; --ws-Twin:#2cc0a8; --ws-SWS:#f0954a; --ws-Logging:#b083f0;
+    --c-running:#5b93f0; --c-waiting:#f07a4a; --c-ready:#e0b030; --c-done:#8cc63f; --c-merged:#8d95a5; --c-notstarted:#5d6474;
+    --q:#f0b048; --qbg:#3a2c12; --today:#f06595; --link:#7fb0ff;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 "Segoe UI",system-ui,-apple-system,sans-serif}
+a{color:var(--link)}
+.wrap{max-width:1760px;margin:0 auto;padding:16px 20px 40px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:10px}
+h1{font-size:20px;margin:0}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:22px 0 8px}
+.mu{color:var(--mu)} .sm{font-size:12px}
+.spacer{flex:1}
+button{font:inherit;font-size:12px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:3px 10px;cursor:pointer}
+.strip{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.live{background:#2fb344;box-shadow:0 0 0 3px rgba(47,179,68,.2)}
+/* milestones */
+.ms{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tl{position:relative;height:46px;margin:0 18px 6px}
+.tl .axis{position:absolute;left:0;right:0;top:22px;height:2px;background:var(--line)}
+.tl .tick{position:absolute;top:16px;transform:translateX(-50%);text-align:center}
+.tl .tick .d{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--fg);margin:0 auto}
+.tl .tick.approx .d{border-style:dashed}
+.tl .tick .l{font-size:11px;font-weight:600;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap}
+.tl .tick.up .l{bottom:16px} .tl .tick.down .l{top:14px}
+.tl .today{position:absolute;top:0;bottom:0;width:2px;background:var(--today)}
+.tl .today span{position:absolute;top:-2px;left:5px;font-size:11px;color:var(--today);font-weight:600;white-space:nowrap}
+.tiles{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+@media (max-width:1250px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:640px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:var(--bg)}
+.tile .h{display:flex;justify-content:space-between;gap:6px;font-weight:600}
+.tile .left{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tile .t{font-size:12.5px;margin:2px 0}
+.tile .u{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chip{font-size:11px;border-radius:4px;padding:0 5px;background:var(--soft);display:inline-flex;align-items:center;gap:4px}
+/* board */
+.board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:start}
+@media (max-width:1400px){.board{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:820px){.board{grid-template-columns:1fr}}
+.col{background:var(--soft);border-radius:10px;padding:8px;min-height:80px}
+.col>.ch{display:flex;align-items:center;gap:7px;font-weight:650;font-size:13px;margin:2px 4px 8px}
+.col>.ch .n{color:var(--mu);font-weight:400}
+.empty{color:var(--mu);font-size:12.5px;padding:6px 6px 10px;font-style:italic}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--ws);border-radius:8px;padding:8px 10px 9px;margin-bottom:8px}
+.card .nm{font-weight:650;font-size:14.5px;line-height:1.25}
+.card .id{font-weight:400;font-size:11.5px;color:var(--mu);white-space:nowrap}
+.card .row{font-size:12.5px;margin-top:4px}
+.card .k{color:var(--mu)}
+.card code{font:11.5px ui-monospace,Consolas,monospace;background:var(--soft);padding:0 3px;border-radius:3px}
+.card .act{font-weight:600;font-size:12.5px;margin-top:5px}
+.card .qb{position:absolute;top:6px;right:8px;background:var(--qbg);color:var(--q);font-weight:800;border-radius:50%;width:20px;height:20px;text-align:center;line-height:20px}
+.card .why{background:var(--qbg);color:var(--fg);border-radius:5px;padding:4px 6px;font-size:12px;margin-top:6px}
+.card.small{padding:6px 9px}
+.card.small .nm{font-size:13.5px}
+.run{color:#2fb344;font-weight:600}
+.ws-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ws);font-weight:700}
+/* decisions */
+.dec{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px 14px}
+.dec ol{margin:6px 0;padding-left:22px}
+.dec li{padding:5px 0;border-bottom:1px solid var(--line)}
+.dec li:last-child{border-bottom:0}
+.dec .who{font-size:12px;color:var(--mu)}
+details summary{cursor:pointer;color:var(--mu);font-size:13px;padding:8px 0}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--mu);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.err{background:var(--qbg);color:var(--q);padding:8px 12px;border-radius:8px;display:none;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Where the work stands</h1>
+    <span class="mu sm" id="stamp">loading…</span>
+    <span class="spacer"></span>
+    <button id="refresh" title="Reload from the files now">Refresh</button>
+    <button id="theme" title="Light / dark">Theme</button>
+  </header>
+  <div class="err" id="err"></div>
+  <div class="strip" id="running"></div>
+  <div class="legend" id="legend"></div>
+
+  <h2>Milestones</h2>
+  <div class="ms"><div class="tl" id="tl"></div><div class="tiles" id="tiles"></div></div>
+
+  <h2>Work</h2>
+  <div class="board" id="board"></div>
+
+  <h2 id="decisions">Decisions waiting on Stian</h2>
+  <div class="dec" id="dec"></div>
+
+  <p class="mu sm">Read from <span id="srcs"></span>. Nothing here is written back. A <b>?</b> means the board could not
+  tell for sure. The card sits in the most likely column and says why.</p>
+</div>
+<script>
+const COLS = {running:"Running now", waiting:"Waiting on Stian", ready:"Ready for check",
+              done:"Done (not merged)", merged:"Merged", notstarted:"Not started"};
+const WS = {MAx:"MAx / Studio", Twin:"Twin", SWS:"SWS", Logging:"Logging"};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let state = null;
+
+function rel(iso){
+  if(!iso) return "–";
+  const s = (Date.now() - new Date(iso).getTime())/1000;
+  if(s < 90) return "just now";
+  if(s < 3600) return Math.round(s/60) + " min ago";
+  if(s < 36*3600) return Math.round(s/3600) + " h ago";
+  return Math.round(s/86400) + " days ago";
+}
+function src(path, label){ // "notes/x.md#L12" or "log/y.md#L3"
+  if(!path) return "";
+  return `<a href="/src/${esc(path)}" target="_blank" rel="noopener">${esc(label || path.replace(/^notes\//,""))}</a>`;
+}
+function unitName(n){ const c = state.cards.find(c => c.unit === n); return c ? c.name : "U"+n; }
+
+function renderRunning(){
+  const r = [];
+  for(const p of state.processes){
+    const where = p.worktree ? p.worktree.split("/").pop() : "unknown folder";
+    const port = p.ports.length ? " on :" + p.ports.join(", :") : "";
+    r.push(`<span class="pill"><span class="dot live"></span>Running: ${esc(p.kind)}${esc(port)} (from ${esc(where)})</span>`);
+  }
+  if(!r.length) r.push(`<span class="pill"><span class="dot" style="background:var(--mu)"></span>No Studio or test run detected</span>`);
+  const m = state.main;
+  const nd = state.decisions.length;
+  r.push(`<a class="pill" href="#decisions" style="color:var(--c-waiting);font-weight:600;text-decoration:none">${nd} decision${nd === 1 ? "" : "s"} waiting on Stian ↓</a>`);
+  if(m) r.push(`<span class="pill" title="${esc(m.subject)}">main <code>${esc(m.hash)}</code>&nbsp;moved ${rel(m.date)}: ${esc(m.subject.slice(0,70))}</span>`);
+  for(const w of state.merge_in_progress) r.push(`<span class="pill" style="color:var(--q)">Merge in progress in ${esc(w)}</span>`);
+  $("running").innerHTML = r.join("");
+  $("legend").innerHTML = Object.entries(WS).map(([k,v]) => `<span><span class="dot" style="background:var(--ws-${k})"></span>${v}</span>`).join("")
+    + `<span>· time = last note or commit</span>`;
+}
+
+function renderMilestones(){
+  const ms = state.milestones.filter(m => m.date);
+  const today = new Date(state.today + "T00:00:00");
+  const ds = ms.map(m => new Date(m.date + "T00:00:00"));
+  const end = new Date(Math.max(...ds, today) + 14*864e5);
+  const start = new Date(Math.min(...ds, today) - 3*864e5);
+  const pct = d => ((d - start) / (end - start) * 100).toFixed(2) + "%";
+  let h = `<div class="axis"></div>`;
+  // spread labels that sit too close: alternate up/down, merge same-date ones
+  const groups = {};
+  ms.forEach(m => (groups[m.date] = groups[m.date] || []).push(m));
+  Object.entries(groups).forEach(([d, g], i) => {
+    const approx = g.some(m => m.approx);
+    h += `<div class="tick ${approx ? "approx" : ""} ${i % 2 ? "down" : "up"}" style="left:${pct(new Date(d + "T00:00:00"))}" title="${esc(g.map(m => m.id + " " + m.title + " — " + m.target).join("\n"))}">
+      <div class="d"></div><div class="l">${g.map(m => m.id).join(" ")}</div></div>`;
+  });
+  h += `<div class="today" style="left:${pct(today)}"><span>today</span></div>`;
+  $("tl").innerHTML = h;
+
+  const colOf = n => (state.cards.find(c => c.unit === n) || {}).column;
+  $("tiles").innerHTML = state.milestones.map(m => {
+    let left;
+    if(m.days == null) left = "";
+    else if(m.approx === "month") left = m.days > 0 ? `starts in ${m.days} d` : "this month";
+    else left = m.days > 0 ? `${m.days} d left` : (m.days === 0 ? "today" : `${-m.days} d over`);
+    const chips = m.units.map(n => `<span class="chip" title="${esc(COLS[colOf(n)] || "")}"><span class="dot" style="background:var(--c-${colOf(n) || "notstarted"})"></span>${esc(unitName(n))}</span>`).join("");
+    return `<div class="tile" title="Done when: ${esc(m.done_when)}">
+      <div class="h"><span>${esc(m.id)}</span><span class="left" style="${m.days != null && m.days < 0 ? "color:var(--today)" : ""}">${left}</span></div>
+      <div class="t">${esc(m.title)}</div>
+      <div class="mu sm">${esc(m.target)}</div>
+      ${chips ? `<div class="u">${chips}</div>` : ""}</div>`;
+  }).join("");
+}
+
+function card(c){
+  const ws = `var(--ws-${c.ws})`;
+  const sess = c.sessions.length ? " · " + esc(c.sessions.join(", ")) : "";
+  const idl = `<span class="id">U${c.unit}${sess}</span>`;
+  const q = c.q ? `<span class="qb" title="${esc(c.why.join("; "))}">?</span>` : "";
+  if(c.column === "notstarted"){
+    const nx = c.next ? `<div class="row"><span class="k">${esc(c.next.label)}:</span> ${esc(c.next.text)} ${c.next.src ? src(c.next.src, "brief") : ""}</div>` : "";
+    return `<div class="card small" style="--ws:${ws}">${q}<div class="nm">${esc(c.name)} ${idl}</div>${nx}</div>`;
+  }
+  let h = `<div class="card" style="--ws:${ws}">${q}
+    <div class="ws-tag">${esc(WS[c.ws])}</div>
+    <div class="nm">${esc(c.name)} ${idl}</div>
+    <div class="row"><span class="k">Last activity:</span> ${rel(c.last_activity)}</div>`;
+  for(const p of c.procs){
+    h += `<div class="row run">● Running: ${esc(p.kind)}${p.ports.length ? " on :" + p.ports.join(", :") : ""}</div>`;
+  }
+  const lc = c.last_commit;
+  if(lc){
+    const ab = lc.ahead === 0 ? "in main" : `${lc.ahead} ahead / ${lc.behind} behind main`;
+    h += `<div class="row"><span class="k">Last commit:</span> <code>${esc(lc.hash)}</code> ${esc(lc.subject.replace(/^U\d+\s*/, "").slice(0, 80))}
+      <span class="mu">· ${rel(lc.date)} · ${ab}</span></div>`;
+  } else h += `<div class="row"><span class="k">Last commit:</span> <span class="mu">none on the branch yet</span></div>`;
+  if(c.dirty && c.dirty.tracked) h += `<div class="row"><span class="k">Uncommitted:</span> ${c.dirty.tracked} changed file(s) in ${esc(c.worktree)}</div>`;
+  if(c.accepted) h += `<div class="row"><span class="k">Accepted:</span> ${esc(c.accepted.date)} ${src("notes/" + c.accepted.file + "#L" + c.accepted.line, "note")}</div>`;
+  if(c.checked_src && c.column !== "merged") h += `<div class="row"><span class="k">Kai checked:</span> ${src(c.checked_src, c.checked_src.startsWith("log/") ? "Kai's log" : "note")}</div>`;
+  if(c.next) h += `<div class="row"><span class="k">${esc(c.next.label)}:</span> ${esc(c.next.text)}</div>`;
+  if(c.action) h += `<div class="act">→ ${esc(c.action)}</div>`;
+  if(c.q) h += `<div class="why"><b>?</b> ${esc(c.why.join("; "))}</div>`;
+  if(c.column === "merged") return h + `<div class="row sm mu">Notes: ${c.files.map(f => src("notes/" + f, f)).join(", ") || "–"}</div></div>`;
+  const files = c.files.map(f => src("notes/" + f, f)).join(", ");
+  h += `<div class="row sm mu">Notes: ${files || "–"}${c.state_src ? " · " + src(c.state_src, "status line") : ""}</div></div>`;
+  return h;
+}
+
+function renderBoard(){
+  const order = c => c.last_activity ? -new Date(c.last_activity) : c.unit;
+  $("board").innerHTML = state.columns.map(k => {
+    const cs = state.cards.filter(c => c.column === k).sort((a, b) => k === "notstarted" ? a.unit - b.unit : order(a) - order(b));
+    return `<section class="col"><div class="ch"><span class="dot" style="background:var(--c-${k})"></span>${COLS[k]} <span class="n">${cs.length}</span></div>
+      ${cs.length ? cs.map(card).join("") : `<div class="empty">${k === "running" ? "No session is working right now." : "Nothing here."}</div>`}</section>`;
+  }).join("");
+}
+
+function decItem(d){
+  const more = (d.also || []).map(a => src(`notes/${a.file}#L${a.line}`, a.date)).join(", ");
+  return `<li>${esc(d.text)}<div class="who">${esc(d.unit_name)} <span class="mu">U${d.unit}</span> · ${esc(d.session || "")} · ${esc(d.date)} ·
+    ${src(`notes/${d.file}#L${d.line}`, d.file + ":" + d.line)}${more ? " · also " + more : ""}</div></li>`;
+}
+function renderDecisions(){
+  const by = state.decisions.slice().sort((a, b) => b.date.localeCompare(a.date) || a.unit - b.unit);
+  let h = by.length ? `<ol>${by.map(decItem).join("")}</ol>` : `<p class="mu">Nothing open.</p>`;
+  if(state.decisions_earlier.length)
+    h += `<details><summary>${state.decisions_earlier.length} earlier asks not repeated in the latest notes (may be settled; check before acting)</summary>
+      <ol>${state.decisions_earlier.map(decItem).join("")}</ol></details>`;
+  $("dec").innerHTML = h;
+}
+
+async function load(){
+  try{
+    const r = await fetch("/api/state", {cache: "no-store"});
+    if(!r.ok) throw new Error(await r.text());
+    state = await r.json();
+    $("err").style.display = "none";
+    renderRunning(); renderMilestones(); renderBoard(); renderDecisions();
+    $("srcs").textContent = Object.values(state.sources).join(", ");
+    $("stamp").textContent = "updated " + new Date(state.generated).toLocaleTimeString() + " · refreshes every 30 s";
+  }catch(e){
+    $("err").style.display = "block";
+    $("err").textContent = "Could not read the board state: " + e.message;
+  }
+}
+function setTheme(t){
+  if(t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  try{ t ? localStorage.setItem("board-theme", t) : localStorage.removeItem("board-theme"); }catch(e){}
+}
+try{ const t = localStorage.getItem("board-theme"); if(t) document.documentElement.dataset.theme = t; }catch(e){}
+$("theme").onclick = () => {
+  const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark"
+    : matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(dark ? "light" : "dark");
+};
+$("refresh").onclick = load;
+load();
+setInterval(load, 30000);
+setInterval(() => state && (renderRunning(), renderBoard()), 60000);
+</script>
+</body>
+</html>
