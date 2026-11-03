@@ -24,3 +24,8 @@ the person Stian reports to. The rewrite is Stian's own idea and is sound on the
 merits, but it should be framed as *building on* what Ramin designed and making
 it survivable by new engineers — not as replacing it. Worth checking with Stian
 before it appears in anything written for others.
+
+## GitHub
+
+- Handle `raminhtmp`. Collaborator (write) on the private repo fjordbit/max since 3 Nov 2026.
+- Issue #1 (3 Nov 2026): rope construction data for the 52 mm Powerplast, assigned to him. Open.
