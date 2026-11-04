@@ -1,0 +1,483 @@
+{
+  "schema": "max-flow/chart@0.2-draft",
+  "id": "max-default-loop",
+  "version": "0.2-draft",
+  "title": "MAx default loop: U4's orchestrator sequence as a saved flow (U21, ADR 0011, ACCEPTED 4 Nov 2026)",
+  "flow": {
+    "name": "max-default-loop",
+    "module": "max",
+    "version": "0.1",
+    "replaces": "max_core/orchestrator.py Orchestrator._run (U4): same run-log kinds and rule transitions (tests/test_orchestrator.py::test_run_matches_agentlive); what differs is listed in docs/design/flow-driver.md §11.1 and is the approved migration (decision A, Stian, 4 Nov 2026). No hidden agents (decision F): the network specialist is the drawn block `specialist`, fired by the condition `ask` when the orchestrator asks for it; every ladder that gives up ends needs_human (decision B). Round 7 (4 Nov 2026): every agent block reads the question on a drawn edge from gate_r1 (C2); compliance carries R3 and the specialist carries R4 (C1); the critic's re-check reads its own earlier rows on a delay edge (C4)."
+  },
+  "blocks": [
+    {
+      "id": "query",
+      "executor": "io",
+      "service": "studio",
+      "schedule": { "kind": "event", "on": "run.start" },
+      "outputs": [ { "name": "query", "type": "msg:query", "family": "message" } ],
+      "view": { "x": 40, "y": 200, "w": 150, "label": "Question" }
+    },
+    {
+      "id": "docs",
+      "executor": "io",
+      "service": "studio",
+      "schedule": { "kind": "event", "on": "run.start" },
+      "outputs": [ { "name": "docs", "type": "msg:docs", "family": "message" } ],
+      "view": { "x": 40, "y": 340, "w": 150, "label": "Project documents (--docs)" }
+    },
+    {
+      "id": "gate_r1",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message" },
+      "params": { "rule": "R1" },
+      "inputs": [ { "name": "subject", "type": "msg:query", "family": "message" } ],
+      "outputs": [
+        { "name": "pass", "type": "msg:query", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 250, "y": 200, "w": 150, "label": "R1 data boundary" }
+    },
+    {
+      "id": "gate_r1_docs",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message" },
+      "params": { "rule": "R1", "log": "on_fail" },
+      "inputs": [ { "name": "subject", "type": "msg:docs", "family": "message" } ],
+      "outputs": [
+        { "name": "pass", "type": "msg:docs", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 250, "y": 340, "w": 150, "label": "R1 on the documents" }
+    },
+    {
+      "id": "planner",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message" },
+      "params": { "role": "planner", "provider": "claude", "system": "prompts/planner.md", "schema": "planner", "can": [ "plan" ], "rules": [] },
+      "inputs": [ { "name": "task", "type": "msg:query", "family": "message" } ],
+      "outputs": [ { "name": "plan", "type": "msg:plan", "family": "message" } ],
+      "view": { "x": 460, "y": 200, "w": 150 }
+    },
+    {
+      "id": "retriever",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:plan" },
+      "params": { "role": "retriever", "provider": "claude", "system": "prompts/retriever.md", "schema": "retriever", "can": [ "read_docs" ], "rules": [ "R1" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "plan", "type": "msg:plan", "family": "message" },
+        { "name": "docs", "type": "msg:docs", "family": "message" }
+      ],
+      "outputs": [ { "name": "found", "type": "msg:result", "family": "message" } ],
+      "view": { "x": 680, "y": 120, "w": 150 }
+    },
+    {
+      "id": "tool_caller",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:plan" },
+      "params": { "role": "tool-caller", "provider": "claude", "system": "prompts/tool_caller.md", "schema": "tool-caller", "can": [ "call_tools" ], "rules": [ "R1" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "plan", "type": "msg:plan", "family": "message" },
+        { "name": "docs", "type": "msg:docs", "family": "message" },
+        { "name": "tool_result", "type": "msg:tool-result", "family": "message", "default": null }
+      ],
+      "outputs": [
+        { "name": "result", "type": "msg:result", "family": "message" },
+        { "name": "tool_call", "type": "msg:tool-call", "family": "message" }
+      ],
+      "view": { "x": 680, "y": 280, "w": 150 }
+    },
+    {
+      "id": "fibre_load",
+      "executor": "io",
+      "type": "sws.fibre_load",
+      "service": "max_tools",
+      "schedule": { "kind": "event", "on": "call" },
+      "inputs": [ { "name": "call", "type": "msg:tool-call", "family": "message" } ],
+      "outputs": [ { "name": "result", "type": "msg:tool-result", "family": "message" } ],
+      "view": { "x": 680, "y": 440, "w": 150, "label": "sws.fibre_load (on-prem tool)" }
+    },
+    {
+      "id": "material",
+      "executor": "builtin",
+      "type": "context",
+      "schedule": { "kind": "event", "on": "message" },
+      "inputs": [
+        { "name": "found", "type": "msg:result", "family": "message" },
+        { "name": "result", "type": "msg:result", "family": "message" }
+      ],
+      "outputs": [ { "name": "material", "type": "msg:material", "family": "message" } ],
+      "view": { "x": 900, "y": 200, "w": 150, "label": "Context pack" }
+    },
+    {
+      "id": "gate_r2",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message" },
+      "params": { "rule": "R2" },
+      "inputs": [ { "name": "subject", "type": "msg:material", "family": "message" } ],
+      "outputs": [
+        { "name": "pass", "type": "msg:material", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 1110, "y": 200, "w": 150, "label": "R2 provenance (inputs)" }
+    },
+    {
+      "id": "writer",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:material,guidance,proposals,review_findings" },
+      "params": { "role": "writer", "provider": "claude", "system": "prompts/writer.md", "schema": "writer", "can": [ "draft" ], "rules": [ "R2", "R3" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "material", "type": "msg:material", "family": "message" },
+        { "name": "guidance", "type": "msg:brief", "family": "message", "default": null },
+        { "name": "proposals", "type": "msg:proposal", "family": "message", "default": null },
+        { "name": "review_findings", "type": "msg:findings", "family": "message", "default": null }
+      ],
+      "outputs": [ { "name": "draft", "type": "msg:draft", "family": "message" } ],
+      "view": { "x": 1320, "y": 200, "w": 150 }
+    },
+    {
+      "id": "gate_r2_draft",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message" },
+      "params": { "rule": "R2", "log": "on_fail" },
+      "inputs": [ { "name": "subject", "type": "msg:draft", "family": "message" } ],
+      "outputs": [
+        { "name": "pass", "type": "msg:draft", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 1540, "y": 200, "w": 150, "label": "R2 provenance (draft)" }
+    },
+    {
+      "id": "critic",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:draft" },
+      "params": { "role": "critic", "provider": "claude", "system": "prompts/critic.md", "schema": "critic", "can": [ "reject" ], "rules": [ "R3" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "draft", "type": "msg:draft", "family": "message" },
+        { "name": "previous", "type": "msg:draft", "family": "message", "default": null },
+        { "name": "proposed", "type": "msg:proposals", "family": "message", "default": null }
+      ],
+      "outputs": [ { "name": "proposals", "type": "msg:proposals", "family": "message" } ],
+      "view": { "x": 1760, "y": 120, "w": 150 }
+    },
+    {
+      "id": "compliance",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:proposals" },
+      "params": { "role": "compliance", "provider": "claude", "system": "prompts/compliance.md", "schema": "compliance", "can": [ "veto" ], "rules": [ "R3" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "draft", "type": "msg:draft", "family": "message" },
+        { "name": "proposals", "type": "msg:proposals", "family": "message" },
+        { "name": "specialist", "type": "msg:proposal", "family": "message", "default": null }
+      ],
+      "outputs": [ { "name": "verdicts", "type": "msg:verdict", "family": "message" } ],
+      "view": { "x": 1760, "y": 300, "w": 150 }
+    },
+    {
+      "id": "gate_r3",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message:verdict" },
+      "params": { "rule": "R3", "log": "verdict_only" },
+      "inputs": [
+        { "name": "subject", "type": "msg:draft", "family": "message" },
+        { "name": "verdict", "type": "msg:verdict", "family": "message" }
+      ],
+      "outputs": [
+        { "name": "pass", "type": "msg:draft", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 1980, "y": 200, "w": 150, "label": "R3 FMECA" }
+    },
+    {
+      "id": "gate_r4",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message:subject" },
+      "params": { "rule": "R4", "active": "when_carried", "log": "verdict_only" },
+      "inputs": [
+        { "name": "subject", "type": "msg:draft", "family": "message" },
+        { "name": "verdict", "type": "msg:verdict", "family": "message" }
+      ],
+      "outputs": [
+        { "name": "pass", "type": "msg:draft", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 2200, "y": 200, "w": 150, "label": "R4 network (when carried)" }
+    },
+    {
+      "id": "ladder_rules",
+      "executor": "builtin",
+      "type": "ladder",
+      "schedule": { "kind": "event", "on": "message:r3,r4" },
+      "params": { "attempts": 3, "escalate_from": 1 },
+      "inputs": [
+        { "name": "r3", "type": "msg:findings", "family": "message", "default": null },
+        { "name": "r4", "type": "msg:findings", "family": "message", "default": null },
+        { "name": "count", "type": "msg:count", "family": "message", "default": { "n": 0 } }
+      ],
+      "outputs": [
+        { "name": "escalate", "type": "msg:findings", "family": "message" },
+        { "name": "exhausted", "type": "msg:findings", "family": "message" },
+        { "name": "count", "type": "msg:count", "family": "message" }
+      ],
+      "view": { "x": 2200, "y": 420, "w": 150, "label": "Rule ladder: 3 revisions, then a person (needs_human)" }
+    },
+    {
+      "id": "orchestrator",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:open_items,review_findings" },
+      "params": { "role": "orchestrator", "provider": "claude", "system": "prompts/orchestrator.md", "schema": "orchestrator", "can": [ "plan", "route", "escalate" ], "rules": [ "R5", "R6" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "open_items", "type": "msg:findings", "family": "message", "default": null },
+        { "name": "review_findings", "type": "msg:findings", "family": "message", "default": null },
+        { "name": "draft", "type": "msg:draft", "family": "message" }
+      ],
+      "outputs": [
+        { "name": "brief", "type": "msg:brief", "family": "message" },
+        { "name": "spawn", "type": "msg:brief", "family": "message" }
+      ],
+      "view": { "x": 2200, "y": 600, "w": 150, "label": "Orchestrator: re-plan, ask the specialist, tweak" }
+    },
+    {
+      "id": "ask",
+      "executor": "builtin",
+      "type": "condition",
+      "schedule": { "kind": "event", "on": "message" },
+      "params": {
+        "tests": [ { "out": "ask", "field": "subject.action", "op": "eq", "value": "spawn" } ],
+        "else": "skip"
+      },
+      "inputs": [ { "name": "subject", "type": "msg:brief", "family": "message" } ],
+      "outputs": [
+        { "name": "ask", "type": "msg:brief", "family": "message" },
+        { "name": "skip", "type": "msg:brief", "family": "message" }
+      ],
+      "view": { "x": 2420, "y": 600, "w": 150, "label": "Specialist asked for? (the orchestrator's whole answer; action == spawn -> ask; else skip, wired nowhere: advisory)" }
+    },
+    {
+      "id": "specialist",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:brief" },
+      "params": { "role": "network-specialist", "provider": "claude", "system": "prompts/spawned.md", "schema": "spawned", "can": [ "advise" ], "rules": [ "R4" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "brief", "type": "msg:brief", "family": "message" }
+      ],
+      "outputs": [ { "name": "proposal", "type": "msg:proposal", "family": "message" } ],
+      "view": { "x": 2640, "y": 600, "w": 150, "label": "Network specialist (drawn, fires only when asked; carries R4)" }
+    },
+    {
+      "id": "reviewer_openai",
+      "executor": "agent",
+      "service": "boundary",
+      "schedule": { "kind": "event", "on": "message:draft" },
+      "params": { "role": "reviewer-openai", "provider": "openai", "system": "prompts/reviewer.md", "schema": "reviewer", "can": [ "advise" ], "rules": [ "R5" ] },
+      "inputs": [
+        { "name": "task", "type": "msg:query", "family": "message" },
+        { "name": "draft", "type": "msg:draft", "family": "message" }
+      ],
+      "outputs": [ { "name": "review", "type": "msg:review", "family": "message" } ],
+      "view": { "x": 2420, "y": 200, "w": 150 }
+    },
+    {
+      "id": "ladder_review",
+      "executor": "builtin",
+      "type": "ladder",
+      "schedule": { "kind": "event", "on": "message:review" },
+      "params": { "attempts": 2, "escalate_from": 2, "policy": "review" },
+      "inputs": [
+        { "name": "review", "type": "msg:review", "family": "message" },
+        { "name": "subject", "type": "msg:draft", "family": "message" },
+        { "name": "count", "type": "msg:count", "family": "message", "default": { "n": 0 } }
+      ],
+      "outputs": [
+        { "name": "pass", "type": "msg:draft", "family": "message" },
+        { "name": "retry", "type": "msg:findings", "family": "message" },
+        { "name": "escalate", "type": "msg:findings", "family": "message" },
+        { "name": "human", "type": "msg:findings", "family": "message" },
+        { "name": "exhausted", "type": "msg:findings", "family": "message" },
+        { "name": "count", "type": "msg:count", "family": "message" }
+      ],
+      "view": { "x": 2640, "y": 200, "w": 150, "label": "Review ladder (policy)" }
+    },
+    {
+      "id": "gate_r5",
+      "executor": "builtin",
+      "type": "gate",
+      "schedule": { "kind": "event", "on": "message:subject" },
+      "params": { "rule": "R5" },
+      "inputs": [
+        { "name": "subject", "type": "msg:draft", "family": "message" },
+        { "name": "review", "type": "msg:review", "family": "message" }
+      ],
+      "outputs": [
+        { "name": "pass", "type": "msg:draft", "family": "message" },
+        { "name": "fail", "type": "msg:findings", "family": "message" }
+      ],
+      "view": { "x": 2860, "y": 200, "w": 150, "label": "R5 independent review" }
+    },
+    {
+      "id": "signoff",
+      "executor": "builtin",
+      "type": "checkpoint",
+      "schedule": { "kind": "event", "on": "approve" },
+      "params": { "rule": "R6", "approver": "[ROLE: principal designer]" },
+      "inputs": [ { "name": "draft", "type": "msg:draft", "family": "message" } ],
+      "outputs": [ { "name": "approved", "type": "msg:draft", "family": "message" } ],
+      "view": { "x": 3080, "y": 200, "w": 150, "label": "R6 human sign-off" }
+    },
+    {
+      "id": "answer",
+      "executor": "io",
+      "service": "studio",
+      "schedule": { "kind": "event", "on": "approved" },
+      "inputs": [ { "name": "answer", "type": "msg:draft", "family": "message" } ],
+      "view": { "x": 3300, "y": 200, "w": 150, "label": "Answer" }
+    }
+  ],
+  "wires": [
+    { "id": "query", "type": "msg:query", "producer": "query.query" },
+    { "id": "docs", "type": "msg:docs", "producer": "docs.docs" },
+    { "id": "query_ok", "type": "msg:query", "producer": "gate_r1.pass" },
+    { "id": "r1_findings", "type": "msg:findings", "producer": "gate_r1.fail" },
+    { "id": "docs_ok", "type": "msg:docs", "producer": "gate_r1_docs.pass" },
+    { "id": "r1_docs_findings", "type": "msg:findings", "producer": "gate_r1_docs.fail" },
+    { "id": "rules_count", "type": "msg:count", "producer": "ladder_rules.count" },
+    { "id": "review_count", "type": "msg:count", "producer": "ladder_review.count" },
+    { "id": "plan", "type": "msg:plan", "producer": "planner.plan" },
+    { "id": "found", "type": "msg:result", "producer": "retriever.found" },
+    { "id": "tool_summary", "type": "msg:result", "producer": "tool_caller.result" },
+    { "id": "tool_call", "type": "msg:tool-call", "producer": "tool_caller.tool_call" },
+    { "id": "tool_result", "type": "msg:tool-result", "producer": "fibre_load.result" },
+    { "id": "material", "type": "msg:material", "producer": "material.material" },
+    { "id": "material_ok", "type": "msg:material", "producer": "gate_r2.pass" },
+    { "id": "r2_findings", "type": "msg:findings", "producer": "gate_r2.fail" },
+    { "id": "draft", "type": "msg:draft", "producer": "writer.draft" },
+    { "id": "draft_ok", "type": "msg:draft", "producer": "gate_r2_draft.pass" },
+    { "id": "r2_draft_findings", "type": "msg:findings", "producer": "gate_r2_draft.fail" },
+    { "id": "critic_proposals", "type": "msg:proposals", "producer": "critic.proposals" },
+    { "id": "verdict", "type": "msg:verdict", "producer": "compliance.verdicts" },
+    { "id": "draft_r3", "type": "msg:draft", "producer": "gate_r3.pass" },
+    { "id": "r3_findings", "type": "msg:findings", "producer": "gate_r3.fail" },
+    { "id": "draft_r4", "type": "msg:draft", "producer": "gate_r4.pass" },
+    { "id": "r4_findings", "type": "msg:findings", "producer": "gate_r4.fail" },
+    { "id": "open_items", "type": "msg:findings", "producer": "ladder_rules.escalate" },
+    { "id": "rules_exhausted", "type": "msg:findings", "producer": "ladder_rules.exhausted" },
+    { "id": "brief", "type": "msg:brief", "producer": "orchestrator.brief" },
+    { "id": "spawn_brief", "type": "msg:brief", "producer": "orchestrator.spawn" },
+    { "id": "ask", "type": "msg:brief", "producer": "ask.ask" },
+    { "id": "skip", "type": "msg:brief", "producer": "ask.skip" },
+    { "id": "specialist_proposal", "type": "msg:proposal", "producer": "specialist.proposal" },
+    { "id": "review", "type": "msg:review", "producer": "reviewer_openai.review" },
+    { "id": "draft_reviewed", "type": "msg:draft", "producer": "ladder_review.pass" },
+    { "id": "review_retry", "type": "msg:findings", "producer": "ladder_review.retry" },
+    { "id": "review_escalate", "type": "msg:findings", "producer": "ladder_review.escalate" },
+    { "id": "review_human", "type": "msg:findings", "producer": "ladder_review.human" },
+    { "id": "review_exhausted", "type": "msg:findings", "producer": "ladder_review.exhausted" },
+    { "id": "release", "type": "msg:draft", "producer": "gate_r5.pass" },
+    { "id": "r5_findings", "type": "msg:findings", "producer": "gate_r5.fail" },
+    { "id": "approved", "type": "msg:draft", "producer": "signoff.approved" }
+  ],
+  "edges": [
+    { "from": "query.query", "to": "gate_r1.subject", "wire": "query", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "planner.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "retriever.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "tool_caller.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "writer.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "critic.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "compliance.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "orchestrator.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "specialist.task", "wire": "query_ok", "kind": "data" },
+    { "from": "gate_r1.pass", "to": "reviewer_openai.task", "wire": "query_ok", "kind": "data" },
+    { "from": "planner.plan", "to": "retriever.plan", "wire": "plan", "kind": "data" },
+    { "from": "planner.plan", "to": "tool_caller.plan", "wire": "plan", "kind": "data" },
+    { "from": "docs.docs", "to": "gate_r1_docs.subject", "wire": "docs", "kind": "data" },
+    { "from": "gate_r1_docs.pass", "to": "retriever.docs", "wire": "docs_ok", "kind": "data" },
+    { "from": "gate_r1_docs.pass", "to": "tool_caller.docs", "wire": "docs_ok", "kind": "data" },
+    { "from": "ladder_rules.count", "to": "ladder_rules.count", "wire": "rules_count", "kind": "delay" },
+    { "from": "ladder_review.count", "to": "ladder_review.count", "wire": "review_count", "kind": "delay" },
+    { "from": "tool_caller.tool_call", "to": "fibre_load.call", "wire": "tool_call", "kind": "data" },
+    { "from": "fibre_load.result", "to": "tool_caller.tool_result", "wire": "tool_result", "kind": "delay" },
+    { "from": "retriever.found", "to": "material.found", "wire": "found", "kind": "data" },
+    { "from": "tool_caller.result", "to": "material.result", "wire": "tool_summary", "kind": "data" },
+    { "from": "material.material", "to": "gate_r2.subject", "wire": "material", "kind": "data" },
+    { "from": "gate_r2.pass", "to": "writer.material", "wire": "material_ok", "kind": "data" },
+    { "from": "writer.draft", "to": "gate_r2_draft.subject", "wire": "draft", "kind": "data" },
+    { "from": "gate_r2_draft.pass", "to": "critic.draft", "wire": "draft_ok", "kind": "data" },
+    { "from": "gate_r2_draft.pass", "to": "compliance.draft", "wire": "draft_ok", "kind": "data" },
+    { "from": "gate_r2_draft.pass", "to": "gate_r3.subject", "wire": "draft_ok", "kind": "data" },
+    { "from": "gate_r2_draft.pass", "to": "orchestrator.draft", "wire": "draft_ok", "kind": "data" },
+    { "from": "gate_r2_draft.pass", "to": "critic.previous", "wire": "draft_ok", "kind": "delay" },
+    { "from": "critic.proposals", "to": "compliance.proposals", "wire": "critic_proposals", "kind": "data" },
+    { "from": "critic.proposals", "to": "critic.proposed", "wire": "critic_proposals", "kind": "delay" },
+    { "from": "compliance.verdicts", "to": "gate_r3.verdict", "wire": "verdict", "kind": "data" },
+    { "from": "compliance.verdicts", "to": "gate_r4.verdict", "wire": "verdict", "kind": "data" },
+    { "from": "gate_r3.pass", "to": "gate_r4.subject", "wire": "draft_r3", "kind": "data" },
+    { "from": "gate_r3.fail", "to": "ladder_rules.r3", "wire": "r3_findings", "kind": "data" },
+    { "from": "gate_r4.fail", "to": "ladder_rules.r4", "wire": "r4_findings", "kind": "data" },
+    { "from": "ladder_rules.escalate", "to": "orchestrator.open_items", "wire": "open_items", "kind": "data" },
+    { "from": "orchestrator.brief", "to": "writer.guidance", "wire": "brief", "kind": "delay" },
+    { "from": "orchestrator.spawn", "to": "ask.subject", "wire": "spawn_brief", "kind": "data" },
+    { "from": "ask.ask", "to": "specialist.brief", "wire": "ask", "kind": "data" },
+    { "from": "specialist.proposal", "to": "writer.proposals", "wire": "specialist_proposal", "kind": "delay" },
+    { "from": "specialist.proposal", "to": "compliance.specialist", "wire": "specialist_proposal", "kind": "delay" },
+    { "from": "gate_r4.pass", "to": "reviewer_openai.draft", "wire": "draft_r4", "kind": "data" },
+    { "from": "gate_r4.pass", "to": "ladder_review.subject", "wire": "draft_r4", "kind": "data" },
+    { "from": "reviewer_openai.review", "to": "ladder_review.review", "wire": "review", "kind": "data" },
+    { "from": "reviewer_openai.review", "to": "gate_r5.review", "wire": "review", "kind": "data" },
+    { "from": "ladder_review.pass", "to": "gate_r5.subject", "wire": "draft_reviewed", "kind": "data" },
+    { "from": "ladder_review.retry", "to": "writer.review_findings", "wire": "review_retry", "kind": "delay" },
+    { "from": "ladder_review.escalate", "to": "orchestrator.review_findings", "wire": "review_escalate", "kind": "delay" },
+    { "from": "gate_r5.pass", "to": "signoff.draft", "wire": "release", "kind": "data" },
+    { "from": "signoff.approved", "to": "answer.answer", "wire": "approved", "kind": "data" }
+  ],
+  "frames": [
+    { "id": "gather", "title": "Gather: plan, retrieve, calculate", "members": [ "gate_r1_docs", "planner", "retriever", "tool_caller", "fibre_load", "material" ] },
+    { "id": "draft_rules", "title": "Draft and block rules (R2, R3, R4)", "members": [ "writer", "gate_r2_draft", "critic", "compliance", "gate_r3", "gate_r4", "ladder_rules", "orchestrator", "ask", "specialist" ] },
+    { "id": "reviewers", "title": "Independent review (R5)", "members": [ "reviewer_openai", "ladder_review", "gate_r5" ] },
+    { "id": "release", "title": "Release", "members": [ "signoff", "answer" ] }
+  ],
+  "services": [
+    {
+      "id": "boundary",
+      "title": "Data boundary (hard rule 1): every supplier call, both directions",
+      "protocol": "local",
+      "view": { "x": 1320, "y": 40, "w": 220, "label": "Boundary -> claude, openai" }
+    },
+    {
+      "id": "max_tools",
+      "title": "max_core.tools (on-prem, rule 2)",
+      "protocol": "local",
+      "bindings": [ { "wire": "tool_result", "remote": "sws.fibre_load", "role": "source" } ]
+    },
+    {
+      "id": "studio",
+      "title": "MAx CLI / Flow Studio",
+      "protocol": "local",
+      "bindings": [
+        { "wire": "query", "remote": "query", "role": "source" },
+        { "wire": "docs", "remote": "docs", "role": "source" },
+        { "wire": "approved", "remote": "answer", "role": "sink" }
+      ]
+    }
+  ]
+}
