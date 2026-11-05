@@ -1,163 +1,100 @@
 # Open items
 
 Standing list. The daily files in `log/` record what happened; this is what has
-not happened yet. Reviewed at 08:00 with the daily entry.
+not happened yet. Reviewed with the daily entry.
 
-Last reviewed: 2026-09-09.
+Last reviewed: 2026-11-05 (pruned: U13/U14/U15 merged, ADR 0006 written, the spec
+docx is out of max/sws/, September's in-person window is long closed).
 
 ---
 
-## Before Friday — the in-person window closes
+## Decisions waiting on Stian
 
-Stian travels back to Bergen on **Friday 11 September**. Anything that needs
-people in the same building has three days, and Wednesday is already gone.
+- [ ] **Review policy on the chart.** Kai's proposal 5 Nov: the severity → outcome
+      table (major → revise or needs_human) moves from `review_policy.yaml` onto the
+      ladder block, per flow; the floor (critical → stop) stays a rule. Agree → Tiller
+      design round + small build.
+- [ ] **Four `params.model` fields** before the two new flows run live: architect,
+      writer, judge (max-architect-writer-judge), improver (plc-code-improve).
+- [ ] **Owner's calls left by U22:** placeholder minting (Boundary, after the AI
+      policy); reviewer sees the sources (chart edge); chart 0.2 (D4).
+- [ ] **ffmpeg** — Stian runs the install line; then every good run gets an mp4.
 
-- [ ] **Spare-parts / after-sales conversation.** Did not happen Wednesday.
-      **Preferably Thursday.** Questions ready at
-      `Prosjekter/systems-integration/01_Spare_Parts_API_Questions.md`. Ask for a
-      sample export and any API documentation in advance.
-      *Timebox note below.*
-- [ ] **Send the mail to Ramin.** Drafted at
-      `inbox/drafts/2026-09-09_ramin_platform_questions.md`. He is back from
-      Switzerland Thursday.
-- [ ] **Twenty minutes with Ramin** to finish what Monday's meeting cut short —
-      still not captured anywhere what was left open.
-- [ ] **AI policy review.** Due this week. **Blocked:** the document is not on
-      this machine and nobody has sent it. Chase whoever owns the draft.
+## Confirm or drop — asked since 11 Sep, never reported back
+
+- [ ] Spare-parts / after-sales conversation (questions at
+      `Prosjekter/systems-integration/01_Spare_Parts_API_Questions.md`). Now also a
+      candidate flow scenario, so the input matters again.
+- [ ] Mail to Ramin, `inbox/drafts/2026-09-09_ramin_platform_questions.md` — sent?
+- [ ] AI policy review — document never arrived. Still gates placeholder minting (ADR 0004).
+- [ ] Strategy paper rev5 (section 5 rewording, placeholders, canonical HTML variant,
+      customer name in the example prompt). Nothing since 9 Sep.
+
+## MAx — next
+
+- [ ] **Scenarios to run the flow on, for output we need** (Stian, 5 Nov):
+      1. SWS scientific paper — Fable lays out, Codex writes; iterations until all
+         models are satisfied; output format (HTML / LaTeX) a setting on the writer.
+         Inputs exist: U7/U8/U16/U17/U19 reports, draft abstract in U16.md. First run.
+      2. Documentation at three levels — full docs / paper / abstracts only — one flow,
+         level as a parameter; the "slider" documentation page. Same flow as 1.
+      3. Spare-parts and warranty API — design from inputs plus noisy text; needs the
+         spare-parts conversation above.
+      4. Bilge arms — part of Stian's agentic plan; models to be made ready first.
+      5. Same document-creator flow for MAx-Flow — later, not ready.
+- [ ] **Studio: auto-arrange the lines.** Today: columns by longest path, one
+      barycentre pass, ports in declaration order, feedback lines drawn straight back.
+      Proposed small unit: layer sweeps, port order by partner, long and feedback
+      lines routed round the columns.
+- [ ] **Live run 3** once the review policy is decided; with mp4.
+- [ ] Henrik's GitHub invite (pending); Ramin's rope data (#1);
+      MAX_CLAUDE_CLI_MODEL machine-wide; GitHub Actions on the 4 Nov export unchecked.
+- [ ] **Mail to Syncrolift: prepaid API accounts** (Anthropic + OpenAI). Send after the
+      demo on the visit; draft to `inbox/drafts/` before.
+- [ ] **One home for the repos** (fjordbit/max, fjordbit/SWS, MAx-Flow/SWS-Documentation,
+      D:/git/prosjekter.git, publish/SWS) → MAx-Flow org, one scan → push. Not urgent.
+- [ ] **Hosting** (later): MAx on the tower, reached from the phone. No plan yet.
+
+## SWS
+
+- [ ] **Paper through the flow** = scenario 1 above.
+- [ ] Spec: 5 interactive charts in the live Claude Doc (rev 127) dropped by the docx export.
+- [ ] 4 broken references in `sws/data/sws_data_sources.md` (URLs in
+      C:/Users/stian/agent-notes/u07-work.md). Stian or the spec owner picks replacements.
+- [ ] Henrik's three drafts and Ramin's rope draft stay in `inbox/drafts/` until answers
+      come; may need resending (Stian, 5 Nov).
 
 ## Logging → Maintenance
 
-New strand, from the meeting of 10 September. Notes at
-`Prosjekter/logging-maintenance/01_Concept_and_Open_Questions.md`.
+Notes at `Prosjekter/logging-maintenance/`. Settle in this order; the first question
+governs the rest.
 
-- [ ] **Find the "Tosibox on steroids" product.** Name was not caught in the
-      meeting. Needed: name, link, price. Ask whoever mentioned it — faster than
-      guessing from the market.
-- [ ] **Get the address-standardisation document** (PLC IO ↔ maintenance
-      objects, POS numbering) and the copy held in the management system. Not on
-      this machine.
-- [ ] **Ramin's wire rope / fleet angle calculations** — where they live, what
-      form.
-- [ ] **Confirm EG Maintenance's ingestion interface.** API, file drop, database,
-      agent. If there is no external ingestion path, the cloud half of the
-      pipeline does not exist.
-- [ ] **Measure the filter ratio.** Capture one real docking raw at 100 Hz,
-      apply candidate deadbands offline, count what survives. Everything about
-      transport and storage depends on this number and nobody has it.
-- [ ] **Overload data** — currently a want, not a source. Establish whether the
-      PLCs already record it.
+- [ ] Fastest event we must not miss (10 Hz may miss a snatch load).
+- [ ] How data reaches SQL today (WinCC Tag Logging or other).
+- [ ] Tags per hoist, PowerTag / archive-tag licences held.
+- [ ] Retention: months or decades.
+- [ ] Measure the filter ratio on one real docking at 100 Hz.
+- [ ] EG Maintenance ingestion interface (likely EG MainManager); address-standardisation
+      document; overload data in the PLCs; "Tosibox on steroids" (likely IXON Cloud).
 
-## Waiting on someone else
+## Delivery milestones — Stian's own plan (proposed 1 Nov, status 5 Nov)
 
-- [ ] AI policy document — from whoever is drafting it.
-- [ ] Ramin's answers: tenant AI features, hosting region, FEM package, 3ds Max,
-      SD/SSD, where the VB app runs.
-- [ ] Decks V1–V3, if they exist at all. Only V4 is known to.
-- [ ] Meeting details: who, when, what is being decided.
-
-## Build work — for a separate session, not for me
-
-- [ ] **Revision viewer.** Spec complete at
-      `Prosjekter/agentic/06_Revision_Tracking_Spec.md`.
-- [ ] **Steel price feed.** Not yet specified. Small: fetch a current price from
-      a public source, nothing more.
-
-## Delivery milestones — Stian's own plan (proposed 2026-11-01)
-
-No external dates are fixed. These targets are internal, there to give clear parts to
-deliver. Ahead of schedule as of 1 Nov. Move them freely.
-
-| # | Deliverable | Done when | Target |
-|---|---|---|---|
-| M1 | Studio demo build | U13 + U14 merged to main, one launch command, a short demo script, chart@0.2 decided | Fri 13 Nov |
-| M2 | Demo visit + API mail | Demo shown (GUI, idea, workspace); prepaid API mail sent | Week of 16 Nov |
-| M3 | Test model v0 | U15 verified against hand calcs; stack ADR decided | Fri 20 Nov |
-| M4 | Model drives Studio | Studio shows U15 output instead of the DEMO replay | Fri 4 Dec |
-| M5 | MAx real runs | U1/U12 → U3 → U4 → U5: a real `max run` animates in Studio | Fri 11 Dec |
-| M6 | SWS design frozen | U8 3D FEM done, U9 hardware selected, spec rev frozen for a prototype | Fri 18 Dec |
-| M7 | Reference lift in the twin | Real GA in U14 layout + U15 parameters (needs the reference lift) | January |
-| M8 | Logging → maintenance | Filter ratio measured; EG Maintenance ingestion confirmed | January |
-
-## MAx — show-and-tell, then API
-
-Decided 2026-10-29 (see that day's log).
-
-- [ ] **ADR: CLI providers on subscriptions for the demo phase.** Write it into
-      `max/docs/decisions/` once U0 has landed. U0 may take number 0005.
-- [ ] **Mail to Syncrolift: prepaid API accounts** (Anthropic + OpenAI), paid by
-      the company, not reimbursed. Send it on the visit the week before
-      20 November, after the demo. Draft it to `inbox/drafts/` before the visit.
-- [ ] **Demo on that visit:** main GUI, the idea, the workspace. What has to
-      work by then follows from that (U0 → U1-CLI → U4 → U5).
-- [ ] **One home for the repos.** Today there are five copies: `fjordbit/max`, `fjordbit/SWS`,
-      `MAx-Flow/SWS-Documentation`, local `D:/git/prosjekter.git`, and `publish/SWS`. Move to
-      the MAx-Flow org, archive the fjordbit copies, and make publishing one automatic push
-      (scan → push) instead of Kai pushing to two remotes. Raised 2026-10-30, not urgent.
-- [ ] **SWS spec: missing drawings.** The live Claude Doc (rev 127) has 5 interactive charts that the docx export drops. Find or export them and add them to the page. Another day (Stian, 2026-10-30).
-- [ ] **4 broken references** in `sws/data/sws_data_sources.md` (the spec owner's master): Goudsmit grades PDF (404), Mennens EN 12927 page (404), iteh.es and technickenormy.cz (domains gone). Stian or the spec owner picks replacements. URLs are in C:/Users/stian/agent-notes/u07-work.md.
-- [ ] **Remove the unredacted spec docx** from `max/sws/` once Word has closed it (copy in `Prosjekter/new/spec_2026-10-30/`).
-- [ ] **SWS paper through the flow (U6).** Next agentic run, after SWS is done or once Stian says the theory is sound; hardware (U9/U11) continues afterwards and does not gate it. Input: U7/U8/U16/U17 reports; U16.md has a draft abstract. (Stian, 3 Nov 2026)
-- [ ] **Hosting** (separate task, later): run MAx locally on the tower, reach
-      it from the phone. Not started; nobody has a plan yet.
-
-## Paper
-
-- [ ] Apply the section 5 rewording (`05_Section5_Cloud_Rewording.md`) and cut
-      **rev5**. Relabel the front page as part of cutting it.
-- [ ] Decide which HTML variant is canonical — styled or plain. The tracker
-      needs one answer before it is built.
-- [ ] Fill the placeholders before circulation: author, date, budget figures,
-      allocation in days per week, gate thresholds N and X %.
-- [ ] Decide item 16 of the assumptions review — whether to replace the customer
-      name in the example prompt.
+| # | Deliverable | Status |
+|---|---|---|
+| M1 | Studio demo build (U13 + U14 merged, one launch command) | Done, except chart 0.2 undecided and no demo script |
+| M2 | Demo visit + API mail | Open, week of 16 Nov |
+| M3 | Test model v0 (U15, ADR 0009) | Done |
+| M4 | Model drives Studio | Open, Fri 4 Dec |
+| M5 | A real `max run` animates in Studio | Done 4 Nov (live runs 1 and 2) |
+| M6 | SWS design frozen (U8 done, U9 hardware, spec frozen) | Open, Fri 18 Dec |
+| M7 | Reference lift in the twin | January |
+| M8 | Logging → maintenance | January |
 
 ## Later — raised, not scheduled
 
-- [ ] **Mail access for Kai.** Stian has approved mail to
-      stian.krogstad@syncrolift.com; there is no mail tool yet.
-- [ ] **Calendar access for Kai.** Nothing exists yet, so "keep the calendar
-      clean" is currently advice rather than a service.
-- [ ] The 08:00 daily entry does not happen on its own. It needs a scheduled
-      job; none has been set up.
+- [ ] Mail and calendar access for Kai; the 08:00 entry needs a scheduled job.
+- [ ] Revision viewer (`Prosjekter/agentic/06_Revision_Tracking_Spec.md`); steel price feed.
 
 ## Decided, so it stops being asked
 
-- **Drafts and notes are in English.** Asked three times without an answer, so
-  taken as settled: everything written so far — the paper, the briefs, the
-  reviews — is English. Say the word and it changes.
-
----
-
-## Timebox on the spare-parts job
-
-Stian's read: probably not prioritised by them, but possibly straightforward,
-maybe half a day, and worth it for the goodwill.
-
-That judgement is reasonable and there is a real argument for it beyond
-goodwill — he is new, and the people who own those systems are the same people
-whose process documentation weeks 1–6 of project 02 depends on. Half a day spent
-solving their problem buys standing with exactly the group he will need.
-
-The risk is that **"half a day" is an estimate made before seeing the systems**,
-and integration between two unknown systems is where that estimate usually
-breaks. So, applying his own rule from CLAUDE.md:
-
-**Gate:** have the conversation first. If afterwards it is not *clearly* half a
-day, it becomes a written recommendation handed to whoever owns it — not his
-build. Deciding that after the conversation is prudent; deciding it after three
-days of work is not.
-
-## Logging → Maintenance, settle in this order
-
-From `Prosjekter/logging-maintenance/03_Logging_Rate_and_Storage.md`. The first
-question governs all the others; answering them out of order wastes the work.
-
-- [ ] **What is the fastest event we must not miss?** Not "how fast can we log".
-      10 Hz is generous for running hours and load cycles; it may miss a snatch
-      load entirely. Different answers buy very different systems.
-- [ ] **How does data reach SQL today** — WinCC Tag Logging on an HMI, or
-      something else? Currently unknown.
-- [ ] **Count the tags per hoist**, then check what PowerTag and archive-tag
-      licences the sites already hold. Small job, prices the whole approach.
-- [ ] **How long must data be kept?** Months or decades. Decides SQL Server
-      versus a time-series store, and that choice is cheap now, expensive later.
+- Drafts and notes are in English.
