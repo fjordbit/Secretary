@@ -18,7 +18,7 @@ docx is out of max/sws/, September's in-person window is long closed).
       writer, judge (max-architect-writer-judge), improver (plc-code-improve).
 - [ ] **Owner's calls left by U22:** placeholder minting (Boundary, after the AI
       policy); reviewer sees the sources (chart edge); chart 0.2 (D4).
-- [ ] **ffmpeg** — Stian runs the install line; then every good run gets an mp4.
+- [x] ffmpeg installed 5 Nov; every good run gets an mp4.
 
 ## Confirm or drop — asked since 11 Sep, never reported back
 
