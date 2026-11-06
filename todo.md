@@ -14,8 +14,11 @@ docx is out of max/sws/, September's in-person window is long closed).
       table (major → revise or needs_human) moves from `review_policy.yaml` onto the
       ladder block, per flow; the floor (critical → stop) stays a rule. Agree → Tiller
       design round + small build.
-- [ ] **Four `params.model` fields** before the two new flows run live: architect,
-      writer, judge (max-architect-writer-judge), improver (plc-code-improve).
+- [ ] **Four `params.model` fields** before the two new flows run live. Kai's proposed
+      defaults 7 Nov: architect + judge = Fable (claude-fable-5-1), writer + improver = Opus
+      (claude-opus-5-5). Needs a yes.
+- [ ] **Yoke + magnet prototype for the 52 mm rope, due ≈ 21 Nov:** direct agent unit (Kai's
+      advice) or through MAx (Stian's lean)? Decide, then a brief.
 - [ ] **Owner's calls left by U22:** placeholder minting (Boundary, after the AI
       policy); reviewer sees the sources (chart edge); chart 0.2 (D4).
 - [x] ffmpeg installed 5 Nov; every good run gets an mp4.
@@ -32,6 +35,9 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## MAx — next
 
+- [ ] **U23 on_major** (brief in agent-notes/kai.md, 7 Nov): start it. Then **U24**: level
+      parameter on the document flow (paper / plain). Goal: both run by Monday 9 Nov.
+
 - [ ] **Scenarios to run the flow on, for output we need** (Stian, 5 Nov):
       1. SWS scientific paper — Fable lays out, Codex writes; iterations until all
          models are satisfied; output format (HTML / LaTeX) a setting on the writer.
@@ -42,6 +48,8 @@ docx is out of max/sws/, September's in-person window is long closed).
          spare-parts conversation above.
       4. Bilge arms — part of Stian's agentic plan; models to be made ready first.
       5. Same document-creator flow for MAx-Flow — later, not ready.
+      6. PLC cases (Stian, 7 Nov): document PLC source code, evaluate PLC code, TIA
+         Openness items. Later; each case is also test data for MAx.
 - [ ] **Studio: auto-arrange the lines.** Today: columns by longest path, one
       barycentre pass, ports in declaration order, feedback lines drawn straight back.
       Proposed small unit: layer sweeps, port order by partner, long and feedback
