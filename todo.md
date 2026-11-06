@@ -10,7 +10,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## Decisions waiting on Stian
 
-- [ ] **Review policy on the chart.** Kai's proposal 5 Nov: the severity → outcome
+- [x] **Review policy on the chart** — Stian yes, 6 Nov. The severity → outcome
       table (major → revise or needs_human) moves from `review_policy.yaml` onto the
       ladder block, per flow; the floor (critical → stop) stays a rule. Agree → Tiller
       design round + small build.
