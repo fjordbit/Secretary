@@ -16,7 +16,8 @@ docx is out of max/sws/, September's in-person window is long closed).
       design round + small build.
 - [ ] **Four `params.model` fields** before the two new flows run live. Kai's proposed
       table 7 Nov (after Stian: Codex writes): architect + judge = Fable (claude-fable-5-1),
-      writer + improver = Codex (CLI default model; writer block provider → codex). Needs a yes.
+      writer + improver = Codex (CLI default model; writer block provider → codex). **Yes, Stian
+      7 Nov.** Grok as an option once its provider exists; per-login overrides via U24.
 - [ ] **API key expiring 13 Nov** (mail): verify in console.anthropic.com, not via the link.
       Nothing on this machine uses it. New key when API mode is tried.
 - [ ] **Yoke + magnet prototype for the 52 mm rope, due ≈ 21 Nov:** direct agent unit (Kai's
@@ -52,7 +53,7 @@ docx is out of max/sws/, September's in-person window is long closed).
       5. Same document-creator flow for MAx-Flow — later, not ready.
       6. PLC cases (Stian, 7 Nov): document PLC source code, evaluate PLC code, TIA
          Openness items. Later; each case is also test data for MAx.
-- [ ] **Grok as suggestioneer** (approved, 7 Nov): xAI via the openai provider + base URL,
+- [ ] **Grok as suggestioneer** (approved, 7 Nov; Stian's default in that role): xAI via the openai provider + base URL,
       `XAI_API_KEY`; a suggestion block in the flow. After Monday.
 - [ ] **Studio: auto-arrange the lines.** Today: columns by longest path, one
       barycentre pass, ports in declaration order, feedback lines drawn straight back.
