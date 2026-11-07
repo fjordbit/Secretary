@@ -44,7 +44,8 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## MAx — next
 
-- [x] U23 on_major built 7 Nov 02:50 (Cleat). Final check + merge pending Stian's H(ii) call.
+- [x] U23 on_major built 7 Nov 02:50 (Cleat); Fable check passed 03:15 (Halyard). **Merge on
+      Stian's word after the H(ii) call.** TRY_IT.md ~147 wording fix goes with it.
 - [ ] **H(ii): every finding counts, or minor waived on a non-blocking review?** Kai: softer.
 - [ ] **U24**: level
       parameter on the document flow (paper / plain). Goal: both run by Monday 9 Nov.
