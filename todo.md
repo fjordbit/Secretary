@@ -146,3 +146,9 @@ governs the rest.
 - [ ] U25b lands: one-piece, −40/+45, N52 and N48SH side by side; then re-do Henrik draft
 - [ ] Later unit: the reference defect per spec (two inner wires, EN spacing) solved in 3D; +45 °C rerun of U16/U19 numbers
 - [ ] Legacy t_shoe=8 modules: retire or mark (no 3D result rests on them)
+
+## SWS after Stian's evening reply (7 Nov)
+- U29 running: merge U25b + U28, SUPERSEDED markers, figure set, page rebuild. Kai: Fable check on the branch, then merge to main (D: push only; GitHub push is Stian's).
+- Stian's calls still open: grade (leaning N52), thickness basis, B_rope vs B_wire, headline fault; apply redline + 15 register rows.
+- After U29: Stian runs external Grok review (masking!); then paper draft with MAx input fields (U24); then management version.
+- Henrik draft rewrite with one-piece numbers (after U29 lands).
