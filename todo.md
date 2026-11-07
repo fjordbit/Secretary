@@ -20,8 +20,7 @@ docx is out of max/sws/, September's in-person window is long closed).
       7 Nov.** Grok as an option once its provider exists; per-login overrides via U24.
 - [ ] **API key expiring 13 Nov** (mail): verify in console.anthropic.com, not via the link.
       Nothing on this machine uses it. New key when API mode is tried.
-- [ ] **Yoke + magnet prototype for the 52 mm rope, due ≈ 21 Nov:** direct agent unit (Kai's
-      advice) or through MAx (Stian's lean)? Decide, then a brief.
+- [x] Yoke + magnet: direct unit (Stian, 7 Nov). → U25 below.
 - [ ] **Owner's calls left by U22:** placeholder minting (Boundary, after the AI
       policy); reviewer sees the sources (chart edge); chart 0.2 (D4).
 - [x] ffmpeg installed 5 Nov; every good run gets an mp4.
@@ -55,6 +54,9 @@ docx is out of max/sws/, September's in-person window is long closed).
          Openness items. Later; each case is also test data for MAx.
 - [ ] **Grok as suggestioneer** (approved, 7 Nov; Stian's default in that role): xAI via the openai provider + base URL,
       `XAI_API_KEY`; a suggestion block in the flow. After Monday.
+- [ ] **Studio side menu "Agents"** (Stian, 7 Nov): one default model per agent type —
+      Architect, Coder, Reviewer, Judge, Wild card (Grok, its modes) — set from the menu during
+      the running-in, per login profile. Builds on U24's layering.
 - [ ] **Studio: auto-arrange the lines.** Today: columns by longest path, one
       barycentre pass, ports in declaration order, feedback lines drawn straight back.
       Proposed small unit: layer sweeps, port order by partner, long and feedback
@@ -69,6 +71,9 @@ docx is out of max/sws/, September's in-person window is long closed).
 - [ ] **Hosting** (later): MAx on the tower, reached from the phone. No plan yet.
 
 ## SWS
+
+- [ ] **U25 P52 prototype design** (brief in agent-notes/kai.md, 7 Nov): start on Stian's
+      word in the morning. Deadline ≈ 21 Nov. Kai drafts the mail to the head designer after.
 
 - [ ] **Paper through the flow** = scenario 1 above.
 - [ ] Spec: 5 interactive charts in the live Claude Doc (rev 127) dropped by the docx export.
