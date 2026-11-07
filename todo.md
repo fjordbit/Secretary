@@ -57,7 +57,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 - [ ] **Studio side menu "Agents"** (Stian, 7 Nov): one default model per agent type —
       Architect, Coder, Reviewer, Judge, Wild card (Grok, its modes) — set from the menu during
       the running-in, per login profile. Builds on U24's layering.
-- [ ] **Studio: auto-arrange the lines.** Today: columns by longest path, one
+- [ ] **U26 Studio: auto-arrange the lines** (brief in agent-notes/kai.md, 7 Nov; start with U25). Today: columns by longest path, one
       barycentre pass, ports in declaration order, feedback lines drawn straight back.
       Proposed small unit: layer sweeps, port order by partner, long and feedback
       lines routed round the columns.
