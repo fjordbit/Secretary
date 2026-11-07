@@ -10,6 +10,13 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## Decisions waiting on Stian
 
+- [ ] **Rule 10 (design conformance) into the max repo's CLAUDE.md** as proposed in
+      `docs/design/process-rule-design-conformance.md`? Grok applied it in the clone; the page
+      says Stian applies it. Yes → it rides with the Grok patch below.
+- [ ] **Grok patch (points 1–3: rule 10, front-door docs, stub list shown)** from
+      `C:/Users/stian/grok-test/max` onto a Prosjekter branch after U23 lands; point 4 dropped
+      (U23 F(ii) carries it via on_major). Fix the two nits in the same patch.
+
 - [x] **Review policy on the chart** — Stian yes, 6 Nov. The severity → outcome
       table (major → revise or needs_human) moves from `review_policy.yaml` onto the
       ladder block, per flow; the floor (critical → stop) stays a rule. Agree → Tiller
