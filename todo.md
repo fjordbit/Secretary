@@ -68,6 +68,11 @@ docx is out of max/sws/, September's in-person window is long closed).
       demo on the visit; draft to `inbox/drafts/` before.
 - [ ] **One home for the repos** (fjordbit/max, fjordbit/SWS, MAx-Flow/SWS-Documentation,
       D:/git/prosjekter.git, publish/SWS) → MAx-Flow org, one scan → push. Not urgent.
+- [ ] **Own local agent / learned Boundary** (Stian, 7 Nov): the deterministic checks stay
+      local and programmatic; later a local model (maybe open-source, maybe not AI) trained on
+      logged faults from released runs becomes a MAx helper and organiser. Precondition: keep
+      every released run's `runs/<id>/log.jsonl` + the review findings as training data.
+      Idea only; no unit.
 - [ ] **Hosting** (later): MAx on the tower, reached from the phone. No plan yet.
 
 ## SWS
