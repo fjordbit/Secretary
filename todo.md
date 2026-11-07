@@ -13,9 +13,8 @@ docx is out of max/sws/, September's in-person window is long closed).
 - [x] **Rule 10 — Stian yes, 7 Nov.** Applied with the Grok patch after U23 merges. (As proposed in
       `docs/design/process-rule-design-conformance.md`? Grok applied it in the clone; the page
       says Stian applies it. Yes → it rides with the Grok patch below.
-- [ ] **Grok patch (points 1–3: rule 10, front-door docs, stub list shown)** from
-      `C:/Users/stian/grok-test/max` onto a Prosjekter branch after U23 lands; point 4 dropped
-      (U23 F(ii) carries it via on_major). Fix the two nits in the same patch.
+- [ ] **U27 Fairlead points 1–3 + rule 10** — started 7 Nov (Opus, Prosjekter-u27). Then
+      Fable check + Boundary scan + push of main to fjordbit/max.
 
 - [x] **Review policy on the chart** — Stian yes, 6 Nov. The severity → outcome
       table (major → revise or needs_human) moves from `review_policy.yaml` onto the
@@ -44,8 +43,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## MAx — next
 
-- [x] U23 on_major built 7 Nov 02:50 (Cleat); Fable check passed 03:15 (Halyard). **Merge on
-      Stian's word after the H(ii) call.** TRY_IT.md ~147 wording fix goes with it.
+- [x] U23 on_major merged to main ce08340 (7 Nov morning). Live run 3 can go after U27.
 - [x] H(ii) softer (Stian, 7 Nov): major/critical count regardless of the flag; minor waived
       on a non-blocking review. Cleat building it on the branch.
 - [ ] **U24**: level
