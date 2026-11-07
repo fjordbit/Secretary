@@ -148,7 +148,7 @@ governs the rest.
 - [ ] Legacy t_shoe=8 modules: retire or mark (no 3D result rests on them)
 
 ## SWS after Stian's evening reply (7 Nov)
-- U29 running: merge U25b + U28, SUPERSEDED markers, figure set, page rebuild. Kai: Fable check on the branch, then merge to main (D: push only; GitHub push is Stian's).
+- [x] U29 landed on main ff20112 (7 Nov 20:30). Next: identifier scan + masked Grok bundle after Stian's calls; GitHub export after the rewrite/accept call.
 - Stian's calls still open: grade (leaning N52), thickness basis, B_rope vs B_wire, headline fault; apply redline + 15 register rows.
 - After U29: Stian runs external Grok review (masking!); then paper draft with MAx input fields (U24); then management version.
 - Henrik draft rewrite with one-piece numbers (after U29 lands).
