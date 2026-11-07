@@ -10,7 +10,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## Decisions waiting on Stian
 
-- [ ] **Rule 10 (design conformance) into the max repo's CLAUDE.md** as proposed in
+- [x] **Rule 10 — Stian yes, 7 Nov.** Applied with the Grok patch after U23 merges. (As proposed in
       `docs/design/process-rule-design-conformance.md`? Grok applied it in the clone; the page
       says Stian applies it. Yes → it rides with the Grok patch below.
 - [ ] **Grok patch (points 1–3: rule 10, front-door docs, stub list shown)** from
@@ -46,7 +46,8 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 - [x] U23 on_major built 7 Nov 02:50 (Cleat); Fable check passed 03:15 (Halyard). **Merge on
       Stian's word after the H(ii) call.** TRY_IT.md ~147 wording fix goes with it.
-- [ ] **H(ii): every finding counts, or minor waived on a non-blocking review?** Kai: softer.
+- [x] H(ii) softer (Stian, 7 Nov): major/critical count regardless of the flag; minor waived
+      on a non-blocking review. Cleat building it on the branch.
 - [ ] **U24**: level
       parameter on the document flow (paper / plain). Goal: both run by Monday 9 Nov.
 
@@ -67,7 +68,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 - [ ] **Studio side menu "Agents"** (Stian, 7 Nov): one default model per agent type —
       Architect, Coder, Reviewer, Judge, Wild card (Grok, its modes) — set from the menu during
       the running-in, per login profile. Builds on U24's layering.
-- [ ] **U26 Studio: auto-arrange the lines** (brief in agent-notes/kai.md, 7 Nov; start with U25). Today: columns by longest path, one
+- [ ] **U26 Studio: auto-arrange the lines** — started 7 Nov morning (Opus, Prosjekter-u26). Today: columns by longest path, one
       barycentre pass, ports in declaration order, feedback lines drawn straight back.
       Proposed small unit: layer sweeps, port order by partner, long and feedback
       lines routed round the columns.
@@ -87,8 +88,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## SWS
 
-- [ ] **U25 P52 prototype design** (brief in agent-notes/kai.md, 7 Nov): start on Stian's
-      word in the morning. Deadline ≈ 21 Nov. Kai drafts the mail to the head designer after.
+- [ ] **U25 P52 prototype design** — started 7 Nov morning (Opus, Prosjekter-u25). Deadline ≈ 21 Nov. Kai drafts the mail to the head designer after.
 
 - [ ] **Paper through the flow** = scenario 1 above.
 - [ ] Spec: 5 interactive charts in the live Claude Doc (rev 127) dropped by the docx export.
