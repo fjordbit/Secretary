@@ -138,3 +138,11 @@ governs the rest.
 ## Decided, so it stops being asked
 
 - Drafts and notes are in English.
+
+## SWS after the 7 Nov audit (Sextant.md)
+- [ ] Stian: reference-defect headline — keep 0.62 % "hidden pair" or quote the spec's single-wire margin 9.6 / 5.7?
+- [ ] Stian: fix the spec leftovers in the live doc (Sextant.md §B; l.474 "segmented magnet blocks" first)
+- [ ] Stian: P40 inheritances — sensor R 36.5, yoke notch: keep, or back to spec? Say once that P40 is not the spec head
+- [ ] U25b lands: one-piece, −40/+45, N52 and N48SH side by side; then re-do Henrik draft
+- [ ] Later unit: the reference defect per spec (two inner wires, EN spacing) solved in 3D; +45 °C rerun of U16/U19 numbers
+- [ ] Legacy t_shoe=8 modules: retire or mark (no 3D result rests on them)
