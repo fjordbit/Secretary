@@ -14,7 +14,9 @@ docx is out of max/sws/, September's in-person window is long closed).
       `docs/design/process-rule-design-conformance.md`? Grok applied it in the clone; the page
       says Stian applies it. Yes → it rides with the Grok patch below.
 - [x] U27 Fairlead points 1–3 + rule 10 merged to main 8d7ac15 (7 Nov).
-- [ ] **Export main to fjordbit/max** (U23+U26+U27): Fable check → pipeline → scan → **Stian: push?**
+- [ ] **GitHub: "rewrite" or "accept"?** v2 cleaned history ready in D:/git/max-export-v2.git
+      (project code found on GitHub since 4 Nov). rewrite = Stian force-pushes once, managers
+      re-clone. accept = Kai fast-forwards main (e73673b). Commands in log 7 Nov.
 - [ ] Invalid MAX_RULE_STUBS: stop the run in preflight (new §6 row) or keep driver refusal? (Bollard)
 
 - [x] **Review policy on the chart** — Stian yes, 6 Nov. The severity → outcome
