@@ -91,7 +91,11 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## SWS
 
-- [ ] **U25 P52 prototype design** — started 7 Nov morning (Opus, Prosjekter-u25). Deadline ≈ 21 Nov. Kai drafts the mail to the head designer after.
+- [x] U25 P52 prototype built 7 Nov (Capstan, 55844ed). Mail to Henrik drafted
+      (inbox/drafts/2026-11-07_henrik_p52.md). Merge onto the SWS line after Stian's four calls.
+- [ ] **P52 calls (Stian):** 20.5 mm magnet? no steel shoulder? B_rope vs B_wire? notch purpose?
+- [ ] P52 not yet done: hard wire −40 °C, rope off centre, fault with split gap, second mesh
+      level, 40 mm rope. One more session once the head designer answers. Deadline ≈ 21 Nov. Kai drafts the mail to the head designer after.
 
 - [ ] **Paper through the flow** = scenario 1 above.
 - [ ] Spec: 5 interactive charts in the live Claude Doc (rev 127) dropped by the docx export.
