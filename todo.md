@@ -13,8 +13,9 @@ docx is out of max/sws/, September's in-person window is long closed).
 - [x] **Rule 10 — Stian yes, 7 Nov.** Applied with the Grok patch after U23 merges. (As proposed in
       `docs/design/process-rule-design-conformance.md`? Grok applied it in the clone; the page
       says Stian applies it. Yes → it rides with the Grok patch below.
-- [ ] **U27 Fairlead points 1–3 + rule 10** — started 7 Nov (Opus, Prosjekter-u27). Then
-      Fable check + Boundary scan + push of main to fjordbit/max.
+- [x] U27 Fairlead points 1–3 + rule 10 merged to main 8d7ac15 (7 Nov).
+- [ ] **Export main to fjordbit/max** (U23+U26+U27): Fable check → pipeline → scan → **Stian: push?**
+- [ ] Invalid MAX_RULE_STUBS: stop the run in preflight (new §6 row) or keep driver refusal? (Bollard)
 
 - [x] **Review policy on the chart** — Stian yes, 6 Nov. The severity → outcome
       table (major → revise or needs_human) moves from `review_policy.yaml` onto the
