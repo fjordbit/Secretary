@@ -66,7 +66,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 - [ ] **Studio side menu "Agents"** (Stian, 7 Nov): one default model per agent type —
       Architect, Coder, Reviewer, Judge, Wild card (Grok, its modes) — set from the menu during
       the running-in, per login profile. Builds on U24's layering.
-- [x] U26 Studio auto-arrange built 7 Nov (Hawser): 0 lines through blocks. Merge after rebase.
+- [x] U26 Studio auto-arrange merged to main 40b0a1f (7 Nov).
 - [ ] U26 follow-ups (Stian, small): per-level saved position OK? shared track stretches?
       flat 0.1 charts routed too? A saved position can still cross a block: fix before E8 drag. Today: columns by longest path, one
       barycentre pass, ports in declaration order, feedback lines drawn straight back.
