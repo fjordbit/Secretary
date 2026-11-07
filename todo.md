@@ -44,7 +44,9 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## MAx — next
 
-- [ ] **U23 on_major** (brief in agent-notes/kai.md, 7 Nov): start it. Then **U24**: level
+- [x] U23 on_major built 7 Nov 02:50 (Cleat). Final check + merge pending Stian's H(ii) call.
+- [ ] **H(ii): every finding counts, or minor waived on a non-blocking review?** Kai: softer.
+- [ ] **U24**: level
       parameter on the document flow (paper / plain). Goal: both run by Monday 9 Nov.
 
 - [ ] **Scenarios to run the flow on, for output we need** (Stian, 5 Nov):
