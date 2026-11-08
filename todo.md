@@ -45,6 +45,8 @@ docx is out of max/sws/, September's in-person window is long closed).
       the spec's "< 0.5 %" (52 mm pair = 0.62–0.64 % on the model): how the spec words it.
 - [ ] Go for 3D runs R1–R8 (≈8.6 h solve; main-text set ≈1.5 h; run order shared Ø60 / 52 mm / N52 / +45 °C).
 - [ ] N52 supplier Hcj sheet (via the head designer).
+- [x] **Review round run 8 Nov, nine answers + synthesis on main.** Next round after fixes (tier-0 judge contract text, Codex gets code, DeepSeek preamble + literature brief).
+- [ ] **Rotate the Claude API key** (pasted in chat 8 Nov; set the new one via the env-var dialog).
 - [ ] **Review round (U33 on main):** Stian: Cursor login (`agent login`), pin model names; set ANTHROPIC_API_KEY
       (user env var); say go → `python tools/review_round.py` (dry-run first). Fable every round? MAx review
       chart = U24's reviewer half, later.
