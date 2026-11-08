@@ -170,3 +170,12 @@ governs the rest.
 - Stian's calls still open: grade (leaning N52), thickness basis, B_rope vs B_wire, headline fault; apply redline + 15 register rows.
 - After U29: Stian runs external Grok review (masking!); then paper draft with MAx input fields (U24); then management version.
 - Henrik draft rewrite with one-piece numbers (after U29 lands).
+
+## SWS after U36 (8 Nov, night)
+- [ ] Stian: storage / transport maximum (°C) → rev130 "+[owner value]" lines (l.233, 367, 428, 429) and a U36 addendum
+- [ ] Stian: +50 °C operating vs the 45 °C magnet ruling — both stand, or +50 replaces 45
+- [ ] Stian: rev128/129/130 into the Word master
+- [ ] Stian: register l.331/l.332 (+80 reference, method statement) keep / reword / retire
+- [ ] Stian: 52 mm rope wire diameters and inner construction from the rope maker (2.2 mm wires → pair 0.48 %)
+- [ ] Stian: build R5 (Ø48 head, 40 mm stranded rope, new 3D model) or not
+- [ ] Kai: rotate the API key after the next review round; next round runs with the key loaded in-process
