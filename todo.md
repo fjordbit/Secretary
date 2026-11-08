@@ -34,6 +34,20 @@ docx is out of max/sws/, September's in-person window is long closed).
       policy); reviewer sees the sources (chart edge); chart 0.2 (D4).
 - [x] ffmpeg installed 5 Nov; every good run gets an mp4.
 
+## SWS after U31 (8 Nov)
+
+- [ ] **Grok pack upload** — C:/Users/stian/grok_pack_2026-11-08.zip (387 files, 24.3 MB, 0 identifier hits).
+      Stian checks it, decides on site pointers + company name, uploads himself. Brief inside:
+      docs/paper/grok_brief_2026-11-08.md.
+- [ ] **rev128 → live Word master** (sws/spec/…rev128_2026-11-08.docx is a python-docx edit of rev127; Stian's
+      document is the master). Row 24 (18 strands wording) waits for the rope maker.
+- [ ] EN 12927 §14: B_rope or B_wire (Stian reads). Acceptance rule 40 mm one wire / 52 mm two wires vs
+      the spec's "< 0.5 %" (52 mm pair = 0.62–0.64 % on the model): how the spec words it.
+- [ ] Go for 3D runs R1–R8 (≈8.6 h solve; main-text set ≈1.5 h; run order shared Ø60 / 52 mm / N52 / +45 °C).
+- [ ] N52 supplier Hcj sheet (via the head designer).
+- [ ] Review round: Cursor CLI script + local MAx review chart (ideas captured 8 Nov 02:10–02:25).
+- [ ] rewrite_names.py: add rules for site names, first names, user path (Davit's second pass was pack-only).
+
 ## Confirm or drop — asked since 11 Sep, never reported back
 
 - [ ] Spare-parts / after-sales conversation (questions at
