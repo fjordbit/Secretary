@@ -1,4 +1,4 @@
-# Kai — start here (state as of 9 Nov 2026 ~24:00, U48/U49 live)
+# Kai — start here (state as of 10 Nov 2026 01:1x, U48–U51 live)
 
 Read in this order at the start of a session: this file, `todo.md`, the newest `log/*.md`, then
 `C:/Users/stian/agent-notes/kai.md` (my briefs to builders; the last sections are the live units) and any new
@@ -7,11 +7,15 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 
 ## Where the work stands
 
-- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **6655e8c** (U48 merged, 9 Nov 23:5x), pushed to the
-  local origin (D:/git/prosjekter.git). GitHub fjordbit/max main is **79e29a9** = the rewritten export of local 6655e8c
+- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **5972096** (U50 merged, 10 Nov 00:5x), pushed to the
+  local origin (D:/git/prosjekter.git). GitHub fjordbit/max main is **78b9e8c** = the rewritten export of local 5972096
   (fast-forward, nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range
-  from 6655e8c, graft on 79e29a9 (brief pattern: kai.md "## U49"). Pages: publish/SWS at **2093ebc** (index.html = dense
-  short page, landing; report.html = full report; easy.html = easy read), pushed to both remotes 9 Nov ~24:00.
+  from 5972096, graft on 78b9e8c (brief pattern: kai.md "## U49", "## U51"). Pages: publish/SWS at **0e01f10** (index.html = dense
+  short page, landing; report.html = full report; easy.html = easy read), pushed to both remotes 10 Nov 01:1x.
+- **10 Nov, after Stian read the live page** ("a biography of me"): U50 moved attribution and dates out of the prose
+  into link hover titles on the easy read and short page, analogy = his tyre-under-water picture, outside links
+  removed; U51 exported it. Rule and the cold-reader check: memory pages-about-the-task-not-stian. The short page
+  still reads as a record (cold reader) — in todo, his call how far. Read log/2026-11-10.md.
 - **Nothing running.** U48 (standard on file, register notes, river analogy on the easy read) and U49 (export +
   snapshot) closed. Builders: Sheave, Bowline. Bowline could not write export-v3/REPORT-6.md (harness refused); its
   hand-back is in log/2026-11-09.md and agent-notes/bowline.md.
@@ -28,7 +32,7 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   sample/mm), 14.3.3 (max 5 m/s), 14.1 (exclusions) — candidates for requirement rows in the register.
 - **Decided 9 Nov:** landing page = the dense short page (index.html); easy read = easy.html, third button; full
   report = report.html. Never merge "short" and "easy" again (memory three-sws-formats-easy-is-the-test). Easy-read
-  analogy = river running bank-full (Stian asked for better than pipe-and-leak; he has not read it yet).
+  analogy = tyre under water, the sensors do the water's job (Stian's picture, 10 Nov; the river is gone).
 - **Backup:** full file copy `D:\backup\2026-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
   the pasted API key — local disk only). All repos committed and on D:/git.
 
