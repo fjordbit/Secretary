@@ -203,4 +203,6 @@ governs the rest.
       vs 14.3.5.2's wording — reword in a small unit?
 - [ ] Ch.14 requirements not in the register: 3-year flux check (14.2.1), ≥ 1 sample/mm (14.2.3), max 5 m/s (14.3.3),
       no testing near end fixings (14.1). Rows in the next spec unit? (map: max-private/standards/EN12927-2019_clause_map.md)
-- [ ] Stian reads the river analogy on the easy read; keep or change
+- [ ] Stian reads the river analogy on the easy read; keep or change. His own (9 Nov, midnight): smoke blown into a
+      fox's den, showing at the other holes — "equally good and would require no link"; he still thinks we can do
+      better. The two outside links are optional; drop them if he says so.
