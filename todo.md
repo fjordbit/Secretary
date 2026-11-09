@@ -181,3 +181,7 @@ governs the rest.
 - [ ] Kai: rotate the API key after the next review round; next round runs with the key loaded in-process
 
 - [ ] Later: SWS pages on www.max-flow.no/sws behind Cloudflare Access (26 Oct hosting decision); public would need the mask pass first (Stian, 9 Nov 03:5x)
+
+## MAx after U42 (9 Nov)
+- [ ] Chart gap found by the U42 judge run: in max-architect-writer-judge the judge and reviewer never receive the
+      architect's brief; `max run` cannot take ready-made architect/writer output. Small MAx unit? (Thwart, 9 Nov)
