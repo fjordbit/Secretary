@@ -216,3 +216,9 @@ governs the rest.
       Hcj but the body never uses them; "three heads" vs "the 52 mm head is the shared head"; five unclear sentences
       (list in log/2026-11-10.md source: cold-reader hand-back)
 - [ ] Standing: cold-reader check before every page push (memory pages-about-the-task-not-stian)
+- [ ] Easy read, next pass (Stian, 10 Nov ~02:00): same content as the technical pages, short and light, for a reader
+      with little or no knowledge; process rules not forced on it beyond safety, sanity, correctness. Proposed unit:
+      rewrite in that voice, links only where they help, correctness checked against the short page as a whole
+      (falsifier + cold reader) instead of an anchor per sentence; test for per-sentence links relaxed. His go first.
+- [ ] Register row for "models not refined further until the supplier's figures are in" (on both pages since 10 Nov
+      on his word; ruling of 8 Nov) — next spec unit
