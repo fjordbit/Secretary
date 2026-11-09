@@ -196,3 +196,11 @@ governs the rest.
       source twice; (3) `max run --seed` (same as U45 item 1).
 - [ ] Publish root docs/index.html (publish/SWS) names only "SWS report"; add the easy read there, or rename the
       link, next snapshot (Cringle, 9 Nov).
+
+## SWS after U48 (9 Nov, midnight)
+- [ ] Stian: B_rope or B_wire (clause map: Annex B informative; does not say local / metallic area / nominal area)
+- [ ] Stian: register l.348 says both "not on file" and "on file 9 Nov"; l.192 value column ("inner", "< 0.5 % LMA")
+      vs 14.3.5.2's wording — reword in a small unit?
+- [ ] Ch.14 requirements not in the register: 3-year flux check (14.2.1), ≥ 1 sample/mm (14.2.3), max 5 m/s (14.3.3),
+      no testing near end fixings (14.1). Rows in the next spec unit? (map: max-private/standards/EN12927-2019_clause_map.md)
+- [ ] Stian reads the river analogy on the easy read; keep or change

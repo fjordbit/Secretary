@@ -1,4 +1,4 @@
-# Kai — start here (handoff written 9 Nov 2026 23:4x, before a restart onto the newest Fable)
+# Kai — start here (state as of 9 Nov 2026 ~24:00, U48/U49 live)
 
 Read in this order at the start of a session: this file, `todo.md`, the newest `log/*.md`, then
 `C:/Users/stian/agent-notes/kai.md` (my briefs to builders; the last sections are the live units) and any new
@@ -7,29 +7,29 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 
 ## Where the work stands
 
-- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **5c4297f** (U46 easy read merged + link fix, 9 Nov 19:0x), pushed to the local origin
-  (D:/git/prosjekter.git). GitHub fjordbit/max main is **6f70bfc** = the rewritten export of local 5c4297f (U38/U40/U43/U44/U47, 9 Nov; fast-forward,
-  nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from 5c4297f
-  (brief pattern: kai.md "## U38" and "## U40"). Pages: publish/SWS at d8c54c9 (index.html = dense short page, landing; report.html = full report; easy.html = easy read), pushed to both remotes 9 Nov 19:3x.
-- **Units merged tonight:** U35 (3D appendix runs folded in), U36 (spec rev130: envelope remade; register rows;
-  2D excursion table), U37 (identifier sweep of SWS files). Page rebuilt at d455e3d, then U37.
-- **Nothing running.** U35–U47 closed 9 Nov 19:3x. **Next, in this order, first thing after the restart:**
-  1. Start the U48 builder (Opus) from kai.md "## U48" (easy read + short page wording: the standard is on file; flow-and-leak
-     analogy; register notes l.191/192/348 updated to the text, status letters untouched). Brief is written and checked
-     against the extract; it has not been started.
-  2. Kai's Fable check of U48 (read the changed sentences against max-private/standards/EN12927-2019_ch14_extract.md),
-     merge --no-ff into local main, three --check + SWS tests, push to D:.
-  3. Export increment + Pages snapshot (brief pattern kai.md "## U47": range from 5c4297f.., graft on 6f70bfc), own scan
-     of both diffs with the identifier list (kinds person/customer/drawing/site/project; scratchpad script scan2.py is
-     gone with the session — rewrite: regex `match` field per entry, added lines only), then push export to
-     fjordbit/max, snapshot to fjordbit/SWS and MAx-Flow/SWS-Documentation, fetch into D:/git/max-export.git.
-  Stian wants this live tonight (9 Nov). Then tell him in one message.
-- **The standard:** BS EN 12927:2019 is at C:/Users/stian/max-private/standards/BS-EN_12927-2019.pdf (copyright: never
-  in a repo); clause extract beside it. Kai's reading of the words is in log/2026-11-09.md 23:2x. **The owner's
-  B_rope / B_wire reading is still his call** — ask him once U48 is live (one question, visible).
-- **Decided today:** landing page = the dense short page (index.html); easy read = easy.html, third button; full
-  report = report.html. Never merge "short" and "easy" again (memory three-sws-formats-easy-is-the-test).
-- **Backup:** full file copy `D:\backup\2026-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
+- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **6655e8c** (U48 merged, 9 Nov 23:5x), pushed to the
+  local origin (D:/git/prosjekter.git). GitHub fjordbit/max main is **79e29a9** = the rewritten export of local 6655e8c
+  (fast-forward, nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range
+  from 6655e8c, graft on 79e29a9 (brief pattern: kai.md "## U49"). Pages: publish/SWS at **2093ebc** (index.html = dense
+  short page, landing; report.html = full report; easy.html = easy read), pushed to both remotes 9 Nov ~24:00.
+- **Nothing running.** U48 (standard on file, register notes, river analogy on the easy read) and U49 (export +
+  snapshot) closed. Builders: Sheave, Bowline. Bowline could not write export-v3/REPORT-6.md (harness refused); its
+  hand-back is in log/2026-11-09.md and agent-notes/bowline.md.
+- **Identifier scan script** is session scratch and dies with the session: rewrite as before (flat parse of
+  identifiers.yaml, regex `match` per entry or the literal name, added lines of `git diff -U0 <range>` only, print
+  entry index and kind, never the name). No PyYAML in the U41 venv.
+- **The standard:** BS EN 12927:2019 at C:/Users/stian/max-private/standards/BS-EN_12927-2019.pdf (copyright: never
+  in a repo). Beside it: Kai's ch.14 extract and the **clause map** (EN12927-2019_clause_map.md, 9 Nov: every clause
+  that bears on the instrument, corrections to the extract, ambiguities). **The owner's B_rope / B_wire reading is
+  still his call** — ask him 10 Nov (one question, visible). The map's finding for that question: Annex B is
+  informative and does not say whether B is local, over the metallic area or over the nominal area.
+- **Open from U48 (Stian):** register l.348 says both "not on file" and "on file 9 Nov"; l.192 value column ("inner",
+  "< 0.5 % LMA") does not match 14.3.5.2's wording; the extract lacks 14.2.1 (3-year flux check), 14.2.3 (≥ 1
+  sample/mm), 14.3.3 (max 5 m/s), 14.1 (exclusions) — candidates for requirement rows in the register.
+- **Decided 9 Nov:** landing page = the dense short page (index.html); easy read = easy.html, third button; full
+  report = report.html. Never merge "short" and "easy" again (memory three-sws-formats-easy-is-the-test). Easy-read
+  analogy = river running bank-full (Stian asked for better than pipe-and-leak; he has not read it yet).
+- **Backup:** full file copy `D:ackup6-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
   the pasted API key — local disk only). All repos committed and on D:/git.
 
 ## Rulings from 8 Nov evening not yet fully in the record
