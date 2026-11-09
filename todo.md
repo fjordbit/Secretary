@@ -203,6 +203,16 @@ governs the rest.
       vs 14.3.5.2's wording — reword in a small unit?
 - [ ] Ch.14 requirements not in the register: 3-year flux check (14.2.1), ≥ 1 sample/mm (14.2.3), max 5 m/s (14.3.3),
       no testing near end fixings (14.1). Rows in the next spec unit? (map: max-private/standards/EN12927-2019_clause_map.md)
-- [ ] Stian reads the river analogy on the easy read; keep or change. His own (9 Nov, midnight): smoke blown into a
+- [x] River analogy replaced by Stian's tyre-under-water picture (U50, 10 Nov); was: keep or change. His own (9 Nov, midnight): smoke blown into a
       fox's den, showing at the other holes — "equally good and would require no link"; he still thinks we can do
       better. The two outside links are optional; drop them if he says so.
+
+## SWS after U50 (10 Nov)
+- [ ] Stian reads the reworked easy read and short page (attribution behind links; tyre analogy)
+- [ ] Short page still reads as a record (cold reader): status letters unexplained, "register l.NNN, D" in every
+      sentence, file names in captions/footers, "management chooses" × 7. Same treatment as the easy read — one unit?
+      (It is the dense page Stian likes; his call how far.)
+- [ ] Easy read leftovers (cold reader): "(options note l.48)" style cites in text; glossary defines B_rope / B_wire /
+      Hcj but the body never uses them; "three heads" vs "the 52 mm head is the shared head"; five unclear sentences
+      (list in log/2026-11-10.md source: cold-reader hand-back)
+- [ ] Standing: cold-reader check before every page push (memory pages-about-the-task-not-stian)
