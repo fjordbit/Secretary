@@ -29,7 +29,7 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 - **Decided 9 Nov:** landing page = the dense short page (index.html); easy read = easy.html, third button; full
   report = report.html. Never merge "short" and "easy" again (memory three-sws-formats-easy-is-the-test). Easy-read
   analogy = river running bank-full (Stian asked for better than pipe-and-leak; he has not read it yet).
-- **Backup:** full file copy `D:ackup6-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
+- **Backup:** full file copy `D:\backup\2026-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
   the pasted API key — local disk only). All repos committed and on D:/git.
 
 ## Rulings from 8 Nov evening not yet fully in the record
