@@ -27,7 +27,7 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 
 ## Waiting on Stian (also in todo.md)
 
-Send the mail draft `inbox/drafts/2026-11-08_henrik_magnet-spec.md`; create the GitHub issue from
+Mail to the head designer sent 8 Nov (draft in inbox/drafts/sent/). Create the GitHub issue from
 `inbox/drafts/2026-11-08_github-issue_magnet-spec.md` (gh CLI not installed; his login); Word master rev128–130;
 register l.331/332 keep or retire; 52 mm wire diameters from the rope maker; R5 (Ø48 3D) yes/no; rotate the
 API key (pasted in chat 8 Nov) after the next review round; the "other hardware" tier-0 pass (Fable + GPT 5.6
