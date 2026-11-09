@@ -191,7 +191,7 @@ governs the rest.
       flowcheck, not a severity. (3) pre-existing: test_review_round expects an `xai` backend (fails on main).
 - [ ] Landing-page fix bundle (Stian reading, 9 Nov evening): "(see What is open)" → link to the heading; more notes
       as they come; then one fix unit + export (incl. U45) + Pages refresh.
-- [ ] U46 follow-ups (Thimble, 9 Nov): (1) easy read as the landing page instead of the short? (2) the owner's late
+- [ ] U46 follow-ups (Thimble, 9 Nov): (1) ~~landing~~ decided: dense stays (Stian, 9 Nov 19:4x); (2) the owner's late
       storage statement (8 Nov evening) into register l.361 so pages can link it — the judge flagged the missing
       source twice; (3) `max run --seed` (same as U45 item 1).
 - [ ] Publish root docs/index.html (publish/SWS) names only "SWS report"; add the easy read there, or rename the
