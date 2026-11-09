@@ -7,13 +7,13 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 
 ## Where the work stands
 
-- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **2c94172** (U39 short page merged 04:1x), pushed to the local origin
-  (D:/git/prosjekter.git). GitHub fjordbit/max main is **54afb64** = the rewritten export of local 2c94172 (U38/U40, 9 Nov; fast-forward,
-  nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from 2c94172
-  (brief pattern: kai.md "## U38" and "## U40"). Pages: publish/SWS at f545164, pushed to both remotes 9 Nov 03:2x.
+- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **de0171e** (U41 format switch merged 9 Nov 14:4x), pushed to the local origin
+  (D:/git/prosjekter.git). GitHub fjordbit/max main is **66b43f9** = the rewritten export of local de0171e (U38/U40/U43, 9 Nov; fast-forward,
+  nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from de0171e
+  (brief pattern: kai.md "## U38" and "## U40"). Pages: publish/SWS at 4903d86 (format switch), pushed to both remotes 9 Nov 15:0x.
 - **Units merged tonight:** U35 (3D appendix runs folded in), U36 (spec rev130: envelope remade; register rows;
   2D excursion table), U37 (identifier sweep of SWS files). Page rebuilt at d455e3d, then U37.
-- **Nothing running.** U35–U40 closed 9 Nov 03:2x; see log/2026-11-09.md "night closed" and "For the morning".
+- **Nothing running.** U35–U41, U43 closed 9 Nov 15:0x; next: U42 the readable version (Fable design pass → Codex writes → MAx judge run) as the third FORMATS entry; see log/2026-11-09.md "night closed" and "For the morning".
 - **Backup:** full file copy `D:\backup\2026-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
   the pasted API key — local disk only). All repos committed and on D:/git.
 
