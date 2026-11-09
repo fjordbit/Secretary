@@ -179,3 +179,5 @@ governs the rest.
 - [ ] Stian: 52 mm rope wire diameters and inner construction from the rope maker (2.2 mm wires → pair 0.48 %)
 - [ ] Stian: build R5 (Ø48 head, 40 mm stranded rope, new 3D model) or not
 - [ ] Kai: rotate the API key after the next review round; next round runs with the key loaded in-process
+
+- [ ] Later: SWS pages on www.max-flow.no/sws behind Cloudflare Access (26 Oct hosting decision); public would need the mask pass first (Stian, 9 Nov 03:5x)
