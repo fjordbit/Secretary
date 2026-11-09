@@ -7,20 +7,17 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 
 ## Where the work stands
 
-- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **2e8ebf9**, pushed to the local origin
+- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **2c94172** (U39 short page merged 04:1x), pushed to the local origin
   (D:/git/prosjekter.git). GitHub fjordbit/max main is **97bd8ce** = the rewritten export of local 2e8ebf9 (U38, 9 Nov 03:10; fast-forward,
   nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from 2e8ebf9.
 - **Units merged tonight:** U35 (3D appendix runs folded in), U36 (spec rev130: envelope remade; register rows;
   2D excursion table), U37 (identifier sweep of SWS files). Page rebuilt at d455e3d, then U37.
 - **Running when the handoff was written** (both die on reboot; check before restarting):
   - **U38 export v3** — done and pushed (see log 9 Nov 03:1x).
-  - **U39 short page** — worktree `C:/Users/stian/Prosjekter-u39`, branch u39-short-page; done when
-    `tasks/reports/U39.md` is committed there. If the worktree exists without a committed report: check
-    `git -C C:/Users/stian/Prosjekter-u39/max status`; a builder may resume from its notes, or start over.
-    After it lands: verifier-U39, merge to main, rebuild page, then **the Pages refresh** (snapshot of
-    docs/sws/index.html + short.html + sources through the publish pipeline in `C:/Users/stian/publish/SWS`,
-    scan 0, push to fjordbit/SWS and MAx-Flow/SWS-Documentation; the site redeploys itself; see
-    log/2026-10-29.md l.160–170 and log/2026-11-07.md l.326–340).
+  - **U39 short page** — done, merged (2c94172). docs/sws/short.html + build_short.py + tests/test_sws_short.py.
+  - **U40 (Fairlead)** — export increment 2e8ebf9..2c94172 to GitHub (Kai pushes from the report's command) and the
+    Pages snapshot in C:/Users/stian/publish/SWS (Kai pushes `origin main` and `maxflow main`; static.yml deploys).
+    Done when C:/Users/stian/export-v3/REPORT-2.md exists and publish/SWS has the snapshot commit.
 - **Backup:** full file copy `D:\backup\2026-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
   the pasted API key — local disk only). All repos committed and on D:/git.
 
