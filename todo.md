@@ -222,3 +222,7 @@ governs the rest.
       (falsifier + cold reader) instead of an anchor per sentence; test for per-sentence links relaxed. His go first.
 - [ ] Register row for "models not refined further until the supplier's figures are in" (on both pages since 10 Nov
       on his word; ruling of 8 Nov) — next spec unit
+
+## Tomorrow (Stian, 10 Nov ~02:3x)
+- [ ] **HW design: the card itself, the sensors, PCB parts and all.** The SWS pages stay as pushed tonight until the
+      rest of the data is in (supplier figures, wire sizes, the reading of the standard).
