@@ -2,36 +2,35 @@
 
 Henrik,
 
-Short version: the temperature envelope for the SWS head is now settled at −40 / +50 °C for service, storage and
-transport (the 49 °C record day rounded up; the magnets, not the electronics, set the transport limit). The
-magnets we order must show no irreversible loss after a +50 °C excursion with the half open and empty, i.e. no
-rope in the head and no keeper. Before any more FE runs I want the supplier's data for the actual one-piece
-radial half-rings, not the block-grade table.
+Could you take this to the magnet supplier? I would like their numbers for the actual half-rings before we run any more FE. Happy to write to them myself if you send me the contact.
 
-What the model says today (2D, our own knee model, assumed catalogue values; all in the repo under
-sws/fem-2d and tasks/reports/U36.md):
+I am setting the range for the head to −40 / +50 °C, for service, storage and transport. +50 °C is the 49 °C record day rounded up, and I mean the magnet itself, including a half that is open and empty in a crate. The electronics can live with a wider range; +50 °C is the cap I want the magnets qualified to.
 
-- N48SH (Hcj ≥ 1.59 MA/m at 20 °C): no loss at any excursion up to +80 °C, empty or with rope.
-- N52 at the catalogue Hcj (0.88 MA/m): an empty half loses rope field after any excursion above +45 °C
-  (−32 mT at +50, −60 mT at +80). The 1 % / 1 mT criterion fails.
-- N52 would need Hcj ≥ about 1.19 MA/m at 20 °C to stay under 1 mT loss at +50 °C empty. That is above
-  what plain N52 is sold at, so the supplier has to tell us which grade meets it.
+What we need from the parts we order: no permanent loss of rope field after a +50 °C soak with the half open and empty (no rope in the head, no keeper). When the head is closed again, rope induction before and after should stay within 1 %, which is the FAT rule we already have.
 
-Ask the supplier (per half-ring: one piece, sintered NdFeB, radially magnetised, R 32.0 / R 48.7–51.0 mm,
-40 mm axial, 178.2° arc, 4 pieces per head plus spares; details in sws/3d/p52/design.md §3):
+The figures below are our own 2D knee model (`tasks/reports/U36.md`), run on published block-grade minima. We do not have a data sheet from the supplier for this arc. The mail of 9 October confirms that each half-ring is one sintered piece, magnetised radially. Br and Hcj in the model are the Goudsmit catalogue (register R4): N48SH at least 1.59 MA/m, plain N52 about 0.88 MA/m, both at 20 °C.
 
-1. Intrinsic demagnetisation curves J(H) and B(H) at 20, 50, 60 and 80 °C for the one-piece radial arc of this
-   size, for N48SH and for the highest-Br grade that gives Hcj ≥ 1.2 MA/m at 20 °C. Grade table values are not
-   enough; radially oriented one-piece arcs can come in lower than the block grade.
-2. Br, Hcj and their temperature coefficients, and the knee position at 50 and 80 °C.
-3. Confirmation that the half-ring can be fully magnetised in one piece at this size, and the maximum one-piece
-   size they can make.
-4. Tolerances on thickness (we assume ±0.1 mm) and on the arc end set-back.
-5. Price and lead time for 4 + 2 spares in N48SH and in the Hcj ≥ 1.2 grade. If N52 pieces are still free, one
-   pair of those as well: we bake it empty at +50 °C in the lab and close the N52 question with a measurement.
-6. Whether they recommend a keeper for the open half in transport, and if so what.
+- N48SH at that catalogue Hcj keeps the rope field after an empty-half excursion from +45 °C through +80 °C, and with the 40 mm rope in the head as well.
+- Plain N52 at 0.88 MA/m loses about 29 mT of rope field after an empty soak at +45 °C, about 32 mT at +50 °C and about 60 mT at +80 °C. The virgin rope field on that head is 1.92 T, so 32 mT is outside the 1 % FAT rule.
+- To keep that permanent loss under 1 mT after an empty +50 °C soak, the model needs Hcj of about 1.19 MA/m at 20 °C. That sits above plain N52. It is a screen for which grade to quote: we still want the curve, because the design will follow the curve.
 
-If you have the supplier contact to hand, send it to me and I take it from there tomorrow; otherwise ask them
-directly and copy me. Ramin is in the loop.
+The part, per half-ring (one piece, sintered NdFeB, radial magnetisation; drawing notes in `sws/3d/p52/design.md` §3):
 
+- Inner radius 32.0 mm. That is the Ø64 seat: 60 mm free bore plus the 2 mm guard.
+- Outer radius follows the thickness: about 48.7 mm for N52 at 16.73 mm, 49.5 mm for N48SH at 17.45 mm, 51.0 mm for N40SH at 19.02 mm.
+- Axial length 40 mm. Arc 178.2°: a half-ring with 0.5 mm set-back from the split at each end, measured at the bore.
+- Four per head (two poles, two halves), plus spares.
+
+Please ask them for:
+
+1. Intrinsic curves J(H) and B(H) at 20, 50, 60 and 80 °C, for this one-piece radial arc, for N48SH and for the highest-Br grade they can offer with Hcj at least 1.2 MA/m at 20 °C. A block-grade catalogue does not answer this; a radial arc in one piece can land below the block grade.
+2. Br, Hcj, both temperature coefficients, and the knee position at 50 and 80 °C.
+3. Confirmation that a half-ring of this size can be fully magnetised in one piece, and the largest one-piece size they will make.
+4. Tolerances on thickness (we have assumed ±0.1 mm) and on the set-back of the arc ends.
+5. Price and lead time for 4 + 2 spares in N48SH and in the Hcj ≥ 1.2 grade. If N52 is still the grade they offer at no extra cost, one pair of those as well would let us bake an empty half at +50 °C in the lab and settle that question with a measurement.
+6. Whether they recommend a keeper for the open half in transport, and what they would use.
+
+If you have the contact to hand, send it and I will take it from there. Otherwise please ask them and copy me. Ramin is in the loop.
+
+Thank you,
 Stian

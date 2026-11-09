@@ -8,15 +8,12 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 ## Where the work stands
 
 - **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **2e8ebf9**, pushed to the local origin
-  (D:/git/prosjekter.git). GitHub fjordbit/max main is still **51c9bc1** (the cleaned export of 4 Nov); a plain
-  push is refused (no common history). Owner: "push all", "no deletion" → incremental export, fast-forward (U38).
+  (D:/git/prosjekter.git). GitHub fjordbit/max main is **97bd8ce** = the rewritten export of local 2e8ebf9 (U38, 9 Nov 03:10; fast-forward,
+  nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from 2e8ebf9.
 - **Units merged tonight:** U35 (3D appendix runs folded in), U36 (spec rev130: envelope remade; register rows;
   2D excursion table), U37 (identifier sweep of SWS files). Page rebuilt at d455e3d, then U37.
 - **Running when the handoff was written** (both die on reboot; check before restarting):
-  - **U38 export v3** — scratch folder `C:/Users/stian/export-v3/`; done when `REPORT.md` is there. If the folder
-    is half-built and no report: delete the folder, restart the builder with the brief "## U38" in kai.md.
-    When the report says persons and drawings = 0 and the tests pass: Kai runs the fast-forward push command from
-    the report (never --force), then updates D:/git/max-export.git main from the clone.
+  - **U38 export v3** — done and pushed (see log 9 Nov 03:1x).
   - **U39 short page** — worktree `C:/Users/stian/Prosjekter-u39`, branch u39-short-page; done when
     `tasks/reports/U39.md` is committed there. If the worktree exists without a committed report: check
     `git -C C:/Users/stian/Prosjekter-u39/max status`; a builder may resume from its notes, or start over.
