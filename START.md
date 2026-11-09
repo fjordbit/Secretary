@@ -7,13 +7,13 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
 
 ## Where the work stands
 
-- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **860894c** (U45 brief→judge merged 9 Nov 17:4x; GitHub still at the U42 export, next export from 0ef5b68), pushed to the local origin
-  (D:/git/prosjekter.git). GitHub fjordbit/max main is **f8eb3d5** = the rewritten export of local 0ef5b68 (U38/U40/U43/U44, 9 Nov; fast-forward,
-  nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from 0ef5b68
-  (brief pattern: kai.md "## U38" and "## U40"). Pages: publish/SWS at 9fc6ae1 (short page = index.html landing, full report = report.html), pushed to both remotes 9 Nov 16:5x.
+- **Project repo** `C:/Users/stian/Prosjekter-u05/max`, branch main at **5c4297f** (U46 easy read merged + link fix, 9 Nov 19:0x), pushed to the local origin
+  (D:/git/prosjekter.git). GitHub fjordbit/max main is **6f70bfc** = the rewritten export of local 5c4297f (U38/U40/U43/U44/U47, 9 Nov; fast-forward,
+  nothing deleted). Next increment: same method from the clone `C:/Users/stian/export-v3/export`, range from 5c4297f
+  (brief pattern: kai.md "## U38" and "## U40"). Pages: publish/SWS at d8c54c9 (index.html = dense short page, landing; report.html = full report; easy.html = easy read), pushed to both remotes 9 Nov 19:3x.
 - **Units merged tonight:** U35 (3D appendix runs folded in), U36 (spec rev130: envelope remade; register rows;
   2D excursion table), U37 (identifier sweep of SWS files). Page rebuilt at d455e3d, then U37.
-- **Nothing running.** U35–U45 closed 9 Nov 17:4x (U42 = short page as landing page + easy read, Codex prose, MAx judge harness; U44 = its export + snapshot). Open from U42: chart gap architect→judge/reviewer (todo, Stian decides); see log/2026-11-09.md "night closed" and "For the morning".
+- **Nothing running.** U35–U47 closed 9 Nov 19:3x (U42 = short page as landing page + easy read, Codex prose, MAx judge harness; U44 = its export + snapshot). Open from U42: chart gap architect→judge/reviewer (todo, Stian decides); see log/2026-11-09.md "night closed" and "For the morning".
 - **Backup:** full file copy `D:\backup\2026-11-09_0223\` (2.5 GB; holds identifiers.yaml and the transcript with
   the pasted API key — local disk only). All repos committed and on D:/git.
 
