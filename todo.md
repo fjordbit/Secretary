@@ -185,3 +185,9 @@ governs the rest.
 ## MAx after U42 (9 Nov)
 - [ ] Chart gap found by the U42 judge run: in max-architect-writer-judge the judge and reviewer never receive the
       architect's brief; `max run` cannot take ready-made architect/writer output. Small MAx unit? (Thwart, 9 Nov)
+- [ ] U45 follow-ups (Bitt, 9 Nov): (1) `max run --seed <block>.<port>=<file.json>` so a run can start from a ready-made
+      architect/writer answer (U42 needed an outside harness) — build? (2) severity of the judge's "no brief received"
+      finding: fixed minor, or judge's call? Kai recommends: a missing brief is a wiring fault → stop in preflight/
+      flowcheck, not a severity. (3) pre-existing: test_review_round expects an `xai` backend (fails on main).
+- [ ] Landing-page fix bundle (Stian reading, 9 Nov evening): "(see What is open)" → link to the heading; more notes
+      as they come; then one fix unit + export (incl. U45) + Pages refresh.
