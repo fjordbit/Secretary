@@ -208,15 +208,15 @@ governs the rest.
       better. The two outside links are optional; drop them if he says so.
 
 ## SWS after U50 (10 Nov)
-- [ ] Stian reads the reworked easy read and short page (attribution behind links; tyre analogy)
-- [ ] Short page still reads as a record (cold reader): status letters unexplained, "register l.NNN, D" in every
+- [ ] Stian reads the pages as pushed 10 Nov 03:0x (both in plain text; easy read in four parts with figures + video)
+- [x] (done, U52) Short page still reads as a record (cold reader): status letters unexplained, "register l.NNN, D" in every
       sentence, file names in captions/footers, "management chooses" × 7. Same treatment as the easy read — one unit?
       (It is the dense page Stian likes; his call how far.)
 - [ ] Easy read leftovers (cold reader): "(options note l.48)" style cites in text; glossary defines B_rope / B_wire /
       Hcj but the body never uses them; "three heads" vs "the 52 mm head is the shared head"; five unclear sentences
       (list in log/2026-11-10.md source: cold-reader hand-back)
 - [ ] Standing: cold-reader check before every page push (memory pages-about-the-task-not-stian)
-- [ ] Easy read, next pass (Stian, 10 Nov ~02:00): same content as the technical pages, short and light, for a reader
+- [x] (done, U54) Easy read, next pass (Stian, 10 Nov ~02:00): same content as the technical pages, short and light, for a reader
       with little or no knowledge; process rules not forced on it beyond safety, sanity, correctness. Proposed unit:
       rewrite in that voice, links only where they help, correctness checked against the short page as a whole
       (falsifier + cold reader) instead of an anchor per sentence; test for per-sentence links relaxed. His go first.
