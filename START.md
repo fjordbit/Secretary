@@ -24,7 +24,9 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   + plot, B_rope reading, LD / LMA). Next increment: range from db05b45, graft on 9d9a329 (brief pattern kai.md
   "## U57"). Known leftovers in log 10 Nov 20:2x (full report still says "open" inside dated documents).
 - **HW design started 10 Nov evening:** head designer chose a multiplexed ADC (log 10 Nov 20:1x); spec §7 is behind.
-- **Nothing running.** Builders that night: Sheave, Bowline, Fid, Kedge, Marlin, Ratline, Strake, Bulwark. The
+- **RUNNING 10 Nov 21:2x:** electronics round 2 (tools/review_round.py, answers to C:/Users/stian/hw_round_2026-11-10/
+  answers_round2/) and U58 (Opus builder, worktree C:/Users/stian/Prosjekter-u58, branch u58-hardware-page: fourth page
+  "Hardware selection"; brief kai.md "## U58"). Round 1 result: log 10 Nov 21:1x. Delete this line when closed. Builders that night: Sheave, Bowline, Fid, Kedge, Marlin, Ratline, Strake, Bulwark. The
   harness refuses builders' REPORT-n.md files in export-v3; hand-backs are in the log and agent-notes.
 - **A push was refused once by the session's permission check** (10 Nov ~02:2x) when Stian's last word was
   ambiguous; it went through after his explicit "push when done". Get an explicit go for each push round.
