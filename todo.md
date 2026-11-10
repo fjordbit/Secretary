@@ -226,3 +226,15 @@ governs the rest.
 ## Tomorrow (Stian, 10 Nov ~02:3x)
 - [ ] **HW design: the card itself, the sensors, PCB parts and all.** The SWS pages stay as pushed tonight until the
       rest of the data is in (supplier figures, wire sizes, the reading of the standard).
+
+## SWS after 10 Nov evening
+- [x] B_rope / B_wire: **B_rope, with B_wire beside it and the explanation** (Stian, 10 Nov). Closes the open lines above.
+- [ ] Next spec unit: register l.191 / l.333 + pages from "pending" to the B_rope reading; with the rows already
+      waiting (supplier-first, storage statement, ch.14 rows).
+- [ ] Stian: magnet thickness at the minimum (1.92 T worst case) or mid-window between lm_min and lm_max? Nothing
+      selected yet.
+- [ ] Nomenclature: LD + LMA (EN 12927) with "LF" named once as the ASTM / literature term — or keep LF? Our text
+      uses LF 24 x, LD 0.
+- [ ] HW: head designer chose a multiplexed ADC (ADS114S08 / ADS124S08 as Kai reads his typed numbers) — confirm part
+      number and count per half with him; spec §7 still recommends 3 × ADS131M08; check per-channel sample rate
+      against 1 sample/mm at 15 m/min (Stian pasted his message 10 Nov).

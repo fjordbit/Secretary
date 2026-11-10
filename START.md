@@ -20,6 +20,9 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   memory pages-about-the-task-not-stian. Stian: the pages stay as they are until the rest of the data is in.
   Read log/2026-11-10.md.
 - **Next (Stian, for 10 Nov): HW design — the card itself, sensors, PCB parts.** Nothing prepared yet.
+- **U56 built, NOT merged** (10 Nov 20:3x): branch u56-working-area 9eaad1d in C:/Users/stian/Prosjekter-u56 (working
+  area rows + plot, B_rope reading, LD / LMA). Waits for Stian's go to merge; export + Pages need a separate go.
+- **HW design started 10 Nov evening:** head designer chose a multiplexed ADC (log 10 Nov 20:1x); spec §7 is behind.
 - **Nothing running.** Builders that night: Sheave, Bowline, Fid, Kedge, Marlin, Ratline, Strake, Bulwark. The
   harness refuses builders' REPORT-n.md files in export-v3; hand-backs are in the log and agent-notes.
 - **A push was refused once by the session's permission check** (10 Nov ~02:2x) when Stian's last word was
@@ -29,8 +32,7 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   entry index and kind, never the name). No PyYAML in the U41 venv.
 - **The standard:** BS EN 12927:2019 at C:/Users/stian/max-private/standards/BS-EN_12927-2019.pdf (copyright: never
   in a repo). Beside it: Kai's ch.14 extract and the **clause map** (EN12927-2019_clause_map.md, 9 Nov: every clause
-  that bears on the instrument, corrections to the extract, ambiguities). **The owner's B_rope / B_wire reading is
-  still his call** — ask him 10 Nov (one question, visible). The map's finding for that question: Annex B is
+  that bears on the instrument, corrections to the extract, ambiguities). **B_rope / B_wire: decided 10 Nov — B_rope, B_wire shown beside it** (log 10 Nov 19:1x). The map's finding for that question: Annex B is
   informative and does not say whether B is local, over the metallic area or over the nominal area.
 - **Open from U48 (Stian):** register l.348 says both "not on file" and "on file 9 Nov"; l.192 value column ("inner",
   "< 0.5 % LMA") does not match 14.3.5.2's wording; the extract lacks 14.2.1 (3-year flux check), 14.2.3 (≥ 1
