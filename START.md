@@ -30,9 +30,13 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   harness refuses builders' REPORT-n.md files in export-v3; hand-backs are in the log and agent-notes.
 - **A push was refused once by the session's permission check** (10 Nov ~02:2x) when Stian's last word was
   ambiguous; it went through after his explicit "push when done". Get an explicit go for each push round.
-- **Identifier scan script** is session scratch and dies with the session: rewrite as before (flat parse of
-  identifiers.yaml, regex `match` per entry or the literal name, added lines of `git diff -U0 <range>` only, print
-  entry index and kind, never the name). No PyYAML in the U41 venv.
+- **Identifier scan script** is now kept: `secretary/tools/idscan.py <repo> <range>` (added lines of the range;
+  prints entry index and kind, never the name). In identifiers.yaml `match:` is a MODE ("whole-word", "exact
+  case"), not a regex — the scratch versions before 10 Nov 22:3x searched for the mode text and so never tested
+  10 of the 13 names; the builders' scans (private tools) did. Stricter check for outside bundles and for added
+  lines: `Prosjekter-u05/max/.venv/Scripts/python.exe -I max-private/tools/scan_tree.py <dir>` (needs PyYAML).
+  Whole-tree scan_tree on the export and publish repos gives 668 / 311 hits from OLD content (a mask-map personal
+  name not in identifiers.yaml, e.g. in a 30 Oct snapshot file) — raised with Stian 10 Nov, not yet decided.
 - **The standard:** BS EN 12927:2019 at C:/Users/stian/max-private/standards/BS-EN_12927-2019.pdf (copyright: never
   in a repo). Beside it: Kai's ch.14 extract and the **clause map** (EN12927-2019_clause_map.md, 9 Nov: every clause
   that bears on the instrument, corrections to the extract, ambiguities). **B_rope / B_wire: decided 10 Nov — B_rope, B_wire shown beside it** (log 10 Nov 19:1x). The map's finding for that question: Annex B is
