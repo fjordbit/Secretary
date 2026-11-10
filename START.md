@@ -28,8 +28,13 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   four cases, two model rounds). Stian reads it locally first and decides whether the head designer's case is
   attributed at all; NO GitHub / Pages push until he says so. U59 prepares export + snapshot without pushing.
   His leaning (10 Nov): simultaneous sampling, no multiplexer; the outside expert chooses.
-- **RUNNING 10 Nov 22:5x:** U59 (export + snapshot, no push) and U60 (Opus, worktree C:/Users/stian/Prosjekter-u60,
-  branch u60-link-readout: link and read-out note with pseudocode; brief kai.md "## U60"). Delete when closed.
+- **U59 export + snapshot READY, HELD** (export-v3 tip da77fe4, publish/SWS c81b11f; push commands in becket.md) —
+  but it is the page as of U58; after U61 a new export is needed anyway. No push without Stian's word.
+- **RUNNING 10 Nov 23:5x (night):** U61 (Opus, worktree C:/Users/stian/Prosjekter-u61, branch u61-software-page, built
+  on U60's branch 9b452f9): fifth page "Software analysis and design", hardware page + cabling / root box +
+  verified datasheet facts, polish rounds; brief kai.md "## U61". When it hands back: Kai checks, merges to local
+  main, pushes to D: ONLY, writes the morning message. Stian (23:3x): software is its own page; he reads both in
+  the morning. Delete when closed.
 - **A push was refused once by the session's permission check** (10 Nov ~02:2x) when Stian's last word was
   ambiguous; it went through after his explicit "push when done". Get an explicit go for each push round.
 - **Identifier scan script** is now kept: `secretary/tools/idscan.py <repo> <range>` (added lines of the range;
