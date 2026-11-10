@@ -1,4 +1,4 @@
-# Kai — start here (state as of 10 Nov 2026 03:0x, U48–U55 live)
+# Kai — start here (state as of 10 Nov 2026 20:3x, U48–U57 live)
 
 Read in this order at the start of a session: this file, `todo.md`, the newest `log/*.md`, then
 `C:/Users/stian/agent-notes/kai.md` (my briefs to builders; the last sections are the live units) and any new
@@ -20,8 +20,9 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   memory pages-about-the-task-not-stian. Stian: the pages stay as they are until the rest of the data is in.
   Read log/2026-11-10.md.
 - **Next (Stian, for 10 Nov): HW design — the card itself, sensors, PCB parts.** Nothing prepared yet.
-- **U56 built, NOT merged** (10 Nov 20:3x): branch u56-working-area 9eaad1d in C:/Users/stian/Prosjekter-u56 (working
-  area rows + plot, B_rope reading, LD / LMA). Waits for Stian's go to merge; export + Pages need a separate go.
+- **U56 + U57 live 10 Nov 20:2x:** local main db05b45; GitHub fjordbit/max 9d9a329; Pages 40f186a (working area
+  + plot, B_rope reading, LD / LMA). Next increment: range from db05b45, graft on 9d9a329 (brief pattern kai.md
+  "## U57"). Known leftovers in log 10 Nov 20:2x (full report still says "open" inside dated documents).
 - **HW design started 10 Nov evening:** head designer chose a multiplexed ADC (log 10 Nov 20:1x); spec §7 is behind.
 - **Nothing running.** Builders that night: Sheave, Bowline, Fid, Kedge, Marlin, Ratline, Strake, Bulwark. The
   harness refuses builders' REPORT-n.md files in export-v3; hand-backs are in the log and agent-notes.
