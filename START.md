@@ -24,10 +24,12 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   + plot, B_rope reading, LD / LMA). Next increment: range from db05b45, graft on 9d9a329 (brief pattern kai.md
   "## U57"). Known leftovers in log 10 Nov 20:2x (full report still says "open" inside dated documents).
 - **HW design started 10 Nov evening:** head designer chose a multiplexed ADC (log 10 Nov 20:1x); spec §7 is behind.
-- **RUNNING 10 Nov 21:2x:** electronics round 2 (tools/review_round.py, answers to C:/Users/stian/hw_round_2026-11-10/
-  answers_round2/) and U58 (Opus builder, worktree C:/Users/stian/Prosjekter-u58, branch u58-hardware-page: fourth page
-  "Hardware selection"; brief kai.md "## U58"). Round 1 result: log 10 Nov 21:1x. Delete this line when closed. Builders that night: Sheave, Bowline, Fid, Kedge, Marlin, Ratline, Strake, Bulwark. The
-  harness refuses builders' REPORT-n.md files in export-v3; hand-backs are in the log and agent-notes.
+- **Hardware page: local only.** U58 merged, local main ff08f9f on D: (docs/sws/hardware.html, "Hardware selection":
+  four cases, two model rounds). Stian reads it locally first and decides whether the head designer's case is
+  attributed at all; NO GitHub / Pages push until he says so. U59 prepares export + snapshot without pushing.
+  His leaning (10 Nov): simultaneous sampling, no multiplexer; the outside expert chooses.
+- **RUNNING 10 Nov 22:5x:** U59 (export + snapshot, no push) and U60 (Opus, worktree C:/Users/stian/Prosjekter-u60,
+  branch u60-link-readout: link and read-out note with pseudocode; brief kai.md "## U60"). Delete when closed.
 - **A push was refused once by the session's permission check** (10 Nov ~02:2x) when Stian's last word was
   ambiguous; it went through after his explicit "push when done". Get an explicit go for each push round.
 - **Identifier scan script** is now kept: `secretary/tools/idscan.py <repo> <range>` (added lines of the range;
