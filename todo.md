@@ -238,3 +238,16 @@ governs the rest.
 - [ ] HW: head designer chose a multiplexed ADC (ADS114S08 / ADS124S08 as Kai reads his typed numbers) — confirm part
       number and count per half with him; spec §7 still recommends 3 × ADS131M08; check per-channel sample rate
       against 1 sample/mm at 15 m/min (Stian pasted his message 10 Nov).
+
+## HW / SW after 10 Nov night (pages local only, main 4a50a29)
+- [ ] Stian reads hardware.html + software.html locally; says how the head designer's case is attributed
+- [ ] Go to push both pages (new export needed; U59's held export is the older page)
+- [ ] Spec §7 "internal reference only" (ADS131M08) is contradicted by the datasheet → Word master
+- [ ] Worked example two chips vs the spec's three; 24 channels need 1 Mbit/s
+- [ ] Is 1 ms between halves tight enough for the neighbour pairs across the split?
+- [ ] Reader's remaining reasons: case B datasheet check, M08 datasheet noise, aliasing for the simultaneous cases,
+      definition of "after processing" in the 0.10 mT limit — one more round, or to the expert as is
+- [ ] Old content on GitHub / Pages: owner's first name in older reports (scan_tree 660 / 397); customer-name hit in a
+      U13 image — keep or clean
+- [ ] Rotate the Anthropic API key (rejected 10 Nov: not scoped to a workspace)
+- [ ] The outside electronics expert: who, when, what he gets (the two pages + the rounds folder)

@@ -1,4 +1,4 @@
-# Kai — start here (state as of 10 Nov 2026 20:3x, U48–U57 live)
+# Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
 Read in this order at the start of a session: this file, `todo.md`, the newest `log/*.md`, then
 `C:/Users/stian/agent-notes/kai.md` (my briefs to builders; the last sections are the live units) and any new
@@ -24,17 +24,17 @@ builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the m
   + plot, B_rope reading, LD / LMA). Next increment: range from db05b45, graft on 9d9a329 (brief pattern kai.md
   "## U57"). Known leftovers in log 10 Nov 20:2x (full report still says "open" inside dated documents).
 - **HW design started 10 Nov evening:** head designer chose a multiplexed ADC (log 10 Nov 20:1x); spec §7 is behind.
-- **Hardware page: local only.** U58 merged, local main ff08f9f on D: (docs/sws/hardware.html, "Hardware selection":
-  four cases, two model rounds). Stian reads it locally first and decides whether the head designer's case is
-  attributed at all; NO GitHub / Pages push until he says so. U59 prepares export + snapshot without pushing.
-  His leaning (10 Nov): simultaneous sampling, no multiplexer; the outside expert chooses.
-- **U59 export + snapshot READY, HELD** (export-v3 tip da77fe4, publish/SWS c81b11f; push commands in becket.md) —
-  but it is the page as of U58; after U61 a new export is needed anyway. No push without Stian's word.
-- **RUNNING 10 Nov 23:5x (night):** U61 (Opus, worktree C:/Users/stian/Prosjekter-u61, branch u61-software-page, built
-  on U60's branch 9b452f9): fifth page "Software analysis and design", hardware page + cabling / root box +
-  verified datasheet facts, polish rounds; brief kai.md "## U61". When it hands back: Kai checks, merges to local
-  main, pushes to D: ONLY, writes the morning message. Stian (23:3x): software is its own page; he reads both in
-  the morning. Delete when closed.
+- **Hardware + software pages: LOCAL ONLY (D:), local main 4a50a29** (10 Nov 23:2x). docs/sws/hardware.html ("Hardware
+  selection": requirements, four cases A–D, two model rounds, cabling and the root box, both converter families
+  checked against their datasheets) and docs/sws/software.html ("Software analysis and design": converter read-out,
+  half firmware and root box as pseudocode, frame, time base). Sources: sws/hw-selection/rounds/2026-11-10/,
+  sws_link_and_readout.md, sws_link_budget.py, sws_mux_rate.py. GitHub is still 9d9a329, Pages 40f186a. NO push
+  until Stian has read and said how the head designer's case is attributed. U59's held export (da77fe4 / c81b11f)
+  is the older page — a new export from 9d9a329..4a50a29 is needed (pattern kai.md "## U59").
+  Stian's leaning: simultaneous sampling, no multiplexer; the outside expert chooses. Morning list: log 10 Nov, end.
+- **Nothing running.** Model rounds: C:/Users/stian/hw_round_2026-11-10/ (briefs, answers, syntheses); run with
+  `env -u ANTHROPIC_API_KEY` (the key in the environment is rejected: not scoped to a workspace) from
+  Prosjekter-u05/max with its own .venv: `tools/review_round.py --pack <empty dir> --brief … --models … --out …`.
 - **A push was refused once by the session's permission check** (10 Nov ~02:2x) when Stian's last word was
   ambiguous; it went through after his explicit "push when done". Get an explicit go for each push round.
 - **Identifier scan script** is now kept: `secretary/tools/idscan.py <repo> <range>` (added lines of the range;
