@@ -1,10 +1,13 @@
 # Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
-> **State 11 Nov 14:4x (newest, overrides what is below where they differ):** hardware + software pages are LIVE.
-> Local main f73fb3e (D: same). GitHub fjordbit/max 1e215a2; fjordbit/SWS and MAx-Flow/SWS-Documentation 832e98f.
-> Multiplexed case is "the in-house choice" (Stian confirmed; no person, no role). Running: U64 price against
-> complexity (local only, no push without a new go). Next: U65 housing + potting epoxy, own page. Page builds and
-> tests: venv Prosjekter-u41/max/.venv (has markdown); scan_tree and review rounds: Prosjekter-u05/max/.venv.
+> **State 11 Nov evening (newest, overrides what is below where they differ):** SIX pages LIVE: short, full,
+> easy, hardware (price and complexity, one plot), software, housing and sealing (four cases, sealant round).
+> Local main 8f97214 (D: same). GitHub fjordbit/max 025a0af; fjordbit/SWS and MAx-Flow/SWS-Documentation 2dc95f3.
+> Rulings 11 Nov: never submerged (storm water); IP66/IP67 both; multiplexed case = "the in-house choice"; magnet
+> grade/knee not finally set, not the deciding factor for sealing. Nothing running. Stian reads on paper tonight.
+> Venvs: page builds/tests Prosjekter-u41/max/.venv (markdown); scan_tree, figures, review rounds
+> Prosjekter-u05/max/.venv (yaml, matplotlib). Rounds: hw_round_2026-11-10/, sealant_round_2026-11-11/.
+> Open list: end of log/2026-11-11.md.
 
 Read in this order at the start of a session: this file, `todo.md`, the newest `log/*.md`, then
 `C:/Users/stian/agent-notes/kai.md` (my briefs to builders; the last sections are the live units) and any new
