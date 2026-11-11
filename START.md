@@ -1,5 +1,11 @@
 # Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
+> **State 11 Nov 14:4x (newest, overrides what is below where they differ):** hardware + software pages are LIVE.
+> Local main f73fb3e (D: same). GitHub fjordbit/max 1e215a2; fjordbit/SWS and MAx-Flow/SWS-Documentation 832e98f.
+> Multiplexed case is "the in-house choice" (Stian confirmed; no person, no role). Running: U64 price against
+> complexity (local only, no push without a new go). Next: U65 housing + potting epoxy, own page. Page builds and
+> tests: venv Prosjekter-u41/max/.venv (has markdown); scan_tree and review rounds: Prosjekter-u05/max/.venv.
+
 Read in this order at the start of a session: this file, `todo.md`, the newest `log/*.md`, then
 `C:/Users/stian/agent-notes/kai.md` (my briefs to builders; the last sections are the live units) and any new
 builder notes in that folder (nautical names). Rules: `CLAUDE.md` here and the memory directory. Rule 10 in
