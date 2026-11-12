@@ -1,6 +1,17 @@
 # Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
-> **State 12 Nov (newest, overrides below):** SEVENTH page "Procedures and life cycle" (U70) LOCAL ONLY: local main
+> **State 12 Nov afternoon (newest, overrides everything below):** EIGHT pages on local main **a3a633a** (D: same):
+> U70 procedures and life cycle, U71–U73 sensor run / literature sweep / blind model round, U74 the sensor page
+> (docs/sws/sensor.html, six placements A–F, three suggested combinations, nothing selected). Stian gave the go to
+> publish to GitHub "if all is checked properly": U75 (brief in kai.md "## U75") prepares the export on 025a0af and
+> the snapshot on 2dc95f3; Kai's final check, then the three pushes. Until the log says pushed, GitHub is still
+> 025a0af / Pages 2dc95f3. Sensor finding: no magnetoresistive bridge is specified at the axial background; others
+> use coils or Hall; old prototype carries TMR2185 + TMR2584 (data sheets in inbox/). Placement discussion: next
+> week, on site, with Stian. Prototype test Wed 18 – Fri 20 Nov. Draft to the head designer in inbox/drafts/ (not
+> known sent). Next runs, not started: test procedure / rig sheet (by Tue 17 Nov), FMECA, FAT, HAT/SAT,
+> installation, recalibration. New pages are written easy-read first (memory). Open list: end of log/2026-11-12.md.
+>
+> **State 12 Nov morning:** SEVENTH page "Procedures and life cycle" (U70) LOCAL ONLY: local main
 > 5defd84, D: same; GitHub still 025a0af, Pages 2dc95f3. Stian checks it, push to GitHub later on his go (export +
 > snapshot + link proof on seven pages first). Prototype test, 40 mm rope: Wed 18 – Fri 20 Nov; data list is on the
 > page. Next: the runs that fill the placeholders, sensor run first. Merge/push to D: needs his explicit go each time
