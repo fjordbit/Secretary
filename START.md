@@ -4,7 +4,7 @@
 > U70 procedures and life cycle, U71–U73 sensor run / literature sweep / blind model round, U74 the sensor page
 > (docs/sws/sensor.html, six placements A–F, three suggested combinations, nothing selected). Stian gave the go to
 > publish to GitHub "if all is checked properly": U75 (brief in kai.md "## U75") prepares the export on 025a0af and
-> the snapshot on 2dc95f3; Kai's final check, then the three pushes. Until the log says pushed, GitHub is still
+> the snapshot on 2dc95f3. PUSHED 12 Nov: GitHub fjordbit/max 71288f8, both Pages remotes f51035e. Before that it was
 > 025a0af / Pages 2dc95f3. Sensor finding: no magnetoresistive bridge is specified at the axial background; others
 > use coils or Hall; old prototype carries TMR2185 + TMR2584 (data sheets in inbox/). Placement discussion: next
 > week, on site, with Stian. Prototype test Wed 18 – Fri 20 Nov. Draft to the head designer in inbox/drafts/ (not
