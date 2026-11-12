@@ -1,5 +1,11 @@
 # Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
+> **State 12 Nov (newest, overrides below):** SEVENTH page "Procedures and life cycle" (U70) LOCAL ONLY: local main
+> 5defd84, D: same; GitHub still 025a0af, Pages 2dc95f3. Stian checks it, push to GitHub later on his go (export +
+> snapshot + link proof on seven pages first). Prototype test, 40 mm rope: Wed 18 – Fri 20 Nov; data list is on the
+> page. Next: the runs that fill the placeholders, sensor run first. Merge/push to D: needs his explicit go each time
+> (refused by the permission check without it). Open list: log/2026-11-12.md.
+>
 > **State 11 Nov evening (newest, overrides what is below where they differ):** SIX pages LIVE: short, full,
 > easy, hardware (price and complexity, one plot), software, housing and sealing (four cases, sealant round).
 > Local main 8f97214 (D: same). GitHub fjordbit/max 025a0af; fjordbit/SWS and MAx-Flow/SWS-Documentation 2dc95f3.

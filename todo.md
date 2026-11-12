@@ -253,7 +253,7 @@ governs the rest.
 - [ ] The outside electronics expert: who, when, what he gets (the two pages + the rounds folder)
 
 ## Procedures and life cycle (Stian, 12 Nov)
-- [ ] U70: seventh page, placeholders (FMECA, prototype test, FAT, HAT, SAT, installation, recalibration) + the
+- [ ] U70 merged local 5defd84 (not on GitHub; Stian checks first): seventh page, placeholders (FMECA, prototype test, FAT, HAT, SAT, installation, recalibration) + the
       data list for the 40 mm prototype test. Then the runs in order — sensor run first.
-- [ ] **Week of 16 Nov: test, 40 mm rope, first prototype.** Day, rig, who records — not known to Kai.
+- [ ] **Wed 18 – Fri 20 Nov (Stian: "I think"): test, 40 mm rope, first prototype.** Rig, who records — not known to Kai.
 - [ ] Recalibration: look at it with the sensor run (spec §8 is the original text).
