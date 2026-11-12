@@ -257,3 +257,8 @@ governs the rest.
       data list for the 40 mm prototype test. Then the runs in order — sensor run first.
 - [ ] **Wed 18 – Fri 20 Nov (Stian: "I think"): test, 40 mm rope, first prototype.** Rig, who records — not known to Kai.
 - [ ] Recalibration: look at it with the sensor run (spec §8 is the original text).
+- [ ] Sensor (12 Nov): U71 merged; U72 (literature) + U73 (model round folded in) on branches, wait for go.
+      Finding: no TMR bridge is specified at the axial background; makers use Hall or coils; all three models
+      chose Hall; the old prototype's TMR2185 / TMR2584 are specified to ±20 mT. → Henrik / the expert.
+- [ ] Stian: sensor page of its own? out-of-plane mounting allowed? is 1 mW per sensor a limit? 2× rule = half span?
+- [ ] Spec Word master: §7 l.341 "AMR … wider range" is wrong (sheets: ±0.5–1 mT).
