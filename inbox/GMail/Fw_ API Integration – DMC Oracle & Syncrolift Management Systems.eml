@@ -1,0 +1,926 @@
+Delivered-To: fjordbitdev@gmail.com
+Received: by 2002:a05:6022:2182:b0:119:8823:39ac with SMTP id 2csp2846790lab;
+        Mon, 16 Nov 2026 06:38:20 -0800 (PST)
+X-Received: by 2002:a05:690e:191d:b0:67b:f249:5aff with SMTP id 956f58d0204a3-67d895a50famr6419657d50.23.1794839899945;
+        Mon, 16 Nov 2026 06:38:19 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1794839899; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=Yl8p/8G0rMO92dTnWoHm1S1b3JC/Wylb+vI+WGfLMssNVc4UoAaxea1QHrQiR0XBce
+         OPKiEt7v2SehPT4c/g2wFZNwg2v3VZFlmWDf4JCi6StPLuEHv7ZZ/mye1/7QmuARyC/t
+         VBxBhSbmPFh/daM3vkSlJHFsa1eO4BDjbzyKpWfy+nIwRBchrQxNFWu1PN1x8uknc6kL
+         y2eNScbibU5Hsu8b6+GFCU/coIQxbJKXcVufgdC2nTXZLr8x7PD35Br9SMgzdwfmKAC9
+         fAK2nupk4eO+JD2r4BRhALBlaLmaLxMlLTmQXe7XhdE0KXQCU93J8rXSZ9OoLfsMhDXx
+         kfcg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=mime-version:authentication-results-original:msip_labels
+         :content-language:accept-language:in-reply-to:references:message-id
+         :date:thread-index:thread-topic:subject:to:from:dkim-signature;
+        bh=REonzf/LIIn7GEC6ue/YIMF4amln0RrbPLw78g5aXbw=;
+        fh=/5g9E2EoRihe/JE2y2Rl3laSt4w1xviSQeCKDkFrQv0=;
+        b=se6c5GglA5/BDn9c0490tCj227AeD7PPptGCM/ZY9NkNb4JiKM5LRYrRuACniTaZF6
+         jfDLyj8/QpT38TnEDHyTMCx4lIqI4a7fQ17uW2QjXyrH+MiDUlxwZSGwNgQcSa1wGEjF
+         ETtgYQdVa+7tURYO+Fz2IsZEc/s/H3OsE0oQpDP5LpHalqr7YW1vhOiPLFshmjNYrurY
+         mR44mmNehjUtwrMltAT9034VlwPA5c7+SP0yfYuQduFoarLjC4c0ynfcgjS7QKeV1Bo8
+         sv6g9XExkahKDUGirfaCJ6QVo2mvou6EFijswgUfHWTSCSy79GxT+HLrAkqiWryiliKv
+         gKBw==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@syncrolift.com header.s=selector1 header.b=huqGD6Kc;
+       arc=pass (i=1 spf=pass spfdomain=syncrolift.com dmarc=pass fromdomain=syncrolift.com);
+       spf=pass (google.com: domain of stian.krogstad@syncrolift.com designates 2a01:111:f403:c210::1 as permitted sender) smtp.mailfrom=Stian.Krogstad@syncrolift.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=syncrolift.com
+Return-Path: <Stian.Krogstad@syncrolift.com>
+Received: from SVZP279CU002.outbound.protection.outlook.com (mail-norwaywestazlp170100001.outbound.protection.outlook.com. [2a01:111:f403:c210::1])
+        by mx.google.com with ESMTPS id 956f58d0204a3-67db1ee5e01si2444423d50.18.2026.11.16.06.38.19
+        for <fjordbitdev@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 06:38:19 -0800 (PST)
+Received-SPF: pass (google.com: domain of stian.krogstad@syncrolift.com designates 2a01:111:f403:c210::1 as permitted sender) client-ip=2a01:111:f403:c210::1;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@syncrolift.com header.s=selector1 header.b=huqGD6Kc;
+       arc=pass (i=1 spf=pass spfdomain=syncrolift.com dmarc=pass fromdomain=syncrolift.com);
+       spf=pass (google.com: domain of stian.krogstad@syncrolift.com designates 2a01:111:f403:c210::1 as permitted sender) smtp.mailfrom=Stian.Krogstad@syncrolift.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=syncrolift.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j0N9skvADrV9euIN4avBXzu19D/uWHurZI7JvyFniK4U5cmE8XUwzFZ8HHrMk6VB2QoAPOJ7gHWqQxpbUHXwaYuHAkxvBV1fEUkFPVG61x2rdh49HWz0GaIXelKaw5ORLyoV1hJX2cfYpFPvpfstOr/R+Hw4ZLREoUuu6XWW5MhM/hhYuPVLzfxJtv1nJiWvIYQlNiHWTlPpi83idvbi8g0KNpItJ5mM0L200hqs9SjqoDm4sgcjJ32jmap0nnEmt+4f2duS3wNV9gOlB2Tdr8JKix9xq/TYtetI+prxNxwROaL24rMZNM6OR25FWk3EluCj0InMBwISQ1gakYiD/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=REonzf/LIIn7GEC6ue/YIMF4amln0RrbPLw78g5aXbw=;
+ b=wEzInIBIEIGzJDmSvDrJk0RssOigCZKwCsTo48+/sAuxg8ZChsLTlm3Rydl5CM94sl9kZ/4wl5NStD2TLAPe58u78DJ42vT0k8vyHw46GB9VCmy7yS6L0x5UNBIlDnL+c4+EAi3errol2+uq3KPf3UYMMsgpNnVeyhjOIp6yxtgY2zQnyGP9UITRzCytaLJGhkYUJFo8BMpUOibW4x+QLTwEaIqTuhECB47zF/VduPcv0SsrB6rsLBFGF5GOJHSKuLs3m6GQ/tmdRzwM5al3lXS38aujR5ZfyChsJJmJMTw39uBPO0++HSGCutITb8Zw4D8EX+rsVJkY0O1M//ur9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.93.157.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=syncrolift.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=syncrolift.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=syncrolift.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=REonzf/LIIn7GEC6ue/YIMF4amln0RrbPLw78g5aXbw=;
+ b=huqGD6KccJ3kklOMnTdUlFxDg8lFDKY2lAFX70nM2RLugX6NlGg7aMNDOF328zn8OPGVMXEHPvsU4hDWb9D5kwh6NGFnrXlklTTnsoD8olO1XbWxDoZgHTGPInyDHyu9fOS+GnY6d5yXuC4zsoafBVlNWcR+O407+BBRRO33kDQ=
+Received: from MA3P292CA0013.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250:2c::6) by
+ SV0P279MB0546.NORP279.PROD.OUTLOOK.COM (2603:10a6:f10:23::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.7; Mon, 16 Nov 2026 14:38:12 +0000
+Received: from MA3PEPF00000409.eurprd04.prod.outlook.com
+ (2603:10a6:250:2c:cafe::81) by MA3P292CA0013.outlook.office365.com
+ (2603:10a6:250:2c::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
+ 16 Nov 2026 14:38:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 20.93.157.195) smtp.mailfrom=syncrolift.com; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=syncrolift.com;
+Received-SPF: Pass (protection.outlook.com: domain of syncrolift.com
+ designates 20.93.157.195 as permitted sender)
+ receiver=protection.outlook.com; client-ip=20.93.157.195;
+ helo=westeu11-emailsignatures-cloud.codetwo.com; pr=C
+Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
+ MA3PEPF00000409.mail.protection.outlook.com (10.167.241.154) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 14:38:11 +0000
+Content-Type: multipart/alternative;
+	boundary="_000_OSEP279MB116779DE47989AD529508592E47C2OSEP279MB1167NORP_"
+Received: from OS6P279CU014.outbound.protection.outlook.com (40.93.81.23) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Mon, 16 Nov 2026 14:38:10 +0000
+Received: from OSEP279MB1167.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:77::7) by
+ OS6P279MB0838.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:46::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.7; Mon, 16 Nov 2026 14:38:06 +0000
+Received: from OSEP279MB1167.NORP279.PROD.OUTLOOK.COM
+ ([fe80::9bef:23a8:555d:d82e]) by OSEP279MB1167.NORP279.PROD.OUTLOOK.COM
+ ([fe80::9bef:23a8:555d:d82e%4]) with mapi id 15.21.0639.006; Mon, 16 Nov 2026
+ 14:38:05 +0000
+From: Stian Krogstad <Stian.Krogstad@syncrolift.com>
+To: Fjord Bit <fjordbitdev@gmail.com>
+Subject: =?Windows-1252?Q?Fw:_API_Integration_=96_DMC_Oracle_&_Syncrolift_Manageme?=
+ =?Windows-1252?Q?nt_Systems?=
+Thread-Topic: =?Windows-1252?Q?API_Integration_=96_DMC_Oracle_&_Syncrolift_Management_S?=
+ =?Windows-1252?Q?ystems?=
+Thread-Index: AQHdTL40xQuUjW3BO06ZbRvSYabg6bbjj5ewgE2HCk4=
+Date: Mon, 16 Nov 2026 14:38:05 +0000
+Message-ID: <OSEP279MB116779DE47989AD529508592E47C2@OSEP279MB1167.NORP279.PROD.OUTLOOK.COM>
+References:
+ <OL1P279MB006863874844EC3D70C8CA54F9802@OL1P279MB0068.NORP279.PROD.OUTLOOK.COM>
+ <ebbb4c37-1e64-41cf-897c-1b322baaa236.f5cc198b-a55c-43f3-9c09-940166486578.39ee6195-3640-42db-b8a7-d4d80c78fa80@emailsignatures365.codetwo.com>
+ <OL1P279MB00686E508126C12BE8ECDC41F98D2@OL1P279MB0068.NORP279.PROD.OUTLOOK.COM>
+ <4d14de0d-1eb8-4690-a457-f0aab7b70caa.f5cc198b-a55c-43f3-9c09-940166486578.d7326e2b-b3b3-4b43-bdab-be38e81f7604@emailsignatures365.codetwo.com>
+In-Reply-To: <OL1P279MB00686E508126C12BE8ECDC41F98D2@OL1P279MB0068.NORP279.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=syncrolift.com;
+x-ms-traffictypediagnostic:
+	OSEP279MB1167:EE_|OS6P279MB0838:EE_|MA3PEPF00000409:EE_|SV0P279MB0546:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27928614-8c2b-4c22-e2be-08df43ef3d9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|38070700021|10067099003|4143699003|11063799006|56012099006|261026140227099003|261026130827099003|261026135527099003|261026121527099003|261028144727099003|261021135927099003|261021133027099003|261021130227099003|261021123027099003|261022113327099003|261022105027099003|261022075727099003|261022115727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|13003099007|8096899003|3023799007;
+X-Microsoft-Antispam-Message-Info-Original:
+ S+Z/+rZObcGl1Lv3ABoqGbipm9lqZCWrbqD790KVN3p1EC8Ts50RMFFIh0nBf4652PT6jgb7HEk9MoT+fwSMETgkulhvBhLkafPUMUP1ZZ63PrXj2UdgDfIRKDZu+rHMl7E27ld8uesh5gcUvyObLa8tv1h5BNi63k0/LUKIIM+aJfhIDcZZmJNR9AJ/xjUApyL/Jhyr2xh3ztH2Us+5FNGLpXRwLex9yml1ctPMDwYnios151R/eHElhywU4msxaPhrKS2k720CLFTfmQq+qI4vS5INTndZYenXVGt7KPZ7XlHtnnkvJuc0eZGQ9wKpFRVisRSCZmQljhSSMM/0XIYEzl3s/IFo061U1qq+bTk2d2WeJaXcv9y1abMXekCTeWk73LLKA+ptBpw1Bq5NaTH8yC3qfQqqLJ5yih60zigc7RVWii9Lm97bplroSnn8UpMKDyYy3G3rX1imZjxp+VtRmppL4cRb70pLRViCLfEthP7qya0TJA70+a3L/LOaPcps+z2KDOyIpuTON18a0qQQ+Uk+q9kY3RwnJHYqwvR04WBK6kkRAHlJXgsGX9AhIqY9wq/R0BBloP/sNxA78N6GMR+z3TIlBZ8sBkUIuL8NlXFRzvUf5LraNdG4Ds/gKA3rJx+kaRZaSfZf6JkvTQJLYeTI+sQnlF9Xaew66F8=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSEP279MB1167.NORP279.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261026130827099003)(261026135527099003)(261026121527099003)(261028144727099003)(261021135927099003)(261021133027099003)(261021130227099003)(261021123027099003)(261022113327099003)(261022105027099003)(261022075727099003)(261022115727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(13003099007)(8096899003)(3023799007);DIR:OUT;SFP:1102;
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: aFcJObBpz7+PA5zLjv6KnHbuQQLPxhcJdRjUTIrT78w7mlOhSHFC+FBGCZWqhIYBGCqdHhfTkAsf+2JtGmwQSuz8O7QzakLuFnnN71RgPDRPTVSj1Ik2oLKHzQvaalM2qGqiYjee0ClSFeoCvuEBhWMXFlmJHggZx/HbsmpwBPX/8EQwvIol0BSt7U23XLt2+4yjUFmavHgYclndJqj6J/YRsFxmcyKdb5n8yuqospa0C1xCHPRQaCRXzfHweemNlE8648xbA4kqj7Ugs/AWV3cao97f0ldcZ1ozJ67Gu1ZdA2cGgl8XdKnliHFn1udBs9wP/Vb1ORLPKeV3ArRTeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS6P279MB0838
+X-CodeTwo-MessageID: 01594903-9fd3-4d32-b6ec-d927c72673cc.20261116143810@westeu11-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+Return-Path: Stian.Krogstad@syncrolift.com
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MA3PEPF00000409.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	7fc739de-2565-4652-63c3-08df43ef39df
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7149299003|14060799003|1800799024|35042699022|376014|6049299003|23010399003|82310400026|36860700016|10067099003|4143699003|56012099006|260925022911599003|260925021311599003|260925021911599003|11063799006|261026121527099003|261026130827099003|261026135527099003|261026140227099003|261028144727099003|261021135927099003|261021133027099003|261021123027099003|261022113327099003|261021121427099003|261022075727099003|261021130227099003|261022105027099003|261022115727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|4053099003|13003099007|8096899003|4133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	bvDWSkrFlLw5Uot+dwLs4Au4OwDV89Lt0/V7nSFFKodjzZSynCbXHIhY9cghWwlCi+mNChvnPpSgfSLC6hWB7RV6lVEGkivAwCqB8RjNrnH6ILWzT+BEowAx0+UrQJpho2v2IjgNgbKDjllhABbzmA3RQsdyFa/T6O/ZtOvNKj+k7rshVgwKkhn2GFte/bTqbHnHBx4gUf3h645r5ublw2tykok3CjTupj4ZuSlO3awjKv5hMwKeIW2/CK/u9+bPO+DpZXItM6yy1FRnvFBH8KJMY/2tTkg28gJeg8YTLjsszUG24US+sPsFaZQCFmkPPr9tofF91ZJWBZylC081PcW+IeHGtQ3yBQmbbMbbo1vyGXhWFgpe1/X3+VWTJtub5EtnRTIjCSn3XuyOH7m6WohdBJ6KdCBrvbbxBrLxWyljgO0KW7Hhy95mrvhKXtWIleXRl5J/fWlimPrXFAVAwsjrUu48GfAU7g97PxrKIuHmzqubwZjzgfQT90Q8dl3qzh5bYrIvRTU8BrAl4W5J5f713Pt8F2h8Nz0z9GOoPU2njkUC6mXne8xuMIcB4RgUHLM14Ca3sPFgfqQDN8kUt8CwiUA0SAXxU4+lhK9Dtfvk/GmbkWGjzYJu+Py0Upt6X1vmHc93JHM1GcefgjS24g==
+X-Forefront-Antispam-Report:
+	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(7149299003)(14060799003)(1800799024)(35042699022)(376014)(6049299003)(23010399003)(82310400026)(36860700016)(10067099003)(4143699003)(56012099006)(260925022911599003)(260925021311599003)(260925021911599003)(11063799006)(261026121527099003)(261026130827099003)(261026135527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021133027099003)(261021123027099003)(261022113327099003)(261021121427099003)(261022075727099003)(261021130227099003)(261022105027099003)(261022115727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(4053099003)(13003099007)(8096899003)(4133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+kBZdNOT6wgdaPjPnNkvocW1CPV4WhCNy23sdMJGcuAVf/bsszscZdJgEwCN+NxxCqEPz5E2mc5jIz/zn2vQbGp0oNx4gi56WdljPSr5LHj1ot4OLmLttjiVMVYYqDJqZXgbVMjwMxz/gA6DX9HU0Zv1ssFwBZc/KTgJqju4AFL5HhY+n5WGjzKFFkp++ITVaJLXNAe3euWr5Jv0JqkNvFgMNiqTjYl84CQN3jMMPcSn0z0/cb6Ue9H51Mw1qBt458Ye3qldEOOytK4hlMQ5vyzyJ2u5F26ecrilMtk+aXT65Sv6vKWoZst1xZKWnE0HzxJL1z9Q/p3P6ZFrupX/lEaa9Sl2MTcMdehP6nzW0G3/ef6ZKiBrIjJx3pqh3nRZ3ShUOrCOdcGXZyjAjEdPlCKh46ku2MFTSEI04viAE1ohp4Lvm8wseSQ8wIQQvTt4
+X-OriginatorOrg: syncrolift.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 14:38:11.9089
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27928614-8c2b-4c22-e2be-08df43ef3d9b
+X-MS-Exchange-CrossTenant-Id: 285baefc-3a9c-4a12-b097-2be954d162c8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=285baefc-3a9c-4a12-b097-2be954d162c8;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MA3PEPF00000409.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SV0P279MB0546
+
+--_000_OSEP279MB116779DE47989AD529508592E47C2OSEP279MB1167NORP_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+
+Stian Krogstad
+Principal Software Designer | Syncrolift AS
+
+Phone: +47 45660848
+Email: Stian.Krogstad@syncrolift.com<mailto:Stian.Krogstad@syncrolift.com>
+
+Visit: Kleverveien 3, 1543 Vestby, Norway
+
+[cid:Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png]<http://www.syncrolift.c=
+om/>
+
+[cid:LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png]<https://www.l=
+inkedin.com/company/tts-handling-systems-as/>   [cid:Web_Sync_20_20_01b9fec=
+a-adfc-4c6a-8f3b-38f3a49a4f17.png] <http://www.syncrolift.com/>   [cid:YouT=
+ube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png] <https://www.youtube.co=
+m/channel/UCbGZfCtEN2muuhENW0ABEkg>
+
+
+
+
+________________________________
+From: Sondre S=F8raa <sondre.soraa@syncrolift.com>
+Sent: Monday, September 28, 2026 9:43 AM
+To: Roudha Abdulrahman Mohammad Ahli <Roudha.Ahli@dubaimaritimecity.ae>; Ra=
+mi Ali Mitwalli <Rami.Mitwalli@dubaimaritimecity.ae>; Ismail Bhatkar <Ismai=
+l.Bhatkar@dubaimaritimecity.ae>; Ahmed Rifath <Ahmed.Rifath@dubaimaritimeci=
+ty.ae>; Srikanth Reddy <Srikanth.Reddy@dpworld.com>; Rafiq Khan <Rafiq.Khan=
+@dpworld.com>
+Cc: Stian Krogstad <Stian.Krogstad@syncrolift.com>; Shaheryar Hassan <shahe=
+ryar.hassan@syncrolift.com>; Behruz Burang <behruz.burang@syncrolift.com>; =
+Subodh Walwaiker <subodh.walwaiker@syncrolift.com>
+Subject: RE: API Integration =96 DMC Oracle & Syncrolift Management Systems
+
+
+Dear Roudha & All,
+
+
+
+Thanks for the initial meeting.
+
+Below are the questions I mentioned:
+
+What and why:
+
+What problem do they want to solve? Is it duplicate data entry, reporting, =
+auditing, or something else?
+
+What data needs to flow? For example, work orders, maintenance schedules, o=
+perating hours/counters, spare parts/inventory, costs, or completion report=
+s.
+
+Should data flow one way or both ways? Which system is the "master" for whi=
+ch data?
+
+
+
+The Oracle side:
+
+Which Oracle product do they use (Fusion Cloud, E-Business Suite, JD Edward=
+s, EAM, etc.), and does it run in the cloud or on-premises?
+
+Do they have an integration platform (e.g., Oracle Integration Cloud) and a=
+n in-house integration team, or do they expect us to handle everything?
+
+Do they expect us to provide an API for them to call, or for us to write da=
+ta directly into their system?
+
+
+
+Operations and security:
+
+How often must data be synchronized: in real-time, hourly, or daily?
+
+Where does their maintenance software run, and does it have network access =
+to their IT environment? What are the IT security requirements (VPN, authen=
+tication, firewall)?
+
+Do they have a test environment we can use?
+
+
+
+Scope:
+
+How many facilities/assets and approximately how many components are involv=
+ed?
+
+When do they need this, and is it part of an existing contract or a new add=
+-on?
+
+Who is the technical contact on the Oracle side, and can they provide docum=
+entation on their data model/API?
+
+
+
+
+
+With a response to all the above it would be possible for our Software desi=
+gner to provide a time/estimate for cost in hours for implementation.
+
+
+
+Who from DMC will be the technical responsible for this integration ?
+
+
+
+Below is the link to the snaggit page containing the API parameters/informa=
+tion:
+
+https://mm-mobile-api-dev.azurewebsites.net/swagger/index.html?urls.primary=
+Name=3DVIEW%20MAINTENANCE%20API%20V1
+
+
+
+Thanks & best regards,
+
+
+
+Sondre S=F8raa
+Contract Manager
+Phone: +47 41726120
+
+-----Original Appointment-----
+From: Roudha Abdulrahman Mohammad Ahli <Roudha.Ahli@dubaimaritimecity.ae>
+Sent: 25 September 2026 06:47
+To: Roudha Abdulrahman Mohammad Ahli; Rami Ali Mitwalli; Ismail Bhatkar; Ah=
+med Rifath; Srikanth Reddy; Rafiq Khan; Shaheryar Hassan; Sondre S=F8raa; B=
+ehruz Burang; Subodh Walwaiker
+Subject: API Integration =96 DMC Oracle & Syncrolift Management Systems
+When: 28 September 2026 10:30-11:00 (UTC+04:00) Abu Dhabi, Muscat.
+Where: Microsoft Teams Meeting
+
+
+
+
+
+___________________________________________________________________________=
+_____
+
+Microsoft Teams meeting
+
+Join: https://teams.microsoft.com/meet/372918523967839?p=3DQvH1PVWsGptnwk3l=
+Hv
+
+Meeting ID: 372 918 523 967 839
+
+Passcode: iG7j7RS7
+
+________________________________
+
+Need help?<https://aka.ms/JoinTeamsMeeting?omkt=3Den-US> | System reference=
+<https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODYyMzM4NjMtZGU1Yy0=
+0YThiLThjNzgtYzhjNTVhOGMyMWNj%40thread.v2/0?context=3D%7b%22Tid%22%3a%222bd=
+16c9b-7e21-4274-9c06-7919f7647bbb%22%2c%22Oid%22%3a%221f001db9-5ee3-4285-b6=
+e2-9e6267c3a164%22%7d>
+
+Dial in by phone
+
++971 600 575938,,539266661#<tel:+971600575938,,539266661> United Arab Emira=
+tes, All locations
+
+Find a local number<https://dialin.teams.cloud.microsoft/c48b7b96-6f34-4d91=
+-84d4-c4ec956d8c82?id=3D539266661>
+
+Phone conference ID: 539 266 661#
+
+For organizers: Meeting options<https://teams.microsoft.com/meetingOptions/=
+?organizerId=3D1f001db9-5ee3-4285-b6e2-9e6267c3a164&tenantId=3D2bd16c9b-7e2=
+1-4274-9c06-7919f7647bbb&threadId=3D19_meeting_ODYyMzM4NjMtZGU1Yy00YThiLThj=
+NzgtYzhjNTVhOGMyMWNj@thread.v2&messageId=3D0&language=3Den-US> | Reset dial=
+-in PIN<https://dialin.teams.cloud.microsoft/usp/pstnconferencing>
+
+Meeting Organized by DP World
+
+___________________________________________________________________________=
+_____
+
+********************************************DISCLAIMER*********************=
+***********************
+This email and any files transmitted with it are confidential and contain p=
+rivileged or copyright information. If you are not the intended recipient y=
+ou must not copy, distribute or use this email or the information contained=
+ in it for any purpose other than to notify us of the receipt thereof. If y=
+ou have received this message in error, please notify the sender immediatel=
+y, and delete this email from your system.
+Please note that e-mails are susceptible to change. The sender shall not be=
+ liable for the improper or incomplete transmission of the information cont=
+ained in this communication, nor for any delay in its receipt or damage to =
+your system. The sender does not guarantee that this material is free from =
+viruses or any other defects although due care has been taken to minimize t=
+he risk.
+***************************************************************************=
+***********************
+
+--_000_OSEP279MB116779DE47989AD529508592E47C2OSEP279MB1167NORP_
+Content-Type: multipart/related;
+	boundary="_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_"
+
+--_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+=0A=
+=0A=
+=0A=
+<table id=3D"0.rdivrpenmy8" cellspacing=3D"0" cellpadding=3D"0" style=3D"wi=
+dth: 660px;"><tbody><tr><td valign=3D"top" style=3D"width: 330px; font-fami=
+ly: Arial; font-size: 10pt;" class=3D""><p style=3D"margin-bottom: 0px; fon=
+t-size: 9pt; font-family: &quot;Open Sans&quot;, Arial, Helvetica, sans-ser=
+if;"><span style=3D"font-weight: bolder;">Stian Krogstad</span><br>Principa=
+l Software Designer | Syncrolift AS</p><p style=3D"margin-top: 9px; margin-=
+bottom: 0px; font-size: 9pt; font-family: &quot;Open Sans&quot;, Arial, Hel=
+vetica, sans-serif;">Phone: +47 45660848<br><a href=3D"mailto:Stian.Krogsta=
+d@syncrolift.com" style=3D"color: rgb(0, 0, 0); text-decoration-line: none;=
+">Email: Stian.Krogstad@syncrolift.com</a></p><p style=3D"margin-top: 9px; =
+margin-bottom: 0px; font-size: 9pt; font-family: &quot;Open Sans&quot;, Ari=
+al, Helvetica, sans-serif;">Visit: Kleverveien 3, 1543 Vestby, Norway</p><p=
+ style=3D"font-size: 10pt;"><a href=3D"http://www.syncrolift.com/"><img bor=
+der=3D"0" alt=3D"syncrolift.com" src=3D"cid:Sync_d044aca1-1977-4427-8fcf-c0=
+3241ea5696.png" height=3D"50"></a><br></p><p style=3D"font-size: 10pt;"><a =
+href=3D"https://www.linkedin.com/company/tts-handling-systems-as/"><img bor=
+der=3D"0" alt=3D"LinkedIn" src=3D"cid:LinkedIn_20_20_b239bd42-ad6f-4509-9c9=
+a-feda24f3d1b9.png" width=3D"25" height=3D"25" style=3D"height: 25px; width=
+: 25px;"></a>&nbsp;&nbsp;&nbsp;<a href=3D"http://www.syncrolift.com/"><img =
+border=3D"0" alt=3D"syncrolift.com" src=3D"cid:Web_Sync_20_20_01b9feca-adfc=
+-4c6a-8f3b-38f3a49a4f17.png" width=3D"25" height=3D"25" style=3D"height: 25=
+px; width: 25px;"></a>&nbsp;&nbsp;<a href=3D"https://www.youtube.com/channe=
+l/UCbGZfCtEN2muuhENW0ABEkg"><img border=3D"0" alt=3D"YouTube" src=3D"cid:Yo=
+uTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png" width=3D"25" height=
+=3D"25" style=3D"height: 25px; width: 25px;"></a></p></td><td valign=3D"bot=
+tom" class=3D"" style=3D"width: 330px; font-family: Arial; font-size: 10pt;=
+"><p style=3D"margin: 0.1pt; font-family: Arial; font-size: 10pt;"><br></p>=
+</td></tr></tbody></table>=0A=
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sondre S=F8raa &lt;so=
+ndre.soraa@syncrolift.com&gt;<br>
+<b>Sent:</b> Monday, September 28, 2026 9:43 AM<br>
+<b>To:</b> Roudha Abdulrahman Mohammad Ahli &lt;Roudha.Ahli@dubaimaritimeci=
+ty.ae&gt;; Rami Ali Mitwalli &lt;Rami.Mitwalli@dubaimaritimecity.ae&gt;; Is=
+mail Bhatkar &lt;Ismail.Bhatkar@dubaimaritimecity.ae&gt;; Ahmed Rifath &lt;=
+Ahmed.Rifath@dubaimaritimecity.ae&gt;; Srikanth Reddy &lt;Srikanth.Reddy@dp=
+world.com&gt;;
+ Rafiq Khan &lt;Rafiq.Khan@dpworld.com&gt;<br>
+<b>Cc:</b> Stian Krogstad &lt;Stian.Krogstad@syncrolift.com&gt;; Shaheryar =
+Hassan &lt;shaheryar.hassan@syncrolift.com&gt;; Behruz Burang &lt;behruz.bu=
+rang@syncrolift.com&gt;; Subodh Walwaiker &lt;subodh.walwaiker@syncrolift.c=
+om&gt;<br>
+<b>Subject:</b> RE: API Integration =96 DMC Oracle &amp; Syncrolift Managem=
+ent Systems</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:Wingdings}
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{font-family:Aptos}
+@font-face
+	{font-family:"Segoe UI"}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0cm;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:blue;
+	text-decoration:underline}
+span.x_MsoSmartlink
+	{color:blue;
+	background:#F3F2F1;
+	text-decoration:underline}
+span.x_me-email-text
+	{}
+span.x_me-email-text-secondary
+	{}
+span.x_EmailStyle20
+	{font-family:"Aptos",sans-serif;
+	color:windowtext}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:72.0pt 72.0pt 72.0pt 72.0pt}
+div.x_WordSection1
+	{}
+ol
+	{margin-bottom:0cm}
+ul
+	{margin-bottom:0cm}
+-->
+</style>
+<div lang=3D"EN-GB" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:break=
+-word">
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal"><span style=3D"">Dear Roudha &amp; All,</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Thanks for the initial meeting. <=
+/span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Below are the questions I mention=
+ed:</span></p>
+<p class=3D"x_MsoNormal"><b><span style=3D"">What and why:</span></b><span =
+style=3D""></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">What problem do they want to solv=
+e? Is it duplicate data entry, reporting, auditing, or something else?</spa=
+n></p>
+<p class=3D"x_MsoNormal"><span style=3D"">What data needs to flow? For exam=
+ple, work orders, maintenance schedules, operating hours/counters, spare pa=
+rts/inventory, costs, or completion reports.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Should data flow one way or both =
+ways? Which system is the &quot;master&quot; for which data?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><b><span style=3D"">The Oracle side:</span></b><sp=
+an style=3D""></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Which Oracle product do they use =
+(Fusion Cloud, E-Business Suite, JD Edwards, EAM, etc.), and does it run in=
+ the cloud or on-premises?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Do they have an integration platf=
+orm (e.g., Oracle Integration Cloud) and an in-house integration team, or d=
+o they expect us to handle everything?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Do they expect us to provide an A=
+PI for them to call, or for us to write data directly into their system?</s=
+pan></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><b><span style=3D"">Operations and security:</span=
+></b><span style=3D""></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">How often must data be synchroniz=
+ed: in real-time, hourly, or daily?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Where does their maintenance soft=
+ware run, and does it have network access to their IT environment? What are=
+ the IT security requirements (VPN, authentication, firewall)?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Do they have a test environment w=
+e can use?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><b><span style=3D"">Scope:</span></b><span style=
+=3D""></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">How many facilities/assets and ap=
+proximately how many components are involved?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">When do they need this, and is it=
+ part of an existing contract or a new add-on?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Who is the technical contact on t=
+he Oracle side, and can they provide documentation on their data model/API?=
+</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">With a response to all the above =
+it would be possible for our Software designer to provide a time/estimate f=
+or cost in hours for implementation.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Who from DMC will be the technica=
+l responsible for this integration ?</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Below is the link to the snaggit =
+page containing the API parameters/information:</span></p>
+<p class=3D"x_MsoNormal"><span style=3D""><a href=3D"https://mm-mobile-api-=
+dev.azurewebsites.net/swagger/index.html?urls.primaryName=3DVIEW%20MAINTENA=
+NCE%20API%20V1">https://mm-mobile-api-dev.azurewebsites.net/swagger/index.h=
+tml?urls.primaryName=3DVIEW%20MAINTENANCE%20API%20V1</a></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Thanks &amp; best regards,</span>=
+</p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<div>
+<p class=3D"x_MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,san=
+s-serif"></span></p>
+<p style=3D"font-size:9pt; margin-bottom:0px; font-family:'Open Sans',Arial=
+,Helvetica,sans-serif; font-weight:500">
+<b>Sondre S=F8raa</b> <br>
+Contract Manager<br>
+<span style=3D"font-size:9pt">Phone: +47 41726120</span><span style=3D"font=
+-size:9pt"><br>
+</span></p>
+-----Original Appointment-----<br>
+<b>From:</b> Roudha Abdulrahman Mohammad Ahli &lt;Roudha.Ahli@dubaimaritime=
+city.ae&gt; <br>
+<b>Sent:</b> 25 September 2026 06:47<br>
+<b>To:</b> Roudha Abdulrahman Mohammad Ahli; Rami Ali Mitwalli; Ismail Bhat=
+kar; Ahmed Rifath; Srikanth Reddy; Rafiq Khan; Shaheryar Hassan; Sondre S=
+=F8raa; Behruz Burang; Subodh Walwaiker<br>
+<b>Subject:</b> API Integration =96 DMC Oracle &amp; Syncrolift Management =
+Systems<br>
+<b>When:</b> 28 September 2026 10:30-11:00 (UTC+04:00) Abu Dhabi, Muscat.<b=
+r>
+<b>Where:</b> Microsoft Teams Meeting
+<p></p>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div style=3D"margin-bottom:18.0pt; overflow:hidden">
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Se=
+goe UI&quot;,sans-serif; color:#242424">___________________________________=
+_____________________________________________</span></p>
+</div>
+<div style=3D"margin-bottom:9.0pt">
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text"><b><span lang=3D"E=
+N-US" style=3D"font-size:15.0pt; font-family:&quot;Segoe UI&quot;,sans-seri=
+f; color:#242424">Microsoft Teams meeting</span></b></span><span lang=3D"EN=
+-US" style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; color:#242424">
+</span></p>
+</div>
+<div style=3D"margin-bottom:4.5pt">
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text"><b><span lang=3D"E=
+N-US" style=3D"font-size:15.0pt; font-family:&quot;Segoe UI&quot;,sans-seri=
+f; color:#242424">Join:
+</span></b></span><span lang=3D"EN-US" style=3D"font-family:&quot;Segoe UI&=
+quot;,sans-serif; color:#242424"><a href=3D"https://teams.microsoft.com/mee=
+t/372918523967839?p=3DQvH1PVWsGptnwk3lHv" title=3D"Meeting join"><span styl=
+e=3D"font-size:15.0pt; color:#5B5FC7">https://teams.microsoft.com/meet/3729=
+18523967839?p=3DQvH1PVWsGptnwk3lHv</span></a>
+</span></p>
+</div>
+<div style=3D"margin-bottom:4.5pt">
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text-secondary"><span la=
+ng=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sa=
+ns-serif; color:#616161">Meeting ID:
+</span></span><span class=3D"x_me-email-text"><span lang=3D"EN-US" style=3D=
+"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sans-serif; color:#2424=
+24">372 918 523 967 839</span></span><span lang=3D"EN-US" style=3D"font-fam=
+ily:&quot;Segoe UI&quot;,sans-serif; color:#242424">
+</span></p>
+</div>
+<div style=3D"margin-bottom:24.0pt">
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text-secondary"><span la=
+ng=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sa=
+ns-serif; color:#616161">Passcode:
+</span></span><span class=3D"x_me-email-text"><span lang=3D"EN-US" style=3D=
+"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sans-serif; color:#2424=
+24">iG7j7RS7</span></span><span lang=3D"EN-US" style=3D"font-family:&quot;S=
+egoe UI&quot;,sans-serif; color:#242424">
+</span></p>
+</div>
+<div style=3D"margin-bottom:9.0pt">
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center"><sp=
+an lang=3D"EN-US" style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; col=
+or:#242424">
+<hr size=3D"1" width=3D"100%" align=3D"center">
+</span></div>
+</div>
+<div style=3D"margin-bottom:18.0pt">
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Se=
+goe UI&quot;,sans-serif; color:#242424"><a href=3D"https://aka.ms/JoinTeams=
+Meeting?omkt=3Den-US"><span style=3D"font-size:10.5pt; color:#5B5FC7">Need =
+help?</span></a>
+</span><span lang=3D"EN-US" style=3D"font-family:&quot;Segoe UI&quot;,sans-=
+serif; color:#616161">|</span><span lang=3D"EN-US" style=3D"font-family:&qu=
+ot;Segoe UI&quot;,sans-serif; color:#242424">
+<a href=3D"https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODYyMzM4N=
+jMtZGU1Yy00YThiLThjNzgtYzhjNTVhOGMyMWNj%40thread.v2/0?context=3D%7b%22Tid%2=
+2%3a%222bd16c9b-7e21-4274-9c06-7919f7647bbb%22%2c%22Oid%22%3a%221f001db9-5e=
+e3-4285-b6e2-9e6267c3a164%22%7d">
+<span style=3D"font-size:10.5pt; color:#5B5FC7">System reference</span></a>=
+ </span>
+</p>
+</div>
+<div style=3D"margin-bottom:4.5pt">
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text"><b><span lang=3D"E=
+N-US" style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; color:#242424">=
+Dial in by phone</span></b></span><span lang=3D"EN-US" style=3D"font-family=
+:&quot;Segoe UI&quot;,sans-serif; color:#242424">
+</span></p>
+</div>
+<div style=3D"margin-bottom:4.5pt">
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Se=
+goe UI&quot;,sans-serif; color:#242424"><a href=3D"tel:+971600575938,,53926=
+6661"><span style=3D"font-size:10.5pt; color:#5B5FC7">+971 600 575938,,5392=
+66661#</span></a>
+</span><span class=3D"x_me-email-text"><span lang=3D"EN-US" style=3D"font-s=
+ize:10.5pt; font-family:&quot;Segoe UI&quot;,sans-serif; color:#616161">Uni=
+ted Arab Emirates, All locations</span></span><span lang=3D"EN-US" style=3D=
+"font-family:&quot;Segoe UI&quot;,sans-serif; color:#242424">
+</span></p>
+</div>
+<div style=3D"margin-bottom:4.5pt">
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Se=
+goe UI&quot;,sans-serif; color:#242424"><a href=3D"https://dialin.teams.clo=
+ud.microsoft/c48b7b96-6f34-4d91-84d4-c4ec956d8c82?id=3D539266661"><span cla=
+ss=3D"x_MsoSmartlink"><span style=3D"font-size:10.5pt">Find
+ a local number</span></span></a> </span></p>
+</div>
+<div style=3D"margin-bottom:18.0pt">
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text-secondary"><span la=
+ng=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sa=
+ns-serif; color:#616161">Phone conference ID:
+</span></span><span class=3D"x_me-email-text"><span lang=3D"EN-US" style=3D=
+"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sans-serif; color:#2424=
+24">539 266 661#</span></span><span lang=3D"EN-US" style=3D"font-family:&qu=
+ot;Segoe UI&quot;,sans-serif; color:#242424">
+</span></p>
+</div>
+<p class=3D"x_MsoNormal"><span class=3D"x_me-email-text-secondary"><span la=
+ng=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sa=
+ns-serif; color:#616161">For organizers:
+</span></span><span lang=3D"EN-US" style=3D"font-family:&quot;Segoe UI&quot=
+;,sans-serif; color:#242424"><a href=3D"https://teams.microsoft.com/meeting=
+Options/?organizerId=3D1f001db9-5ee3-4285-b6e2-9e6267c3a164&amp;tenantId=3D=
+2bd16c9b-7e21-4274-9c06-7919f7647bbb&amp;threadId=3D19_meeting_ODYyMzM4NjMt=
+ZGU1Yy00YThiLThjNzgtYzhjNTVhOGMyMWNj@thread.v2&amp;messageId=3D0&amp;langua=
+ge=3Den-US" target=3D"_blank"><span style=3D"font-size:10.5pt; color:#5B5FC=
+7">Meeting
+ options</span></a> </span><span lang=3D"EN-US" style=3D"font-family:&quot;=
+Segoe UI&quot;,sans-serif; color:#616161">|</span><span lang=3D"EN-US" styl=
+e=3D"font-family:&quot;Segoe UI&quot;,sans-serif; color:#242424">
+<a href=3D"https://dialin.teams.cloud.microsoft/usp/pstnconferencing" targe=
+t=3D"_blank">
+<span class=3D"x_MsoSmartlink"><span style=3D"font-size:10.5pt">Reset dial-=
+in PIN</span></span></a>
+</span></p>
+<div style=3D"margin-top:18.0pt; margin-bottom:4.5pt">
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt; fo=
+nt-family:&quot;Segoe UI&quot;,sans-serif; color:#616161">Meeting Organized=
+ by DP World</span></p>
+</div>
+<div style=3D"margin-bottom:18.0pt; overflow:hidden">
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Se=
+goe UI&quot;,sans-serif; color:#242424">___________________________________=
+_____________________________________________</span></p>
+</div>
+<p class=3D"x_MsoNormal">********************************************DISCLA=
+IMER********************************************<br>
+This email and any files transmitted with it are confidential and contain p=
+rivileged or copyright information. If you are not the intended recipient y=
+ou must not copy, distribute or use this email or the information contained=
+ in it for any purpose other than
+ to notify us of the receipt thereof. If you have received this message in =
+error, please notify the sender immediately, and delete this email from you=
+r system.
+<br>
+Please note that e-mails are susceptible to change. The sender shall not be=
+ liable for the improper or incomplete transmission of the information cont=
+ained in this communication, nor for any delay in its receipt or damage to =
+your system. The sender does not
+ guarantee that this material is free from viruses or any other defects alt=
+hough due care has been taken to minimize the risk.<br>
+***************************************************************************=
+***********************
+</p>
+</div>
+</div>
+</body>
+</html>
+
+--_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_
+Content-Description: Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png
+Content-Type: image/png; name="Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png"
+Content-Disposition: inline;
+	filename="Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png"
+Content-Transfer-Encoding: base64
+Content-ID: <Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png>
+
+iVBORw0KGgoAAAANSUhEUgAAASgAAAAyCAYAAADvPUZQAAAZQ0lEQVR4nO2deVxN2/vHP2dsThoU
+pRKJhAaVJEOGSFxzkTJljosMRZF5HpKpew0ZrjGXMoUyh0yFUCFJkwbNpfn3Rzo67TPsM+j6/uz3
+63X+aO2111q7c85znvWsz3oWrba2thZS4kBSCjwMdKXVHAUFxW8OXVoNJZeUIuDdR2SXV0irSQoK
+it8cqRmoC2mZqK6txfm0TGk1SUFB8ZsjFQNVU1uL0PQvAIBzqRmQ2pyRgoLit0YqBuphbh6+fCsH
+AHwuLcOTr/nSaJaCguI3RyoG6kKjaV1IaoY0mqWgoPjNkdhAFVVVIeJLDlfZ9cxsFFVWSdo0BQXF
+b47EBupqRhbKa2q4yipqahD2PSZFQUFBIS4SG6jG07t6qGkeBQWFpEhkoJJLShGbX8jzWkJRMV4X
+FknSPAUFxW+ORAYqVMg0LuQz5UVRUFCIj9gGqqa2FqFCRJmXMr7gW3W1uF1QUFD85ohtoKK/5iPz
+u/aJHyVV1QjPzBa3CwoKit8csQ0U2S0tDYPlSamZKCopE7dLCgqK3wyxDFRxVRUivpDzjJ7nFeBj
+SSkA4F1KOlo7TIaj5yoEnryE9ylUjIqCgoI/NHHSrYSkZmBFXALp+pPbtMZio7aorqmB8YjZSMvK
+5Vwz0NHCIFtzDLa1gK2pMdgspqjDoaCg+B8m+lUCHr5MQEVlFToa6MDBxpxjB8QyUBOiY/A8r4B0
+fVU2G7f72oBJo2HNX6ew6fA5nvUU5eVgb9UFg20tMNDGDJpqKqIOjYKC4n+E7LwCTF4RgNtPX8FI
+XxsKcrKIe/8JWmrNcXjNfFibtBfdQH0qLcPgu9EiD2anWScM1NRAcnoWOo/2hLBuaTQazDoYYJCt
+BQbbWsDUqA1oNJrI/VJQUPx6VFVXo6/HMpSUlePImvnobKgPAMjJL8S8jUG4+eQVooI3iW6gAt59
+RNCHTyIPyE5DFUEWXQAATnNX4/bTVyLdr6mmAgcbcwy2s4C9ZRcoyMmKPAYKCopfg+OXb2PBlr/x
+7NRO/Bv5EKev3QODToerY294jHRAX49lMNDREi1ITkb7xI+onDyOLGHSsH4i3/8lNx9HL93EuKVb
+0NphMob9uQZ7T1/BxzRqzx8Fxf8a1x48x5BeltDV0kB6di66GOpj8cQR8A44AgCYNsoBEdGxECki
+TUb7xI+a79k2Z7XVw9A+VlBtpoSvBeJthamorMLNxy9x8/FLLNl5GO31tDmB9u5dOoDFZIjVLgUF
+RdOQX1QCY4PWnL/vPX+NV++SYajXCiwmA1pqKigsLhXNgxLXe6rnXGoGamprIcNiwWWQnURtNSTx
+Uxp2nbiIwXP8oTd4Ctx9d+DE1TvIzaf2AlJQ/IoYaGviefwHzt+WJoZgMhno060zAODZm/fQb9WC
+fAyqpKoadrceSLx15YBlV/RQa47XH1JgPcFLoraEQaPRYNnJEINsLTDI1hxdvgfiKCgo/lui4xLR
+b9pyHF27AC1UVcBmMaGl3hyX7jxBX8vOGDDTD3NcnMDw9/f3J9PgpfQvuE5SnCmIippaOGhpoIVq
+M1x/GIP07K8StymItKxc3HkWh4PnbyA4LBLvUtJRC0C7hRpYTEpzRUHxX6DTQg0l38rhu/s4NFSV
+YWpkAAadjpQv2Zi5di/a6mgh0HsGeQ/KLToGz0TQPvGDRafjdh8bNGezcDg0AnM3Bkncpjhoqqng
+cuBKdGijQ6p+bW0t4j+mIvFTGjJz81FZVQUajQZ1FWW0022Jzu30eYpMv1VUoryC+yguGmhQVpQn
+Pdaq6mqkZRENuaaaCmTZLNTU1KKwpBQqSgqk22xMWlYuqqp/JB6UZbNE1qEVFpfi0asEJCSnoaik
+FDQ6HarKijBppwtTo7ZQkJMh1U5GTh4qSGZkZTLoUFNRhiybJdJY+ZH4KQ0PXsTjfUo6CopLwWIx
+oa6iDJO2urA1NYaaipJI7b1LSUdZg6PY5GTYMNRtJfb4eH0WVJTk0UyR+N4npWaiuOyb2H0BAJvJ
+5HxH0rO/IodPeiVRUFaQh36rFgCAgxduYEvwOaR+qRNvK8jJwH1oP/jPHA8FORlyBupzaRkcxNA+
+8WNph3aYqK+D4tIyGAyZhlIxA+/i4tDDHIHeM9BKQ1Vo3bSsXOw6cRFnb9xH1lf+BlpBThZD7Lph
+tvMQdDNuxyl/k5QCG7fFqG6UdfTqHn/YmXciNd7Nwf9iddBJrrLWmup4enInFORkUFBcAuMRc3Bu
+mze6d+lAqs3GGI+YjZQGG7t7mhkjfO8qUvfee/4agScv4frDGFTxCQHIsllwtLOEp8sQWJm0F9ie
+jftivHqXTHrsAGDSTg9OvSwxd5wTzy+rICoqq3D00k0EhYTjbdJnvvUYdDocephjodsfpP/PjZ+l
+s6E+Hh7dItL4GvIpIxudRs7mKls2dQyWeYwl1B00eyXux7wRuy8A0NXSwJvzewEAS3Yext7TVyRq
+DwCcelni1KYlnL9ra2uRkpmDispK6LbUgAzrx48NqSA5v6yZ4nLu+wZiRXk5jOrfQ6ptC0JRXg67
+fWbi3DYfUsbpVPhdmI6dhz2nLws0TgBQUvYNZ67fR5+pPpjotwPZ371NYwNdzBrrSKi/cNtBvl/m
+hqRkZmNLMFF5v23RVC6PpKC4BEPnrUF41HOhbUqLtKxcjPLagMFz/HHl/lOBz/OtohL/Rj6A/bTl
+cFu+XeoLGHHvP2HjoRB0HDEb/0Y+IH1f9KsEWE/wwvzNfws0TgBQXVODK/efov8MP0xasRN5hcWS
+DpsCdbFivZYaMNRtxWWcABIGquGZd9LifXEJXnx3FcXRRImDvVUXPDmxnXR/l+4+gceqQC73nCzn
+Ih7A3GU+4j+mAgCWe4wlTJfeJn3GvjNXhbblvTOYMIahvazg2LMboW5ZeQWcl2zC8cu3RR6zqDx8
+EQ8b98W49kB0g3j+5kPYuC8S2UsiQ2FxKdx9d+BU+F2hdQ9diMDAmSvwLiVd5H5CbkShh/tiJCSn
+iTNMCpIIjRI/+ZqPdAnnsbw4m5qBrirKsO5sBCN97Z/2RivIyWCdpzumjhhAeqtMSVk539gYnU6D
+toYalBXlkZNfiC+5vM8ANDbQhaFeXaxBSUEO6+e6Y6r/Lq466w6cwZgBttBSb86zjRuPYhF253Gj
+55HFloVT+I69uqYGM9fuQU5+Iea7DuNbTxIevYzHsD/X8DXemmoq0NXSAJ1GQ3xyGgqKSwh10rO/
+YuCsFYgIWotObXUF9ken06AoL8fzWkVFJb5VVBLK524Mgq2ZMVprqvO873BoBOZt4h//7NBGBzot
+1FFWXoGk1Axk5OQR6nz+kgOHWStw68B6tNHWFPgMvwIMOh3aLdREuqdVg/rNlZWgq6XBs96X3HyU
+V/54HwT1pdG8Gen+hRqon3WUeXhGFnw6tIMCk4GJQ/thWeBRqfdhZ94J+5bP5gTkyHLtwTPOFK0e
+ORk2fKc5w82pL1Sb/QiUpmXl4ur9Z9h9+kf6mGaKCjjoPw8M+g8H1dnBDieu3kFk9AtOWXFpGZYF
+HsWhVX8SxlBRWYVF2w8RylfMcIGOpvAPme/uY8jMycOGee5S3cOYkZMHl6VbeBonZwc7eLo4wayD
+AaespqYW956/xvqDZxEVyx0PKSopwyiv9Yg+vk1g3KhTWz2BcZuX75Ixd0MQnr19zykrK6/AtiPn
+sXPJNEL96LhELNhygFDOZjHh6eKEaaMcuAxbbW0tHsclYt2BM7j5+CXXPTn5hXBeshl3D2+UWqD+
+Z6HdQo0TTxIHnymj4TNlNM9rjeNdkvZVj8ApXklVNa43OvNOWpRWVyM8MwsAMN6xt1TV33IybGxZ
+MBlXdq8U2TgBQGzCR0JZ8JoF+NN1GJdxAureCI+RA/H8ZAD2LJsF1WZKCPSeztOIBCyZDjkZNlfZ
+mev3eQYyA06E4UOjnO5d27fBjNGDSD/H7lOXMGPNHlRWSS/tstfWA4SVHCUFOYQF+OGg/zwu4wTU
+eT+9u5kgfK8/Ns+fDDqd21imfsnFjmOhEo2pi6E+QgN8CdPoc5EPCIsTFZVVmL1uLyFe1lpTHVHB
+m7F6tivB66LRaLDubISwAD/sWORBeIY3SSnYdChEomeg4I1AD6oGtdhv0fmnda7+/cuqrqIMRztL
+hN56JHGbNl07YP/y2WjbuqXYbfDagtPTrKPAe+h0GiYOtceofjZ8pyP6rVrAb7oLwVtcsPUAHh7d
+AiajzkinZGZjc6OUNHQ6Dbu8p3PqkOXE1TvIyS/E8fVekJclt8zPj8dxiYQpJ4vJwPnty4SuatFo
+NMx2dkRzZUVMWx0IFpMBp15WmDpiAHpbmEg0LgBQUVKAq2MfbD92gVOWV1iMhORUGBv8mEKeDL9L
+CCeoqSjh2v7VfKcvDZk2ygGyMmzMWsftHew5fRmeLk4iyxAoBCPQQCkxmbBSbZqcTJOG9ZPIQMmw
+WFg5cxw8XZwIv3Ci0lxZkVC27egFrJo1Xuh0iZ9xqme2syPOXL+P2IQkTll9wHzuOCcAvAPj00cN
+gkXHdhCH6w9j4DR3NUK2ehM8QFHYc/oyoWzFjHEiSRvGDe4FZUV5WJkYihSLIAMvTVtGdh6Xgdp/
+lrgwsXfZbFLGqR43p76IfPwCITeiOGWl38px5GIkFroNF3HUFIJgPnwRj5wCycVX4tJOpyU6GrRG
+P6uuaK2pjs9iTCktOxkiyG8O2utpS2VMvAzB9mMXEPEoFm5OfeFoZwm9luQ/0A1hMhgI9J6BPlN9
+uKYf9QHz2ISPBC+llYYqVs4YJ1Z/9TyOS8SAmX4IC/ATOVAK1E2Nrtx7ylXWQrUZZo4ZLHJbQ+yI
+K5DSoGHMr56aBjK/5PQswsqhZSdDscazYroLzkU84MprFnY7mjJQUoZpbtwWobeicejCDYlFXeJg
+amSA+8GbQKfT4ObUF+sPniV9L5vFxHIPZ8yfMIznh1NcHGzNoaOpxlG31vPyXTIW7ziMxTsOQ1dL
+Az1MO8KiY1tYGLeDqZEB6XTFZh0MMGusI3afusQpKy4tg9f2Q4h5+4FQf+vCKVBSEOyZNaaVhiph
+G1FCchrspy1HWIAfjPRFM+YvEj8SvLpR/W0JMbX/kocv4wllLVR/eGmPeFx3GdRLrL4MdLRg3dmI
+q83n8R9QUVn1y6atLv1Wjot3Hwuv+B1TIwO+q6BNBVOGxcLYgT0xdmBPJKVm4tCFGzh++bZUJO1k
+iE1IQkx8Esw6GGCCU19sOBQiNNsmUPclD/Kbw+W+Sws5GTb+8vPEH/PX8g0wp2RmIyU8m6O3kZNh
+o3c3E7g72cOpl5XQaabfdBeE3nrE5THymuI69uyGYX2sRX6G4fbdYaSvgwVb/kZNzY//Z1pWLgbM
+9EPIVm+hiu6GJKUSV3PtzIxFHtfP4m3SZxy/dIurTEFOlkvCkJyeRbjP1lRwbFEQPbp24DJQNTW1
+SE7/IjVPXtrk5Bdi3FLyKvb9vnMwYUifnzcgEnC5HQY6Wljr6YbEsCAcXbsAvbuZNEma3SNhkQDq
+ZPX2Vl0E1mUyGPCd5oxbB9b/FONUTy8LE4Tu9EVLPhqlxpSVVyA86jnG+2xF76neQsV/CnIy2Oo1
+VWAdORk2tnrx1zwJY+rwAfhnwyKCl/O1oAhDPFfh+sMY0m3lFxG1TPz0W9KmuroGBcUlPF8ZOXk4
+cvEmHGavJOihxgyw5VpU4KX8liTvfUPvrB5emiwK8eE5L2KzmBjZrwcuB67Ey7OBWOQ+guebIS1O
+XbuHkjLh2TY7G+rj7uGN8J4yWuTVLHHoZWGC2DO7sNbTDe10ya8KxsQnof8MX6HZPofYdUN/a1O+
+172njBEpeMuLob2scHGXH2Ejcb3q/ORV4YprAJDlMZVrqjMO3ySlQHvAJJ4vw6HTMWf9PsLKq7ys
+DBZPGkUoa0xBUanY46r/zDaEypovXYQGbtpoa8J/1ngkhAbhn/Ve6GfdVepeVXFpGc5F1q2IDLGz
+JKw0Meh0+EwZjbuHNjZ5TicFOVnMdx2G2NO78PJsIPb7zoHHyIGwNmkvcNk+N78IczbsF9r+Nq8p
+PGMWRvramDd+qERjr6d7lw6I/GsdQZtVWVWNaasDuWJh/OD1A9VYp/WrQKfTsHfZLMJCBi+PLzFF
+/B0Mbz8S9+6JswDxs5Blc/+oMOh06GppkH4p/gJ5/0lH81hMBv7o2x1/9O2OlMxsHAmLxJGLN5HJ
+YwuAOBwJjYS7kz3YLCZcHXsj8GTdl6ajQWsE+c6Bece2UulHEgx0tGCgo8WZl1fX1OBt0mdcuvsE
+J67eIcRp7j6LQ0JymsCAdNvWLeExciBhl/iaOROkKl410tdG5F/rMHLherz+kMJ1zTvgiNCYWdf2
+bQhlYXceY7oIwtGmQFlRHnt9ZmG4fXfCta7t9QllF+885rmvURgVlVWEKXIrDVWJZBzSRlaGW9ku
+LXV3UyLW0peulgb8prsg/sI+nNy0GINszSXWHkXHJXK+OBOH9gOdTsMi9xG4H7zplzBOvGDQ6TBp
+pwfvKaPx/NROjLC3IdR58OKt0Hb0WhLV7jo/YfVEu4UabuxfA1tTYnC7YSCdF600VNGxQQ5pALj9
+9BVi4pP43MEfMY5iJEV/a1PEnt7F0zgBgHnHdoQtNaev3RNL2vL3v9dQWMw9PXToYS5yOxSCkWht
+nslgYGgvK4Rs9cGbf/dh2dQxErm4Ry7WBcs7tNHBk392wH/WeEL6haZElBgLk8GAN499Sk21GkoW
+ZUV5XNzlx/dLLAh3J3tC2bxNQVybRIWRnVcAU+c/MWPNHkS/Inc6dWdDfRQ/PMv12rd8NqFedFwC
+SgRsbGezmIRc+BWVVZi7IYiwJUYQSamZWH+AKIf5r1e8/j8iNfGQjqYalnmMxZvze3Fmy1IMsesm
+sjbpxJU7nFUQUXU60qa8shIDZ63A2MWbSP/C8lrG/hXm8Y1hs5g4smYBzzxVgpgyvD9B/R0Tn4QZ
+a/aQym2Vk1+I4fPX4cPnDPxz5Tb6TfeFlauXSPmb6nFz6kvwWItKyuC2fLtAgzl/wh+ETb0R0bHw
+2nqQlGeX9bUAY5dsImRo6NOtM6w7G4nwBBRkkJ668TsMOh2OPbvh9OaliA/dD99pzqTFXvlFJVLZ
+jycNNh4Mwat3ybhy/ynMxs7DssCjApOspWRmwzsgmFD+KwVNG8Kg07FlwWSsmuVK+h4FOVlsXjCJ
+UB5yIwoOM1cg7j3/A10jomPRc9ISvEjk3oj9JimF59YiMgR6zyD8f2MTkuCzi39mjNaa6vCZSsw+
+eeD8dQz7cy0nIwUvQm89gu3ExZw8X/XIslnYvkiwZIRCPH6q5LWlenN4TxmNJZNGISI6FsFhkbhy
+T3DmxcOhEXB2kN6RVOLwOC4R246d5/z9raISu05cRNDZcAzpZYne3UzQTqclFBVkkZmTj1tPXuLY
+pVuE6QWbxSSd1ve/wst9OLTUVeC5YT+prAdjBvTE7SevcOTiTa7y6LhE2E5cgr6WXTDI1hy6LTVA
+p9HxJikFobeiuVKhNO6/r6Vg7Rs/VJTq0to4evpzxdD+CglHHwsTvgLXBRP+QFTsG0KQ+9aTl7B0
+XYD+1qbo390ULTVUUVFRiYTkVFy4Hc0342bA0umkxZnp2blYsvMwySesY1hva/T8hUSxTUmTaPLp
+dBoG2phhoI0Z54TgI2GRPKdE92Pe4H1Khki6I2lz+to9nkHj8sq6tLVkpyTTRw0S2ztoSlwd+0BT
+TQWuPlt5ansas8t7BgpLynD+5kOu8uqaGkRExyIiOpZUv1OG94f/zPFijbmenmbG8J48mrBFata6
+fejSvg3PdDt0Og3H13thlNcG3Hv+mutaZVU1rkY9w9WoZ6T6X+fpBlfHPqTHm5tfJHJeb72WLX5b
+AyX1KZ4wNNVUsHjiSLw8uxthAX4YYW9DWE4PDoto6mFxsc1rKoL85khkXHqYdsTKmZJt8G1K+lub
+4uqeVVBXURZal0GnI3jNfPhMGS3W6i2bxcT6ue7YtXSGVDR13lPGEHYgFBSXYKLvDr6nw8jLyiB0
+py88RgwUq09lRXkcX+eFP39S1lKKOprcQHE6ptNgb9UFx9YtRGJYENbMmcBJm3r88m2pJlkTB1fH
+PnhxZhfmjR8qNIVKQ9gsJha6DUdYgN8vtZGWDOYd2+Lm3+tIpa9l0OlYPs0Z9w5vEmmK5tTLElHB
+m6UmQgXqPksH/ecRhJjP3r6H755jfO9js5jYuWQawveugmUnQ1J9sZgMTBxqj5hTAWKthFKIBulz
+8ZqC2tpa3H32GsFhkRjr0BODbS3+6yEBqDux5er9Z7j15CVi4pPwKSObs4ojw2JBvbkyuhjqo3c3
+E4wZ0FPk/V33Y94g7A73sV7zXf8gdfIMULdtZeW+f7jKepp1wrDeViKNo57svAKE3oqGx0jy3sXr
+Dyn4N/IB7sW8wbtP6cgtKASLwYRqM0V0aquHHqYdMWaALSnjt/OfMKRn/8gk0UpDjVR+9ei4RJyL
+iOIqo4GGRRNHkMo99ezte4TdjkZUbN25eIUlpWAxmVBXUUKntnro3c0Eo/vbivT+Hjh/HVl88taT
+pX93U87G7oLiEuw5xZ2Xy868E89YZ8iNKCR++qGUb6akgDnOQyQaCz+OX76NlIwfIRtp9fVLGSgK
+CgqKhvwfdjxrZ1un9KgAAAAASUVORK5CYII=
+
+--_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_
+Content-Description: LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png
+Content-Type: image/png;
+	name="LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png"
+Content-Disposition: inline;
+	filename="LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png"
+Content-Transfer-Encoding: base64
+Content-ID: <LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png>
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAADa0lEQVQ4jX2VXWxTZRjHf+97zmlP
+T7d+jFrcZN1wLo4vLZnGRaPELHpjshmFTIyaqCGGBLkW8MaQzBtjNODlQC+cCmSiCfFjmEhCInFM
+YEiWDZoZ9oHrZJW13db29LxenNFurO65e9/zPv/n4/88/yOUUooK1nd5hm+vT3BpPM1kOodSitoq
+k/iGal5suZ+ueG0lN8S9gN9dm+bAD6MMz86BIyo6IaApWMXh55rZ3boSeAXgoZ/G6O67CLaCsA+8
+BhSdyqCaAiXY317Lp+3bVwMe6r9K9+kJnnkkTF3A5OvBCVAKDK0y4FKmVC+yLxbnyGsPAiABfr6W
+ortvhB1bA5x7p42vdsf5uHML/Lvggv6fKSBlcXTsT04OjZcBXz95GRYLNEUDpbdtDWFwlpzWMs0B
+G/b0JlAK9DNXUyQL8xCp5vj5MWp8Bg0hH4fPjkLQC/N5sB3w6uDRITUPRQWGhLAFmoBFnTueNMcu
+TCF29g6oU1eSbkMcxy1RCtdJk8TCPvwejRu3sxRuz/P84/WsszyM/pNlcGgKAqYbyHF49uEa9MGb
+GTf12Syt22r5fd+TKAXv/TjCR8cHOP1JB9sfCHJmOEkmZ9MVrytV++Ev1zl4YgiCEoRg9O8FZDKb
+W2qwQpMCKQSaFHh1CY7C0CUAL2yK0hWvw15G0oH2ZrZuirrkCbizWHBJcUdAUHTKj3O2A5pgoVAs
+3b385R+sf/sEPQPjZfJiIcjZpbOMWJ41SRS42zKczND3a4LZ6SxHf7tZ+m5It1yAgGkg4zH/GqNR
+Xr1MrgiWByJ+QqZeulfLnJvuM5FvbGkEw1kFeve4FBxdEy77SqHLciCJACXAsHll8wbkS49GqXGq
+wVtcAXgXSCzXB7X6TgCYeax8kD1P1Luk9Lz6EBg2piiXEjYNsIs0hnwAxEKmO6O2g99T3u+Q1wvS
+4bOdDRi6KIvDu8cSfDM3zK6NGxHA+b9SXBlJsuupRqJVXqYzOU5dmoKcTX1dgI7N60HAuZlJWvMx
+Pt/b4ma8XL7291/kSG8CpALLdCXsVhoKRVd1In7QBWQKMJcBJXirs5GezrZyC+4V2C8GJvigP8FY
+Ng1FSUWTijrL4v0dTex9Oray95V+AUVH0XNhku9v3GJkOstMNg/AOstDc8RPR0uUNx+rx+dZHfA/
+txRLetfQ+AEAAAAASUVORK5CYII=
+
+--_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_
+Content-Description: Web_Sync_20_20_01b9feca-adfc-4c6a-8f3b-38f3a49a4f17.png
+Content-Type: image/png;
+	name="Web_Sync_20_20_01b9feca-adfc-4c6a-8f3b-38f3a49a4f17.png"
+Content-Disposition: inline;
+	filename="Web_Sync_20_20_01b9feca-adfc-4c6a-8f3b-38f3a49a4f17.png"
+Content-Transfer-Encoding: base64
+Content-ID: <Web_Sync_20_20_01b9feca-adfc-4c6a-8f3b-38f3a49a4f17.png>
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAEMklEQVQ4jY2VXWyTZRTHf2/7ru3b
+jvV73dwHdHwJG8IGZVMGA0y8IH4kJHohJuKVIRG48sIbuPDC+JUYUAlcEEg0BhUS5WJoDF3GohJK
+yKYwxmgLG5tt37Z0W9e3b2n7eFEoDIjxXD15zsfzf845/3MkIYTgMSkJwWAiSTCeZHRmjkReB8Bn
+MbPKvoitPg9b6j0YJelxV6THAw6pKT69Nk5My7Pe7SQyN4+qVwLWW8z4bVZC6QyNioX3Vy+n1+te
+ENDw4CCAQ2Nh9odG6HTa+amvh11LmknqOk2KhWcUC4m8ztttrfzc18M6p539oREOj4V5FFEV4aGx
+MN9GJ/lw7WpeaqynJAQ7By+y3uWg9Mgnrs7M8n3vRgySxLnpOAdHRnnL38LelUsfIhxSU5yMTNDn
+86CXy5ydinFoLMydnEaLVWEypzGZ02i1WYlmc3x1I8LZqRj3hGBzvYcTkQmG1FQFYbFcFjsHL5It
+FlGMxiqSeF6nVjZik2UyhXsAOEw1ZItF5oslfBZz1VYrlaiVZc5s6YbzsYTY2B8Ual4XD2S+WBQb
++oNiIK4KIYQ4MHxNHBi+JoQQ4nwsIQL9QaEVi1X7f3KaCPQHRTCmCsNAPEmPx4XHbKq++FdmFiEE
+AZfzibYIuJ2UhODvzGz1rkGxEHA7CcZV5NGZOXY0+RY4TeU03GYTVrmSgjeXtJAvlQColWVcZhPT
+Wn6BT6fLzq/TCeR4XmcwkSKazVWVN+fmKZTLHBwZZc9yP8fDt2lQzCy2WZEkqJEkfpiY4nI6U/WZ
+zGkkdB35Kc2+QIpCoOo6v8USnJ6YZpe/hSMb13FuOr4ApRBglCSk1wcvih1NPna3La4qz0xOc3Q8
+yi/bNwHwu5pmb2gYt9lEWi9gk2XeWdrKG4ubsd7vjCPjUc7HVAyr7Iu4kp5ZgKrJqpDSC+SKlby9
+4HXR4ahDMRr5rjdAwO3k8FiE1wb+5MeJKQBG7s7Q4ajDsM3n5Y9kuspXgDWOOiRJ4lL6LgCX0xne
+XebnTk7j+myWz7o6+LiznXShwLGbt4hpeS6l7rLN5/n/jX048BxfXA+TKdzjk84O9oWG0Upljvd0
+cexmlPG5LKc3d1e4PKSm2B8aYZvPS5/Pc7/SWb6JTvLeijYuqCmW1drY6vOyNzRMjcFASQjKQvBB
++wpkg4FGxUK321nhcq/Xze62Vi4kktQYJF5pamDfyqU0WxVuz+dosSro5TIb3A7WOu3UW8yc6g2w
+pd7DR1dvUCyX6XZXSFCdNgL4cizMicgELzc1sGe5n0g2x77QMI2KBQCrbOTk8+uJ53VO3Z7i1eYG
+jo7fYjCR5POuNWz1ef57wHa5HESzuWrB3GYT/lobV9IZmq0KB9Y8S7t9EV/fiPJig5cOR92TAeHh
+Chi4vwLieZ0ag4TLZKLdUcd2n5dNXheGp7DiXxoNGKGX6/55AAAAAElFTkSuQmCC
+
+--_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_
+Content-Description: YouTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png
+Content-Type: image/png;
+	name="YouTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png"
+Content-Disposition: inline;
+	filename="YouTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png"
+Content-Transfer-Encoding: base64
+Content-ID: <YouTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png>
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAADN0lEQVQ4jZWUX2gcVRSHv3NndnY3
+oSGbbNymikv70rTRlqgoor5JkWKJEQ2pCqViH0Sw+iKCICiGVK211BcfKlWIJSgNotSW4J8n2ypq
+S4wt1NgaGpLYZDfJpkl2Z+fe68Okm7SzKXhg4HDP/L5z79wzP7HWWqrE7PET5E4OUBwcwp+YACyx
+pttI3t1K6rFtpNp3VJMhNwNnTpxkvPtd5i9dRqr3wgKJbJY7XnuV+ic7VgeOvPcBUx8ewoigVoFV
+oCIANOx5ng1vvVlZd68nU+/0MPbxYTxAaY21Fq4/ZgkuAkpABBEBpfj3k8+o8Uus7ele3uH0Dz/y
+1649xIxmcWwEi0VQCA6iXMRR4a60wZoAi8ZiECDRnMV3PVoOvU/9E+0h8HxrG/OzBYLxUVLbt5N+
+pgs3lcKprQE3hrhOCAw0BAF6YR49PUP+q6/J9fej0hnitTVsvTgEswPf2V+as/Z0LGnPbmy1/zfO
+bbnXnlae/bk5a6d6j1p19ctjKGsJyovUPfxI5OOX/hm55eWseeB+AuPjWMtk/zeo4rnBSlHVJCOC
+sf0HOPvgQyyev1AV6NTVVXL/0jCqnMutqDoRQaypickzp/i9dTPDu1+gPDl5Q13iXiXXc9dQtzwP
+II6DAgygp2fCMVpZv+l9102l8BcWllroCLB05Qr1LZvZ9Hkvtfe0RerGL1dyZ00tKrHlrkpXUyxF
+BM2vvMx9fw5VhQHoQmEps3jZ9aimpzowIrhugsKpnyKC5KaW8O9YJa79+huuimFEkW5/PBzswZat
+FAtz6IlR0p1Pk37uWdzGBpQXD4facRARrNbYQGNKRXRhjvyxfq4e+RRpzOAlE7Rd/CMEzh7/lgsv
+7sULyhTHw7lTKoHEYohSy7dvTPj7lX2s8bEYEpk78eNxNu57m9TOrmW3mXj9DS739uHpAKt1KDZm
+2SAgNAeRsIlSiOPgOy7Zjh2s++ggsMJt1u7rZsHzyB8+Aq6LWBsZiZVhRbBAuquTdft7KusRg833
+fcHYgYMsjo6t6okW8DIZbt/7Eo27d91QiwAB0Jqpo31MD3xP6e9hglw+PE6qHm/9Bhq2PUrjzk4k
+kYhI/wO5fpU7zsffKQAAAABJRU5ErkJggg==
+
+--_e4598c9b-dd45-4277-a692-2aa43c8f8b2c_--
+
+--_000_OSEP279MB116779DE47989AD529508592E47C2OSEP279MB1167NORP_--

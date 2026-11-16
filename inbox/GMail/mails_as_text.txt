@@ -1,0 +1,302 @@
+====================================================================================================
+FILE: Fw_ API Integration – DMC Oracle & Syncrolift Management Systems.eml
+From: Stian Krogstad <Stian.Krogstad@syncrolift.com>
+To: Fjord Bit <fjordbitdev@gmail.com>
+Cc: None
+Date: Mon, 16 Nov 2026 14:38:05 +0000
+Subject: Fw: API Integration – DMC Oracle & Syncrolift Management Systems
+BODY chars: 6069
+
+Stian Krogstad
+Principal Software Designer | Syncrolift AS
+
+Phone: +47 45660848
+Email: Stian.Krogstad@syncrolift.com<mailto:Stian.Krogstad@syncrolift.com>
+
+Visit: Kleverveien 3, 1543 Vestby, Norway
+
+[cid:Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png]<http://www.syncrolift.com/>
+
+[cid:LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png]<https://www.linkedin.com/company/tts-handling-systems-as/>   [cid:Web_Sync_20_20_01b9feca-adfc-4c6a-8f3b-38f3a49a4f17.png] <http://www.syncrolift.com/>   [cid:YouTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png] <https://www.youtube.com/channel/UCbGZfCtEN2muuhENW0ABEkg>
+
+________________________________
+From: Sondre Søraa <sondre.soraa@syncrolift.com>
+Sent: Monday, September 28, 2026 9:43 AM
+To: Roudha Abdulrahman Mohammad Ahli <Roudha.Ahli@dubaimaritimecity.ae>; Rami Ali Mitwalli <Rami.Mitwalli@dubaimaritimecity.ae>; Ismail Bhatkar <Ismail.Bhatkar@dubaimaritimecity.ae>; Ahmed Rifath <Ahmed.Rifath@dubaimaritimecity.ae>; Srikanth Reddy <Srikanth.Reddy@dpworld.com>; Rafiq Khan <Rafiq.Khan@dpworld.com>
+Cc: Stian Krogstad <Stian.Krogstad@syncrolift.com>; Shaheryar Hassan <shaheryar.hassan@syncrolift.com>; Behruz Burang <behruz.burang@syncrolift.com>; Subodh Walwaiker <subodh.walwaiker@syncrolift.com>
+Subject: RE: API Integration – DMC Oracle & Syncrolift Management Systems
+
+Dear Roudha & All,
+
+Thanks for the initial meeting.
+
+Below are the questions I mentioned:
+
+What and why:
+
+What problem do they want to solve? Is it duplicate data entry, reporting, auditing, or something else?
+
+What data needs to flow? For example, work orders, maintenance schedules, operating hours/counters, spare parts/inventory, costs, or completion reports.
+
+Should data flow one way or both ways? Which system is the "master" for which data?
+
+The Oracle side:
+
+Which Oracle product do they use (Fusion Cloud, E-Business Suite, JD Edwards, EAM, etc.), and does it run in the cloud or on-premises?
+
+Do they have an integration platform (e.g., Oracle Integration Cloud) and an in-house integration team, or do they expect us to handle everything?
+
+Do they expect us to provide an API for them to call, or for us to write data directly into their system?
+
+Operations and security:
+
+How often must data be synchronized: in real-time, hourly, or daily?
+
+Where does their maintenance software run, and does it have network access to their IT environment? What are the IT security requirements (VPN, authentication, firewall)?
+
+Do they have a test environment we can use?
+
+Scope:
+
+How many facilities/assets and approximately how many components are involved?
+
+When do they need this, and is it part of an existing contract or a new add-on?
+
+Who is the technical contact on the Oracle side, and can they provide documentation on their data model/API?
+
+With a response to all the above it would be possible for our Software designer to provide a time/estimate for cost in hours for implementation.
+
+Who from DMC will be the technical responsible for this integration ?
+
+Below is the link to the snaggit page containing the API parameters/information:
+
+https://mm-mobile-api-dev.azurewebsites.net/swagger/index.html?urls.primaryName=VIEW%20MAINTENANCE%20API%20V1
+
+Thanks & best regards,
+
+Sondre Søraa
+Contract Manager
+Phone: +47 41726120
+
+-----Original Appointment-----
+From: Roudha Abdulrahman Mohammad Ahli <Roudha.Ahli@dubaimaritimecity.ae>
+Sent: 25 September 2026 06:47
+To: Roudha Abdulrahman Mohammad Ahli; Rami Ali Mitwalli; Ismail Bhatkar; Ahmed Rifath; Srikanth Reddy; Rafiq Khan; Shaheryar Hassan; Sondre Søraa; Behruz Burang; Subodh Walwaiker
+Subject: API Integration – DMC Oracle & Syncrolift Management Systems
+When: 28 September 2026 10:30-11:00 (UTC+04:00) Abu Dhabi, Muscat.
+Where: Microsoft Teams Meeting
+
+________________________________________________________________________________
+
+Microsoft Teams meeting
+
+Join: https://teams.microsoft.com/meet/372918523967839?p=QvH1PVWsGptnwk3lHv
+
+Meeting ID: 372 918 523 967 839
+
+Passcode: iG7j7RS7
+
+________________________________
+
+Need help?<https://aka.ms/JoinTeamsMeeting?omkt=en-US> | System reference<https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODYyMzM4NjMtZGU1Yy00YThiLThjNzgtYzhjNTVhOGMyMWNj%40thread.v2/0?context=%7b%22Tid%22%3a%222bd16c9b-7e21-4274-9c06-7919f7647bbb%22%2c%22Oid%22%3a%221f001db9-5ee3-4285-b6e2-9e6267c3a164%22%7d>
+
+Dial in by phone
+
++971 600 575938,,539266661#<tel:+971600575938,,539266661> United Arab Emirates, All locations
+
+Find a local number<https://dialin.teams.cloud.microsoft/c48b7b96-6f34-4d91-84d4-c4ec956d8c82?id=539266661>
+
+Phone conference ID: 539 266 661#
+
+For organizers: Meeting options<https://teams.microsoft.com/meetingOptions/?organizerId=1f001db9-5ee3-4285-b6e2-9e6267c3a164&tenantId=2bd16c9b-7e21-4274-9c06-7919f7647bbb&threadId=19_meeting_ODYyMzM4NjMtZGU1Yy00YThiLThjNzgtYzhjNTVhOGMyMWNj@thread.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.teams.cloud.microsoft/usp/pstnconferencing>
+
+Meeting Organized by DP World
+
+________________________________________________________________________________
+
+********************************************DISCLAIMER********************************************
+This email and any files transmitted with it are confidential and contain privileged or copyright information. If you are not the intended recipient you must not copy, distribute or use this email or the information contained in it for any purpose other than to notify us of the receipt thereof. If you have received this message in error, please notify the sender immediately, and delete this email from your system.
+Please note that e-mails are susceptible to change. The sender shall not be liable for the improper or incomplete transmission of the information contained in this communication, nor for any delay in its receipt or damage to your system. The sender does not guarantee that this material is free from viruses or any other defects although due care has been taken to minimize the risk.
+**************************************************************************************************
+
+====================================================================================================
+FILE: Fw_ Vessel Library System _ Vessel Database – Initial Requirements for Review.eml
+From: Stian Krogstad <Stian.Krogstad@syncrolift.com>
+To: Fjord Bit <fjordbitdev@gmail.com>
+Cc: None
+Date: Mon, 16 Nov 2026 14:38:23 +0000
+Subject: Fw: Vessel Library System / Vessel Database – Initial Requirements for Review
+BODY chars: 5452
+
+Stian Krogstad
+Principal Software Designer | Syncrolift AS
+
+Phone: +47 45660848
+Email: Stian.Krogstad@syncrolift.com<mailto:Stian.Krogstad@syncrolift.com>
+
+Visit: Kleverveien 3, 1543 Vestby, Norway
+
+[cid:Sync_d044aca1-1977-4427-8fcf-c03241ea5696.png]<http://www.syncrolift.com/>
+
+[cid:LinkedIn_20_20_b239bd42-ad6f-4509-9c9a-feda24f3d1b9.png]<https://www.linkedin.com/company/tts-handling-systems-as/>   [cid:Web_Sync_20_20_01b9feca-adfc-4c6a-8f3b-38f3a49a4f17.png] <http://www.syncrolift.com/>   [cid:YouTube_20_20_5bcf48c5-8c2b-4c4c-95c4-8301112441ca.png] <https://www.youtube.com/channel/UCbGZfCtEN2muuhENW0ABEkg>
+
+________________________________
+From: Ramin Hatmi <ramin.hatmi@syncrolift.com>
+Sent: Monday, October 5, 2026 6:25 PM
+To: Stian Krogstad <Stian.Krogstad@syncrolift.com>
+Subject: Vessel Library System / Vessel Database – Initial Requirements for Review
+
+Hi Stian,
+We shortly discussed about how we can better capture and retain vessel-related information, documentation, project history, and company experience in one place.
+The objective is to create a simple first version of a Vessel Library System that allows users to quickly search for a vessel by name, IMO number, or project number and immediately access all available information associated with that vessel or vessels.
+The intention is to start simple and practical, not to build a complex engineering tool from day one. However, the architecture should allow future expansion if we decide to add more advanced functionality later.
+For reference, some existing vessel databases and vessel profile sites that demonstrate the general concept are:
+
+ *   IMO GISIS<https://gisis.imo.org/Public/Default.aspx>
+ *   VesselFinder<https://www.vesselfinder.com/vessels>
+ *   Vessels Info<https://vesselsinfo.com/>
+ *   Sea Project Vessel Lookup<https://www.seaproject.live/lookup>
+
+I am not suggesting we replicate these systems, but they provide good examples of vessel profiles, searchable vessel characteristics, and document organization.
+The points below are intended as initial suggestions just as a base to discuss rather than fixed requirements. We can review and refine them together, then maybe discuss them with Esten and Rolf-Atle and maybe Carl also to gather their input as well.
+
+Vessel Records
+Each vessel shall have a master record containing:
+
+ *   Vessel Name
+ *   IMO Number (if available)
+ *   Vessel Type
+ *   Previous Names (optional)
+ *   Other identifiers (optional)
+
+The system should support configurable vessel properties such as:
+
+ *   LOA
+ *   LWL
+ *   LBP
+ *   Beam
+ *   Draft
+ *   Displacement
+ *   GT
+ *   DWT
+ *   Builder
+ *   Year Built
+ *   Flag
+ *   Class Society
+ *   Owner
+
+    New vessel properties should be easy to add in the future without requiring major software modifications.
+Document Management
+Ability to upload and store vessel-related documents, for example:
+
+ *   General Arrangements
+ *   Docking Plans
+ *   Stability Booklets
+ *   Lines Plans
+ *   Technical Reports
+ *   Drawings
+ *   PDFs
+ *   CAD Files
+ *   Customer Documentation
+ *   Internal Documentation
+
+Each document should include:
+
+ *   Title
+ *   Category
+ *   Revision (if applicable)
+ *   Upload Date
+ *   Uploaded By
+
+Image Management
+Ability to upload and store:
+
+ *   Vessel photographs
+ *
+Site photographs
+ *
+Load reading
+ *   Inspection photographs
+ *   Screenshots
+ *   Technical illustrations
+
+Project History
+A vessel may be linked to multiple projects.
+For each linked project:
+
+ *   Project Number
+ *   Project Name
+ *   Customer
+ *   Location
+ *   General description
+
+    This should make it easy to identify where and when we have previously been involved with a specific vessel.
+Notes and Experience
+Users should be able to add notes related to:
+
+ *   Previous experience
+ *   Lessons learned
+ *   Recommendations
+ *   Known issues
+ *   Customer-specific observations
+ *   General remarks
+
+Search Functionality
+Search by:
+
+ *   Vessel Name
+ *   Previous Vessel Name
+ *   IMO Number
+ *   Project Number
+ *   Project Name
+ *   Document Title
+ *   Keywords within notes
+
+Traceability
+All changes should be logged automatically:
+
+ *   User
+ *   Date
+ *   Time
+ *   Action performed
+
+Records should be archived rather than permanently deleted.
+User Roles
+Viewer
+
+ *   Search and view information
+
+Contributor
+
+ *   Create vessel records
+ *   Upload documents
+ *   Upload images
+ *   Add notes
+ *   Link projects
+
+Administrator
+
+ *   Manage users
+ *   Manage permissions
+ *   Maintain categories
+ *   Restore archived records
+
+Future Possibilities (Not Part of Phase 1)
+The initial implementation should focus only on information management and knowledge retention.
+Potential future developments could include:
+
+ *   Automatic extraction of information from uploaded PDFs
+ *   AI-assisted search
+ *   Integration with external vessel databases
+ *   Integration with project-management systems
+ *   APIs for external applications
+ *   Advanced analytics and reporting
+
+These are not part of the initial scope but should not be excluded by the chosen architecture.
+Please review and let me know whether you think something important is missing or unnecessarily complicated before we discuss it further with development.
+Kind regards,
+
+Ramin Hatmi
+Chief Product Officer
+Phone: +47 947 26 604
+
