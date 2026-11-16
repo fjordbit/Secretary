@@ -1,3 +1,19 @@
+# State 16 Nov late evening (read this first)
+
+- Stian travels Tue 17 Nov; prototype test Wed 18 – Fri 20 Nov. Reach: TeamViewer; sleep after 2 h, Wake-on-LAN
+  armed (wake from outside not proven); his wife is at home, has the password and can wake / start the machine.
+- Sign-in renewed 16 Nov: Syncrolift account, Max 20x, valid to 16 Dec. API key (other, individual account) only in
+  max-private/anthropic_key.txt, loaded per run.
+- **Reminders owed:** Tue 17 evening and Wed 18 morning — travel expenses + AI bills, half a day Wed morning or
+  evening; he gathers the data, a subagent sorts; start with the AI bills.
+- Sensor round in two steps done 16 Nov: C:/Users/stian/sensor_round_2026-11-16/summary.md (not in the project
+  repo; no data-sheet check yet; nothing selected).
+- Back, not merged, waiting for Stian to read: U80 vessel library (branch u80-vessel-library, draft to the CPO in
+  inbox/drafts), U81 Oracle integration (branch u81-oracle-integration, draft to the contract manager).
+  U82 method files pushed to fjordbit/agentic (bc6c4cd).
+- Next week: temperature range discussion (his note 16 Nov, log) — no design change before that.
+- Detail: log/2026-11-16.md, todo.md.
+
 # Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
 > **State 16 Nov afternoon (newest, overrides everything below):** ALL PUSHED. Local main **5f415b6** (D: same);
