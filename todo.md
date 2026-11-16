@@ -281,7 +281,7 @@ governs the rest.
 - GitHub history: the grafted fast-forward export has been the method since 9 Nov (= "accept").
 - API key: variable removed 16 Nov; ONE item left → delete the old key in the console (pasted in chat 8 Nov);
   a new key, when wanted, goes in max-private/anthropic_key.txt (workspace-scoped), never in chat.
-- [ ] Delete the old API key in console.anthropic.com (Stian).
+- [x] Delete the old API key in console.anthropic.com (Stian) — done 16 Nov.
 - Windows is the default boot; TeamViewer live and tested (Stian, 16 Nov). Open: auto-start of Kai at boot.
 - [ ] Stian's fonts look unclear after the update / boot change (he looks into it).
 
