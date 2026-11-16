@@ -1,6 +1,20 @@
 # Kai — start here (state as of 10 Nov 2026 23:2x; U48–U57 live, U58–U61 local only)
 
-> **State 12 Nov afternoon (newest, overrides everything below):** EIGHT pages on local main **a3a633a** (D: same):
+> **State 16 Nov afternoon (newest, overrides everything below):** ALL PUSHED. Local main **5f415b6** (D: same);
+> GitHub fjordbit/max **0f7b145**; both Pages remotes **1a58533**. Since 12 Nov: U76 chapter "What the sensor
+> measures" on the sensor page + register rows for the maintenance statement (head unshielded for hours during
+> maintenance; temperature warning wanted; no threshold on record); U77 rig sheet for the prototype test
+> (docs/sws/rig_sheet.html, 4 A4, not on the menu; ROPE FIXED, HEAD MOVES; block "for the new sensor head: not
+> possible on this rig") and the self-contained AI helper guide sws/procedures/prototype_test_ai_guide.md; print
+> copy inbox/2026-11-16_rig_sheet_print.pdf. U78: the model round as its own repo, C:/Users/stian/model-round →
+> private GitHub fjordbit/agentic (b1325d1), for Stian's manager (Stian gives him access). ANTHROPIC_API_KEY removed
+> from the Windows user 16 Nov (it made new sessions start on the key; it belonged to "Stian's Individual Org", the
+> login is the Syncrolift account, Max 20x); a new key goes in max-private/anthropic_key.txt, never in chat; two
+> subscriptions = one login at a time, /login. Test Wed 18 – Fri 20 Nov; Stian may be out of contact. Open finding:
+> break signal 0.39 mT (record) vs 1.27 / 2.69 mT (own 3D), unreconciled. Not started: FMECA, FAT, HAT/SAT,
+> installation, recalibration; auto-start of Kai at boot (Stian, later). Log: log/2026-11-16.md.
+>
+> **State 12 Nov afternoon:** EIGHT pages on local main **a3a633a** (D: same):
 > U70 procedures and life cycle, U71–U73 sensor run / literature sweep / blind model round, U74 the sensor page
 > (docs/sws/sensor.html, six placements A–F, three suggested combinations, nothing selected). Stian gave the go to
 > publish to GitHub "if all is checked properly": U75 (brief in kai.md "## U75") prepares the export on 025a0af and
