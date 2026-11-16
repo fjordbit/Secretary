@@ -262,3 +262,16 @@ governs the rest.
       chose Hall; the old prototype's TMR2185 / TMR2584 are specified to ±20 mT. → Henrik / the expert.
 - [ ] Stian: sensor page of its own? out-of-plane mounting allowed? is 1 mW per sensor a limit? 2× rule = half span?
 - [ ] Spec Word master: §7 l.341 "AMR … wider range" is wrong (sheets: ±0.5–1 mT).
+
+## Status 16 Nov (overrides the 12 Nov section above where they differ)
+- [x] U70–U74 on GitHub 12 Nov: fjordbit/max 71288f8, Pages f51035e (eight pages; sensor page is its own page).
+- [ ] U76 running (16 Nov): chapter "What the sensor measures" on the sensor page + the maintenance statement
+      into the register. Merge waits for Stian's go.
+- [ ] **Prototype test Wed 18 – Fri 20 Nov: test procedure / rig sheet NOT started** (was due Tue 17 Nov).
+- [ ] Maintenance (Stian, 16 Nov): head unshielded for hours, perhaps a day → temperature warning near the
+      demagnetisation temperature; stainless shield against sun. Record: "never in direct sun" / ≤ 45 °C fully
+      covered; sun study unshielded light grey 61 °C; no warning in the spec. Threshold and shield: not decided.
+- [ ] Runs not started: FMECA, FAT, HAT / SAT, installation, recalibration.
+- [ ] Draft to the head designer (prototype sensor parts, inbox/drafts/2026-11-12) — sent?
+- [ ] Placement of the sensor: discussed on site this week (Stian).
+- [ ] This week also: demo visit + API mail (no demo script, mail not drafted); P52 deadline ≈ 21 Nov.
