@@ -302,3 +302,5 @@ governs the rest.
       `claude auth login` before he travels, or it can stop mid-week. Needs a browser (works over TeamViewer).
 - [ ] U80 Vessel Library (reply draft + first design) and U81 Oracle integration (API map + estimate skeleton)
       running 16 Nov evening; results to Stian, he decides the next step (first coding task: Vessel Library).
+
+- [ ] Next week: temperature range — Stian's thought of 16 Nov (back to −40…+80 °C, 20 cycles at 70 °C, drop N52-as-wanted; N52M/N52H as options). Discuss before any change; see log 16 Nov.
