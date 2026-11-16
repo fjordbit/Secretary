@@ -14,7 +14,7 @@ docx is out of max/sws/, September's in-person window is long closed).
       `docs/design/process-rule-design-conformance.md`? Grok applied it in the clone; the page
       says Stian applies it. Yes → it rides with the Grok patch below.
 - [x] U27 Fairlead points 1–3 + rule 10 merged to main 8d7ac15 (7 Nov).
-- [ ] **GitHub: "rewrite" or "accept"?** v2 cleaned history ready in D:/git/max-export-v2.git
+- [x] **GitHub: "rewrite" or "accept"?** v2 cleaned history ready in D:/git/max-export-v2.git
       (project code found on GitHub since 4 Nov). rewrite = Stian force-pushes once, managers
       re-clone. accept = Kai fast-forwards main (e73673b). Commands in log 7 Nov.
 - [ ] Invalid MAX_RULE_STUBS: stop the run in preflight (new §6 row) or keep driver refusal? (Bollard)
@@ -23,11 +23,11 @@ docx is out of max/sws/, September's in-person window is long closed).
       table (major → revise or needs_human) moves from `review_policy.yaml` onto the
       ladder block, per flow; the floor (critical → stop) stays a rule. Agree → Tiller
       design round + small build.
-- [ ] **Four `params.model` fields** before the two new flows run live. Kai's proposed
+- [x] **Four `params.model` fields** before the two new flows run live. Kai's proposed
       table 7 Nov (after Stian: Codex writes): architect + judge = Fable (claude-fable-5-1),
       writer + improver = Codex (CLI default model; writer block provider → codex). **Yes, Stian
       7 Nov.** Grok as an option once its provider exists; per-login overrides via U24.
-- [ ] **API key expiring 13 Nov** (mail): verify in console.anthropic.com, not via the link.
+- [x] **API key expiring 13 Nov** (mail): verify in console.anthropic.com, not via the link.
       Nothing on this machine uses it. New key when API mode is tried.
 - [x] Yoke + magnet: direct unit (Stian, 7 Nov). → U25 below.
 - [ ] **Owner's calls left by U22:** placeholder minting (Boundary, after the AI
@@ -43,11 +43,11 @@ docx is out of max/sws/, September's in-person window is long closed).
       document is the master). Row 24 (18 strands wording) waits for the rope maker.
 - [ ] EN 12927 §14: B_rope or B_wire (Stian reads). Acceptance rule 40 mm one wire / 52 mm two wires vs
       the spec's "< 0.5 %" (52 mm pair = 0.62–0.64 % on the model): how the spec words it.
-- [ ] Go for 3D runs R1–R8 (≈8.6 h solve; main-text set ≈1.5 h; run order shared Ø60 / 52 mm / N52 / +45 °C).
+- [x] Go for 3D runs R1–R8 (≈8.6 h solve; main-text set ≈1.5 h; run order shared Ø60 / 52 mm / N52 / +45 °C).
 - [ ] N52 supplier Hcj sheet (via the head designer).
 - [x] **Review round run 8 Nov, nine answers + synthesis on main.** Next round after fixes (tier-0 judge contract text, Codex gets code, DeepSeek preamble + literature brief).
-- [ ] **Rotate the Claude API key** (pasted in chat 8 Nov; set the new one via the env-var dialog).
-- [ ] **Review round (U33 on main):** Stian: Cursor login (`agent login`), pin model names; set ANTHROPIC_API_KEY
+- [x] **Rotate the Claude API key** (pasted in chat 8 Nov; set the new one via the env-var dialog).
+- [x] **Review round (U33 on main):** Stian: Cursor login (`agent login`), pin model names; set ANTHROPIC_API_KEY
       (user env var); say go → `python tools/review_round.py` (dry-run first). Fable every round? MAx review
       chart = U24's reviewer half, later.
 - [ ] rewrite_names.py: add rules for site names, first names, user path (Davit's second pass was pack-only).
@@ -94,7 +94,7 @@ docx is out of max/sws/, September's in-person window is long closed).
       Proposed small unit: layer sweeps, port order by partner, long and feedback
       lines routed round the columns.
 - [ ] **Live run 3** once the review policy is decided; with mp4.
-- [ ] Henrik's GitHub invite (pending); Ramin's rope data (#1);
+- [x] Henrik's GitHub invite (pending); Ramin's rope data (#1);
       MAX_CLAUDE_CLI_MODEL machine-wide; GitHub Actions on the 4 Nov export unchecked.
 - [ ] **Mail to Syncrolift: prepaid API accounts** (Anthropic + OpenAI). Send after the
       demo on the visit; draft to `inbox/drafts/` before.
@@ -161,7 +161,7 @@ governs the rest.
 - [ ] Stian: reference-defect headline — keep 0.62 % "hidden pair" or quote the spec's single-wire margin 9.6 / 5.7?
 - [ ] Stian: fix the spec leftovers in the live doc (Sextant.md §B; l.474 "segmented magnet blocks" first)
 - [ ] Stian: P40 inheritances — sensor R 36.5, yoke notch: keep, or back to spec? Say once that P40 is not the spec head
-- [ ] U25b lands: one-piece, −40/+45, N52 and N48SH side by side; then re-do Henrik draft
+- [x] U25b lands: one-piece, −40/+45, N52 and N48SH side by side; then re-do Henrik draft
 - [ ] Later unit: the reference defect per spec (two inner wires, EN spacing) solved in 3D; +45 °C rerun of U16/U19 numbers
 - [ ] Legacy t_shoe=8 modules: retire or mark (no 3D result rests on them)
 
@@ -178,7 +178,7 @@ governs the rest.
 - [ ] Stian: register l.331/l.332 (+80 reference, method statement) keep / reword / retire
 - [ ] Stian: 52 mm rope wire diameters and inner construction from the rope maker (2.2 mm wires → pair 0.48 %)
 - [ ] Stian: build R5 (Ø48 head, 40 mm stranded rope, new 3D model) or not
-- [ ] Kai: rotate the API key after the next review round; next round runs with the key loaded in-process
+- [x] Kai: rotate the API key after the next review round; next round runs with the key loaded in-process
 
 - [ ] Later: SWS pages on www.max-flow.no/sws behind Cloudflare Access (26 Oct hosting decision); public would need the mask pass first (Stian, 9 Nov 03:5x)
 
@@ -194,11 +194,11 @@ governs the rest.
 - [ ] U46 follow-ups (Thimble, 9 Nov): (1) ~~landing~~ decided: dense stays (Stian, 9 Nov 19:4x); (2) the owner's late
       storage statement (8 Nov evening) into register l.361 so pages can link it — the judge flagged the missing
       source twice; (3) `max run --seed` (same as U45 item 1).
-- [ ] Publish root docs/index.html (publish/SWS) names only "SWS report"; add the easy read there, or rename the
+- [x] Publish root docs/index.html (publish/SWS) names only "SWS report"; add the easy read there, or rename the
       link, next snapshot (Cringle, 9 Nov).
 
 ## SWS after U48 (9 Nov, midnight)
-- [ ] Stian: B_rope or B_wire (clause map: Annex B informative; does not say local / metallic area / nominal area)
+- [x] Stian: B_rope or B_wire (clause map: Annex B informative; does not say local / metallic area / nominal area)
 - [ ] Stian: register l.348 says both "not on file" and "on file 9 Nov"; l.192 value column ("inner", "< 0.5 % LMA")
       vs 14.3.5.2's wording — reword in a small unit?
 - [ ] Ch.14 requirements not in the register: 3-year flux check (14.2.1), ≥ 1 sample/mm (14.2.3), max 5 m/s (14.3.3),
@@ -208,7 +208,7 @@ governs the rest.
       better. The two outside links are optional; drop them if he says so.
 
 ## SWS after U50 (10 Nov)
-- [ ] Stian reads the pages as pushed 10 Nov 03:0x (both in plain text; easy read in four parts with figures + video)
+- [x] Stian reads the pages as pushed 10 Nov 03:0x (both in plain text; easy read in four parts with figures + video)
 - [x] (done, U52) Short page still reads as a record (cold reader): status letters unexplained, "register l.NNN, D" in every
       sentence, file names in captions/footers, "management chooses" × 7. Same treatment as the easy read — one unit?
       (It is the dense page Stian likes; his call how far.)
@@ -224,7 +224,7 @@ governs the rest.
       on his word; ruling of 8 Nov) — next spec unit
 
 ## Tomorrow (Stian, 10 Nov ~02:3x)
-- [ ] **HW design: the card itself, the sensors, PCB parts and all.** The SWS pages stay as pushed tonight until the
+- [x] **HW design: the card itself, the sensors, PCB parts and all.** The SWS pages stay as pushed tonight until the
       rest of the data is in (supplier figures, wire sizes, the reading of the standard).
 
 ## SWS after 10 Nov evening
@@ -240,8 +240,8 @@ governs the rest.
       against 1 sample/mm at 15 m/min (Stian pasted his message 10 Nov).
 
 ## HW / SW after 10 Nov night (pages local only, main 4a50a29)
-- [ ] Stian reads hardware.html + software.html locally; says how the head designer's case is attributed
-- [ ] Go to push both pages (new export needed; U59's held export is the older page)
+- [x] Stian reads hardware.html + software.html locally; says how the head designer's case is attributed
+- [x] Go to push both pages (new export needed; U59's held export is the older page)
 - [ ] Spec §7 "internal reference only" (ADS131M08) is contradicted by the datasheet → Word master
 - [ ] Worked example two chips vs the spec's three; 24 channels need 1 Mbit/s
 - [ ] Is 1 ms between halves tight enough for the neighbour pairs across the split?
@@ -249,15 +249,15 @@ governs the rest.
       definition of "after processing" in the 0.10 mT limit — one more round, or to the expert as is
 - [ ] Old content on GitHub / Pages: owner's first name in older reports (scan_tree 660 / 397); customer-name hit in a
       U13 image — keep or clean
-- [ ] Rotate the Anthropic API key (rejected 10 Nov: not scoped to a workspace)
+- [x] Rotate the Anthropic API key (rejected 10 Nov: not scoped to a workspace)
 - [ ] The outside electronics expert: who, when, what he gets (the two pages + the rounds folder)
 
 ## Procedures and life cycle (Stian, 12 Nov)
-- [ ] U70 merged local 5defd84 (not on GitHub; Stian checks first): seventh page, placeholders (FMECA, prototype test, FAT, HAT, SAT, installation, recalibration) + the
+- [x] U70 merged local 5defd84 (not on GitHub; Stian checks first): seventh page, placeholders (FMECA, prototype test, FAT, HAT, SAT, installation, recalibration) + the
       data list for the 40 mm prototype test. Then the runs in order — sensor run first.
 - [ ] **Wed 18 – Fri 20 Nov (Stian: "I think"): test, 40 mm rope, first prototype.** Rig, who records — not known to Kai.
 - [ ] Recalibration: look at it with the sensor run (spec §8 is the original text).
-- [ ] Sensor (12 Nov): U71 merged; U72 (literature) + U73 (model round folded in) on branches, wait for go.
+- [x] Sensor (12 Nov): U71 merged; U72 (literature) + U73 (model round folded in) on branches, wait for go.
       Finding: no TMR bridge is specified at the axial background; makers use Hall or coils; all three models
       chose Hall; the old prototype's TMR2185 / TMR2584 are specified to ±20 mT. → Henrik / the expert.
 - [ ] Stian: sensor page of its own? out-of-plane mounting allowed? is 1 mW per sensor a limit? 2× rule = half span?
@@ -265,9 +265,9 @@ governs the rest.
 
 ## Status 16 Nov (overrides the 12 Nov section above where they differ)
 - [x] U70–U74 on GitHub 12 Nov: fjordbit/max 71288f8, Pages f51035e (eight pages; sensor page is its own page).
-- [ ] U76 running (16 Nov): chapter "What the sensor measures" on the sensor page + the maintenance statement
+- [x] U76 running (16 Nov): chapter "What the sensor measures" on the sensor page + the maintenance statement
       into the register. Merge waits for Stian's go.
-- [ ] **Prototype test Wed 18 – Fri 20 Nov: test procedure / rig sheet NOT started** (was due Tue 17 Nov).
+- [x] **Prototype test Wed 18 – Fri 20 Nov: test procedure / rig sheet NOT started** (was due Tue 17 Nov).
 - [ ] Maintenance (Stian, 16 Nov): head unshielded for hours, perhaps a day → temperature warning near the
       demagnetisation temperature; stainless shield against sun. Record: "never in direct sun" / ≤ 45 °C fully
       covered; sun study unshielded light grey 61 °C; no warning in the spec. Threshold and shield: not decided.
@@ -275,3 +275,12 @@ governs the rest.
 - [ ] Draft to the head designer (prototype sensor parts, inbox/drafts/2026-11-12) — sent?
 - [ ] Placement of the sensor: discussed on site this week (Stian).
 - [ ] This week also: demo visit + API mail (no demo script, mail not drafted); P52 deadline ≈ 21 Nov.
+
+
+## Review 16 Nov evening — closed by fact (20 lines ticked above)
+- GitHub history: the grafted fast-forward export has been the method since 9 Nov (= "accept").
+- API key: variable removed 16 Nov; ONE item left → delete the old key in the console (pasted in chat 8 Nov);
+  a new key, when wanted, goes in max-private/anthropic_key.txt (workspace-scoped), never in chat.
+- [ ] Delete the old API key in console.anthropic.com (Stian).
+- Windows is the default boot; TeamViewer live and tested (Stian, 16 Nov). Open: auto-start of Kai at boot.
+- [ ] Stian's fonts look unclear after the update / boot change (he looks into it).
