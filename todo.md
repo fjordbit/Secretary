@@ -306,3 +306,5 @@ governs the rest.
 - [ ] Next week: temperature range — Stian's thought of 16 Nov (back to −40…+80 °C, 20 cycles at 70 °C, drop N52-as-wanted; N52M/N52H as options). Discuss before any change; see log 16 Nov.
 
 - [ ] When the 52 mm test rope is specified: design its fault list (same fault at 1 mm and 10 mm gap, depths, wire counts, metal loss over a length, positions) — Stian 16 Nov; rope to be ordered with the breakages built in.
+
+- [ ] Next week: in-place sensor check — test loop per sensor on the new board (Stian 17 Nov: sized to one broken wire / under the 5 % rule) vs a reference rope length; decide whether it goes into the design input.
