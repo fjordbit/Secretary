@@ -300,3 +300,5 @@ governs the rest.
 - Stian travels Tue 17 Nov. Demo visit / API mail: no new date given.
 - [ ] **Claude Code sign-in ends between 17 and 20 Nov** (warning 16 Nov; auth status said 20 Nov 01:54). Stian runs
       `claude auth login` before he travels, or it can stop mid-week. Needs a browser (works over TeamViewer).
+- [ ] U80 Vessel Library (reply draft + first design) and U81 Oracle integration (API map + estimate skeleton)
+      running 16 Nov evening; results to Stian, he decides the next step (first coding task: Vessel Library).
