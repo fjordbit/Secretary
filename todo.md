@@ -36,7 +36,7 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## SWS after U31 (8 Nov)
 
-- [ ] **Grok pack upload** — C:/Users/stian/grok_pack_2026-11-08.zip (387 files, 24.3 MB, 0 identifier hits).
+- [x] **Grok pack upload** — C:/Users/stian/grok_pack_2026-11-08.zip (387 files, 24.3 MB, 0 identifier hits).
       Stian checks it, decides on site pointers + company name, uploads himself. Brief inside:
       docs/paper/grok_brief_2026-11-08.md.
 - [ ] **rev128 → live Word master** (sws/spec/…rev128_2026-11-08.docx is a python-docx edit of rev127; Stian's
@@ -54,11 +54,11 @@ docx is out of max/sws/, September's in-person window is long closed).
 
 ## Confirm or drop — asked since 11 Sep, never reported back
 
-- [ ] Spare-parts / after-sales conversation (questions at
+- [x] Spare-parts / after-sales conversation (questions at
       `Prosjekter/systems-integration/01_Spare_Parts_API_Questions.md`). Now also a
       candidate flow scenario, so the input matters again.
-- [ ] Mail to Ramin, `inbox/drafts/2026-09-09_ramin_platform_questions.md` — sent?
-- [ ] AI policy review — document never arrived. Still gates placeholder minting (ADR 0004).
+- [x] Mail to Ramin, `inbox/drafts/2026-09-09_ramin_platform_questions.md` — sent?
+- [x] AI policy review — document never arrived. Still gates placeholder minting (ADR 0004).
 - [ ] Strategy paper rev5 (section 5 rewording, placeholders, canonical HTML variant,
       customer name in the example prompt). Nothing since 9 Sep.
 
@@ -284,3 +284,17 @@ governs the rest.
 - [ ] Delete the old API key in console.anthropic.com (Stian).
 - Windows is the default boot; TeamViewer live and tested (Stian, 16 Nov). Open: auto-start of Kai at boot.
 - [ ] Stian's fonts look unclear after the update / boot change (he looks into it).
+
+## Stian's answers 16 Nov evening
+- Closed: Grok pack (removed; Grok is tested through the rounds), mail to Ramin (done), spare-parts conversation
+  (happened), AI policy review (dropped for now).
+- [ ] **Key test today before Stian leaves:** Fable 5.2 on the API key + Grok + Sol. Prepared:
+      C:/Users/stian/key_test_2026-11-16/ (models.yaml, run_with_key.sh); dry run on the login 3 of 3 ok. WAITS for
+      the new key in max-private/anthropic_key.txt (workspace-scoped).
+- [ ] **MAx-Flow: the spare-parts / warranty API — the first coding task.** Stian has a list of API commands from
+      the conversation; get the list from him, then brief it (scenario 3 in the MAx list above).
+- [ ] Draft to the head designer on the prototype sensor parts (12 Nov): Stian thinks sent, not sure — open.
+- [ ] Strategy paper rev5: Stian unsure — parked, ask again later.
+- [ ] **TRAVEL EXPENSES + AI BILLS — this week, at least half a day. Wed 18 Nov morning or evening.** Stian
+      gathers the data; a subagent sorts it. Start with the AI bills. KAI REMINDS HIM (Tue evening, Wed morning).
+- Stian travels Tue 17 Nov. Demo visit / API mail: no new date given.
