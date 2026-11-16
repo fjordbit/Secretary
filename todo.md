@@ -288,7 +288,7 @@ governs the rest.
 ## Stian's answers 16 Nov evening
 - Closed: Grok pack (removed; Grok is tested through the rounds), mail to Ramin (done), spare-parts conversation
   (happened), AI policy review (dropped for now).
-- [ ] **Key test today before Stian leaves:** Fable 5.2 on the API key + Grok + Sol. Prepared:
+- [x] **Key test today before Stian leaves:** (done 16 Nov, 3 of 3 + synthesis) Fable 5.2 on the API key + Grok + Sol. Prepared:
       C:/Users/stian/key_test_2026-11-16/ (models.yaml, run_with_key.sh); dry run on the login 3 of 3 ok. WAITS for
       the new key in max-private/anthropic_key.txt (workspace-scoped).
 - [ ] **MAx-Flow: the spare-parts / warranty API — the first coding task.** Stian has a list of API commands from
@@ -298,3 +298,5 @@ governs the rest.
 - [ ] **TRAVEL EXPENSES + AI BILLS — this week, at least half a day. Wed 18 Nov morning or evening.** Stian
       gathers the data; a subagent sorts it. Start with the AI bills. KAI REMINDS HIM (Tue evening, Wed morning).
 - Stian travels Tue 17 Nov. Demo visit / API mail: no new date given.
+- [ ] **Claude Code sign-in ends between 17 and 20 Nov** (warning 16 Nov; auth status said 20 Nov 01:54). Stian runs
+      `claude auth login` before he travels, or it can stop mid-week. Needs a browser (works over TeamViewer).
