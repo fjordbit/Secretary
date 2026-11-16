@@ -29,7 +29,9 @@ design from it (attached).
 3. Are you OK with a small web application of our own, or do you want it on something we already have (e.g. 3DEXPERIENCE)? I lean to our own; the reasons are in the design.
 
 **Next step:** I'm travelling this week. When I'm back, a short session with you, Esten, Rolf-Atle and Carl to settle
-the above, and engineering picks 10 real vessels as test data. Then a first working version in 1–2 weeks.
+the above, and engineering picks 10 real vessels as test data. Then a first skeleton to click through in 1–2 weeks.
+The full first version is a few months of work (my first estimate is about 20 person-weeks; the range and what
+drives it are in the design), and how fast IT can answer will probably set the calendar.
 
 Best,
 Stian
@@ -44,7 +46,7 @@ and Carl named as in his mail; their roles are not known.
 
 **Left out, and why:**
 - Full-text search inside PDFs: his own list already limits search to titles and notes; it is in the design as later.
-- The size estimate (15–28 person-weeks of build, ~20 likely; calendar set by IT): in the design, not the mail — better discussed than read in a one-liner.
+- The size estimate: now named in the mail in one sentence (about 20 person-weeks; range 15–28 in the design), on Stian's word 16 Nov.
 - Import of what exists today: one of the design's open questions; too early to ask him where it all is.
 - Our older brief's similarity search and export to calculations: not phase 1; a range filter is kept.
 - The link to the customer-side "vessel library" in our functional spec: in the design only.
