@@ -1,3 +1,14 @@
+# State 17 Nov, 02:00 (read this first)
+
+- RELEASED 17 Nov night (Stian's go): local main = D: = 84af27a; GitHub fjordbit/max = 1680bc1; Pages (fjordbit/SWS and
+  MAx-Flow/SWS-Documentation) = 367549c. In it: U83 (second sensor round + data-sheet check, gap comparison and
+  channel identity on the rig sheet), U85 (test-loop note early on the sensor page, rig sheet read from the runs,
+  live/dead/not fitted column). Live pages not viewed (behind login).
+- Print copy of the rig sheet for the test: inbox/2026-11-17_rig_sheet_print_v2.pdf (5 A4).
+- NOT released, not merged: U84 test rope fault list (branch u84-test-rope, 4c8511c; too long, Kai check not done;
+  finding: no source that a maker builds held broken wires in — ask the maker first). U80, U81 as below.
+- For next week's talk: temperature range (−40…+80 °C thought), in-place test loop per sensor, test rope order.
+
 # State 16 Nov late evening (read this first)
 
 - Stian travels Tue 17 Nov; prototype test Wed 18 – Fri 20 Nov. Reach: TeamViewer; sleep after 2 h, Wake-on-LAN
