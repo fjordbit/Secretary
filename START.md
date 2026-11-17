@@ -1,3 +1,15 @@
+# State 17 Nov, ~03:15 — BEFORE A REBOOT (read this first)
+
+- **Owed right after the reboot (Stian's go given 17 Nov ~03:10: "put it to github for me to read … then push"):**
+  put the test round on GitHub so he can read on his phone: C:/Users/stian/test_round_2026-11-17/ (summary.md,
+  rig_top_page.md, both briefs, step1_files, six answers) into the project repo as a round folder (mostly added,
+  little rewritten), a link to the top page from the rig sheet / procedures page; builder on Opus on a branch →
+  Kai check → merge to main + D: → export + snapshot + link proof (as "## U86" in agent-notes/kai.md) → Kai final
+  check → push fjordbit/max + both Pages remotes. If any check fails: do not push, tell him.
+- Gaussmeter question open ("we will see tomorrow"): he may have another certified sensor (with coils) and an
+  older module to pick apart as sources for the standing field.
+- Nothing was running when he rebooted (BIOS fan settings).
+
 # State 17 Nov, 02:00 (read this first)
 
 - RELEASED 17 Nov night (Stian's go): local main = D: = 84af27a; GitHub fjordbit/max = 1680bc1; Pages (fjordbit/SWS and
