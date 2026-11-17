@@ -1,3 +1,11 @@
+# State 17 Nov, ~04:30 (read this first; the "before a reboot" block below is DONE)
+
+- RELEASED: local main = D: = 1cc9661; GitHub fjordbit/max = e6e2c14; Pages (both remotes) = 7054acf. Adds U87: the
+  model round on the test sheet (sws/procedures/rounds/2026-11-17-test-sheet/, summary.md, rig_top_page.md) and a
+  link to the top page from the rig sheet and the procedures page. Live pages not viewed (login).
+- Open with Stian: is a handheld gaussmeter at the rig (or the other certified sensor / an older module)? Reminders:
+  expenses + AI bills, Wed 18 Nov morning or evening. Nothing running.
+
 # State 17 Nov, ~03:15 — BEFORE A REBOOT (read this first)
 
 - **Owed right after the reboot (Stian's go given 17 Nov ~03:10: "put it to github for me to read … then push"):**
