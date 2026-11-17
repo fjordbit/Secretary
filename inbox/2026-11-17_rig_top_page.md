@@ -21,6 +21,7 @@ Bonus only: Run 4b, if two faults are alike and both gaps are known.
 5. ☐ Stand-off measured with a ruler, head closed on the rope, at the sensors. Not copied from the 5 mm / 3 mm design line. Photo.
 6. ☐ Each fault before the first pass: photo with a scale, wires not opened; gap written, or "not known".
 7. ☐ A pen line on the rope; head mark against it after every open, close or turn. Photo.
+8. ☐ When the head is opened on the rope: does it spring open by itself, or must the halves be pulled off the rope? Write which, for each half. Same question with the head off the rope, if that is allowed. (Added after the model round; not from the models.)
 
 ## (c) Look at the laptop plot between runs
 
