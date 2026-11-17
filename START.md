@@ -1,3 +1,13 @@
+# State 17 Nov, ~24:00 (read this first; Stian is at the rig site from 18 Nov)
+
+- Released tonight: local main = D: = 44a5b0e (U89); GitHub fjordbit/max = 7f2b3f7; Pages (both remotes) = 36bc5cb. Live pages not viewed (login).
+- New: boxed note `housing.html#ho-halves` "Do the halves come off the rope by themselves? Not known.", linked from the top of index and easy-read and from procedures; round folders `sws/housing/rounds/2026-11-17-release/` and `2026-11-17-halves-force/`; item 8 on the published top sheet.
+- Owed in documents: spec rev130 l.218 and l.506 ("snap together", "attract when closed"); register row "rope-centring side force 0.4-0.8 kN/mm" (should be 0.12 kN/mm decentring); about 15 "net only" lines (list in log 17 Nov).
+- Open questions to Stian: gaussmeter at the rig?; when the mechanical people saw the head split, was a rope inside?; how are the one-piece half-rings magnetised (truly radial or straight through)?
+- Stian's plan for 18 Nov: a full run on all SWS documentation in MAx: recap (what is good, what is missing), discussion, then a knowledge pack + test set as the training piece. Kai offered to write the plan for the recap run.
+- Later task noted: multiplexer scan time against vibration frequencies, with data from this week's runs.
+- Reminder owed 18 Nov morning: travel expenses + AI bills (Stian runs his own agent for receipts).
+
 # State 17 Nov, ~04:30 (read this first; the "before a reboot" block below is DONE)
 
 - RELEASED: local main = D: = 1cc9661; GitHub fjordbit/max = e6e2c14; Pages (both remotes) = 7054acf. Adds U87: the
