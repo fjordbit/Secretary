@@ -1,3 +1,15 @@
+# State 18 Nov, late morning (read this first; Stian restarts Kai to connect the Chrome extension)
+
+- Nothing is running. All project work is pushed: local main = D: = 44a5b0e; GitHub fjordbit/max = 7f2b3f7; Pages (both remotes) = 36bc5cb.
+- Pages site address: https://miniature-bassoon-zqw7owk.pages.github.io/sws/ (docs/sws/ is served as /sws/). github.com needs its own sign-in in the browser.
+- After the restart: Stian connects "Claude in Chrome" (`/chrome`). First test: open housing.html#ho-halves on the Pages site and check that the note and its links are live. Use the extension only on the Pages site and the two repositories.
+- New this morning (inbox, not in the project): `2026-11-18_radial_stack_52mm.png` + `_sources.md` (every layer between the 52 mm rope and sensors/magnets; gap budget), `2026-11-18_standoff_signal_52mm.png`, two side views. Numbers in the figure not checked by Kai against the sources.
+- Findings to carry: two different splits of the 5 mm stand-off in the documents, no decision; the 4 mm gap at the magnets is 2.96 mm with a +4 % rope and about 0 with 2-3 mm movement; no allowance for grease, ice or a protruding wire; the Ø70 bore was withdrawn for a double-counted guard, not rejected. Old 40 mm head: net holding force only 94 N (577 pull vs 482 push), so it may spring open on the rig even if the 52 mm head would not.
+- QUESTION NOT ANSWERED (asked three times): shall the radial stack be its own point in the recap run?
+- Stian's plan: full run on all SWS documentation in MAx — recap, discussion, then knowledge pack + test set. Kai offered to write the plan for the recap run.
+- Other open questions: gaussmeter at the rig?; was a rope inside when the head was seen to split?; half-rings truly radial or magnetised straight through?
+- Reminder given this morning: travel expenses + AI bills (Stian runs his own agent for receipts).
+
 # State 17 Nov, ~24:00 (read this first; Stian is at the rig site from 18 Nov)
 
 - Released tonight: local main = D: = 44a5b0e (U89); GitHub fjordbit/max = 7f2b3f7; Pages (both remotes) = 36bc5cb. Live pages not viewed (login).
