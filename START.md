@@ -1,3 +1,10 @@
+# State 18 Nov, midday (read this first)
+
+- FIRST POINT OF THE RECAP RUN (Stian, 18 Nov): the board arrangement. The spoke layout was never confirmed by him; his original design is one thin board across the rope with sensors mounted in different planes. Spokes = "not confirmed by the owner"; build nothing more on them.
+- Running / just run: model round on the board arrangement, three models, two steps, blind: `C:\Users\stian\board_round_2026-11-18\`. After it: summary (writer + fresh checker), then a builder updates the documents on a branch; merge and push need Stian's go.
+- Stian asked "update accordingly all": plan = mark the spoke layout as not confirmed where the documents say "chosen", correct "gives radial only", add the round and its summary, and list what depends on the board. A full redesign of dependent pages waits for his decision after he has read the result.
+- Chrome extension connected. fjordbitdev mailbox shared; Kai sends only to Stian's own addresses (private Gmail address still not given). First mail sent 10:29.
+
 # State 18 Nov, late morning (read this first; Stian restarts Kai to connect the Chrome extension)
 
 - Nothing is running. All project work is pushed: local main = D: = 44a5b0e; GitHub fjordbit/max = 7f2b3f7; Pages (both remotes) = 36bc5cb.

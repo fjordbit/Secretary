@@ -309,3 +309,4 @@ governs the rest.
 
 - [ ] Next week: in-place sensor check — test loop per sensor on the new board (Stian 17 Nov: sized to one broken wire / under the 5 % rule) vs a reference rope length; decide whether it goes into the design input.
 - Recap run (MAx): radial stack for the 52 mm head as its own point — one agreed stack, allowance for grease, ice, real rope diameter; cost per extra mm in signal and magnet. Figure: inbox/2026-11-18_radial_stack_52mm.png (Stian, 18 Nov)
+- Recap run (MAx), FIRST POINT: board arrangement — one thin board across the rope with sensors in different planes (Stian's original design) against spokes; spokes not confirmed by the owner (Stian, 18 Nov). Round: C:/Users/stian/board_round_2026-11-18/
