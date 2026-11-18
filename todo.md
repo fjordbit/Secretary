@@ -297,6 +297,7 @@ governs the rest.
 - [ ] Strategy paper rev5: Stian unsure — parked, ask again later.
 - [ ] **TRAVEL EXPENSES + AI BILLS — this week, at least half a day. Wed 18 Nov morning or evening.** Stian
       gathers the data; a subagent sorts it. Start with the AI bills. KAI REMINDS HIM (Tue evening, Wed morning).
+      - 18 Nov 23:55, Stian: one travel bill done, four to go.
 - Stian travels Tue 17 Nov. Demo visit / API mail: no new date given.
 - [ ] **Claude Code sign-in ends between 17 and 20 Nov** (warning 16 Nov; auth status said 20 Nov 01:54). Stian runs
       `claude auth login` before he travels, or it can stop mid-week. Needs a browser (works over TeamViewer).
