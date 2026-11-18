@@ -1,3 +1,23 @@
+# State 18 Nov, ~16:15 (Kai)
+
+- Released: board arrangement "not settled" (U91), LD and LMA as two measurements + discard rules + link to the rig
+  sheet (U93), first long-loss calculation + two-part video (U92). Local main = D: = 062b8bd; GitHub fjordbit/max =
+  8beade9; Pages (both remotes) = 67c6e1f. Live pages checked: sensor.html#s-board, #s-ldlma, rig sheet link on the
+  start page, v2 video served; the first video is removed.
+- Stian's order: LMA threads first, then the sensor part and the PCB package for his friend (a first package, about
+  90 min for a builder; not started, waits for his go).
+- Findings to carry: rope flux follows a long loss (-0.93 % per 1 % lost), axial TMR does not (small level, ends 7-9
+  times larger; 1 % weaker magnets = about 3 % apparent LMA). LMA sensor search = a reading of the flux itself.
+  1 200 mm case not run (model box). Company rule: discard at 10 % LMA ("any" not defined). ISO 4309 extract in inbox
+  (PDF in InternationalStandards-Cranes-Ropes/, git-ignored, copyright). Rope data: certificate promised; work with
+  low / middle / high cases.
+- Spokes are not ruled out (Stian): objection is that the two sensors do not read the same spot.
+- Owed in the project: two u16 figures with the old legend; no page links the redline file; the sentence Kai wrote in
+  the s-ldlma note had no fresh check; later rewrite of the 37 spoke-dependent items; redline rows into the spec.
+- Open questions to Stian (one at a time): PCB first package go; "axial channels flat at a limit" line on the top
+  sheet; private Gmail address; gaussmeter at the rig; was a rope inside when the head split; half-rings truly
+  radially magnetised; photo of the plate with part markings; what "any" means in the company rule.
+
 # State 18 Nov, midday (read this first)
 
 - FIRST POINT OF THE RECAP RUN (Stian, 18 Nov): the board arrangement. The spoke layout was never confirmed by him; his original design is one thin board across the rope with sensors mounted in different planes. Spokes = "not confirmed by the owner"; build nothing more on them.
