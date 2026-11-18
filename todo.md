@@ -308,3 +308,4 @@ governs the rest.
 - [ ] When the 52 mm test rope is specified: design its fault list (same fault at 1 mm and 10 mm gap, depths, wire counts, metal loss over a length, positions) — Stian 16 Nov; rope to be ordered with the breakages built in.
 
 - [ ] Next week: in-place sensor check — test loop per sensor on the new board (Stian 17 Nov: sized to one broken wire / under the 5 % rule) vs a reference rope length; decide whether it goes into the design input.
+- Recap run (MAx): radial stack for the 52 mm head as its own point — one agreed stack, allowance for grease, ice, real rope diameter; cost per extra mm in signal and magnet. Figure: inbox/2026-11-18_radial_stack_52mm.png (Stian, 18 Nov)
