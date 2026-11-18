@@ -114,7 +114,7 @@ def main():
     bars(ax2, [f[k]["Bz3_worst"] for k in keys], [f[k]["Bz365_worst"] for k in keys],
          "3 mm from the rope", "axial sensor radius R 36.5 mm",
          lab2, 0.05, 60,
-         "2  Metal loss (LMA): axial sensor channel B_z, worst rope angle")
+         "2  The SAME broken wires seen by the axial channel B_z (this is NOT an LMA measurement)")
     ax2.axvline(LIMIT, color=RED, lw=2.5, ls="--")
     ax2.annotate("0.22 mT line for scale only: the spec gives\nno mT limit for LMA (it asks +/-0.5 %)",
                  xy=(LIMIT, 11.0), xytext=(0.7, 11.0), color=RED, fontsize=15, va="center",
