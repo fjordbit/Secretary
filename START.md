@@ -1,3 +1,27 @@
+# State 18 Nov, ~23:55 (Kai) — Stian signed off; read this first after a restart
+
+- RUNNING: U100, the 52 mm head fine sweep (worktree C:/Users/stian/Prosjekter-u100, branch u100-h52-sweep, from
+  88c7a03; brief "## U100" in agent-notes/kai.md; due ~02:00; told to give low / middle / high across a physical
+  bracket of the rope wire's magnetic curve). If it died with the power: check the branch and the builder's note in
+  agent-notes/, restart from the brief.
+- NEXT, Stian's go given (23:50): when U100 is back, start the team run that tries to falsify the findings on all
+  major design settings. Log everything in log/ as it happens.
+- Unmerged chain, each on the one before: u95-axial-liftoff 5f5bbc5 -> u96-yoke-cutout e84b603 ->
+  u97-groove-physics ab4fe6b -> u98-working-point 88c7a03 (-> u100); side branch u99-plot-layout ab5ee65 (from
+  ab4fe6b). Local main = D: = 062b8bd; GitHub and Pages unchanged since the afternoon. No merge without Stian's go;
+  nothing into the spec or pages before the team run and his go. report.html must be rebuilt at merge.
+- Conclusion so far (calculated, not measured): thick yoke + outer groove all round at the sensors; groove depth
+  sets where the standing axial field is zero; axial element there (13-19 mm out) = 4-6x LMA level, magnet drift
+  nearly cancels; no effect on local faults (radial elements near the rope, unchanged). Axial element alone is not
+  enough for LMA (rope diameter / fill look like loss; a level trace along a loss needs processing). Working point:
+  LMA wants ~1.9-2.0 T, local faults higher; lean towards LMA (Stian's suggestion, Kai agrees; check single-wire
+  margin). Uniformly thin yoke does not work.
+- Outside models: C:/Users/stian/groove_round_2026-11-18/ (Grok, Codex; Sol's check in rounds/2026-11-18-step2).
+- Figures of the day: inbox/2026-11-18_*.png and three interactive examples *.html.
+- Plot layout: simplify (memory: plot-text-short-and-spread). PCB package for Stian's friend: Friday 20 Nov.
+- Open questions to Stian (one at a time): prototype groove width and depth; "axial channels flat at a limit" on
+  the top sheet; private Gmail address; gaussmeter at the rig; what "any" means in the company rule.
+
 # State 18 Nov, ~16:15 (Kai)
 
 - Released: board arrangement "not settled" (U91), LD and LMA as two measurements + discard rules + link to the rig
