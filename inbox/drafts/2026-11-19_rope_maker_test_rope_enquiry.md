@@ -14,7 +14,7 @@ We use your 52 mm Powerplast rope on our shiplifts. We need a short reference ro
 known, documented faults, to verify magnetic rope testing (MRT) equipment against EN 12927 and ISO 4309.
 
 The attached list shows the faults we would like: single and multiple broken wires with a defined gap, in the outer
-strands and in the inner rope, and three lengths with a known loss of metallic area. The total length is about 22 m
+strands and in the inner rope, and four lengths with a known loss of metallic area (1, 5 and 10 %). The total length is about 24 m
 between terminations.
 
 Before we order, could you tell us:

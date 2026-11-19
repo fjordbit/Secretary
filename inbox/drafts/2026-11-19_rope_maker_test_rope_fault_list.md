@@ -40,6 +40,7 @@ first proposal, not merged and not checked by Kai. Internal columns and referenc
 | L1 | wires left out or swapped for non-magnetic | outer strands, spread round the rope | for 1 % of the metallic area | — | 100 mm | 17 025–17 125 | 2 |
 | L2 | as L1 | as L1 | for 1 % | — | 1 000 mm | 17 625–18 625 | 1 |
 | L3 | as L1 | as L1 | for 5 % | — | 1 000 mm | 19 125–20 125 | 2 |
+| L4 | as L1 | as L1 | for 10 % | — | 1 560 mm (30 rope diameters) | 20 625–22 185 | 1 |
 
 Priority 1 = wanted first. 2 = wanted. 3 = only if it is simple to make.
 If hidden faults cannot be made, F01–F03 on crown wires are the fallback.
@@ -48,7 +49,7 @@ If hidden faults cannot be made, F01–F03 on crown wires are the fallback.
 
 - 2.0 m of clean rope at each end, inside the terminations.
 - At least 500 mm of clean rope between faults.
-- Total about 22.1 m between terminations.
+- Total about 24.2 m between terminations.
 - Markers, all non-magnetic: a paint ring at the zero mark at end A, a straight paint line along the whole rope,
   a paint ring 100 mm before each fault, tags "END A" and "END B". No steel clamps, ties or tags.
 
@@ -59,5 +60,5 @@ If hidden faults cannot be made, F01–F03 on crown wires are the fallback.
 - For every fault as made: gap, wire and layer, number of wires, position from the zero mark, angle from the paint
   line, and a photo with a scale before the wire is covered.
 - Positions of any wire welds or joints in the length, or a length without them.
-- For L1–L3: number and size of the wires left out or swapped, and where each starts and ends.
+- For L1–L4: number and size of the wires left out or swapped, and where each starts and ends.
 - How the gaps are held open.
