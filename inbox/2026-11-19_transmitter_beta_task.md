@@ -10,6 +10,9 @@ Not only theory: the code for the line and a running simulator, as a beta, as pa
 If data cannot be generated fast enough, use tables.
 Given: a rope 250 m long; ramp 1 second; maximum speed 5 m/min (confirmed by Stian). One pass of 250 m then
 takes 50 minutes in real time, so the simulator must also run faster than real time.
+Corrected by Stian the same evening: on the 52 mm project the platform moves 0.4 m/min and the rope at the drum
+8 times that, 3.2 m/min. Rope speed is therefore a setting: 3.2 m/min as the normal case (250 m in 78 minutes),
+5 m/min as the fast test case. The rope speed at the first installation (40 mm head) is not on record.
 
 ## What we know (from Stian today and the record)
 
