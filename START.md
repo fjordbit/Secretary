@@ -1,3 +1,23 @@
+# State 19 Nov, ~02:30 (Kai) — team run done; read this first after a restart
+
+- Nothing is running. Team run (U101 A-F) and the large-box re-run (U102) are all back and logged in
+  log/2026-11-19.md. Gathered note for Stian: inbox/2026-11-19_team_run_morning_note.md.
+- Unmerged, all waiting for Stian's go: u95 5f5bbc5 -> u96 e84b603 -> u97 ab4fe6b -> u98 88c7a03 -> u100 c19d94c;
+  u99-plot-layout ab5ee65; u101a cb19ba7, b 3f2589a, c 1d52b57, d 5aa981b, e ad85858, f c1ee951 (each from
+  c19d94c); u102-large-box 1ded20a (from cb19ba7). Local main = D: = 062b8bd; GitHub and Pages unchanged.
+  Nothing into the spec or pages before his go; then as a marked proposal. report.html rebuild at merge.
+- Conclusion now (calculated): principle held (groove sets the zero; holds in 3D and with the split). H52 depths
+  for the zero at 13 / 16 / 19 mm = 5.0 / 4.25 / 3.5 mm (old notes: 6.1 / 5.4 / 4.6, small model box); gain 3.8x;
+  LMA null about 1.94-1.96 T at 1.06-1.15x magnet; no working point above ~2.0 T. New problems: steel within
+  ~0.5 m and a second head change the reading by 1-8 % of metal; temperature changes the scale (-6..+11 % N48SH);
+  N52 in a warm empty head demagnetises; zero must be adjustable; inner-wire local-fault margin about 1 at 2.0 T;
+  TMR2584 offset temperature figure ambiguous. All 18 Nov groove notes carry small-box numbers; part F too.
+- Owed: real-magnet steps (part F) in the large box; one-sided steel in 3D; grade-specific magnet temperature
+  coefficients; second check of U102's falsifier fixes; plot layout simplification; PCB package Friday 20 Nov.
+- Open questions to Stian (one at a time): prototype groove width and depth; was a rope inside when the head was
+  split; gaussmeter at the rig; measured noise from the rig; "axial channels flat at a limit"; private Gmail
+  address; what "any" means in the company rule.
+
 # State 18 Nov, ~23:55 (Kai) — Stian signed off; read this first after a restart
 
 - RUNNING: U100, the 52 mm head fine sweep (worktree C:/Users/stian/Prosjekter-u100, branch u100-h52-sweep, from
