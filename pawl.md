@@ -29,3 +29,7 @@
   2 missed (temperature field order, overflow bit), now covered by test_core.c. Minors documented (24-bit input
   precondition, edge must be handled before its push, buffers reused after restart, size wording).
 - Tip f86978a. 20 tests in test_c_half.py pass. Scans 0 (idscan d8a0cf4..HEAD; scan_tree on git archive).
+- Follow-up (owner's ruling, clamp at full scale): half.py and half_core.c clamp to -2^23..2^23-1 before packing;
+  no health bit (link note gives all 16 bits a meaning; RAILED is an input level, not used) -> open point.
+  Full suite incl. slow: 76 passed, 1 failed (test_position_within_10_mm_after_registration, the known 27.3 mm
+  position FAIL). 77 = 56 base + 21 new; Kai's 55+1 is the base suite; my earlier 72 was "not slow" only.
