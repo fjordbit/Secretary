@@ -1,3 +1,18 @@
+# State 19 Nov, ~11:40 (Kai) — Stian restarts the machine; read this first
+
+- Nothing is running. Do NOT start a builder before Stian says he is back after the restart.
+- Then, in order: (1) ask again: run the prototype geometry from the drawing
+  (inbox/2026-11-19_prototype_yoke_drawing.png; yoke 105 long, dia 102 / 88, groove 10 x 2 mm, dia 12 holes;
+  the model's H40 is a different head) in the large box (r 2400 x z +-2400 mm, see g_large_box.md on
+  u102-large-box) — he has not said yes yet; (2) plot standard for fjordbit/agentic (research type with hover +
+  simple presentation type), on a branch, shown before any push; (3) today: set up the multi-agent system for
+  Ramin together from fjordbit/agentic README + CLAUDE.md (check that Ramin has access to that repo).
+- Posted today on fjordbit/max: issue #3 (prototype groove, head designer), #4 (magnet supplier data, head
+  designer), #2 assigned to him, comment on #1 (rope data, Ramin). Mail to Stian 11:36: rope enquiry draft.
+- Open question to Stian: longer loss (1 560 mm) and a 10 % loss in the test rope list before he sends it?
+- Stian, today: problems 2 and 3 of the team run (temperature, N52 empty head) are handled by magnet type; grade
+  by price; show N52 and N48SH together. Rope data from Ramin is needed before the "last" complete run.
+
 # State 19 Nov, ~02:30 (Kai) — team run done; read this first after a restart
 
 - Nothing is running. Team run (U101 A-F) and the large-box re-run (U102) are all back and logged in
