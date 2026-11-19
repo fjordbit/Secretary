@@ -84,7 +84,7 @@ Corrected by Stian the same evening: on the 52 mm project the platform moves 0.4
 ## Open questions for Stian (one at a time)
 
 1. (Answered: 5 m/min.)
-2. Language: everything in Python first, or the half in C from the start (as it would run in the
+2. (Answered: Python first, C for the half later.) Was: Python first, or the half in C from the start (as in the
    microcontroller)?
 3. Where it lives: as a module of the twin in the project, beside the existing twin and Studio work?
 4. Should the logger in the beta be our own code, or should it write a format the commercial logging system
