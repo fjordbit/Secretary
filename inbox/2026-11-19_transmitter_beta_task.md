@@ -89,3 +89,13 @@ Corrected by Stian the same evening: on the 52 mm project the platform moves 0.4
 3. Where it lives: as a module of the twin in the project, beside the existing twin and Studio work?
 4. Should the logger in the beta be our own code, or should it write a format the commercial logging system
    reads?
+
+## Next step after the beta (Stian, 19 Nov evening)
+
+- In the week of 23 Nov: raw element data from the prototype head (TMR elements), and a measurement of the same
+  rope with a calibrated and approved rope tester. The tester gives a processed signal, not the raw one.
+- The raw element data is then used to adapt the simulator: converter noise and the other effects seen in the
+  real signal are put into the model. The tester's result is the reference for what is in the rope.
+- Aim: a digital twin that is as good as current knowledge allows.
+- For the beta this means: the simulator must be able to replay a recorded trace in place of the generated one
+  (the "tables" mode), and its noise, ripple, drift and hum must be settings that can be fitted to a recording.
