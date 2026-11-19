@@ -1,0 +1,14 @@
+# stemson — U97 builder notes
+
+- Started U97 (groove physics) 18:22. u96-yoke-cutout tip = e84b603 verified. Worktree C:/Users/stian/Prosjekter-u97, branch u97-groove-physics from e84b603. Timebox to 20:52.
+- Two additions from Kai mid-run: (1) axial element is for LMA: long-loss level is the main read-out, apparent LMA per 1 % magnet; tests (a)-(e) on drift null, flatness/ends, linearity, comparators, yoke flux; (2) the "inner groove wrong way" is NOT established: register in the corrected words; point 3 lists pairs that would look like "one did not help, next helped a lot".
+- Third addition: rope induction in T (mid-plane and peak along the rope) in every table, mark < 1.9 T; B_rope = all flux / metallic area, register l.191 and l.370 (1.9–2.3 T, EN 12927 Annex B); rope saturated vs yoke not, in easy read; "working point of the rope with a groove" owed.
+- Hand zero: linear law in r (the model's air profile is near straight) with the model's own fluxes: within 0.2-0.8 mm for O, 1-1.7 mm too far out for I. Log law 2-3 mm short.
+- Unit bug caught: first read_at returned B_z in T (not mT); lma and the sweep were rerun after the fix (nothing from the bad run kept).
+- lma (H40): Kai's re-read of O w18 d3 at 16 mm confirmed (−1.88 mT, level −5.22, magnet −0.0054 mT = +0.01 %; none −2.06 %). Drift null within ~1 mm of the standing zero for d ≤ 3.5; 1.6 mm (d4), 3.6 mm (d5) off. 20/10 level ratio 1.78 (shallow, near zero) to 2.06. Rope +1 % thicker −2.0…−2.4 % apparent with groove (none −0.8…−1.1). Steel H ×0.5/×2 ±3…8 %. Ref yoke flux −0.63 %/1 % (U92 −0.62).
+- Sweep: at equal lift-off with zero there, level/1 % 4–6× no-groove, magnet-apparent LMA −0.2…+0.04 % vs −2.1…−2.4 %, short peak about the same. Rope with zero at 10 mm 1.88 T (below 1.9).
+- Commit 59928f7, then a fix commit (lma JSON at 4 decimals: a 5-digit data string hit an identifier entry; located by position only, never printed). Checks: 8/9 --check (build.py: report.html stale; rebuilt+diffed = register rows only, U95/U96/U97; restored, not committed), pytest 180/181 (test_sws_report, same cause), idscan 0 (109798 lines), scan_tree added files 0, added lines 0; modified register/TASKS whole files 30 = 30 at base.
+- Inner vs outer: same direction at d ≥ 3 (inner 50–95 %); opposite only for shallow wide inner (d1: |B_z| up ≤1.06 mT) and B_r off-plane (≤3.2 mT). Levers: thin yoke, two grooves at ±10, stepped groove move the zero; rings, magnet spacing, moving along do not.
+- Falsifier running 19:31.
+- defect_sweep.full_model: cutout may be a list (optional 5th item = centre z), `extra` rectangles, `steel_tab`; defaults unchanged.
+- Script sws/3d/demo/groove_physics.py (parts physics, sweep, sens, inout, levers, lma). Physics: tangential H across yoke face agrees to ~0.01-0.05 %, rope surface ~0.2 %. Hand zero (log law, model's own fluxes) 2-3 mm nearer rope than the model; holding the no-groove yoke flux fails (flux drops when the steel left saturates).
