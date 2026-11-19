@@ -7,3 +7,6 @@
 
 - Handle `hmssyncro` (confirmed by Stian, 3 Nov 2026). Read access on MAx-Flow/SWS-Documentation; invited to fjordbit/max with write on 3 Nov 2026 (pending).
 - Issue #2 (3 Nov 2026): prototype noise floor and measurement data. Assign to him once he accepts. Open.
+- Invite to fjordbit/max accepted (seen 19 Nov 2026: selectable as assignee).
+- Issue #3 (19 Nov 2026): dimensions of the prototype groove and of the cut-out that did not help. Assigned to him. Open.
+- Magnet supplier task (draft of 8 Nov) not posted as of 19 Nov.
