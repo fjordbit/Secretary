@@ -8,10 +8,13 @@ The brief is written from this note once (a) Stian has corrected it and (b) the 
 
 Not only theory: the code for the line and a running simulator, as a beta, as part of the SWS digital twin.
 If data cannot be generated fast enough, use tables.
-Given: a rope 250 m long; ramp 1 second; maximum speed 5 (unit to confirm: m/min or m/s).
+Given: a rope 250 m long; ramp 1 second; maximum speed 5 m/min (confirmed by Stian). One pass of 250 m then
+takes 50 minutes in real time, so the simulator must also run faster than real time.
 
 ## What we know (from Stian today and the record)
 
+- There is no code for any part of the line in the project today (found by the transmitter-line run): no
+  firmware, no box, no logger, no averaging. The beta starts from nothing.
 - One SWS = one head = two halves. Per half: 16 elements (8 radial, 8 axial), two 8-channel 24-bit
   converters, digital temperature.
 - The half samples fast and sends a packet every 100 ms. About 250 samples per second per channel is the
@@ -77,7 +80,7 @@ Given: a rope 250 m long; ramp 1 second; maximum speed 5 (unit to confirm: m/min
 
 ## Open questions for Stian (one at a time)
 
-1. Maximum speed: 5 m/min or 5 m/s?
+1. (Answered: 5 m/min.)
 2. Language: everything in Python first, or the half in C from the start (as it would run in the
    microcontroller)?
 3. Where it lives: as a module of the twin in the project, beside the existing twin and Studio work?
