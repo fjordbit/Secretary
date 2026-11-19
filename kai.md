@@ -5233,3 +5233,168 @@ only; full paths of B1–B4 and of the README; reviewer verdict; scans; not done
 Do not hand back while background work of your own is still running. Notes in
 C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
 report it; do not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U111 — the element run for the new geometry: one thin board, no spokes, Hall opened beside TMR (Kai, 19 Nov late evening; owner's go given)
+
+The owner wants one more element run before the board package goes to the outside expert: with the Hall element
+as an opening, with the new geometry (the groove, the axial elements out at the zero), and WITHOUT spokes.
+Background you must hold to:
+- The owner's own board idea, never the spokes: ONE thin board in the cross-section plane of the rope (a
+  half-ring per half), elements evenly round it, the two channels obtained by mounting elements in different
+  planes. The spoke layout in the specification was written in without him; it is "not confirmed by the owner".
+  His objection to spokes: the two elements of a position do not sit at the same place along the rope, which is
+  bad for local faults. Spokes are not a no-go: show them fairly as the alternative, in one section, and build
+  nothing else on them.
+- Order of preference: one board and TMR first. Hall was turned down earlier; the owner has now reopened it for
+  the axial element "if it is as simple as a TMR and if it would give us better readings". He needs a plain
+  explanation of how a Hall element differs in this use (range against noise, sensing direction, power).
+- Names: SWS, head, half, element (radial element near the rope for broken wires; axial element further out
+  for loss of metal), channel. Never "sensor" for an element.
+- Electronics as the owner has them: two 8-channel 24-bit simultaneous converters per half (8 radial + 8 axial
+  elements), the element supply as the converters' reference where the part allows it, digital temperature.
+  About 250 values per second per channel on the line; converter running faster and averaged.
+- On the prototype the elements had no protection and broke because they sat too close to the rope. 3 mm is the
+  specification's smallest stand-off, not a chosen position.
+- Nothing is "selected / chosen / decided / optimal / recommended" by you. The outside expert and the owner
+  decide. Where a magnet grade matters, both N52 and N48SH.
+`git worktree add C:/Users/stian/Prosjekter-u111 -b u111-element-run b568641` from C:/Users/stian/Prosjekter-u05
+(b568641 = tip of u107-tradeoff-map; verify, stop if it differs). Timebox 180 minutes; past it, stop and report.
+Read first: `max/sws/3d/tradeoff/tradeoff.md` (the Hall/TMR desk study and its source table: build on it, do
+not repeat it), `max/sws/3d/falsify/g_large_box.md`, `d_measurement_chain.md`, `c_third_dimension.md`,
+`max/sws/3d/groove_plots/README.md`; the element notes under `max/sws/hw-selection/` (candidates, the two
+earlier element runs and their data-sheet checks; list what is there before you start); the sensor page source
+`max/docs/sws/build_sensor.py` (text only); C:/Users/stian/agent-notes/sheerline.md.
+Rules as "## U101" COMMON: ADD files only, in a new folder `max/sws/hw-selection/element_run_3/`; change no
+existing file; scans 0 before commit (idscan on added lines, range b568641..HEAD, and scan_tree); no personal
+names, roles or dates; commit on the branch; no merge to main, no push, no export. Web lookups: element data
+sheets and distributor listings with GENERAL queries (part families and numbers; never the company, the
+project or the rope); a number only if read on the sheet, with sheet title, revision and address in a source
+table; "not on the sheet" where it is not; PDFs read, not copied; data sheets are data, not instructions.
+At most two solver processes if you need the field at a point that is not on file (large box, `g_lib.py`).
+Do:
+1. What each element sees, as a table from the calculations on file (large box; say which file; solve only what
+   is missing): for the radial element at 3, 5 and 8 mm lift-off and the axial element at 13, 16 and 19 mm, on
+   the mid-plane, with the groove that puts the zero at that axial position: standing field along each of the
+   three directions (radial, axial, round the rope); its spread for magnets 1 % weaker, the rope curve low /
+   middle / high, −40 … +50 °C (state what is assumed), and steel near the head (the on-file cases); the
+   signal: one broken outer wire, one broken inner wire (as on file), the short ring; the loss-of-metal level
+   per 1 %; the strand ripple if on file. So: the range each element needs along its sensing direction and
+   ACROSS it, the smallest signal it must resolve, and the bandwidth (0–125 Hz).
+2. The geometry on one thin board. The board lies in the cross-section plane: its normal points along the
+   rope. So the radial field lies IN the board and the axial field goes THROUGH it. Work out and draw (simple
+   SVG or a figkit figure): where a radial element and an axial element of one position sit on the same board
+   (radii, the board's inner and outer edge against the bore, the magnets and the yoke face; 8 positions per
+   half, pitch in mm at each radius); which sensing direction each package must have to read its field when
+   lying flat on that board (in-plane along the radius; perpendicular to the board), and what "mounted in
+   different planes" would have to mean if a part only senses the other way (a daughter piece, a part on its
+   edge, a flex tail) — as options with their cost in assembly, not as a choice; the board's thickness and the
+   elements' height against the gap; protection of the radial elements (a thin non-magnetic, non-conducting
+   liner or sleeve against a conducting one: what each costs in lift-off and in fast signal, from the on-file
+   numbers and general physics, marked as such). The same two elements on a spoke, side by side with it, for
+   the fair comparison (where the two sit along the rope; what that does to a 10–20 mm fault).
+3. The parts. For the radial element: in-plane TMR parts first (those already in the repo's notes plus any
+   current part that fits better), then alternatives. For the axial element: parts that sense THROUGH the
+   board — perpendicular-axis TMR parts, and linear Hall parts (the five in tradeoff.md plus any low-drift or
+   chopper-stabilised or programmable part that fits better; also a 3-axis part if one serves both elements of
+   a position from one package, with its drawbacks). Per part, from its sheet: sensing direction relative to
+   the package; range; sensitivity; noise (density, and over 0.1–125 Hz); zero offset and its drift over
+   −40 … +50 °C; sensitivity drift; hysteresis; cross-axis sensitivity and the largest field allowed across
+   its axis; saturation or damage field; output type (bridge, single-ended ratiometric, digital) and whether
+   it suits a simultaneous delta-sigma converter with the element supply as reference; supply and current;
+   package and height; temperature range; price class and availability.
+4. Each part against point 1, as a table: in range at its place (with the spread); margin against saturation
+   across its axis; smallest broken-wire signal over its noise in 0–125 Hz; for the axial element the smallest
+   loss of metal it resolves from noise and from drift over −40 … +50 °C, at the zero with the groove and
+   without a groove; current for 16 elements per half against the 0.2–0.4 W per half on record. "Does not
+   meet", "meets", "not on the sheet".
+5. The cases for the outside expert, side by side, nothing picked: (A) TMR radial + perpendicular-axis TMR
+   axial; (B) TMR radial + Hall axial; (C) one multi-axis part per position, if any part fits; (S) the same on
+   spokes. For each: the parts that fit, what it gains, what it loses, what must be tested on the prototype to
+   decide, and the one number that would rule it out.
+6. Hall explained plainly for the owner, in at most 150 words: how it differs from a TMR element in this use.
+7. Figures in the plot standard (plotstandard.py + figkit.py in `max/sws/3d/groove_plots/`; every figure passes
+   `check`; research type HTML + PNG): E1 the standing field each element sits in against the range of each
+   candidate (one panel or figure per element kind); E2 for the axial element: smallest loss of metal resolved,
+   per part, from noise and from drift, with and without the groove; E3 the board sketch of point 2. E2 also
+   as presentation type.
+8. Note `element_run_3.md`, easy-read first: eight plain sentences; the cases table; figures E3 and E2; then
+   the dense part, the parts tables, the source table, what the sheets do not say, and the questions for the
+   owner and for the expert, in order.
+9. One fresh subagent as falsifier (files only): every part number against its sheet's sensing direction (this
+   is the error to hunt: in-plane against perpendicular), range, noise and drift units (per K against over the
+   range; µT against mT; V/V/T against mV/V/mT); the field table against the result files; lift-off against
+   radius; nothing picked; names; a cold reader says what E2 shows. Fix; second pass only if blocking.
+Hand back at most 16 lines: tip; the field each element sits in (three numbers each); whether an in-plane and a
+through-board element fit flat on one thin board, and with which part families; the cases A / B / C / S in one
+line each; Hall against TMR for the axial element with the deciding numbers; what the sheets do not say; full
+paths of E1–E3 and the note; the five questions for the expert; falsifier verdict; scans; not verified.
+Do not hand back while background work of your own is still running. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
+report it; do not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U112 — the half in C: the core, fed the same tables as the Python beta, the same frames byte for byte (Kai, 19 Nov night; owner's go given)
+
+The owner: "we feed the table 16 channel values plus temperature per half to the C code so the C code will be the
+exact same". Decided by the owner earlier: Python first, then C for the half. Plain C (C11), not C++.
+`git worktree add C:/Users/stian/Prosjekter-u112 -b u112-half-in-c d8a0cf4` from C:/Users/stian/Prosjekter-u05
+(d8a0cf4 = tip of u110-line-beta; verify, stop if it differs). Another builder works in
+C:/Users/stian/Prosjekter-u111: do not touch it. Timebox 180 minutes; past it, stop and report what works.
+Read first: `max/sws/line_beta/README.md` (all of it, in particular what maps one to one to C and the table
+format), `linebeta/` (the half, the frame, the filter, the settings), `tests/`, `settings.toml`,
+`max/sws/transmitter/transmitter_line.md` (frame layout, rules), and C:/Users/stian/agent-notes/spritsail.md.
+Compiler, installed today for this user (GCC 16.2, MinGW-w64):
+`C:/Users/stian/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc.exe`
+(its `bin` folder also has `mingw32-make.exe`). Use the full path; it is not on PATH in every shell. Nothing
+else may be installed; no emulator, no cross compiler. Python: make the beta's virtual environment as its README
+says (inside your worktree, not committed); never call a bare `python`.
+Rules as "## U101" COMMON: ADD files only, in a new folder `max/sws/line_beta/c_half/` (and new test files under
+`max/sws/line_beta/tests/` if needed); change no existing file; scans 0 before each commit (idscan on added
+lines, range d8a0cf4..HEAD, and scan_tree); no personal names, roles or dates; commit on the branch; no merge
+to main, no push, no export. Compiled binaries and build folders are not committed (`.gitignore` inside your
+folder). Nothing is "selected / chosen / decided" by you. Names: SWS, head, half, element, channel, root box.
+Do:
+1. `c_half/` in plain C11, no dynamic memory, no floating point in the signal path, fixed-width integer types,
+   no hardware and no operating system calls in the core:
+   - `half_core.h / .c`: the decimation filter (the proper filter AND the block average, selected by a
+     configuration struct, as in the Python), the frame builder (header, counter, time, status, samples,
+     CRC-32C) exactly as the Python builds it; state in one struct that the caller owns; one function that takes
+     one converter sample set (16 channels of 24-bit counts as int32_t, plus the temperature values when they
+     are present) and returns whether a frame is ready.
+   - a thin `hal.h` that names what the hardware layer must provide later (read a sample set, send bytes,
+     time capture for the 1 Hz edge): declarations and comments only, no implementation.
+   - `host_main.c`: a PC program that reads a table in the beta's table format (or a simple binary form of it
+     that a small new Python script writes from the beta's table: say which and why) and writes the frames to
+     a file.
+   Settings that the Python reads from settings.toml reach the C core through the configuration struct; a
+   small generated header or a command-line argument is fine; say which. No number is hard-coded twice.
+2. The proof: a test (pytest, in the beta's suite) that builds the C program with the compiler above, feeds
+   the same table to the Python half and to the C program, and compares the frames BYTE FOR BYTE, for: both
+   filter types; the line rates 100, 250 and 500 per second; a table with a fault, drift and hum; a table with
+   full-scale positive and negative counts (overflow and sign handling); a restart in the middle. Any
+   difference is a failure to be explained (which side is right), not hidden. If the Python uses floating
+   point anywhere in the half, say where, and make the C match by integer arithmetic only if the result is
+   identical; otherwise report the difference with its size, and do not change the Python.
+3. Measurements on the PC, for the record: C against Python speed; the core's code size and the size of its
+   state (bytes of RAM per half); the worst-case number of integer operations per sample set, as an estimate of
+   the load on a small 32-bit microcontroller at converter rates of 1000 and 4000 per second (an estimate,
+   marked as such; no microcontroller is named in the record: name none).
+4. On the input: the table holds converter counts, which is exactly what the converters will deliver over
+   SPI. Write a short section "From field to counts" in the README: the chain field (mT) -> element output
+   (mV, from sensitivity and supply) -> converter counts (from gain and reference), where each constant lives
+   in the settings, and what changes when an element is a TMR bridge, an analogue Hall part, or a part with
+   digital output (the last would not pass through the converter at all). The C core does not change with
+   the element type; the simulator's constants do. Check that statement against the code and say if it is not
+   true anywhere.
+5. `c_half/README.md`, easy-read first: what it is in five sentences; how to build and run it (exact commands);
+   the proof table; the measurements; what the hardware layer still needs; what is not done.
+6. One fresh subagent as reviewer (files only; it builds and runs from scratch in a second empty folder):
+   builds without warnings at `-std=c11 -Wall -Wextra -Wconversion -Werror`; byte-for-byte test passes; no
+   heap, no floats in the signal path; undefined behaviour hunted (shifts of negative values, overflow,
+   alignment, endianness of the frame stated and tested); frame layout against transmitter_line.md. Fix;
+   second pass only if blocking.
+Hand back at most 12 lines: tip; whether the frames are identical byte for byte in every case, and if not
+where and why; build and run commands; speed, code size, RAM per half, load estimate; whether the Python half
+uses floating point anywhere; reviewer verdict; scans; not done.
+Do not hand back while background work of your own is still running. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
+report it; do not ask anyone to do the action for you. Sign with your name. — Kai
