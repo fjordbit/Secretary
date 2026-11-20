@@ -5761,3 +5761,67 @@ clean, where the PNGs are; the owner's decisions; checker verdict; scans; not do
 background work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in
 that folder). If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign
 with your name. — Kai
+
+## U119 — two converters per half everywhere: the "three" taken out of the live documents (Kai, 20 Nov; owner's go given: "get these 3 converters removed for certain")
+
+Ruled by the owner: one half has TWO 8-channel converters (8 radial + 8 axial sensing elements) and digital
+temperature parts. The third converter existed only to read analogue temperature; temperature was made digital,
+so it is gone. The specification and several pages still say three. It keeps coming back in notes and answers
+because the live documents say it. Take it out for certain.
+`git worktree add C:/Users/stian/Prosjekter-u119 -b u119-two-converters 5c448b3` from C:/Users/stian/Prosjekter-u05
+(5c448b3 = tip of u117-results-page; verify, stop if it differs). Timebox 150 minutes; past it, stop and report.
+Other builders work in C:/Users/stian/Prosjekter-u116 and -u118: do not touch them.
+Read first: C:/Users/stian/agent-notes/topgallant.md (the results page builder: page builders, tests, venvs,
+how report.html is rebuilt), the parts table row for the converters (max/sws/parts_table/parts.yaml), and run
+`grep -rniE "three (8-channel|converters|ADS|ADC)|3 ?(x|×) ?(ADS|8-channel)|\(or three\)|third converter|three 24-bit|24 channels|three-ADS"`
+over max/ to get the list (about 25 files), then widen the search yourself (digits, "3 converters", "24
+inputs", converter counts in price and power sums, channel counts of 24 per half, SPI chip-select counts,
+figures and drawings that show three chips).
+Rules as "## U101" COMMON in this file, with this difference: you MAY change existing files as far as this
+correction needs. Scans 0 before each commit (idscan on added lines, range 5c448b3..HEAD; scan_tree on changed
+and added files' added lines); no personal names, roles or dates in visible text; commit on the branch; no
+merge, push or export. Nothing is "selected / chosen / decided" by you; this one IS ruled by the owner and is
+written as "ruled by the owner" where a status is shown. Names: SWS, head, half, sensing element, channel,
+root box. Never call a bare `python` (page builds and tests: C:/Users/stian/Prosjekter-u41/max/.venv; figures
+and PyYAML: C:/Users/stian/Prosjekter-u05/max/.venv).
+Three classes; sort every hit into one and list them in your notes:
+A. LIVE statements (pages and their builders, the notes the pages are built from, price and complexity, link
+   and read-out, link budget, traffic and data-path and transmitter notes, tests, parts table, the twin and
+   flow examples if they state a count): correct to two. Where a NUMBER depends on the count (price, power,
+   board area, part counts, SPI lines, channel totals, bytes per frame, anything summed over converters):
+   recompute it from its script with two and show old and new in your notes; do not hand-edit a computed
+   number. Where three was one CASE among alternatives in a comparison of hardware cases, keep the case only
+   if it differs from the two-converter case by more than the temperature channel; otherwise fold it away and
+   say so. Tests updated to the new truth, not deleted.
+B. The SPECIFICATION: read how the rendered revisions under max/sws/spec/ are produced and how the full report
+   takes its text (the redline file max/sws/spec/REDLINE_2026-11-18.md is the pattern for marking changes). If
+   a new rendered revision can be made by the existing route with ONLY this change, make it (next revision
+   number), point the report builder at it, add the redline rows, and say that the Word master still has to
+   follow. If the route needs the Word master, do not invent one: add the redline rows and make the report
+   builder apply a marked correction at each of the places (visible text says two; a hover title says that the
+   specification's text is corrected here pending its next revision). Either way the full report must not
+   show "three converters" as current anywhere after this.
+C. HISTORY (model-round briefs and answers under any rounds/ or answers/ folder, older specification
+   revisions, task reports, dated notes that record what was thought then): do not change. If a page links to
+   such a file in a way that a reader could take as current, add one short line at the link saying the count
+   there is superseded.
+Also, small and in the same files while you are there: (1) in parts.yaml the row for the 40 mm head on 38-40 mm
+rope is "open" although max/sws/3d/h40_on_38/ answers it in the model: set it to "calculated, not measured"
+with values and source, and rebuild the table, parts.html and results.html; (2) the converter row becomes
+"ruled by the owner: two", with the old "three" named once as superseded; (3) menu labels and hover
+descriptions on the pages that say "decided" or "chosen" about things that are not: reword to neutral, and
+list each change; (4) the two minor findings left open by the results page's cold reader (see its notes).
+Do NOT change 500 values per second to 250 on the older pages in this unit (250 is a proposal); list those
+places only.
+Checks: after the change the grep above, widened, returns hits in class C files only (give the count per
+class before and after); all `--check` runs and the SWS tests pass (counts; the known PyYAML case as before);
+relative links 0 broken; results.html and parts.html still agree with parts.yaml; pages still print (A4 counts).
+One fresh subagent as falsifier (files only): hunts for any remaining "three" in live text, figures and
+computed numbers; recomputes two of the changed numbers; checks that history is untouched (git diff shows no
+change under rounds/, answers/, older revisions). Fix; second pass only if blocking.
+Hand back at most 12 lines: tip; hits before and after per class; what was recomputed, old and new; how the
+specification and the full report were handled (new revision or marked correction); cases folded or kept;
+the four small items; tests, `--check`, links; falsifier verdict; scans; not done. Do not hand back while
+background work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in
+that folder). If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign
+with your name. — Kai
