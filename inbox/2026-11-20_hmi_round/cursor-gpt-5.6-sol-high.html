@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wire-rope monitoring mock-up</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#fff;--ink:#17212b;--muted:#596773;
+  --line:#c8d0d7;--normal:#16794a;--watch:#9b6900;
+  --inspect:#b84b00;--rule:#a71930;--unknown:#55616c;--focus:#146ebe;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,sans-serif}
+button{font:inherit;color:inherit}
+header{
+  height:52px;display:flex;align-items:center;gap:18px;padding:0 16px;
+  color:#fff;background:#162b3c
+}
+header strong{font-size:18px}
+header nav{display:flex;gap:5px}
+header button{
+  border:1px solid #81909d;background:#233e52;color:#fff;
+  border-radius:4px;padding:7px 12px;cursor:pointer
+}
+header button.active{background:#fff;color:#17212b}
+.source{margin-left:auto;font-size:11px;color:#d9e1e7}
+.page{height:calc(100vh - 52px);padding:10px}
+.hidden{display:none!important}
+#overview{display:grid;grid-template-rows:auto auto 1fr auto;gap:7px}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.metric,.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:5px
+}
+.metric{padding:7px 10px}
+.metric b{display:block;font-size:21px}
+.metric small,.subtle{color:var(--muted)}
+.legend{
+  display:flex;align-items:center;gap:15px;padding:6px 9px;
+  background:#fff;border:1px solid var(--line);font-size:12px
+}
+.key{font-weight:750}
+.normal{--state:var(--normal)}
+.watch{--state:var(--watch)}
+.inspect{--state:var(--inspect)}
+.rule{--state:var(--rule)}
+.unknown{--state:var(--unknown)}
+.key:before{content:"";display:inline-block;width:9px;height:9px;
+  margin-right:4px;background:var(--state);border-radius:50%}
+#fleet{
+  min-height:0;display:grid;grid-template-columns:repeat(9,1fr);
+  grid-template-rows:repeat(6,1fr);gap:5px
+}
+.rope{
+  min-width:0;text-align:left;background:#fff;border:1px solid var(--line);
+  border-left:6px solid var(--state);border-radius:5px;padding:5px 7px;
+  cursor:pointer;display:grid;grid-template-rows:auto auto 1fr
+}
+.rope:hover,.rope:focus-visible{outline:3px solid var(--focus);z-index:2}
+.rope-head{display:flex;justify-content:space-between;font-weight:800}
+.state{color:var(--state);white-space:nowrap}
+.sws{font-size:11px;color:var(--muted);margin:2px 0}
+.vals{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px 7px;
+  align-content:end;font-size:11px
+}
+.vals b{font-size:12px}
+.foot{
+  display:flex;justify-content:space-between;gap:15px;font-size:11px;
+  color:var(--muted)
+}
+#detail{overflow:auto}
+.detail-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.back{padding:7px 10px;background:#fff;border:1px solid var(--line);border-radius:4px}
+.detail-head h1{font-size:20px;margin:0}
+.badge{padding:3px 7px;border:2px solid var(--state);border-radius:4px;
+  color:var(--state);font-weight:800}
+.detail-metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:8px}
+.detail-metrics .metric b{font-size:17px}
+.chart{padding:8px;margin-bottom:8px}
+.chart h2,.trend h2{font-size:15px;margin:0 0 4px}
+svg{display:block;width:100%;height:350px;background:#fbfcfd}
+svg text{font-family:system-ui,sans-serif;fill:#34424e;font-size:11px}
+.axis{stroke:#71808c;stroke-width:1}
+.grid{stroke:#dce2e7;stroke-width:1}
+.limit{stroke:#a71930;stroke-width:2;stroke-dasharray:6 4}
+.lma{fill:none;stroke:#146ebe;stroke-width:3}
+.base{fill:none;stroke:#777;stroke-width:1.5;stroke-dasharray:4 3}
+.ld{fill:#b84b00;stroke:#fff;stroke-width:2}
+.cycle{stroke:none}
+.trends{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.trend{padding:8px}
+.bars{height:75px;display:flex;align-items:end;gap:4px;border-left:1px solid #777;
+  border-bottom:1px solid #777;padding:4px 5px 0}
+.bar{flex:1;background:#146ebe;min-height:2px;position:relative}
+.bar.ldbar{background:#b84b00}
+.bar span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);
+  font-size:9px;color:#596773}
+.note{font-size:11px;color:var(--muted);margin-top:20px}
+@media (min-width:1900px){
+  body{font-size:18px}.vals,.sws,.legend,.foot{font-size:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <strong>Rope condition</strong>
+  <nav aria-label="Main views">
+    <button id="overviewTab" class="active">All ropes</button>
+    <button id="ropeTab">Selected rope</button>
+  </nav>
+  <span class="source">BRIEF = input.md · DEMO = invented operational data</span>
+</header>
+
+<main id="overview" class="page">
+  <section class="summary" aria-label="Fleet summary">
+    <div class="metric"><b>51</b><small>ropes · BRIEF</small></div>
+    <div class="metric"><b>102</b><small>SWS · BRIEF</small></div>
+    <div class="metric"><b id="attentionCount">0</b><small>need attention · DEMO</small></div>
+    <div class="metric"><b id="unknownCount">0</b><small>data-health issues · DEMO</small></div>
+    <div class="metric"><b>07:42</b><small>latest fleet update · DEMO</small></div>
+  </section>
+
+  <section class="legend" aria-label="Legend">
+    <span class="key normal">○ Normal</span>
+    <span class="key watch">△ Watch</span>
+    <span class="key inspect">! Inspect</span>
+    <span class="key rule">◆ Rule reached</span>
+    <span>Health: ✓ current · ◷ stale · ? missing · ⊘ out of service</span>
+  </section>
+
+  <section id="fleet" aria-label="All 51 ropes and all 102 SWS"></section>
+
+  <footer class="foot">
+    <span>Each card shows both SWS. Select a rope for position and history.</span>
+    <span>Not a safety system · BRIEF</span>
+  </footer>
+</main>
+
+<main id="detail" class="page hidden">
+  <section class="detail-head">
+    <button class="back" id="back">← All 51 ropes</button>
+    <h1 id="detailTitle">Rope R01</h1>
+    <span id="detailState" class="badge normal">○ Normal</span>
+    <span class="subtle">All operational values on this page are DEMO.</span>
+  </section>
+
+  <section id="detailMetrics" class="detail-metrics"></section>
+
+  <section class="panel chart">
+    <h2>Position-aligned evidence · 250 m assumed travel (allowed invention: BRIEF)</h2>
+    <svg id="ropeChart" viewBox="0 0 1260 350"
+         role="img" aria-label="Rope findings by position"></svg>
+  </section>
+
+  <section class="trends">
+    <article class="panel trend">
+      <h2>Maximum LMA by run (%) · DEMO</h2>
+      <div class="bars" id="lmaTrend"></div>
+      <p class="note">Separate LMA trend. First run is the reference.</p>
+    </article>
+    <article class="panel trend">
+      <h2>LD findings by run (count) · DEMO</h2>
+      <div class="bars" id="ldTrend"></div>
+      <p class="note">Separate LD trend; not combined with LMA.</p>
+    </article>
+  </section>
+</main>
+
+<script>
+"use strict";
+const states={
+  normal:{label:"○ Normal",cls:"normal"},
+  watch:{label:"△ Watch",cls:"watch"},
+  inspect:{label:"! Inspect",cls:"inspect"},
+  rule:{label:"◆ Rule reached",cls:"rule"}
+};
+const ropes=Array.from({length:51},(_,n)=>{
+  const i=n+1;
+  let fatigue=28+(i*13)%66;
+  let lma=+(0.4+((i*7)%84)/10).toFixed(1);
+  let ld=(i*3)%6;
+  if(i===17) lma=10.6;
+  if(i===38) lma=9.4;
+  const health=i===29?"stale":i===44?"out":i===46?"missing":"current";
+  let state=lma>=10?"rule":(lma>=8||ld>=5||fatigue>=90)?"inspect":
+    (lma>=5||fatigue>=75)?"watch":"normal";
+  return{
+    id:i,fatigue,lma,ld,
+    cycles:8400+(i*1573)%36000,
+    health,state,
+    swsA:i===29?"◷":i===46?"?":"✓",
+    swsB:i===44?"⊘":"✓"
+  };
+});
+const fleet=document.getElementById("fleet");
+const fmt=n=>n>=1000?(n/1000).toFixed(1)+"k":n;
+ropes.forEach(r=>{
+  const s=states[r.state];
+  const b=document.createElement("button");
+  b.className=`rope ${s.cls}`;
+  b.setAttribute("aria-label",
+    `Rope ${r.id}, ${s.label}, fatigue ${r.fatigue} percent`);
+  b.innerHTML=`
+    <span class="rope-head"><span>R${String(r.id).padStart(2,"0")}</span>
+      <span class="state">${s.label}</span></span>
+    <span class="sws">SWS A ${r.swsA} · B ${r.swsB}</span>
+    <span class="vals">
+      <span>Fatigue <b>${r.fatigue}%</b></span>
+      <span>Cycles <b>${fmt(r.cycles)}</b></span>
+      <span>ΔLD <b>+${r.ld}</b></span>
+      <span>ΔLMA <b>+${r.lma}%</b></span>
+    </span>`;
+  b.onclick=()=>showRope(r);
+  fleet.appendChild(b);
+});
+document.getElementById("attentionCount").textContent=
+  ropes.filter(r=>r.state!=="normal").length;
+document.getElementById("unknownCount").textContent=
+  ropes.filter(r=>r.health!=="current").length;
+
+const overview=document.getElementById("overview");
+const detail=document.getElementById("detail");
+const overviewTab=document.getElementById("overviewTab");
+const ropeTab=document.getElementById("ropeTab");
+let selected=ropes[0];
+
+function showOverview(){
+  overview.classList.remove("hidden");detail.classList.add("hidden");
+  overviewTab.classList.add("active");ropeTab.classList.remove("active");
+}
+function showRope(r){
+  selected=r;
+  overview.classList.add("hidden");detail.classList.remove("hidden");
+  overviewTab.classList.remove("active");ropeTab.classList.add("active");
+  renderDetail(r);
+}
+overviewTab.onclick=showOverview;
+ropeTab.onclick=()=>showRope(selected);
+document.getElementById("back").onclick=showOverview;
+
+function renderDetail(r){
+  const s=states[r.state];
+  document.getElementById("detailTitle").textContent=
+    `Rope R${String(r.id).padStart(2,"0")} · Winch ${r.id}`;
+  const state=document.getElementById("detailState");
+  state.className=`badge ${s.cls}`;state.textContent=s.label;
+  document.getElementById("detailMetrics").innerHTML=`
+    <div class="metric"><b>${r.fatigue}%</b><small>fatigue · experimental</small></div>
+    <div class="metric"><b>+${r.lma}%</b><small>LMA drift from first run</small></div>
+    <div class="metric"><b>+${r.ld}</b><small>LD findings from first run</small></div>
+    <div class="metric"><b>${r.cycles.toLocaleString()}</b><small>maximum section cycles</small></div>
+    <div class="metric"><b>A ${r.swsA} · B ${r.swsB}</b><small>SWS data health</small></div>
+    <div class="metric"><b>52.1 mm</b><small>rope diameter · DEMO</small></div>`;
+  drawChart(r);
+  drawTrends(r);
+}
+
+function drawChart(r){
+  const svg=document.getElementById("ropeChart");
+  const left=90,right=1230,width=right-left;
+  const x=p=>left+(p/250)*width;
+  const lmaY=v=>180-(v/12)*100;
+  let out=`
+    <text x="12" y="35">Position</text>
+    <line class="axis" x1="${left}" y1="35" x2="${right}" y2="35"/>
+    <text x="${left}" y="25">0 m ◀ end switch</text>
+    <text x="${right-95}" y="25">end switch ▶ 250 m</text>`;
+  for(let p=0;p<=250;p+=25){
+    out+=`<line class="grid" x1="${x(p)}" y1="40" x2="${x(p)}" y2="330"/>
+      <text x="${x(p)-8}" y="52">${p}</text>`;
+  }
+  out+=`
+    <text x="12" y="90">LMA %</text>
+    <line class="axis" x1="${left}" y1="180" x2="${right}" y2="180"/>
+    <line class="limit" x1="${left}" y1="${lmaY(10)}" x2="${right}" y2="${lmaY(10)}"/>
+    <text x="${right-185}" y="${lmaY(10)-5}">10% owner rule · RULE/BRIEF</text>`;
+  const points=[];
+  const baseline=[];
+  for(let p=0;p<=250;p+=10){
+    const base=0.7+0.35*Math.sin((p+r.id)/27);
+    const bump=Math.max(0,1-Math.abs(p-(55+(r.id*17)%150))/24)*r.lma;
+    points.push(`${x(p)},${lmaY(Math.min(11.5,base+bump))}`);
+    baseline.push(`${x(p)},${lmaY(base)}`);
+  }
+  out+=`<polyline class="base" points="${baseline.join(" ")}"/>
+    <polyline class="lma" points="${points.join(" ")}"/>
+    <text x="${left+8}" y="195">dashed: first run · blue: selected run</text>
+    <text x="12" y="225">LD findings</text>
+    <line class="axis" x1="${left}" y1="225" x2="${right}" y2="225"/>`;
+  const findings=[
+    {p:38+(r.id*11)%40,size:2.1+(r.id%4)*.5},
+    {p:112+(r.id*7)%45,size:3.2+(r.id%5)*.7},
+    {p:202-(r.id%6)*8,size:1.8+(r.id%3)*.6}
+  ];
+  findings.forEach(f=>{
+    out+=`<circle class="ld" cx="${x(f.p)}" cy="225" r="${5+f.size/2}">
+      <title>DEMO: LD ${f.size.toFixed(1)}% at ${f.p} m</title></circle>
+      <text x="${x(f.p)-14}" y="246">${f.size.toFixed(1)}%</text>`;
+  });
+  out+=`<text x="12" y="285">Bending cycles</text>`;
+  for(let p=0;p<250;p+=10){
+    const value=7000+((p*97+r.id*1103)%37000);
+    const light=82-Math.round((value/44000)*38);
+    out+=`<rect class="cycle" x="${x(p)}" y="268" width="${width/25+1}"
+      height="28" fill="hsl(205 65% ${light}%)">
+      <title>DEMO: ${value.toLocaleString()} cycles near ${p} m</title></rect>`;
+  }
+  out+=`<text x="${left}" y="315">fewer cycles</text>
+    <text x="${right-70}" y="315">more cycles</text>
+    <text x="12" y="338">Coverage</text>
+    <text x="${left}" y="338">SWS A ${r.swsA}  ━━━━━━━━━━━━━   SWS B ${r.swsB}  ━━━━━━━━━━━━━</text>`;
+  svg.innerHTML=out;
+}
+
+function drawTrends(r){
+  const lmaBox=document.getElementById("lmaTrend");
+  const ldBox=document.getElementById("ldTrend");
+  lmaBox.innerHTML="";ldBox.innerHTML="";
+  for(let n=1;n<=8;n++){
+    const lma=Math.max(.3,r.lma*(.2+n/10));
+    const ld=Math.max(0,Math.round(r.ld*(n/8)));
+    const a=document.createElement("div");
+    a.className="bar";a.style.height=Math.min(100,lma*8)+"%";
+    a.title=`DEMO: run ${n}, ${lma.toFixed(1)}%`;
+    a.innerHTML=`<span>${n}</span>`;lmaBox.appendChild(a);
+    const b=document.createElement("div");
+    b.className="bar ldbar";b.style.height=(8+ld*15)+"%";
+    b.title=`DEMO: run ${n}, ${ld} findings`;
+    b.innerHTML=`<span>${n}</span>`;ldBox.appendChild(b);
+  }
+}
+renderDetail(selected);
+</script>
+</body>
+</html>

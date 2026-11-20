@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rope Monitoring Mock-up (Overview + Rope View)</title>
+<style>
+  :root{
+    --bg:#0f141a;
+    --panel:#171e26;
+    --panel2:#1f2731;
+    --line:#2c3a48;
+    --text:#e8edf3;
+    --muted:#9fb0c2;
+    --ok:#29a35a;
+    --warn:#e2a93b;
+    --crit:#e35d5d;
+    --data:#4aa3ff;
+    --oos:#8b949e;
+    --accent:#77c5ff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:13px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  }
+  .app{max-width:1366px;margin:0 auto;padding:10px}
+  .top{
+    display:flex;gap:8px;align-items:center;justify-content:space-between;
+    margin-bottom:8px;
+  }
+  .title{font-size:18px;font-weight:700}
+  .sub{color:var(--muted);font-size:12px}
+  .btns{display:flex;gap:6px}
+  button{
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    padding:6px 10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  button.active{border-color:var(--accent);color:#dff2ff}
+  .legend{
+    display:flex;gap:8px;flex-wrap:wrap;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:6px 8px;
+    margin-bottom:8px;
+  }
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1px solid var(--line);border-radius:99px;padding:2px 8px;
+    color:var(--muted);font-size:12px
+  }
+  .dot{width:9px;height:9px;border-radius:50%}
+  .overview-grid{
+    display:grid;
+    grid-template-columns:repeat(7,minmax(165px,1fr));
+    gap:6px;
+  }
+  .rope-card{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    border-left:4px solid var(--line);
+    border-radius:7px;
+    padding:6px 7px;
+    min-height:70px;
+    cursor:pointer;
+  }
+  .rope-card:hover{filter:brightness(1.08)}
+  .r-head{display:flex;justify-content:space-between;align-items:center}
+  .r-id{font-weight:700}
+  .state{
+    font-size:11px;font-weight:700;padding:1px 6px;border-radius:999px;
+    border:1px solid #0004;
+  }
+  .mrow{
+    margin-top:4px;
+    display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;
+    color:var(--muted);font-size:12px;
+  }
+  .sv{font-weight:600;color:var(--text)}
+  .sws{
+    margin-top:4px;display:flex;gap:6px;color:var(--muted);font-size:11px
+  }
+  .sws b{color:var(--text)}
+  .hidden{display:none}
+  .rope-wrap{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:8px;
+    align-items:start;
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px;
+  }
+  .kpi{
+    display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;
+  }
+  .k{
+    background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:6px;
+  }
+  .k .n{font-size:18px;font-weight:700}
+  .k .l{color:var(--muted);font-size:11px}
+  select{
+    width:100%;background:var(--panel2);color:var(--text);
+    border:1px solid var(--line);border-radius:6px;padding:6px;
+    margin-bottom:8px;
+  }
+  .note{color:var(--muted);font-size:12px}
+  .state-ok{background:#1d3c2a;color:#b8f0cc;border-color:#2b6f47}
+  .state-warn{background:#47361d;color:#ffe7bb;border-color:#9b7635}
+  .state-crit{background:#4b2121;color:#ffd2d2;border-color:#9d4b4b}
+  .state-data{background:#1f314a;color:#cde6ff;border-color:#4a83bd}
+  .state-oos{background:#31353b;color:#d4d9df;border-color:#707a86}
+  .left-ok{border-left-color:var(--ok)}
+  .left-warn{border-left-color:var(--warn)}
+  .left-crit{border-left-color:var(--crit)}
+  .left-data{border-left-color:var(--data)}
+  .left-oos{border-left-color:var(--oos)}
+  .foot{margin-top:8px;color:var(--muted);font-size:11px}
+  svg{width:100%;height:auto;display:block;background:#111820;border-radius:6px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div>
+      <div class="title">Wire Rope Monitoring</div>
+      <div class="sub">51 ropes · 102 SWS · 204 halves · overview + rope detail mock-up</div>
+    </div>
+    <div class="btns">
+      <button id="bOverview" class="active">Overview</button>
+      <button id="bRope">Rope View</button>
+    </div>
+  </div>
+
+  <section id="viewOverview">
+    <div class="legend">
+      <span class="chip"><span class="dot" style="background:var(--crit)"></span> CRIT concern</span>
+      <span class="chip"><span class="dot" style="background:var(--warn)"></span> WARN trend</span>
+      <span class="chip"><span class="dot" style="background:var(--ok)"></span> OK normal</span>
+      <span class="chip"><span class="dot" style="background:var(--data)"></span> DATA quality issue</span>
+      <span class="chip"><span class="dot" style="background:var(--oos)"></span> OOS out of service</span>
+      <span class="chip">Click any rope tile to open rope view</span>
+    </div>
+    <div id="ropeGrid" class="overview-grid"></div>
+  </section>
+
+  <section id="viewRope" class="hidden">
+    <div class="rope-wrap">
+      <div class="panel">
+        <select id="ropeSelect"></select>
+        <div id="kpis" class="kpi"></div>
+        <div class="note">
+          Lanes: LMA % (trace), LD findings (markers), bending cycles per section (heat strip), drift history (line).
+        </div>
+      </div>
+      <div class="panel">
+        <svg id="ropeSvg" viewBox="0 0 1200 430" aria-label="Rope detail chart"></svg>
+      </div>
+    </div>
+    <div class="foot">Scale uses fixed travel of 250 m. Data in this mock-up is invented but plausible.</div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const N = 51;
+  const TRAVEL_M = 250;
+
+  function frac(x){ return x - Math.floor(x); }
+  function rnd(i,k){ return frac(Math.sin(i*12.9898 + k*78.233)*43758.5453); }
+
+  function statusFrom(r){
+    if(r.oos) return "OOS";
+    if(r.dataIssue) return "DATA";
+    if(r.lmaMax >= 10 || r.ldWorst >= 10 || r.fatigue >= 85) return "CRIT";
+    if(r.lmaMax >= 7 || r.ldWorst >= 6 || r.fatigue >= 70) return "WARN";
+    return "OK";
+  }
+
+  function swsState(id, side, ropeState){
+    if(ropeState === "OOS" && side === "B") return "OOS";
+    if(ropeState === "DATA" && side === "A") return "DATA";
+    const x = (id*7 + (side==="A"?3:11)) % 13;
+    if(x===0) return "WARN";
+    if(x===1) return "DATA";
+    return "OK";
+  }
+
+  const ropes = [];
+  for(let i=1;i<=N;i++){
+    const fatigue = Math.max(18, Math.min(97, Math.round(24 + i*1.2 + rnd(i,1)*18)));
+    const drift = +(Math.max(0.4, Math.min(12.8, rnd(i,2)*7.2 + (i%7===0?2.6:0))).toFixed(1));
+    const cycles = Math.round(9000 + i*610 + rnd(i,3)*2300);
+    const lmaMax = +(Math.max(1.0, Math.min(13.5, drift*0.9 + rnd(i,4)*2.4)).toFixed(1));
+    const ldWorst = +(Math.max(0.4, Math.min(12.5, rnd(i,5)*7.7 + (i%9===0?2.2:0))).toFixed(1));
+
+    const oos = (i===37);
+    const dataIssue = (i===23 || i===46);
+
+    const rope = {
+      id:i,
+      name:`Rope ${String(i).padStart(2,"0")}`,
+      fatigue, drift, cycles, lmaMax, ldWorst,
+      oos, dataIssue
+    };
+    rope.state = statusFrom(rope);
+    rope.swsA = swsState(i,"A",rope.state);
+    rope.swsB = swsState(i,"B",rope.state);
+    ropes.push(rope);
+  }
+
+  const stateOrder = {CRIT:0, WARN:1, DATA:2, OOS:3, OK:4};
+  ropes.sort((a,b)=>stateOrder[a.state]-stateOrder[b.state] || b.fatigue-a.fatigue);
+
+  const classes = {
+    OK:{s:"state-ok",l:"left-ok"},
+    WARN:{s:"state-warn",l:"left-warn"},
+    CRIT:{s:"state-crit",l:"left-crit"},
+    DATA:{s:"state-data",l:"left-data"},
+    OOS:{s:"state-oos",l:"left-oos"}
+  };
+
+  const grid = document.getElementById("ropeGrid");
+  const sel = document.getElementById("ropeSelect");
+  const kpis = document.getElementById("kpis");
+  const svg = document.getElementById("ropeSvg");
+
+  function el(tag, cls, txt){
+    const e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(txt!==undefined) e.textContent = txt;
+    return e;
+  }
+
+  function addCard(r){
+    const c = el("div",`rope-card ${classes[r.state].l}`);
+    const h = el("div","r-head");
+    h.appendChild(el("div","r-id",r.name));
+    h.appendChild(el("span",`state ${classes[r.state].s}`,r.state));
+    c.appendChild(h);
+
+    const m = el("div","mrow");
+    m.innerHTML = `
+      <div>Fatigue <span class="sv">${r.fatigue}</span></div>
+      <div>Drift <span class="sv">${r.drift}%</span></div>
+      <div>Cycles <span class="sv">${(r.cycles/1000).toFixed(1)}k</span></div>
+      <div>LMA max <span class="sv">${r.lmaMax}%</span></div>`;
+    c.appendChild(m);
+
+    const s = el("div","sws");
+    s.innerHTML = `SWS-A <b>${r.swsA}</b> · SWS-B <b>${r.swsB}</b>`;
+    c.appendChild(s);
+
+    c.onclick = ()=>{ showRope(r.id); };
+    grid.appendChild(c);
+  }
+
+  ropes.forEach(r=>{
+    addCard(r);
+    const opt = document.createElement("option");
+    opt.value = r.id;
+    opt.textContent = `${r.name} (${r.state})`;
+    sel.appendChild(opt);
+  });
+
+  function colorForState(st){
+    return st==="CRIT"?"var(--crit)":st==="WARN"?"var(--warn)":st==="DATA"?"var(--data)":st==="OOS"?"var(--oos)":"var(--ok)";
+  }
+
+  function ropeProfile(r){
+    const pts = [];
+    const n = 110;
+    for(let i=0;i<=n;i++){
+      const x = (i/n)*TRAVEL_M;
+      const base = 1.1 + 0.015*x + 0.8*Math.sin(i*0.21 + r.id*0.08);
+      const bumps = (Math.sin(i*0.55 + r.id*0.4)+1)*0.35;
+      let v = base + bumps;
+      if(i>70 && i<82) v += r.lmaMax*0.30;
+      if(i>18 && i<24) v += r.lmaMax*0.22;
+      v = Math.min(14, Math.max(0.3, v));
+      pts.push({x,v});
+    }
+    return pts;
+  }
+
+  function ldEvents(r){
+    const count = Math.max(1, Math.min(7, Math.round(r.ldWorst/2 + (r.id%3))));
+    const arr = [];
+    for(let i=0;i<count;i++){
+      const pos = Math.round((rnd(r.id,i+6)*0.94 + 0.03)*TRAVEL_M);
+      const size = +(Math.max(0.6, Math.min(12, r.ldWorst*(0.45+rnd(r.id,i+21)*0.8))).toFixed(1));
+      arr.push({pos,size});
+    }
+    arr.sort((a,b)=>a.pos-b.pos);
+    return arr;
+  }
+
+  function cycleSections(r){
+    const segs = 20;
+    const arr = [];
+    for(let i=0;i<segs;i++){
+      const mod = 0.72 + rnd(r.id,i+40)*0.62;
+      arr.push(Math.round(r.cycles*mod));
+    }
+    return arr;
+  }
+
+  function driftRuns(r){
+    const runs = 12;
+    const arr = [];
+    let v = Math.max(0.2, r.drift*0.25);
+    for(let i=1;i<=runs;i++){
+      const step = (r.drift/runs) * (0.8 + rnd(r.id,i+70)*0.6);
+      v = Math.min(14, v + step*0.7);
+      arr.push(+v.toFixed(2));
+    }
+    return arr;
+  }
+
+  function drawRope(r){
+    const p = ropeProfile(r);
+    const ev = ldEvents(r);
+    const cyc = cycleSections(r);
+    const dr = driftRuns(r);
+
+    kpis.innerHTML = "";
+    const rows = [
+      ["State",r.state],
+      ["Fatigue",String(r.fatigue)],
+      ["Drift from start",`${r.drift}%`],
+      ["Max LMA",`${r.lmaMax}%`],
+      ["Worst LD",`${r.ldWorst}%`],
+      ["Bending cycles",r.cycles.toLocaleString()],
+      ["SWS-A / SWS-B",`${r.swsA} / ${r.swsB}`],
+      ["Travel",`${TRAVEL_M} m`]
+    ];
+    rows.forEach(([label,val])=>{
+      const d = el("div","k");
+      d.innerHTML = `<div class="n">${val}</div><div class="l">${label}</div>`;
+      kpis.appendChild(d);
+    });
+
+    const W=1200, H=430, x0=80, x1=1130;
+    const yLmaTop=82, yLmaBase=168;
+    const yCycles=220, yLd=292, yDrift=355;
+
+    function X(m){ return x0 + (m/TRAVEL_M)*(x1-x0); }
+    function Ylma(v){ return yLmaBase - (v/14)*(yLmaBase-yLmaTop); }
+
+    let html = `
+      <rect x="0" y="0" width="${W}" height="${H}" fill="#111820"/>
+      <text x="20" y="26" fill="#dfe8f2" font-size="16" font-weight="700">${r.name} detail</text>
+      <text x="20" y="44" fill="#9fb0c2" font-size="12">Lengthwise view with LMA, LD, cycles and drift history</text>
+    `;
+
+    for(let m=0;m<=TRAVEL_M;m+=25){
+      const x=X(m);
+      html += `<line x1="${x}" y1="56" x2="${x}" y2="400" stroke="#243341" stroke-width="1"/>`;
+      html += `<text x="${x-10}" y="53" fill="#91a4b7" font-size="11">${m}</text>`;
+    }
+
+    html += `<line x1="${x0}" y1="${yLmaBase}" x2="${x1}" y2="${yLmaBase}" stroke="#435569"/>`;
+    html += `<line x1="${x0}" y1="${Ylma(10)}" x2="${x1}" y2="${Ylma(10)}" stroke="#8f5f5f" stroke-dasharray="5 4"/>`;
+    html += `<text x="18" y="${yLmaTop+4}" fill="#c7d3df" font-size="12">LMA %</text>`;
+    html += `<text x="18" y="${Ylma(10)-2}" fill="#d5aaaa" font-size="11">10% guide</text>`;
+
+    let d = "";
+    p.forEach((pt,i)=>{ d += (i===0?"M":"L")+X(pt.x).toFixed(1)+" "+Ylma(pt.v).toFixed(1)+" "; });
+    html += `<path d="${d}" fill="none" stroke="${colorForState(r.state)}" stroke-width="2.2"/>`;
+
+    const maxC = Math.max(...cyc);
+    const minC = Math.min(...cyc);
+    html += `<text x="18" y="${yCycles+11}" fill="#c7d3df" font-size="12">Bending cycles / section</text>`;
+    for(let i=0;i<cyc.length;i++){
+      const sx = x0 + i*(x1-x0)/cyc.length;
+      const sw = (x1-x0)/cyc.length - 1;
+      const t = (cyc[i]-minC)/Math.max(1,(maxC-minC));
+      const col = `rgb(${Math.round(45+t*160)},${Math.round(120+t*90)},${Math.round(70+t*20)})`;
+      html += `<rect x="${sx.toFixed(1)}" y="${yCycles}" width="${sw.toFixed(1)}" height="24" fill="${col}" />`;
+    }
+
+    html += `<text x="18" y="${yLd+7}" fill="#c7d3df" font-size="12">LD findings</text>`;
+    ev.forEach(e=>{
+      const x = X(e.pos);
+      const h = 8 + e.size*1.2;
+      const col = e.size>=10?"#e35d5d":(e.size>=6?"#e2a93b":"#77c5ff");
+      html += `<line x1="${x}" y1="${yLd+6}" x2="${x}" y2="${yLd-h}" stroke="${col}" stroke-width="2"/>`;
+      html += `<circle cx="${x}" cy="${yLd-h}" r="3.2" fill="${col}"/>`;
+    });
+
+    html += `<text x="18" y="${yDrift-10}" fill="#c7d3df" font-size="12">Drift from first run</text>`;
+    html += `<line x1="${x0}" y1="${yDrift}" x2="${x1}" y2="${yDrift}" stroke="#435569"/>`;
+    const drMax = Math.max(10, ...dr);
+    let dd = "";
+    dr.forEach((v,i)=>{
+      const x = x0 + i*(x1-x0)/(dr.length-1);
+      const y = yDrift - (v/drMax)*40;
+      dd += (i===0?"M":"L")+x.toFixed(1)+" "+y.toFixed(1)+" ";
+      html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.3" fill="#9bd4ff"/>`;
+    });
+    html += `<path d="${dd}" fill="none" stroke="#9bd4ff" stroke-width="2"/>`;
+
+    html += `<text x="${x1-125}" y="${H-12}" fill="#9fb0c2" font-size="11">0-${TRAVEL_M} m rope position</text>`;
+    svg.innerHTML = html;
+  }
+
+  function show(view){
+    const ov = document.getElementById("viewOverview");
+    const rv = document.getElementById("viewRope");
+    const bo = document.getElementById("bOverview");
+    const br = document.getElementById("bRope");
+    const isR = view==="rope";
+    ov.classList.toggle("hidden", isR);
+    rv.classList.toggle("hidden", !isR);
+    bo.classList.toggle("active", !isR);
+    br.classList.toggle("active", isR);
+  }
+
+  function showRope(id){
+    const r = ropes.find(x=>x.id===id) || ropes[0];
+    sel.value = String(r.id);
+    drawRope(r);
+    show("rope");
+  }
+
+  document.getElementById("bOverview").onclick = ()=>show("overview");
+  document.getElementById("bRope").onclick = ()=>show("rope");
+  sel.onchange = ()=>showRope(Number(sel.value));
+
+  showRope(ropes[0].id);
+  show("overview");
+})();
+</script>
+</body>
+</html>

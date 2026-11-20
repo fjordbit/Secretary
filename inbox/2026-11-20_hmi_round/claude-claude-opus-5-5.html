@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rope monitoring – mock-up, invented data</title>
+<style>
+:root{--bg:#1f2328;--panel:#272c32;--line:#3b424a;--text:#d9dde2;--dim:#9aa3ad;--faint:#5d666f;--watch:#f2c418;--concern:#ff6b3d;--fs:clamp(12px,0.95vw,26px)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;font-size:var(--fs);line-height:1.35}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:.15em .6em;cursor:pointer}
+button:hover,.chip:hover{border-color:var(--dim)}
+.num{font-variant-numeric:tabular-nums}
+.dim{color:var(--dim)}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em 1em;padding:.35em .8em;background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:1.1em;margin:0;font-weight:600}
+header .meta{margin-left:auto;color:var(--dim);font-size:.9em}
+.sum{display:flex;flex-wrap:wrap;gap:.3em 1.2em;align-items:center;padding:.35em .8em;border-bottom:1px solid var(--line)}
+.sum .big{font-size:1.12em}
+.chips{display:flex;flex-wrap:wrap;gap:.35em;padding:.3em .8em;border-bottom:1px solid var(--line);align-items:center}
+.chip{display:inline-flex;gap:.4em;align-items:center;border:1px solid var(--line);border-radius:3px;padding:.05em .5em;background:var(--panel)}
+.chip.l2{border-left:.35em solid var(--concern)}
+.chip.l1{border-left:.35em dotted var(--watch)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0 1.2em;padding:.25em .8em}
+@media (max-width:1150px){.cols{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+.row{display:grid;grid-template-columns:1.4em 3em 1fr 1fr 3em 3.2em 2em 2.4em 2.4em;gap:.35em;align-items:center;height:1.8em;padding:0 .3em;border-bottom:1px solid #2c3238;border-left:.35em solid transparent}
+a.row:hover{background:#2a3036}
+.row.hd{height:auto;padding-top:.2em;padding-bottom:.2em;color:var(--dim);font-size:.8em;border-bottom:1px solid var(--line);line-height:1.15;align-items:end}
+.row.lv2{background:rgba(255,107,61,.13);border-left:.35em solid var(--concern)}
+.row.lv1{border-left:.35em dotted var(--watch)}
+.row.lv3{border-left:.35em dashed var(--dim)}
+.id{font-weight:600;white-space:nowrap}
+.lv2 .id{font-weight:800}
+.r{text-align:right}
+.cell{display:flex;align-items:center;gap:.35em;min-width:0}
+.cell .v{width:2.2em;text-align:right;flex:none}
+.bar{position:relative;flex:1;height:.55em;background:#30363d;min-width:1.5em}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:#7d8790}
+.bar i.l1{background:var(--watch)}.bar i.l2{background:var(--concern)}
+.bar b{position:absolute;top:-.2em;bottom:-.2em;width:1px;background:var(--dim)}
+.bar b.td{width:2px;background:var(--text)}
+.hit1,.hit2{outline:1px solid var(--watch);outline-offset:1px;font-weight:700}
+.hit2{outline:2px solid var(--concern)}
+.hit0{color:var(--watch);font-weight:700}
+.g{display:inline-block;width:1.25em;text-align:center;line-height:1.25em}
+.g2{background:var(--concern);color:#111;font-weight:900;border-radius:2px}
+.g1{color:var(--watch)}
+.g0{color:var(--faint);font-size:.7em}
+.g3{border:1px dashed var(--dim);color:var(--dim);font-weight:700}
+.h span{display:inline-block;width:1.2em;text-align:center}
+.hok{color:var(--faint)}.hdeg,.hoos,.hnod{color:#fff;font-weight:700}
+.st{color:var(--watch)}
+.legend{padding:.35em .8em;color:var(--dim);font-size:.82em;display:flex;flex-wrap:wrap;gap:.2em 1.4em;border-top:1px solid var(--line)}
+.legend span{white-space:nowrap}
+.rhead{display:flex;flex-wrap:wrap;gap:.4em 1em;align-items:center;padding:.3em .8em;border-bottom:1px solid var(--line)}
+.rhead h2{margin:0;font-size:1.25em}
+.rbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(17em,24em);gap:.8em;padding:.4em .8em}
+@media (max-width:1000px){.rbody{grid-template-columns:1fr}}
+#chart{min-width:0;overflow:hidden}
+#side{font-size:.88em}
+#side h3{font-size:1em;margin:.6em 0 .2em;color:var(--dim);font-weight:600}
+#side table{border-collapse:collapse;width:100%}
+#side td,#side th{padding:.1em .3em;border-bottom:1px solid #2f353b;text-align:left;vertical-align:top}
+#side th{color:var(--dim);font-weight:400}
+.state{font-size:1.1em;padding:.3em .45em;border-left:.35em solid var(--faint)}
+.state.lv2{border-left-color:var(--concern);background:rgba(255,107,61,.13)}
+.state.lv1{border-left:.35em dotted var(--watch)}
+.state.lv3{border-left:.35em dashed var(--dim)}
+#read{min-height:6.6em;border:1px solid var(--line);padding:.3em .45em;background:var(--panel)}
+svg text{fill:var(--text)}
+svg text.tt{font-weight:600}
+svg text.tu{fill:var(--dim)}
+.tb{fill:#23282e;stroke:#30363d}
+.seen{fill:#7d8790}
+.thd{stroke:var(--text);stroke-width:1.5}
+.thw{stroke:var(--watch);stroke-dasharray:3 3}
+.stem{stroke:#7d8790;stroke-width:1.5}
+.stem.l1{stroke:var(--watch)}.stem.l2{stroke:var(--concern);stroke-width:2}
+.mk0{fill:#aab2bb}.mk1{fill:var(--watch)}.mk2{fill:var(--concern)}
+svg text.lab1{fill:var(--watch);font-weight:700}svg text.lab2{fill:var(--concern);font-weight:700}
+.pref{fill:none;stroke:var(--dim);stroke-dasharray:4 3;stroke-width:1.2}
+.pnow{fill:none;stroke:var(--text);stroke-width:1.5}
+.pnow.w{stroke:var(--watch);stroke-width:2.5}.pnow.c{stroke:var(--concern);stroke-width:3}
+.ar{fill:#5f6a75}.arw{fill:var(--watch)}
+.cb{fill:#6b7580}
+.fatb{fill:none;stroke:var(--faint);stroke-dasharray:5 4}
+.xh{stroke:#fff;stroke-width:1;stroke-dasharray:2 2;pointer-events:none}
+svg text.oos{fill:#fff;font-weight:700}
+.note{color:var(--dim);font-size:.85em;margin-top:.5em}
+</style>
+</head>
+<body>
+<header><h1 id="h1">Rope condition – all 51 ropes</h1><span class="dim">For inspection and maintenance · not a safety system · does not stop any winch</span><span class="meta num" id="asof"></span></header>
+<main id="ov"></main>
+<main id="rope" hidden></main>
+<script>
+"use strict";
+const TODAY=Date.UTC(2026,10,20),DAY=864e5;
+const N=51,L=290,SEC=5,NS=58,DIA=52;
+const COV={A:[0,250],B:[40,290]};
+const LIM={ldW:4,ldD:6,lmaW:7,lmaD:10,drW:5,stale:30};
+const LVLW=['Normal','Watch','Concern','Not known'];
+const OV={17:{ld:[[132.4,6.4]]},22:{ld:[[88.1,4.6]]},45:{ld:[[201.7,4.2]]},33:{amp:10.4},12:{amp:7.2},8:{base:3.2,amp:4.3},41:{amp:5.3},29:{oos:'B'},5:{deg:'A'},50:{last:46},37:{runs:1,amp:0},26:{gap:['A',150,154]}};
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(x,c,s){const z=(x-c)/s;return Math.exp(-.5*z*z)}
+function fmtD(ms){return new Date(ms).toISOString().slice(0,10)}
+function lvOf(v,w,dd){return v>=dd?2:v>=w?1:0}
+const cache={};
+function gen(i){if(cache[i])return cache[i];
+ const r=mulberry32(i*7919+13),o=OV[i]||{};
+ const amp=o.amp!=null?o.amp:.6+r()*3.2;
+ const cs=[55+r()*20,128+r()*18,198+r()*20],sg=[3+r()*5,3+r()*5,3+r()*5],wt=[.2+r()*.6,.2+r()*.6,.2+r()*.6],top=Math.floor(r()*3);wt[top]=1;
+ const bb=o.base||0,bc=cs[top];
+ const first=[],wear=[],latest=[];
+ for(let x=0;x<=L;x++){const mid=x>25&&x<265?1:.3;let b=0;for(let k=0;k<3;k++)b=Math.max(b,wt[k]*gauss(x,cs[k],sg[k]));
+  wear[x]=amp*(.85*b+.15*mid);
+  first[x]=.25+.08*Math.sin(x/9+i)+(r()-.5)*.16+bb*gauss(x,bc,6);
+  latest[x]=first[x]+wear[x]+(r()-.5)*.2}
+ const R=o.runs||20+Math.floor(r()*40);
+ if(R===1)for(let x=0;x<=L;x++)latest[x]=first[x];
+ const lastDays=o.last!=null?o.last:Math.floor(r()*7),span=R>1?380+Math.floor(r()*300):0,t1=TODAY-lastDays*DAY,t0=t1-span*DAY;
+ const runDates=[];for(let k=0;k<R;k++)runDates.push(R>1?t0+(t1-t0)*k/(R-1):t1);
+ const health={A:'ok',B:'ok'};if(o.oos)health[o.oos]='oos';if(o.deg)health[o.deg]='deg';
+ const seen={};['A','B'].forEach(k=>{seen[k]=health[k]==='oos'?[]:[COV[k].slice()]});
+ if(o.gap){const k=o.gap[0],a=o.gap[1],b=o.gap[2];seen[k]=seen[k].flatMap(([p,q])=>(b<=p||a>=q)?[[p,q]]:[[p,a],[b,q]].filter(s=>s[1]>s[0]))}
+ const seenAt=x=>['A','B'].some(k=>seen[k].some(([p,q])=>x>=p&&x<=q));
+ for(let x=0;x<=L;x++)if(!seenAt(x))latest[x]=NaN;
+ const ld=[],nf=Math.floor(r()*4);
+ for(let k=0;k<nf;k++)ld.push({p:+(10+r()*270).toFixed(1),v:+(.4+r()*2.2).toFixed(1),run:Math.floor(r()*R)});
+ (o.ld||[]).forEach(([p,v])=>ld.push({p:p,v:v,run:Math.max(0,R-1-Math.floor(r()*3))}));
+ ld.forEach(f=>{const a=f.p>=COV.A[0]&&f.p<=COV.A[1],b=f.p>=COV.B[0]&&f.p<=COV.B[1];f.by=a&&b?'A and B':a?'A only':'B only'});
+ const runsTot=Math.round(R*(6+r()*10)),cyc=[];
+ for(let s=0;s<NS;s++){const x=s*SEC+2.5,prof=x<25?.15+x/25*.85:x>265?.15+(L-x)/25*.85:1;cyc.push(Math.round(runsTot*4*prof*(1+.6*gauss(x,cs[0],15))))}
+ let ldTop=null;ld.forEach(f=>{if(!ldTop||f.v>ldTop.v)ldTop=f});const ldMax=ldTop?ldTop.v:0;
+ let lmaMax=0,lmaAt=0,drMax=0,drAt=0;
+ for(let x=0;x<=L;x++){const v=latest[x];if(isNaN(v))continue;if(v>lmaMax){lmaMax=v;lmaAt=x}const dd=v-first[x];if(dd>drMax){drMax=dd;drAt=x}}
+ if(R<2)drMax=null;
+ let cycMax=0,cycAt=0;cyc.forEach((v,s)=>{if(v>cycMax){cycMax=v;cycAt=s*SEC}});
+ const why=[];let lvl=0;
+ const add=(m,l,t,s)=>{why.push({m:m,l:l,t:t,s:s});lvl=Math.max(lvl,l)};
+ const lL=lvOf(ldMax,LIM.ldW,LIM.ldD);
+ if(lL)add('ld',lL,'Local fault '+ldMax.toFixed(1)+' % of area at '+ldTop.p+' m'+(lL===2?' (6 % rule reached)':''),'LD '+ldMax.toFixed(1)+' %');
+ const mL=lvOf(lmaMax,LIM.lmaW,LIM.lmaD);
+ if(mL)add('lma',mL,'Loss of metal '+lmaMax.toFixed(1)+' % at '+lmaAt+' m'+(mL===2?' (10 % rule reached)':''),'LMA '+lmaMax.toFixed(1)+' %');
+ if(drMax!=null&&drMax>=LIM.drW)add('dr',1,'Change since first run +'+drMax.toFixed(1)+' pp at '+drAt+' m','+'+drMax.toFixed(1)+' pp since first run');
+ if(health.A==='oos'&&health.B==='oos')lvl=3;
+ const hText={};['A','B'].forEach(k=>{hText[k]=health[k]==='oos'?'out of service since 2026-11-02 (head opened for cable repair)':health[k]==='deg'?'degraded: half '+k+'2 has 2 of 16 channels missing (axial 3 and 7)':'in service'});
+ if(o.gap)hText[o.gap[0]]+='; no data '+o.gap[1]+'–'+o.gap[2]+' m in latest run';
+ cache[i]={i:i,name:'W'+(i<10?'0':'')+i,first:first,wear:wear,latest:latest,R:R,runDates:runDates,lastDays:lastDays,stale:lastDays>LIM.stale,health:health,seen:seen,hText:hText,ld:ld,ldTop:ldTop,ldMax:ldMax,lmaMax:lmaMax,lmaAt:lmaAt,drMax:drMax,drAt:drAt,cyc:cyc,cycMax:cycMax,cycAt:cycAt,lvl:lvl,why:why};
+ return cache[i]}
+const hcache={};
+function hist(i){if(hcache[i])return hcache[i];const d=gen(i),r=mulberry32(i*31+7),R=d.R,out=[];
+ for(let k=0;k<R;k++){const t=R>1?k/(R-1):0,row=[];
+  for(let s=0;s<NS;s++){let m=-1,n=0;
+   for(let x=s*SEC;x<(s+1)*SEC&&x<=L;x++){let v;
+    if(k===R-1)v=d.latest[x];else if(k===0)v=d.first[x];else v=d.first[x]+d.wear[x]*Math.pow(t,1.3)+(r()-.5)*.2;
+    if(!isNaN(v)){m=Math.max(m,v);n++}}
+   row.push(n?m:NaN)}
+  out.push(row)}
+ hcache[i]=out;return out}
+function glyph(l){return['<span class="g g0" title="Normal">●</span>','<span class="g g1" title="Watch">▲</span>','<span class="g g2" title="Concern">!</span>','<span class="g g3" title="Not known">?</span>'][l]}
+const HG={ok:['●','hok','in service'],deg:['◐','hdeg','degraded'],oos:['⊘','hoos','out of service'],nod:['○','hnod','no data']};
+function hg(k,s){const g=HG[s];return '<span class="'+g[1]+'" title="SWS '+k+': '+g[2]+'">'+g[0]+'</span>'}
+function bar(v,max,w,dd){const l=lvOf(v,w,dd);return '<span class="v num">'+v.toFixed(1)+'</span><span class="bar"><i class="l'+l+'" style="width:'+Math.min(100,v/max*100).toFixed(1)+'%"></i><b class="tw" style="left:'+(w/max*100).toFixed(1)+'%"></b><b class="td" style="left:'+(dd/max*100).toFixed(1)+'%"></b></span>'}
+const HD='<div class="row hd"><span></span><span>Rope</span><span>Local fault, worst<br>% of area in 6 d</span><span>Loss of metal, max<br>% of area</span><span class="r">Change<br>since 1st, pp</span><span class="r">Bending<br>cycles</span><span class="r" title="Fatigue: method not yet defined">Fat.</span><span>SWS<br>A B</span><span class="r">Last<br>run</span></div>';
+function row(d){const c=m=>{const w=d.why.find(x=>x.m===m);return w?' hit'+w.l:''};
+ return '<a class="row lv'+d.lvl+'" href="#rope/'+d.i+'" title="'+d.name+': '+LVLW[d.lvl]+(d.why.length?' – '+d.why.map(w=>w.t).join('; '):'')+'">'
+ +'<span>'+glyph(d.lvl)+'</span>'
+ +'<span class="id">'+d.name+(d.stale?' <span class="st" title="Not current">◷</span>':'')+'</span>'
+ +'<span class="cell'+c('ld')+'">'+bar(d.ldMax,8,LIM.ldW,LIM.ldD)+'</span>'
+ +'<span class="cell'+c('lma')+'">'+bar(d.lmaMax,12,LIM.lmaW,LIM.lmaD)+'</span>'
+ +'<span class="num r'+c('dr')+'">'+(d.drMax==null?'ref.':'+'+d.drMax.toFixed(1))+'</span>'
+ +'<span class="num r">'+(d.cycMax/1000).toFixed(1)+'k</span>'
+ +'<span class="r dim">—</span>'
+ +'<span class="h">'+hg('A',d.health.A)+hg('B',d.health.B)+'</span>'
+ +'<span class="num r'+(d.stale?' hit0':'')+'">'+d.lastDays+' d</span></a>'}
+const LEGEND='<div class="legend"><span>'+glyph(2)+' Concern – a discard rule is reached: plan inspection</span><span>'+glyph(1)+' Watch – past a watch level (placeholder levels)</span><span>'+glyph(0)+' Normal</span><span>'+glyph(3)+' Not known – no SWS data</span><span><span class="st">◷</span> Not current – no run for '+LIM.stale+'+ days</span><span>SWS: <span class="hok">●</span> in service <b>◐</b> degraded <b>⊘</b> out of service <b>○</b> no data</span><span>Bars: thin tick = watch level, thick tick = discard rule</span><span>Bending cycles from winch control system</span><span>Fatigue: method not yet defined</span><span>Invented data</span></div>';
+function renderOv(){const all=[];for(let i=1;i<=N;i++)all.push(gen(i));
+ const cnt=[0,0,0,0];all.forEach(d=>cnt[d.lvl]++);
+ const stale=all.filter(d=>d.stale),oos=[],deg=[];
+ all.forEach(d=>['A','B'].forEach(k=>{if(d.health[k]==='oos')oos.push(d.name+' SWS '+k);else if(d.health[k]==='deg')deg.push(d.name+' SWS '+k)}));
+ let h='<div class="sum"><span class="big">'+glyph(2)+' Concern <b class="num">'+cnt[2]+'</b></span><span class="big">'+glyph(1)+' Watch <b class="num">'+cnt[1]+'</b></span><span>'+glyph(0)+' Normal <b class="num">'+cnt[0]+'</b></span><span>'+glyph(3)+' Not known <b class="num">'+cnt[3]+'</b></span><span><span class="st">◷</span> Not current <b class="num">'+stale.length+'</b></span><span class="dim">|</span><span>Monitoring: <b class="num">'+(102-oos.length)+'</b> of 102 SWS in service'+(oos.length?' · <b>⊘</b> '+oos.join(', ')+' out of service':'')+(deg.length?' · <b>◐</b> '+deg.join(', ')+' degraded':'')+'</span></div>';
+ const att=all.filter(d=>d.lvl===1||d.lvl===2).sort((a,b)=>b.lvl-a.lvl||a.i-b.i);
+ h+='<div class="chips"><span class="dim">Needs a look:</span>'+att.map(d=>'<a class="chip l'+d.lvl+'" href="#rope/'+d.i+'" title="'+d.why.map(w=>w.t).join('; ')+'">'+glyph(d.lvl)+'<b>'+d.name+'</b><span>'+d.why.filter(w=>w.l===d.lvl).map(w=>w.s).join(', ')+'</span></a>').join('')+stale.map(d=>'<a class="chip" href="#rope/'+d.i+'"><span class="st">◷</span><b>'+d.name+'</b><span>no run for '+d.lastDays+' d</span></a>').join('')+'</div>';
+ h+='<div class="cols">';
+ for(let c=0;c<3;c++){h+='<div>'+HD;for(let i=c*17+1;i<=c*17+17;i++)h+=row(gen(i));h+='</div>'}
+ h+='</div>'+LEGEND;
+ document.getElementById('ov').innerHTML=h}
+let cur=1;
+function go(h){location.hash=h}
+function renderRope(){const d=gen(cur),prev=cur>1?cur-1:N,next=cur<N?cur+1:1;
+ document.getElementById('rope').innerHTML='<div class="rhead"><button onclick="go(\'\')">← All ropes</button><h2>'+d.name+'</h2><span>'+glyph(d.lvl)+' <b>'+LVLW[d.lvl]+'</b></span>'+(d.stale?'<span class="st">◷ Not current</span>':'')+'<span class="dim">Rope Ø '+DIA+' mm · 6 d = '+(6*DIA/1000).toFixed(3)+' m · 30 d = '+(30*DIA/1000).toFixed(2)+' m · '+d.R+' run'+(d.R>1?'s':'')+' since '+fmtD(d.runDates[0])+'</span><span style="margin-left:auto"><button onclick="go(\'#rope/'+prev+'\')">◀ '+gen(prev).name+'</button> <button onclick="go(\'#rope/'+next+'\')">'+gen(next).name+' ▶</button></span></div><div class="rbody"><div id="chart"></div><aside id="side"></aside></div>';
+ side();drawRope()}
+function side(){const d=gen(cur),f=v=>v==null||isNaN(v)?'—':v.toFixed(1);
+ const cl=(v,w,dd)=>{const l=lvOf(v,w,dd);return l?' class="num hit'+l+'"':' class="num"'};
+ let h='<div class="state lv'+d.lvl+'">'+glyph(d.lvl)+' <b>'+LVLW[d.lvl]+'</b>'+(d.why.length?'<div style="font-size:.85em">'+d.why.map(w=>w.t).join('<br>')+'</div>':'')+'</div>';
+ h+='<h3>Key figures, latest run '+fmtD(d.runDates[d.R-1])+' ('+d.lastDays+' d ago)</h3><table><tr><th>Measure</th><th>Value</th><th>Where</th><th>Rule</th></tr>'
+ +'<tr><td>Local fault, worst</td><td'+cl(d.ldMax,LIM.ldW,LIM.ldD)+'>'+f(d.ldMax)+' %</td><td class="num">'+(d.ldTop?d.ldTop.p+' m':'—')+'</td><td>6 % in 6 d</td></tr>'
+ +'<tr><td>Loss of metal, max</td><td'+cl(d.lmaMax,LIM.lmaW,LIM.lmaD)+'>'+f(d.lmaMax)+' %</td><td class="num">'+d.lmaAt+' m</td><td>10 % (owner)</td></tr>'
+ +'<tr><td>Change since first run</td><td'+(d.drMax!=null&&d.drMax>=LIM.drW?' class="num hit1"':' class="num"')+'>'+(d.drMax==null?'reference':'+'+f(d.drMax)+' pp')+'</td><td class="num">'+(d.drMax==null?'—':d.drAt+' m')+'</td><td>watch 5 pp*</td></tr>'
+ +'<tr><td>Bending cycles, max</td><td class="num">'+d.cycMax.toLocaleString('en-US')+'</td><td class="num">'+d.cycAt+'–'+(d.cycAt+SEC)+' m</td><td>none set</td></tr>'
+ +'<tr><td>Fatigue</td><td>—</td><td></td><td>not defined</td></tr></table>';
+ h+='<h3>Cursor</h3><div id="read" class="num dim">Point at the chart to read every track at one position.</div>';
+ h+='<h3>Local faults ('+d.ld.length+')</h3>'+(d.ld.length?'<table><tr><th>At</th><th>Size</th><th>First seen</th><th>Seen by</th></tr>'+d.ld.slice().sort((a,b)=>b.v-a.v).map(x=>{const l=lvOf(x.v,LIM.ldW,LIM.ldD);return '<tr><td class="num">'+x.p+' m</td><td class="num'+(l?' hit'+l:'')+'">'+x.v.toFixed(1)+' %</td><td class="num">'+fmtD(d.runDates[x.run])+'</td><td>'+x.by+'</td></tr>'}).join('')+'</table>':'<div class="dim">None found.</div>');
+ h+='<h3>Monitors on this rope</h3><table>'+['A','B'].map(k=>'<tr><td>'+hg(k,d.health[k])+' SWS '+k+'</td><td class="num">sees '+COV[k][0]+'–'+COV[k][1]+' m</td><td>'+d.hText[k]+'</td></tr>').join('')+'</table>';
+ h+='<div class="note">* Watch levels are placeholders for the owner to set. Bending cycles come from the winch control system, not from the SWS. Positions of the SWS stretches are invented. All data invented.</div>';
+ document.getElementById('side').innerHTML=h}
+function pth(arr,Y,X){let s='',pen=false;for(let x=0;x<arr.length;x++){const v=arr[x];if(isNaN(v)){pen=false;continue}s+=(pen?'L':'M')+X(x).toFixed(1)+' '+Y(v).toFixed(1);pen=true}return s}
+function areaP(arr,Y,X,base){let s='',seg=[];const flush=()=>{if(seg.length>1){s+='M'+X(seg[0][0]).toFixed(1)+' '+base.toFixed(1);seg.forEach(p=>{s+='L'+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)});s+='L'+X(seg[seg.length-1][0]).toFixed(1)+' '+base.toFixed(1)+'Z'}seg=[]};for(let x=0;x<arr.length;x++){if(isNaN(arr[x]))flush();else seg.push([x,arr[x]])}flush();return s}
+function mark(x,y,l,r){if(l===2)return '<rect x="'+(x-r)+'" y="'+(y-r)+'" width="'+2*r+'" height="'+2*r+'" class="mk2"/>';if(l===1)return '<path d="M'+x+' '+(y-r*1.3)+'L'+(x+r*1.15)+' '+(y+r*.85)+'L'+(x-r*1.15)+' '+(y+r*.85)+'Z" class="mk1"/>';return '<circle cx="'+x+'" cy="'+y+'" r="'+r*.8+'" class="mk0"/>'}
+function hcol(v){return v>=LIM.lmaD?'#ff6b3d':v>=LIM.lmaW?'#f2c418':'hsl(210,9%,'+Math.round(17+Math.max(0,v)/LIM.lmaW*50)+'%)'}
+function drawRope(){const box=document.getElementById('chart');if(!box)return;
+ const d=gen(cur),H0=hist(cur);
+ const fs=parseFloat(getComputedStyle(document.body).fontSize);
+ const W=Math.max(500,box.clientWidth);
+ const H=Math.max(fs*34,window.innerHeight-box.getBoundingClientRect().top-fs*.8);
+ const x0=fs*11,x1=W-fs*.6,X=p=>x0+p/L*(x1-x0);
+ const T=[{k:'cov',w:.7,t:'Seen by SWS',u:''},{k:'ld',w:1.6,t:'Local faults (LD)',u:'% of area in 6 d'},{k:'lma',w:2,t:'Loss of metal (LMA)',u:'% of new area'},{k:'dr',w:1.2,t:'Change since first run',u:'LMA, percentage points'},{k:'cyc',w:1.1,t:'Bending cycles',u:'per 5 m section'},{k:'fat',w:.6,t:'Fatigue',u:''},{k:'hist',w:2,t:'LMA over time',u:'one row per run'}];
+ const gap=fs*.6,axH=fs*2.4,top=fs*.2,sw=T.reduce((a,t)=>a+t.w,0),avail=H-top-axH-gap*T.length;
+ let y=top;T.forEach(t=>{t.y=y;t.h=avail*t.w/sw;y+=t.h+gap});
+ const yAx=y-gap+fs*.3;
+ const thr=(yy,txt,c)=>'<line x1="'+x0+'" x2="'+x1+'" y1="'+yy+'" y2="'+yy+'" class="'+c+'"/><text x="'+(x1-4)+'" y="'+(yy-3)+'" text-anchor="end" class="tu">'+txt+'</text>';
+ const D={
+  cov(t){let s='';['A','B'].forEach((k,j)=>{const lh=t.h/2-3,ly=t.y+2+j*(t.h/2),a=COV[k][0],b=COV[k][1];
+    s+='<text x="'+(x0-6)+'" y="'+(ly+lh*.8)+'" text-anchor="end" class="tu">'+k+'</text><rect x="'+X(a)+'" y="'+ly+'" width="'+(X(b)-X(a))+'" height="'+lh+'" fill="url(#hatch)"/>';
+    d.seen[k].forEach(sg=>{s+='<rect x="'+X(sg[0])+'" y="'+ly+'" width="'+(X(sg[1])-X(sg[0]))+'" height="'+lh+'" class="seen"/>'});
+    if(d.health[k]==='oos')s+='<text x="'+((X(a)+X(b))/2)+'" y="'+(ly+lh*.8)+'" text-anchor="middle" class="oos">SWS '+k+' out of service – no data in latest run</text>'});return s},
+  ld(t){const Y=v=>t.y+t.h-Math.min(v,8)/8*t.h;let s=thr(Y(LIM.ldD),'6 % – discard rule (ISO 4309 annex, per brief)','thd')+thr(Y(LIM.ldW),'4 % – watch (placeholder)','thw');
+    d.ld.forEach(f=>{const l=lvOf(f.v,LIM.ldW,LIM.ldD),x=X(f.p),yy=Y(f.v);s+='<line x1="'+x+'" x2="'+x+'" y1="'+(t.y+t.h)+'" y2="'+yy+'" class="stem l'+l+'"/>'+mark(x,yy,l,fs*.38);
+     if(l){const rt=x>x1-fs*12;s+='<text x="'+(rt?x-fs*.6:x+fs*.6)+'" y="'+(yy+fs*.3)+'" text-anchor="'+(rt?'end':'start')+'" class="lab'+l+'">'+f.v.toFixed(1)+' % at '+f.p+' m</text>'}});
+    if(!d.ld.length)s+='<text x="'+(x0+6)+'" y="'+(t.y+t.h-6)+'" class="tu">No local faults found</text>';return s},
+  lma(t){const Y=v=>t.y+t.h-Math.min(v,12)/12*t.h,pl=pth(d.latest,Y,X);
+    let s=thr(Y(LIM.lmaD),'10 % – owner discard rule','thd')+thr(Y(LIM.lmaW),'7 % – watch (placeholder)','thw');
+    s+='<clipPath id="cw"><rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+(Y(LIM.lmaW)-t.y)+'"/></clipPath><clipPath id="cd"><rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+(Y(LIM.lmaD)-t.y)+'"/></clipPath>';
+    s+='<path d="'+pth(d.first,Y,X)+'" class="pref"/><path d="'+pl+'" class="pnow"/><path d="'+pl+'" class="pnow w" clip-path="url(#cw)"/><path d="'+pl+'" class="pnow c" clip-path="url(#cd)"/>';
+    s+='<text x="'+(x0+6)+'" y="'+(t.y+fs)+'" class="tu">solid: latest run · dashed: first run (reference) · scale 0–12 %</text>';return s},
+  dr(t){if(d.drMax==null)return '<text x="'+(x0+6)+'" y="'+(t.y+t.h/2+fs*.3)+'" class="tu">Only one run so far: it is the reference. Change appears from the next run.</text>';
+    const tp=Math.max(6,Math.ceil(d.drMax+1)),Y=v=>t.y+t.h-Math.max(0,Math.min(v,tp))/tp*t.h,arr=d.latest.map((v,x)=>v-d.first[x]),ap=areaP(arr,Y,X,t.y+t.h);
+    return thr(Y(LIM.drW),'5 pp – watch (placeholder)','thw')+'<clipPath id="cdw"><rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+(Y(LIM.drW)-t.y)+'"/></clipPath><path d="'+ap+'" class="ar"/><path d="'+ap+'" class="arw" clip-path="url(#cdw)"/><text x="'+(x0+6)+'" y="'+(t.y+fs)+'" class="tu">scale 0–'+tp+' pp</text>'},
+  cyc(t){const mx=d.cycMax*1.1;let s='';d.cyc.forEach((v,k)=>{const a=X(k*SEC),b=X(Math.min(L,(k+1)*SEC)),hh=v/mx*t.h;s+='<rect x="'+(a+.5).toFixed(1)+'" y="'+(t.y+t.h-hh).toFixed(1)+'" width="'+Math.max(1,b-a-1).toFixed(1)+'" height="'+hh.toFixed(1)+'" class="cb"/>'});
+    return s+'<text x="'+(x0+6)+'" y="'+(t.y+fs)+'" class="tu">max '+d.cycMax.toLocaleString('en-US')+' at '+d.cycAt+'–'+(d.cycAt+SEC)+' m · source: winch control system, not SWS</text>'},
+  fat(t){return '<rect x="'+(x0+2)+'" y="'+(t.y+2)+'" width="'+(x1-x0-4)+'" height="'+(t.h-4)+'" class="fatb"/><text x="'+(x0+8)+'" y="'+(t.y+t.h/2+fs*.3)+'" class="tu">Not yet defined. Would sit here per section, from bending cycles, LD and LMA findings, rope make-up, loads and sheave sizes.</text>'},
+  hist(t){const R=H0.length,rh=t.h/R,cw=(x1-x0)/NS;let s='';
+    H0.forEach((rw,k)=>{const yy=t.y+t.h-(k+1)*rh;rw.forEach((v,j)=>{s+='<rect x="'+(x0+j*cw).toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+(cw+.4).toFixed(1)+'" height="'+(rh+.4).toFixed(1)+'" fill="'+(isNaN(v)?'url(#hatch)':hcol(v))+'"/>'})});
+    return s+'<text x="2" y="'+(t.y+fs*3)+'" class="tu">top: '+fmtD(d.runDates[R-1])+'</text><text x="2" y="'+(t.y+t.h-3)+'" class="tu">bottom: '+fmtD(d.runDates[0])+'</text>'}
+ };
+ let s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" font-size="'+(fs*.85).toFixed(1)+'" role="img" aria-label="Rope '+d.name+' along its length"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#8a939d" stroke-width="1.5"/></pattern></defs>';
+ T.forEach(t=>{s+='<rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+t.h+'" class="tb"/><text x="2" y="'+(t.y+fs)+'" class="tt">'+t.t+'</text>'+(t.u?'<text x="2" y="'+(t.y+fs*2)+'" class="tu">'+t.u+'</text>':'')+D[t.k](t)});
+ for(let p=0;p<=L;p+=10){const xx=X(p);s+='<line x1="'+xx+'" x2="'+xx+'" y1="'+yAx+'" y2="'+(yAx+(p%50?fs*.3:fs*.6))+'" stroke="#9aa3ad"/>';if(p%50===0)s+='<text x="'+xx+'" y="'+(yAx+fs*1.6)+'" text-anchor="middle" class="tu">'+p+'</text>'}
+ s+='<text x="2" y="'+(yAx+fs*1.6)+'" class="tu">Position along rope, m</text>';
+ s+='<line id="xh" class="xh" x1="0" x2="0" y1="0" y2="'+yAx+'" visibility="hidden"/><rect id="hit" x="'+x0+'" y="0" width="'+(x1-x0)+'" height="'+yAx+'" fill="transparent"/></svg>';
+ box.innerHTML=s;
+ const svg=box.querySelector('svg'),xh=svg.querySelector('#xh'),hit=svg.querySelector('#hit');
+ hit.addEventListener('pointermove',e=>{const rc=svg.getBoundingClientRect(),p=Math.max(0,Math.min(L,(e.clientX-rc.left-x0)/(x1-x0)*L)),xx=X(p);xh.setAttribute('x1',xx);xh.setAttribute('x2',xx);xh.setAttribute('visibility','visible');readout(p)});
+ hit.addEventListener('pointerleave',()=>xh.setAttribute('visibility','hidden'))}
+function readout(p){const d=gen(cur),el=document.getElementById('read');if(!el)return;
+ const xi=Math.round(p),sec=Math.min(NS-1,Math.floor(p/SEC)),lt=d.latest[xi],fi=d.first[xi];
+ const by=['A','B'].filter(k=>d.seen[k].some(sg=>xi>=sg[0]&&xi<=sg[1])).map(k=>'SWS '+k).join(' + ')||'no SWS (no data)';
+ const nf=d.ld.filter(f=>Math.abs(f.p-p)<=2);
+ el.innerHTML='<b>At '+p.toFixed(1)+' m</b><br>Loss of metal: '+(isNaN(lt)?'no data':lt.toFixed(1)+' %')+' (first run '+fi.toFixed(1)+' %)<br>Change since first run: '+(isNaN(lt)||d.R<2?'—':(lt-fi>=0?'+':'')+(lt-fi).toFixed(1)+' pp')+'<br>Bending cycles, '+sec*SEC+'–'+(sec*SEC+SEC)+' m: '+d.cyc[sec].toLocaleString('en-US')+'<br>Seen by: '+by+(nf.length?'<br>Local fault: '+nf.map(f=>f.v.toFixed(1)+' % at '+f.p+' m').join(', '):'');
+ el.classList.remove('dim')}
+function route(){const m=location.hash.match(/^#rope\/(\d+)/),ov=document.getElementById('ov'),rp=document.getElementById('rope');
+ if(m&&+m[1]>=1&&+m[1]<=N){cur=+m[1];ov.hidden=true;rp.hidden=false;document.getElementById('h1').textContent='Rope view – '+gen(cur).name;renderRope()}
+ else{rp.hidden=true;ov.hidden=false;document.getElementById('h1').textContent='Rope condition – all 51 ropes'}
+ window.scrollTo(0,0)}
+window.addEventListener('hashchange',route);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!document.getElementById('rope').hidden)drawRope()},150)});
+document.addEventListener('keydown',e=>{const inRope=!document.getElementById('rope').hidden;
+ if(e.key==='Escape')go('');
+ else if(inRope&&e.key==='ArrowRight')go('#rope/'+(cur%N+1));
+ else if(inRope&&e.key==='ArrowLeft')go('#rope/'+(cur===1?N:cur-1))});
+document.getElementById('asof').textContent='Data as of '+fmtD(TODAY)+' 06:00 · invented data';
+renderOv();route();
+</script>
+</body>
+</html>
