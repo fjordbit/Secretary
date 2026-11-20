@@ -5448,3 +5448,108 @@ element as they see it; the distance for the radial element; the liner; how many
 figures were right; what the round adds to run 3; the open disagreements; falsifier verdict; scans; not
 verified. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission
 is denied, stop and report it; do not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U114 — the live parts table: every part of the SWS, its material, size and figures, each with a link to where it was found (Kai, 20 Nov; owner's go given)
+
+The owner: "a table of properties that will contain all properties, sizes for all parts of the SWS as a live
+image ... it will change as we gather more information, but currently we have some selections done, and they
+should be easily accessible without reading all parts of the documents. In some cases we might state more than
+one; all should have links to their location of how they were found in the document." The trigger: an outside
+round asked "polymer or metal liner?" although the record already holds a hard, non-magnetic austenitic stainless
+liner (search the record for it; do not take the grade from this brief). Things on record get forgotten because
+they are spread over many documents. This table is the cure, and it is the base of the board package for the
+outside expert.
+`git worktree add C:/Users/stian/Prosjekter-u114 -b u114-parts-table 1735f4b` from C:/Users/stian/Prosjekter-u05
+(verify the tip of main, stop if it differs). Timebox 180 minutes; past it, stop and report what is in.
+Read-only sources beside main: the unmerged branches u106-groove-plots, u107-tradeoff-map, u108-data-path,
+u109-transmitter-line, u110-line-beta, u112-half-in-c, u111-element-run, u113-element-round (read with
+`git show <branch>:<path>`; do not check them out, do not merge them). Another builder may work in
+C:/Users/stian/Prosjekter-u115: do not touch it.
+Rules as "## U101" COMMON in this file: ADD files only, in a new folder `max/sws/parts_table/`; change no
+existing file; scans 0 before commit (idscan on added lines, range 1735f4b..HEAD, and scan_tree); no personal
+names, roles or dates in the text; no customer or site names; commit on the branch; no merge, push or export.
+You pick nothing: nothing is "selected / chosen / decided / optimal" unless the record itself says the owner
+ruled it, and then you quote where. Names: SWS (the whole Safe Wire Sensor), head, half, element (radial /
+axial), channel, root box; "sensor" alone is not used. Magnet half-rings are one sintered piece. Both magnet
+grades (N52 and N48SH) are always shown together. Two converters per half with digital temperature is the
+owner's position; the specification's "three" is out-of-date text: say so in the row. Never call a bare
+`python` (use C:/Users/stian/Prosjekter-u05/max/.venv/Scripts/python.exe).
+Do:
+1. Sweep the record on main (specification, register, the six pages' sources under max/sws/ and max/docs/sws/,
+   hw-selection, housing, 3d, procedures) and the eight branches for every stated physical property of every
+   part. Parts at least: rope (52 mm; and the 40 mm head on 38-40 mm rope); magnets; yoke with groove; end
+   plates; liner / wear sleeve; carrier; board (thickness, layout); radial element; axial element; converters;
+   microcontroller; temperature parts; supply rails; connectors and cable; potting and sealing; housing,
+   fasteners, hinge and lock; root box; line and frame; logger. Add parts you find that are not on this list.
+2. One row per property, as data (`parts.yaml` or CSV) AND rendered (`parts_table.md`, plus `parts_table.html`
+   in the plot standard's plain style if cheap): part; property; value(s) with unit; for the 52 mm head and for
+   the 40 mm head where they differ; status, exactly one of: "ruled by the owner" / "on record, one value" /
+   "on record, several values" (list all, newest first) / "calculated, not measured" / "proposal, not agreed" /
+   "open: nothing on record"; source as file and anchor or line (for pages: the Pages-relative address with
+   anchor, e.g. sensor.html#s-where), and the branch if not on main; a short note. Where two documents
+   disagree, both values stay in the row, marked, with both sources: do not resolve.
+3. Proposals known to be waiting (mark as "proposal, not agreed"): end plates, fasteners and housing parts at
+   the head non-magnetic stainless (316L / A4), relative permeability <= 1.05 as finished; groove depths from
+   the large model box (u106, u107 and main); radial element at 5 mm (u113); 250 values per second per channel
+   (u108, u109); clamp at full scale (u112, ruled by the owner).
+4. A short list on top "open: nothing on record" (what the table cannot fill), and a second "on record in more
+   than one value" (the conflicts), each one line. Board thickness and the 5 V rail are known to be open: the
+   owner's position is that no physical parameter is given from outside and the project proposes every
+   dimension; a rail exists if a part needs it and follows the converter chosen.
+5. `README.md`, easy-read first: what the table is, how to add or change a row, the status words, and that the
+   table is live (the data file is the master; the rendered files are built from it by a small script you add).
+6. One fresh subagent as falsifier (files only): 40 rows drawn at random, each value and each source link
+   opened and compared; every part on the list present; no row picks; names. Fix; second pass only if blocking.
+Hand back at most 12 lines: tip; number of parts and rows; rows per status; the liner row in full; the ten most
+important open rows; the conflicts; falsifier verdict; scans; not done. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
+report it; do not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U115 — the 40 mm head on rope of 38 to 40 mm: tables and graphs (Kai, 20 Nov; owner asked for it)
+
+The owner: ten heads of the 40 mm size are built first; six go on an installation whose rope is 38 mm. "We
+should present some tables and graphs on how a specific 40 mm sensor will work on a 38 mm wire rope, or if we
+get past the saturation point of 2.3? For the 40 mm we should have the range 38-40 in mind." Nothing but what
+the rope size forces is to differ between the 40 mm and the 52 mm head.
+`git worktree add C:/Users/stian/Prosjekter-u115 -b u115-h40-on-38 1735f4b` from C:/Users/stian/Prosjekter-u05
+(verify the tip of main, stop if it differs). Timebox 180 minutes. Another builder works in
+C:/Users/stian/Prosjekter-u114: do not touch it.
+Read first: on main the large-box work (g_large_box.md and the H40 results beside it under max/sws/3d/: groove
+depth for the zero at 10 / 13 / 16 mm = 4.00 / 3.23 / 2.64 mm), and on branch u107-tradeoff-map
+`max/sws/3d/tradeoff/` (tradeoff.md, tkit.py: how a coarse net then a tight net was run in the large box) and
+on u106-groove-plots `max/sws/3d/groove_plots/` (plotstandard.py, figkit.py). Builder notes:
+C:/Users/stian/agent-notes/sheerline.md, stunsail.md. Use the large box (r 2400 x z +-2400 mm) only; the small
+box is known wrong.
+Rules as "## U101" COMMON in this file: ADD files only, in a new folder `max/sws/3d/h40_on_38/`; change no
+existing file (copy helpers in if needed, say from where); scans 0 before commit (idscan on added lines, range
+1735f4b..HEAD, and scan_tree); no personal names, roles, dates, customer or site names; commit on the branch;
+no merge, push or export. Nothing is "selected / chosen / decided / optimal". Both magnet grades, N52 and
+N48SH, in every table and plot. Low / middle / high rope curve as in the tradeoff run. Names: SWS, head, half,
+element (radial / axial), channel. Calculated, not measured: say so. Plots in the plot standard (short text,
+legend, hover, PNG + HTML). Never call a bare `python`.
+Do, for the H40 head as modelled, with rope diameters 38, 39, 40 mm (metal area scaled with the square of the
+diameter at the same fill; say the fill used and where it comes from) and, as one extra case, a 40 mm rope 4 %
+over nominal:
+1. Flux density in the rope at the middle of the head against rope diameter, per grade and rope curve; where it
+   stands against 1.9-2.0 T (the working range for loss of metal) and against 2.3 T. Does the smaller rope push
+   it past 2.3 T at -40 degC, or under 1.9 T warm? Use the temperature handling of the tradeoff run.
+2. Where the zero of the standing axial field lands with a 38 / 39 / 40 mm rope for one fixed groove depth
+   (the depth that puts it at the axial element for 40 mm), in mm of lift-off from the 40 mm rope surface and
+   in mT of standing field at the fixed element; and the groove depth that would centre it for 38 mm instead.
+   One depth for the whole 38-40 range: what standing field is left at the ends of the range, against a range
+   of the axial element of about +-20 mT.
+3. Signals at the fixed elements: axial level in mT per 1 % of metal lost, and the radial peak for the short
+   strong fault and for one broken outer wire, for 38 against 40 mm (the 38 mm rope sits 1 mm further from the
+   elements all round if centred; and the off-centre case, rope resting on one side: nearest and farthest
+   element).
+4. Two tables and at most four plots that show 1-3 at a glance; a short note `h40_on_38.md`, easy-read first:
+   eight plain sentences, then the tables, then the dense part with every assumption and what was not run.
+5. Say what the model's H40 head is and is not: it is not the prototype head on the rig (different geometry).
+6. One fresh subagent as falsifier (files only): reruns two cases from scratch; checks the area scaling, the
+   box, units, that both grades are everywhere, that nothing is picked. Fix; second pass only if blocking.
+Hand back at most 12 lines: tip; rope flux density at 38 / 39 / 40 mm per grade (middle curve) and whether 2.3 T
+is passed anywhere; where the zero lands and the standing field left at the element; one depth for the range or
+not, as numbers; signals 38 against 40; falsifier verdict; scans; not verified. Do not hand back while
+background work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in
+that folder). If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign
+with your name. — Kai
