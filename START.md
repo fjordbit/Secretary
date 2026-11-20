@@ -1,3 +1,29 @@
+# State 20 Nov, 08:55 (Kai) — Stian restarts for an update; read this first
+
+- Nothing is running. All repos clean and pushed (D: and the GitHub backups). Do NOT start a builder before
+  Stian says he is back.
+- NEXT (Stian's yes given 19 Nov): the board (PCB) package for the outside expert, as a draft in inbox/ for him
+  to send; needed before Sun 22 Nov. Build it from u111 (element run 3), u113 (element round compared), the
+  corrected groove numbers (large box) and the data line. Ask him one question first: what must be in it.
+- Asked, not answered: yes to the four names for the report (SWS, head, element, channel; "sensor" alone not used).
+- Project repo: main = D: = backup on fjordbit/SWS = 1735f4b. GitHub fjordbit/max 8beade9, Pages 67c6e1f
+  (unchanged). Unmerged, all on D: and as backup-<name>, waiting for his look: u106-groove-plots d112319,
+  u107-tradeoff-map b568641, u108-data-path 8c3218c, u109-transmitter-line aa1eae5, u110-line-beta d8a0cf4,
+  u112-half-in-c a1ddd29 (on u110), u111-element-run 213e36c, u113-element-round 0384308 (on u111). Merge on his
+  go only; then one publish with export, page rebuild and final check.
+- Backup rule (19 Nov): D: is not a backup. Every push to D: also goes to fjordbit/SWS backup branches (never its
+  main) and the secretary repo to fjordbit/Secretary (remote `backup`); agent-notes to branch `agent-notes` there.
+- State of the design (calculated): groove depths from the large box (H52 4.98 / 4.25 / 3.53 mm for zero at
+  13 / 16 / 19 mm); one thin board, radial element at 5 mm (all three outside models), axial element Hall or TMR
+  open (hinges on the zero after a strong field: a prototype test); two converters per half; 250 values/s per
+  channel; half in C gives the same frames as the Python byte for byte. Beta fails one proof: position from
+  ripple 27 mm worst against 10 mm.
+- Owed: 38 mm rope in the 40 mm head runs; Scotchcast 2123 at -40 °C; legend layout in the plot standard; design
+  conclusion page (end plates non-magnetic stainless, groove proposal) as marked proposals on his go; fit the twin
+  to the raw TMR data and the Ropesys measurement in the week of 23 Nov; multi-agent setup for Ramin.
+- Tools: C compiler at the path in memory c-compiler-on-this-machine; never a bare `python` in Git Bash; clock
+  times from `date`. Detail: log/2026-11-19.md, summary of the day at its end; briefs U105-U113 in agent-notes/kai.md.
+
 # State 19 Nov, ~11:40 (Kai) — Stian restarts the machine; read this first
 
 - Nothing is running. Do NOT start a builder before Stian says he is back after the restart.
