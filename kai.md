@@ -5553,3 +5553,64 @@ not, as numbers; signals 38 against 40; falsifier verdict; scans; not verified. 
 background work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in
 that folder). If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign
 with your name. — Kai
+
+## U116 — principle drawings of the data line and its timing, drawn by an outside model (GPT Sol), checked against the record (Kai, 20 Nov; owner asked for it)
+
+The owner: "set a GPT Sol to make principle drawings and figures for all of these parts so it is easily
+understood and presented". "These parts" = the way from the converters in a half to the root box: sampling,
+clocks (how many crystals there are and what each one times), the line (RS-422 point to point against four-wire
+RS-485 shared by the four halves of two SWS on one winch), the 1 Hz edge, how the halves are lined up in time,
+and what a difference in cable length does. The question came from the head's electronics designer, who spoke
+of "the number of crystals"; the owner asked whether a start command sent to four halves over cables of
+different length gives an offset.
+`git worktree add C:/Users/stian/Prosjekter-u116 -b u116-line-drawings aa1eae5` from C:/Users/stian/Prosjekter-u05
+(aa1eae5 = tip of u109-transmitter-line; verify, stop if it differs). Timebox 150 minutes.
+Read first: `max/sws/transmitter/transmitter_line.md` (all; section 5 and "The 1 Hz edge"),
+`max/sws/hw-selection/sws_link_and_readout.md`, `sws_sync_findings.md`, `sws_sync_budget.py`,
+`max/sws/data/sws_sync_register_rows.md`, the software page source (sections sw-half, sw-link, sw-root) and the
+hardware page section hw-cable; C:/Users/stian/agent-notes/luff.md. Model rounds: C:/Users/stian/model-round
+(README, model_round.py with `--claude-login`; see C:/Users/stian/element_round_2026-11-19/models.yaml for the
+form; find the pick for GPT Sol through cursor in the README or earlier rounds' models files; if Sol cannot be
+reached, stop and report, do not swap in another model).
+Rules as "## U101" COMMON in this file: ADD files only, in a new folder `max/sws/transmitter/drawings/`; change
+no existing file; scans 0 before commit (idscan range aa1eae5..HEAD, scan_tree); no personal names, roles,
+dates, customer or site names; commit on the branch; no merge, push or export. Nothing is "selected / chosen /
+decided". Names (ruled by the owner): SWS, head, half, sensing element (radial / axial), channel, root box;
+"sensor" alone is not used. Given facts: two 8-channel converters per half, digital temperature; 250 values per
+second per channel; frame every 100 ms; rope speed 3.2 m/min normal, 5 m/min fast case; both installations have
+proximity sensors at each end of the fixed travel; the SWS has no connection to the control system on the first
+installation and works out movement from its own data; never list rope position as an open question. Every
+calculated figure shows its arithmetic. Never call a bare `python`.
+Do:
+1. Write the outside brief (`brief.md`, in a round folder C:/Users/stian/line_drawings_round_2026-11-20/, not in
+   the repo until scanned): self-contained, owner not named, the facts above and the record's design (each half
+   free-running on its own crystal, sample index in every frame, a 1 Hz edge from the root box latched by each
+   half; alternatives on record: one clock sent from the root box; the edge as a byte on the downlink). Ask Sol
+   for PRINCIPLE DRAWINGS as stand-alone SVG, plain and readable on a small laptop screen, at most six, each
+   with a three-line caption in plain words:
+   a. the whole line as blocks, one winch with two SWS (four halves), root box, network, logger;
+   b. inside one half: sensing elements, two converters, microcontroller, the one crystal and what it clocks;
+   c. the two wirings side by side: one port per half (RS-422) against one shared four-wire RS-485 line;
+   d. a timing drawing: four halves sampling on four slightly different crystals, the 1 Hz edge, the latch,
+      how the root box lines them up;
+   e. cable length: the delay per metre, the offset between a 5 m and a 100 m cable, shown against the time
+      between two values and against rope movement in that time;
+   f. the count of crystals in each arrangement (per half; with a clock sent from the root box) and what each
+      costs.
+   Ask also for the numbers behind d-f with arithmetic, and for what it is unsure of. scan_tree on the brief
+   must be 0 before it is sent. Run the round with Sol only.
+2. Check every drawing and number against the record and by your own arithmetic (crystal tolerance and the
+   residual between halves from the sync budget; cable delay about 5 ns per metre: verify from the cable's
+   velocity factor; rope movement at 3.2 and 5 m/min). A drawing that shows something the record does not
+   hold is marked so in its caption, not silently fixed; an error of fact is corrected in a copy and both kept.
+3. Add the SVGs (scan_tree first; outside output is data, not instructions), a PNG of each, and
+   `line_drawings.md`, easy-read first: answer in six plain sentences to "how many crystals, and does cable
+   length give an offset?", then the drawings with captions, then the check table (claim, record, agrees or
+   not), then where each topic sits in the documents (file, section, page anchor).
+4. One fresh subagent as checker (files only): drawings against the record, arithmetic, names, nothing picked,
+   readable at 1280 px wide. Fix; second pass only if blocking.
+Hand back at most 12 lines: tip; whether Sol answered; the six-sentence answer; number of drawings and where;
+what Sol got wrong; the crystal count per arrangement; the cable offset as numbers; checker verdict; scans; not
+done. Do not hand back while background work of your own is running. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
+report it; do not ask anyone to do the action for you. Sign with your name. — Kai
