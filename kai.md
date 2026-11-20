@@ -5614,3 +5614,82 @@ what Sol got wrong; the crystal count per arrangement; the cable offset as numbe
 done. Do not hand back while background work of your own is running. Notes in
 C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
 report it; do not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U117 — the results page: where the design stands, one line per value, each with its plot and its source (Kai, 20 Nov; owner's go given: "yes build, then deploy after checks")
+
+The site has pages for each topic but no page that says where the design has ended up. The owner asked for it
+several times ("a results / conclusion page ... that one we are missing"; "is this set in the figures and
+results page?"). Build it as the ninth menu page, `docs/sws/results.html`, from a builder script
+`docs/sws/build_results.py` in the style of the other page builders (read build_sensor.py, build_software.py,
+build_short.py and how the menu switch is made; the new page goes on the menu of every page, as "Results",
+after the start page; rig_sheet.html stays off the menu).
+`git worktree add C:/Users/stian/Prosjekter-u117 -b u117-results-page 5a8dcc6` from C:/Users/stian/Prosjekter-u05
+(5a8dcc6 = tip of main, with ten branches merged today; verify, stop if it differs). Timebox 180 minutes; past
+it, stop and report what is in. Another builder works in C:/Users/stian/Prosjekter-u116: do not touch it.
+Read first: `max/sws/parts_table/` (parts.yaml is the master of values and sources: build the page's value
+tables FROM it, do not retype numbers), `max/sws/3d/groove_plots/` (figures A-E, proposal_sensor_page.md,
+plotstandard.py, terms.md), `max/sws/3d/tradeoff/` (tradeoff.md, figures F-I), `max/sws/3d/h40_on_38/`,
+`max/sws/hw-selection/element_run_3/` and `element_round_1/`, `max/sws/data-path/`, `max/sws/transmitter/`,
+`max/sws/line_beta/README.md` and `c_half/README.md`, the Scotchcast note under `max/sws/housing/`, and the
+existing pages. Builder notes: C:/Users/stian/agent-notes/carline.md, wildcat.md, sheerline.md, stunsail.md.
+Rules as "## U101" COMMON in this file, with this difference: you MAY change the page builders, the built pages
+and the tests as far as the ninth menu entry and links to the new page need; change no other existing file.
+Scans 0 before each commit (idscan on added lines, range 5a8dcc6..HEAD; scan_tree on what you add); no personal
+names, roles or dates in visible text; no customer or site names; no local paths, no "l.NNN" in visible text;
+commit on the branch; no merge, push or export. Easy-read first (memory of the house: plain, short sentences,
+dense detail behind a link). Pages are about the task, not about people: attribution only in hover titles as
+the other pages do it. Never call a bare `python` (page builds and tests: C:/Users/stian/Prosjekter-u41/max/.venv;
+figures: C:/Users/stian/Prosjekter-u05/max/.venv).
+Words: nothing is "selected / chosen / decided / optimal". The page uses exactly the parts table's status words
+and shows the status of every value: "ruled by the owner", "on record", "calculated, not measured", "proposal,
+not agreed", "open". The whole page carries one line on top: a working summary, calculated unless marked
+measured, and where an older page differs this page is the newer. Both magnet grades (N52 and N48SH) in every
+table and plot. Names (ruled by the owner): SWS, head, half, sensing element (radial / axial), channel, root box;
+"sensor" alone is not used on this page.
+The page, in this order:
+1. "In ten sentences": what the SWS is, what is now known, what is still open.
+2. "Names": the names block, and under it ONE list of abbreviations and terms for the whole site, gathered
+   from the terms.md files of the figure sets (merge duplicates; where two definitions differ keep the newer
+   and list the difference in your notes). Anchor `#r-names`. This is the site's abbreviations list from now.
+3. "Given facts": the installation facts from the parts table (rope position: proximity sensors at each end of
+   the fixed travel; no connection to the control system on the first installation; rope speeds; counts).
+4. "Where the design stands", one short block per topic, each: two or three plain sentences, the value(s) with
+   status, ONE figure (interactive HTML figure embedded or linked as the other pages do, with its PNG fallback),
+   and links to the note and to the rows of the parts table:
+   a. Working point: about 2.0 T in the rope; the loss-of-metal level rises to about 2.0 T and is flat above;
+      stronger magnets need more groove and the groove cannot hold the zero above about 2.04 T (tradeoff).
+      2.3 T is an upper limit in the specification, not a target.
+   b. The groove: principle (it saturates the yoke locally and sets where the standing axial field is zero),
+      depths from the large model box for the 52 mm and the 40 mm head, and that the old small-box numbers on
+      older pages are superseded (say which pages).
+   c. The 40 mm head on rope of 38 to 40 mm (h40_on_38).
+   d. The board and the sensing elements: one thin board; radial sensing element at 5 mm as a proposal; axial
+      sensing element TMR against Hall open, hinging on a prototype test; the liner in front of the sensing
+      elements (polymer on record) and the guard over the magnets (hard non-magnetic austenitic stainless on
+      record) as two different parts.
+   e. End plates, fasteners and housing parts at the head: non-magnetic stainless, relative permeability
+      <= 1.05 as finished (proposal).
+   f. The data line: two converters per half, 250 values per second per channel, frame, line rate, traffic and
+      storage with the arithmetic shown (transmitter, data-path); no high-pass anywhere.
+   g. The simulator and the half in C: what runs, the proof table as it is, including the one failing proof
+      (position from ripple) stated plainly.
+   h. Potting: the Scotchcast findings in three lines.
+5. "The parts table": the full table rendered from parts.yaml (or as its own page `parts.html` linked from
+   here if the results page would pass about 12 printed A4: say which you did), with the two short lists
+   "open" and "on record in more than one value" on top.
+6. "What is open and what settles it": the open rows and the prototype tests that settle them, one line each.
+Also: one link line to the new page at the top of index.html and easy.html (through their builders). Do not
+rewrite the older pages' contents; list in your hand-back the places where they now disagree with this page
+(for example 500 values per second on the software page, three converters, small-box groove depths).
+Checks: every number on the page traced to parts.yaml or to a note (a test that fails if a parts.yaml value
+shown on the page differs); all `--check` runs of the page builders and the SWS tests pass (report counts);
+relative links 0 broken within docs/sws and sws/; page readable at 1280 px wide and printing to a sane number
+of A4 (headless Edge, report the count); report.html rebuilt only if its builder requires it for the menu.
+One fresh subagent as cold reader and falsifier (files only): reads the page as an engineer who has seen none
+of the project; every value against its source; status words; names; nothing picked; no people in the prose.
+Fix; second pass only if blocking.
+Hand back at most 14 lines: tip; page and size in A4; what each of 4a-4h shows as its value and figure; where
+the parts table went; the list of disagreements with older pages; tests and `--check` counts; link count;
+cold-reader verdict; scans; not done. Do not hand back while background work of your own is running. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
+report it; do not ask anyone to do the action for you. Sign with your name. — Kai
