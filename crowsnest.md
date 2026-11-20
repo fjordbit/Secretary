@@ -16,3 +16,9 @@
 - Codex names: gpt-5.3-codex-low, -low-fast, gpt-5.3-codex, -fast, -high, -high-fast, -xhigh, -xhigh-fast. No newer Codex than 5.3.
 - Sol names: gpt-5.6-sol-none, -low, -medium, -high, -xhigh, -max (each with -fast). 5.6 is the only Sol; -xhigh and -max are higher reasoning levels than the -high that answered.
 - Taken: grok-4.7-xhigh (newest version, highest level, not fast), pinned with model: in models_grok.yaml.
+- Grok rerun: grok-4.7-xhigh answered (1478 s); scan_tree 0; mock-up clean; committed ed8ac2a (4.5 files git rm'd, note rewritten, bending-cycles line corrected per owner: shared server). Checker: 1 blocking (a "Grok alone" item Opus also had), fixed; 2 minor fixed.
+- Codex: 5.3 is the newest Codex offered; kept. Full list: agent-notes/models_offered_2026-11-20.md.
+
+## 2026-11-20 — round 2 (Opus, OpenBridge, permanent findings)
+- OpenBridge read from its public repo (github.com/Ocean-Industries-Concept-Lab/openbridge-webcomponents, develop): LICENSE.txt = AGPL-3.0-only for 180 days per version, then also Apache-2.0; commercial licence for JIP members before that. Tokens from packages/openbridge-webcomponents/src/palettes/variables.css (day/dusk/night/bright), Noto Sans, type scale from IMPLEMENTATION_GUIDELINES.md.
+- Brief: C:/Users/stian/hmi_round2_2026-11-20/brief.md; no cut-off option (owner's correction applied before sending); owner's two dismissal examples in; bending cycles via shared server. Sent to claude-opus-5-5 with round-1 answer + mock-up.
