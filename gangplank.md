@@ -13,3 +13,8 @@
   logger smooths with mains-period mean. Found in code/settings: 125/s alternative does not fit 100 ms frame
   (settings.samples_per_frame raises); 4096 MB cap = 23 h for 4 halves at 178 MB/h.
 - Existing pages not changed (adds only); counts made explicit in dataflow.md.
+- Checker (fresh, files only): 3 blocking (shared RS-485 is 2-wire polled on record; "code refuses 125/s" wrong for
+  the Python half, which rounds to 12; l2a note hidden) + minor (replay order >2000 records, buffer 22.6 h, beta
+  temps one value twice, L3-L1 overclaim, captions). All fixed as edits plus l2a_half_readable copy; no second pass.
+- Commit e0dd47a on u116-line-drawings (50 files, adds only drawings/). scan_tree 0, idscan aa1eae5..HEAD 0.
+  No merge, push or export.
