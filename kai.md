@@ -5825,3 +5825,133 @@ the four small items; tests, `--check`, links; falsifier verdict; scans; not don
 background work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in
 that folder). If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign
 with your name. — Kai
+
+## U120 — the digital twin as its own page: recorded simulator runs replayed in the browser (Kai, 20 Nov; owner's go given)
+
+The owner wants the digital twin of the data line to work interactively on the site, as its own page behind a
+link. Step one, this unit: REPLAY. The Python simulator on main (`max/sws/line_beta/`) records a set of runs;
+one static page plays them back in the browser. No server, no Python in the browser, no network access from
+the page. (Step two, the real half code running in the browser, is not this unit.)
+`git worktree add C:/Users/stian/Prosjekter-u120 -b u120-twin-page 5a8dcc6` from C:/Users/stian/Prosjekter-u05
+(verify that 5a8dcc6 is main's tip or an ancestor; stop if not). Timebox 240 minutes; past it, stop and report
+what works. Another builder works in C:/Users/stian/Prosjekter-u119 and changes the page builders and built
+pages: you change NONE of those; you only ADD files.
+Read first: `max/sws/line_beta/README.md`, `run_beta.py`, `linebeta/`, `settings.toml`, `tables/`, the figures
+B1-B4 and how they were made; `max/sws/line_beta/c_half/README.md`; `max/sws/transmitter/transmitter_line.md`
+(frame, rates); `max/sws/3d/groove_plots/plotstandard.py` (the look of interactive figures on the site) and one
+existing page builder for the page shell (fonts, colours, menu markup) — copy the look, do not import the
+menu. Builder notes: C:/Users/stian/agent-notes/spritsail.md, pawl.md. Make the beta's virtual environment as
+its README says, inside your worktree, not committed. Never call a bare `python`.
+Rules as "## U101" COMMON in this file: ADD files only: `max/sws/line_beta/twin_page/` (recording script, data
+writer, tests) and `max/docs/sws/twin.html` with its data under `max/docs/sws/twin_data/`; scans 0 before each
+commit (idscan on added lines, range 5a8dcc6..HEAD; scan_tree on what you add); no personal names, roles,
+dates, customer or site names; no local paths in visible text; commit on the branch; no merge, push or export.
+Nothing is "selected / chosen / decided". Names (ruled by the owner): SWS, head, half, sensing element (radial
+/ axial), channel, root box; "sensor" alone is not used. Given facts: two converters per half; 250 values per
+second per channel; frame every 100 ms; rope speed 3.2 m/min normal and 5 m/min fast; 250 m of travel; both
+installations have proximity sensors at each end; one SWS = 2 halves; one winch on the large installation =
+2 SWS = 4 halves; 102 SWS = 204 halves; the first installation = 6 SWS = 12 halves. Everything shown is
+simulated: the page says so on top, once, plainly.
+Do:
+1. A recording script that runs the simulator for a small set of scenarios and writes compact data files the
+   page loads (JSON or a typed binary with a small index; total under 8 MB, each file under 2 MB; decimate for
+   display where needed and say how; keep one short stretch per scenario at the full 250 per second so a fault
+   can be seen undecimated). Scenarios at least: a clean run; one broken outer wire; a long loss of metal;
+   slow drift; mains hum; dropped frames on the line; a corrupted frame; a network stop of ten minutes with
+   back-fill; a restart of one half; a value at full scale (the clamp). At 3.2 and at 5 m/min where it
+   matters. The recording must come from the real simulator code, not from re-implemented maths: a test proves
+   that a recorded stretch equals a fresh simulator run of the same scenario and seed.
+2. `twin.html`, one self-contained page (inline script and style, data fetched from `twin_data/` by relative
+   address only; it must also work opened from disk — if the browser blocks file fetches, embed a small
+   default scenario inline and say so on the page). On it, easy-read first:
+   - top: three plain sentences on what this is; a scenario picker; play, pause, speed (1x, 10x, 60x), a
+     position slider along the 250 m.
+   - a strip showing the line as blocks (rope -> half A and half B -> line -> root box -> network -> logger)
+     with live counters on each arrow (values per second, bytes per second, frames sent, lost, refused,
+     buffered) that follow the replay; a block lights when something happens there (lost frame, buffer
+     filling, back-fill).
+   - traces that follow the replay: radial channels and axial channels of one half (pick the half; pick the
+     channels or all 8 overlaid), what the logger received for the same stretch, and the difference; hover
+     gives values with units, as in the plot standard.
+   - for the picked scenario: what it shows, in two sentences, and the proof it belongs to with pass or fail
+     as the simulator reported it (the position-from-ripple proof fails today: 27.3 mm against 10 mm; show it
+     as it is).
+   - a short "what this is not": simulated, no real rope data yet, one head.
+   Readable at 1366 x 768; works with keyboard; dark and light as the site does it. No external scripts,
+   fonts or images.
+3. Tests (pytest in the beta's suite, new files only): the recording equals the simulator; the data files
+   load and their index is consistent; every number printed on the page's static text is traced to the
+   simulator's settings or outputs; a headless-browser check (Edge, as other builders did for page counts)
+   that the page loads from disk and from a local static server without console errors, and a screenshot of
+   three scenarios at 1366 x 768 saved beside your notes (not committed).
+4. One fresh subagent as cold user and falsifier (files only, plus opening the page headless): can a person
+   who has never seen the project tell what happens in each scenario; counters against the recorded data;
+   names; "simulated" stated; nothing reaches the network (grep and a network log of the headless run). Fix;
+   second pass only if blocking.
+Hand back at most 12 lines: tip; scenarios recorded and total size; what the page shows; whether it works
+from disk and from the site layout; test counts; cold-user verdict; scans; what the link from the results
+page should say and where it should go (you do not add it); not done. Do not hand back while background work
+of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder).
+If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign with your
+name. — Kai
+
+## U121 — export increment 062b8bd..b5478a7, then the Pages snapshot, every link proven (Kai, 20 Nov; owner's go given: "push to the main page ... do the same basic checks")
+
+Same job as "## U94" above; read it, "## U90", "## U88", "## U86", "## U79", and the notes of the builders that
+ran U94 and U90 (search agent-notes for them) plus yardarm.md and futtock.md first (the method, the scripts
+under C:/Users/stian/export-v3/tools/). The owner has given the go; Kai pushes after a final check; YOU DO NOT
+PUSH. Timebox 150 minutes; past it, stop and report. Another builder works in C:/Users/stian/Prosjekter-u120:
+do not touch it. Never call a bare `python` (venvs as in U94).
+State, verify before you start and stop if any differs: local main = D: = b5478a7. GitHub fjordbit/max main =
+export clone tip (C:/Users/stian/export-v3/export) = 8beade9, which exported local 062b8bd. publish/SWS
+(C:/Users/stian/publish/SWS) = both Pages remotes = 67c6e1f. In that clone the remote `origin` (fjordbit/SWS)
+now also carries branches named `backup` and `backup-*`: they are backups, leave them alone, touch only main.
+The increment is large (33 first-parent commits). On 062b8bd it holds: the groove chain U95-U100 (axial
+lift-off, yoke cut-out, groove physics, working point, H52 sweep), the team run U101 A-F, the large-box re-run
+U102, the prototype head as drawn U103, Scotchcast U105, groove plots U106 (with plotstandard.py), trade-off
+U107, data path U108 and transmitter line U109 (each with a blind brief and outside answers), the line beta
+U110 and the half in C U112 (`sws/line_beta/`, with `c_half/`), sensing-element run 3 U111 and its semi-blind
+round U113 (answers), the parts table U114, the 40 mm head on 38-40 mm rope U115, the results page and parts
+page U117 (`docs/sws/results.html`, `parts.html`, `build_results.py`, all pages rebuilt for a nine-entry menu,
+"Results" second), and U119 (two converters per half everywhere; specification rev131 rendered; redline rows;
+hardware case C folded; price and link figures recomputed; menu wording). List what the increment carries by
+folder with file counts and sizes before you export, and report anything not on this list.
+A. Export: max/ subtree increment 062b8bd..b5478a7, first-parent, grafted on 8beade9, fast-forward only. Scan
+   tip and increment (scan_tree with the u05 venv; idscan): 0 on everything ADDED. Known old hits that are
+   not new must be shown to be unchanged old lines (for example the rev131 render carries the same 11 hits as
+   rev130 on unchanged lines: prove it by diffing the hit lines, do not assume). Outside-model material in
+   full (briefs, sent/, answers with front matter, models files, round.json if carried): report what the front
+   matter carries; a user name, an expanded machine path, an account or organisation id or a key fragment =
+   STOP and report. STOP and report also on: any PDF; any data-sheet copy; any image that is a scan or photo
+   of a drawing (the prototype head was modelled from a drawing: its numbers may be there, the drawing itself
+   must not be); a customer or site name; standard text beyond clause numbers and own words (EN 12927,
+   ISO 4309: grep for long verbatim-looking passages and report); anything from secretary/ or max-private/;
+   compiled binaries, virtual environments, build folders or caches (the C half and the beta must be source
+   only); any single file over 5 MB (report size and what it is; do not drop it yourself). All `--check`
+   runs (ten) and the SWS tests with the u41 venv in a copy of the export tip (expect 209 passed, 2 skipped,
+   1 known failure test_sws_p52 for lack of PyYAML in that venv; say if different); the beta's own suite is
+   not run here.
+B. Snapshot in C:/Users/stian/publish/SWS on 67c6e1f: `sws/` and `docs/sws/` from the export tip. Nine menu
+   pages with the nine-entry switch, "Results" second; rig_sheet.html and parts.html off the menu. The
+   results page embeds interactive figures whose links use a base address of the form
+   github.com/MAx-Flow/SWS-Documentation/blob/main/sws/...: for each such base, say where its links land on
+   EACH Pages remote (the fjordbit one and the MAx-Flow one) and that the targets exist in the tree that will
+   be live there; if a base is right for one remote only, report it as a finding with the count of affected
+   links, and fix only if the earlier pages already solved the same case (say how).
+C. Link proof on all eleven pages: relative and own-repo links 0 broken against the trees that will be live;
+   carry or unlink what is not carried and list it. External links: one HEAD per distinct NEW URL only; send
+   nothing about the project.
+D. Visible text of the new and changed pages (results, parts, hardware, software, index, easy, the report's
+   changed parts, and the menu on all) free of local paths, "l.NNN", snapshot notes, personal names, roles
+   and dates in prose; the cold-reader rule of the house: pages are about the task, not about people. Print
+   counts from the snapshot copy (headless Edge): results, parts, hardware, software, rig sheet, sensor.
+   `git status` only sws/ and docs/; rebuild index.zip (untracked). Commit "SWS snapshot from MAx <tip>:
+   results page, parts table, two converters per half, groove and trade-off, data line and its simulator".
+   No push.
+E. Hand back at most 12 lines: both tips; what the increment carries (folders, sizes, largest file); link
+   counts per page (broken 0); the base-address finding; what you unlinked; new external statuses not
+   200/redirect; scans and the proof for old hits; tests; page counts; what the front matter carries; the
+   three push commands, not run. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that
+   folder). No identifier values, no personal names; never print max-private/identifiers.yaml. If a
+   permission is denied, stop and report it; do not ask anyone to do the action for you. Sign with your
+   name. — Kai

@@ -93,3 +93,18 @@ OSR 8192 = 500 S/s example throughout).
   hardware (cases table A B D, ruling named, positions, round 2, data-sheet wording, cable and budget rows, price cells,
   menu label).
 - Line-reference drift fixed in parts.yaml (E12, K02, K04, T01 point at build_hardware.py lines that moved).
+
+## Falsifier (one pass, files only) and what was done
+- Blocking, fixed: parts.yaml D03 "a fourth converter per half" → "one 8-channel converter more than the two per half".
+- Fixed: report marks also after the spec log row "4 ADC / 12 TMR — now 3 / 16" and the sun row's "the design is 3 ADCs"
+  (10 marks); link note health bits DEV_INVALID 0–2 → 0–1, bit 2 spare (software page rebuilt); test docstring.
+- Recomputations matched (link budget 75 / 77 bytes, 192.5 / 385.0 / 770.0 kbit/s; twin 320 000 / 3 200 / 55.3 GB);
+  price rows A, B, D byte-identical to base; history untouched; rev130 → rev131 diff only the converter lines + log row.
+- Not fixed (minor, outside the count): rev131 l.317 "internal 1.2 V reference only" now sits beside l.321's REFIN
+  (K03 open, owner's call); l.291 (12-position alternative) and l.413 (frame content) still name an excitation reading;
+  flow example still draws an excitation channel per half (the count is corrected); the heat budget's 18 mW (class C,
+  marked) would be 12 mW.
+- Scans: idscan 5c448b3..HEAD 0 counted; scan_tree on added lines 0, except the new rev131 render as a whole file: 11
+  hits, the same 11 that rev130 render already carries in the repo (customer site 5, id 5, one personal name); 0 on the
+  12 lines that differ from rev130.
+Tip 8ba462a. — forefoot
