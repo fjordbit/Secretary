@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-obc-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rope monitoring v2 – OpenBridge look – invented data</title>
+<style>
+[data-obc-theme="day"]{--bg:rgb(224,224,224);--panel:rgb(252,252,252);--sec:rgb(240,240,240);--text:rgb(31,31,31);--dim:rgb(82,82,82);--line:rgb(221,221,221);--hi:rgb(24,58,97);--alarm:rgb(224,0,18);--on-alarm:#fff;--warn:rgb(245,132,2);--on-warn:#000;--caut:rgb(255,219,66);--on-caut:rgb(57,57,57);--alarm-ibg:rgb(255,210,203);--warn-ibg:rgb(255,213,175);--li:rgb(105,77,0)}
+[data-obc-theme="dusk"]{--bg:rgb(10,10,10);--panel:rgb(36,36,36);--sec:rgb(26,26,26);--text:rgb(236,236,236);--dim:rgb(174,174,174);--line:rgb(48,48,48);--hi:rgb(172,212,255);--alarm:rgb(222,0,4);--on-alarm:#fff;--warn:rgb(250,125,0);--on-warn:rgb(5,5,5);--caut:rgb(214,169,21);--on-caut:rgb(5,5,5);--alarm-ibg:rgb(72,14,14);--warn-ibg:rgb(62,26,0);--li:rgb(138,105,0)}
+[data-obc-theme="night"]{--bg:rgb(0,0,0);--panel:rgb(21,15,9);--sec:rgb(13,9,7);--text:rgb(233,168,120);--dim:rgb(197,137,93);--line:rgb(49,33,24);--hi:rgb(113,199,163);--alarm:rgb(183,0,0);--on-alarm:#000;--warn:rgb(198,85,0);--on-warn:#000;--caut:rgb(117,83,0);--on-caut:#000;--alarm-ibg:rgb(73,14,14);--warn-ibg:rgb(64,24,1);--li:rgb(82,58,0)}
+[data-obc-theme="bright"]{--bg:rgb(214,214,214);--panel:rgb(252,252,252);--sec:rgb(242,242,242);--text:rgb(0,0,0);--dim:rgb(35,35,35);--line:rgb(136,136,136);--hi:rgb(7,35,70);--alarm:rgb(216,17,28);--on-alarm:#fff;--warn:rgb(245,128,35);--on-warn:#000;--caut:rgb(255,206,52);--on-caut:#000;--alarm-ibg:rgb(255,162,151);--warn-ibg:rgb(255,202,160);--li:rgb(102,75,0)}
+:root{--cc:var(--warn);--on-cc:var(--on-warn);--cc-bg:var(--warn-ibg);--fs:clamp(12px,.95vw,26px)}
+:root[data-concern="alarm"]{--cc:var(--alarm);--on-cc:var(--on-alarm);--cc-bg:var(--alarm-ibg)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:var(--fs);line-height:1.35}
+a{color:inherit;text-decoration:none}
+button{font:inherit;font-size:.9em;color:var(--text);background:var(--sec);border:1px solid var(--line);border-radius:4px;padding:.05em .55em;cursor:pointer}
+button:hover{border-color:var(--dim)}
+button[aria-pressed="true"]{background:var(--hi);color:var(--panel);border-color:var(--hi);font-weight:600}
+button:disabled{opacity:.55;cursor:not-allowed}
+.num{font-variant-numeric:tabular-nums}
+.dim{color:var(--dim)}
+.sm{font-size:.85em}
+.ic{display:inline-block;width:1.1em;height:1.1em;vertical-align:-.2em}
+.ic svg{display:block;width:100%;height:100%}
+.ic.q{color:var(--dim)}
+.off{opacity:.55}
+.tag{display:inline-block;font-size:.7em;font-weight:700;line-height:1.3;border:1.5px solid var(--text);border-radius:2px;padding:0 .25em;letter-spacing:.04em;margin-right:.15em}
+.tag.rev{border-style:dashed}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:.2em 1em;padding:.3em .8em;background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:1.15em;margin:0;font-weight:600}
+.tsw{display:inline-flex;gap:.25em;align-items:center;color:var(--dim);font-size:.9em}
+header .meta{margin-left:auto;color:var(--dim);font-size:.85em}
+.card{background:var(--panel);margin:.3em .4em;border:1px solid var(--line)}
+.sum{display:flex;flex-wrap:wrap;gap:.2em 1.1em;align-items:center;padding:.3em .7em;border-bottom:1px solid var(--line)}
+.sum .big{font-size:1.1em}
+.chips{display:flex;flex-wrap:wrap;gap:.3em;padding:.25em .7em;border-bottom:1px solid var(--line);align-items:center}
+.chip{display:inline-flex;gap:.35em;align-items:center;border:1px solid var(--line);border-radius:3px;padding:0 .45em;background:var(--sec)}
+.chip:hover{border-color:var(--dim)}
+.chip.c{border-left:.35em solid var(--cc);background:var(--cc-bg)}
+.chip.u{border-left:.35em dashed var(--dim)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0 1em;padding:.2em .7em}
+@media (max-width:1150px){.cols{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+.row{display:grid;grid-template-columns:1.3em 4em 2.7em 1fr 1fr 2.7em 2.3em;gap:.35em;align-items:center;height:1.65em;padding:0 .3em;border-bottom:1px solid var(--line);border-left:.35em solid transparent}
+a.row:hover{background:var(--sec)}
+.row.hd{height:auto;padding:.15em .3em;color:var(--dim);font-size:.78em;line-height:1.15;align-items:end}
+.row.s2{background:var(--cc-bg);border-left-color:var(--cc)}
+.row.s2 .id{font-weight:800}
+.row.s3{border-left:.35em dashed var(--dim)}
+.id{font-weight:600;white-space:nowrap}
+.r{text-align:right}
+.cell{display:flex;align-items:center;gap:.3em;min-width:0}
+.cell .v{width:2.2em;text-align:right;flex:none}
+.cell.hit .v{font-weight:800}
+.cell.hit{outline:2px solid var(--cc)}
+.bar{position:relative;flex:1;height:.55em;background:var(--sec);border:1px solid var(--line);min-width:1.5em}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--dim)}
+.bar i.c{background:var(--cc)}
+.bar b{position:absolute;top:-.25em;bottom:-.25em;width:2px;background:var(--text)}
+.hs{display:inline-block;width:1.2em;text-align:center;color:var(--dim)}
+.hs.bad{color:var(--text);outline:2px solid var(--li);outline-offset:-1px;border-radius:2px}
+.legend{padding:.3em .7em;color:var(--dim);font-size:.78em;display:flex;flex-wrap:wrap;gap:.15em 1.3em;border-top:1px solid var(--line)}
+.legend span{white-space:nowrap}
+.rhead{display:flex;flex-wrap:wrap;gap:.4em 1em;align-items:center;padding:.3em .7em;border-bottom:1px solid var(--line)}
+.rhead h2{margin:0;font-size:1.3em}
+.rbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(18em,25em);gap:.8em;padding:.4em .7em}
+@media (max-width:1000px){.rbody{grid-template-columns:1fr}}
+#chart{min-width:0;overflow:hidden}
+#side{font-size:.86em}
+#side h3{font-size:1em;margin:.7em 0 .2em;color:var(--dim);font-weight:600}
+#side table{border-collapse:collapse;width:100%}
+#side td,#side th{padding:.1em .3em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+#side th{color:var(--dim);font-weight:400}
+#side tr.dis td{color:var(--dim)}
+.state{font-size:1.1em;padding:.35em .5em;border-left:.4em solid var(--dim);background:var(--sec)}
+.state.s2{border-left-color:var(--cc);background:var(--cc-bg)}
+.state.s3{border-left-style:dashed}
+.state .sm{font-size:.8em;margin-top:.2em}
+.acts{margin:.4em 0;display:flex;flex-wrap:wrap;gap:.3em;align-items:center}
+.old{margin:.4em 0;padding:.3em .45em;border:1px dashed var(--line);color:var(--dim)}
+#read{min-height:6.6em;border:1px solid var(--line);padding:.3em .45em;background:var(--sec)}
+#read b{color:var(--hi)}
+ul.rec{margin:0;padding-left:1.1em}
+ul.rec li{margin:.1em 0}
+.note{color:var(--dim);font-size:.85em;margin-top:.6em}
+svg text{fill:var(--text)}
+svg text.tt{font-weight:600}
+svg text.tu{fill:var(--dim)}
+svg text.labc{font-weight:700}
+svg text.tb2{font-weight:700;paint-order:stroke;stroke:var(--sec);stroke-width:3px}
+.tb{fill:var(--sec);stroke:var(--line)}
+.seen{fill:var(--dim);fill-opacity:.45}
+.thd{stroke:var(--text);stroke-width:1.5}
+.stem{stroke:var(--dim);stroke-width:1.5}
+.stem.c{stroke:var(--cc);stroke-width:2.5}
+.stem.d{stroke-dasharray:2 2}
+.mk0{fill:var(--dim)}
+.mkc{fill:var(--cc);stroke:var(--text);stroke-width:1}
+.mkd{fill:none;stroke:var(--dim);stroke-width:1.5;stroke-dasharray:3 2}
+.pref{fill:none;stroke:var(--dim);stroke-dasharray:4 3;stroke-width:1.2}
+.pnow{fill:none;stroke:var(--text);stroke-width:1.5}
+.pnow.c{stroke:var(--cc);stroke-width:3.5}
+.ar{fill:var(--dim);fill-opacity:.5}
+.cb{fill:var(--dim);fill-opacity:.6}
+.cb.late{fill:none;stroke:var(--dim);stroke-dasharray:2 2}
+.fatb{fill:none;stroke:var(--dim);stroke-dasharray:5 4}
+.xh{stroke:var(--hi);stroke-width:1.5;pointer-events:none}
+.ax{stroke:var(--dim)}
+.hl{stroke:var(--li);stroke-width:1.5}
+.hm{fill:var(--text)}
+.hm.c{fill:var(--cc)}
+</style>
+</head>
+<body>
+<header>
+<h1 id="h1">Rope condition – all 51 ropes</h1>
+<span class="dim sm">For inspection and maintenance · not a safety system</span>
+<span class="tsw">Palette <button data-t="day">Day</button><button data-t="dusk">Dusk</button><button data-t="night">Night</button><button data-t="bright">Bright</button></span>
+<span class="tsw">Concern colour <button data-c="warning">Warning</button><button data-c="alarm">Alarm</button></span>
+<span class="meta num" id="asof"></span>
+</header>
+<main id="ov" class="card"></main>
+<main id="rope" class="card" hidden></main>
+<script>
+"use strict";
+const TODAY=Date.UTC(2026,10,20),DAY=864e5,N=51,L=290,SEC=5,NS=58,DIA=52;
+const COV={A:[0,250],B:[40,290]},RULE={ld:6,lma:10},STALE=30,CYCLATE='2026-11-18 22:10';
+const THEMES=['day','dusk','night','bright'],LVLW=['Normal','Watch','Concern','Not known'];
+const HW={ok:'in service',deg:'degraded',oos:'out of service',nod:'no data'};
+const fmtD=ms=>new Date(ms).toISOString().slice(0,10);
+const Dp=s=>Date.parse(s+'T00:00:00Z');
+const kname=k=>k==='LD'?'Local fault':'Loss of metal';
+const OV={
+ 5:{deg:'A'},
+ 9:{runs:5,span:35,last:0,amp:.2,cyc:'none',ident:'Rope W09-2, installed 2026-10-16 (replaced last month)',
+  old:'Previous rope W09-1, 2018-04-09 to 2026-10-15: record closed and kept, read-only. It ended in Concern (loss of metal 10.6 % at 64 m, recorded 2026-06-30, acknowledged). Nothing carries over to the new rope.',
+  rec:[['2026-10-16','Maintenance; confirmed by rope engineer','Rope replaced. New rope identity W09-2 (rope s/n 26-0451). First run 2026-10-16 is the reference.'],['2026-10-16','System','Winch control system: no bending-cycle data yet for W09-2.']]},
+ 12:{cyc:'late'},
+ 13:{oos:['A','B'],last:10,ht:{A:'out of service since 2026-11-10: root box flooded',B:'out of service since 2026-11-10: root box flooded'},rec:[['2026-11-10','Monitoring technician','SWS A and B out of service: root box flooded. Expected back 2026-12-01.']]},
+ 17:{span:700,nod:'B',ht:{B:'no data since 2026-11-19 03:10: no link to root box'},
+  F:[{k:'LD',p:132.4,first:'2025-05-27',fv:6.1,worst:6.5,latest:6.5,by:'A and B',ack:['Operator','2025-05-28']}],
+  rec:[['2026-11-19','System','SWS B: no data since 03:10. Rope state unchanged.']]},
+ 22:{F:[{k:'LD',p:88.1,first:'2026-08-25',fv:6.2,worst:6.2,latest:.5,by:'SWS A only; SWS B passed 88.1 m and saw nothing',ack:['Operator','2026-08-25'],
+  dis:{d:'2026-09-04',role:'Rope engineer',why:'SWS at fault: sensing element radial 5, half A1, found broken',ev:'element replaced 2026-09-03 (WO-4471, old s/n RE-0832, new RE-1190); 0.5 % at 88.1 m in every run since'}}],
+  rec:[['2026-09-03','Monitoring technician','Half A1, radial element 5 replaced (WO-4471).']]},
+ 26:{gap:['A',150,154],ht:{A:'in service; no data 150–154 m in latest run'}},
+ 29:{oos:['B'],ht:{B:'out of service since 2026-11-02: head opened for cable repair; expected back 2026-11-27'},rec:[['2026-11-02','Monitoring technician','SWS B out of service: head opened for cable repair.']]},
+ 33:{amp:10.4},
+ 37:{runs:1,amp:0},
+ 41:{amp:2.4,F:[{k:'LMA',p:262,first:'2026-08-11',fv:10.3,worst:10.3,latest:'c',by:'SWS B only (SWS A does not pass 262 m)',ack:['Operator','2026-08-11'],
+  dis:{d:'2026-08-22',role:'Rope engineer',why:'checked by another approved method: a separate magnetic rope test by an inspector found the rope not bad',ev:'test 2026-08-20, report MRT-26-118, loss of metal 3.4 % at 262 m; SWS B recalibrated 2026-08-22'}}],
+  rec:[['2026-08-22','Monitoring technician','SWS B recalibrated after inspector test MRT-26-118.']]},
+ 45:{F:[{k:'LD',p:201.7,first:'2026-07-14',fv:6.1,worst:6.1,latest:null,by:'A and B',ack:['Operator','2026-07-15'],rev:'Not seen in the last 3 runs; both SWS passed 201.7 m each time'}]},
+ 50:{last:46}
+};
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(x,c,s){const z=(x-c)/s;return Math.exp(-.5*z*z)}
+const cache={};
+function gen(i){if(cache[i])return cache[i];
+ const r=mulberry32(i*7919+13),o=OV[i]||{},name='W'+(i<10?'0':'')+i;
+ const amp=o.amp!=null?o.amp:.6+r()*3.2;
+ const cs=[55+r()*20,128+r()*18,198+r()*20],sg=[3+r()*5,3+r()*5,3+r()*5],wt=[.2+r()*.6,.2+r()*.6,.2+r()*.6];wt[Math.floor(r()*3)]=1;
+ const first=[],wear=[],latest=[];
+ for(let x=0;x<=L;x++){const mid=x>25&&x<265?1:.3;let b=0;for(let k=0;k<3;k++)b=Math.max(b,wt[k]*gauss(x,cs[k],sg[k]));
+  wear[x]=amp*(.85*b+.15*mid);first[x]=.25+.08*Math.sin(x/9+i)+(r()-.5)*.16;latest[x]=first[x]+wear[x]+(r()-.5)*.2}
+ const R=o.runs||20+Math.floor(r()*40);
+ if(R===1)for(let x=0;x<=L;x++)latest[x]=first[x];
+ const lastDays=o.last!=null?o.last:Math.floor(r()*4),span=R>1?(o.span||380+Math.floor(r()*300)):0,t1=TODAY-lastDays*DAY,t0=t1-span*DAY;
+ const runDates=[];for(let k=0;k<R;k++)runDates.push(R>1?t0+(t1-t0)*k/(R-1):t1);
+ const health={A:'ok',B:'ok'};(o.oos||[]).forEach(k=>{health[k]='oos'});if(o.deg)health[o.deg]='deg';if(o.nod)health[o.nod]='nod';
+ const out=k=>health[k]==='oos'||health[k]==='nod',bothOut=out('A')&&out('B');
+ const seen={};['A','B'].forEach(k=>{seen[k]=(!bothOut&&out(k))?[]:[COV[k].slice()]});
+ if(o.gap){const k=o.gap[0],a=o.gap[1],b=o.gap[2];seen[k]=seen[k].flatMap(([p,q])=>(b<=p||a>=q)?[[p,q]]:[[p,a],[b,q]].filter(s=>s[1]>s[0]))}
+ const seenBy=x=>['A','B'].filter(k=>seen[k].some(([p,q])=>x>=p&&x<=q));
+ for(let x=0;x<=L;x++)if(!seenBy(x).length)latest[x]=NaN;
+ const ind=[],nf=Math.floor(r()*4);
+ for(let k=0;k<nf;k++){const p=+(10+r()*270).toFixed(1),v=+(.4+r()*2.2).toFixed(1);if(seenBy(p).length)ind.push({p:p,v:v})}
+ const F=(o.F||[]).map(f=>Object.assign({},f));
+ F.forEach(f=>{if(f.latest==='c')f.latest=+latest[Math.round(f.p)].toFixed(1);if(f.k==='LD'&&f.latest!=null)ind.push({p:f.p,v:f.latest})});
+ let lmaMax=0,lmaAt=0,drMax=0,drAt=0;
+ for(let x=0;x<=L;x++){const v=latest[x];if(isNaN(v))continue;if(v>lmaMax){lmaMax=v;lmaAt=x}const dd=v-first[x];if(dd>drMax){drMax=dd;drAt=x}}
+ if(R<2)drMax=null;
+ if(lmaMax>=RULE.lma&&!F.some(f=>f.k==='LMA'&&!f.dis&&Math.abs(f.p-lmaAt)<3)){const w=+lmaMax.toFixed(1);F.push({k:'LMA',p:lmaAt,first:fmtD(t1),fv:w,worst:w,latest:w,by:seenBy(lmaAt).join(' and ')||'—',ack:null})}
+ const runsTot=Math.round(R*(6+r()*10)),cyc=[];
+ for(let s=0;s<NS;s++){const x=s*SEC+2.5,prof=x<25?.15+x/25*.85:x>265?.15+(L-x)/25*.85:1;cyc.push(Math.round(runsTot*4*prof*(1+.6*gauss(x,cs[0],15))))}
+ let cycMax=0,cycAt=0;cyc.forEach((v,s)=>{if(v>cycMax){cycMax=v;cycAt=s*SEC}});
+ const d={i:i,name:name,first:first,wear:wear,latest:latest,R:R,runDates:runDates,lastDays:lastDays,stale:lastDays>STALE,health:health,bothOut:bothOut,seen:seen,seenBy:seenBy,ind:ind,F:F,lmaMax:lmaMax,lmaAt:lmaAt,drMax:drMax,drAt:drAt,cyc:cyc,cycMax:cycMax,cycAt:cycAt,cycSt:o.cyc||'ok',old:o.old||'',ident:o.ident||('Rope '+name+'-1, first run '+fmtD(runDates[0]))};
+ d.hText={};['A','B'].forEach(k=>{d.hText[k]=(o.ht&&o.ht[k])||(health[k]==='deg'?'degraded: half '+k+'2 has 2 of 16 channels missing (axial 3 and 7)':HW[health[k]])});
+ d.rec=(o.rec||[]).slice();
+ F.forEach(f=>{d.rec.push([f.first,'System','Finding recorded: '+kname(f.k)+' '+f.fv+' % at '+f.p+' m, seen by '+f.by+' ('+(f.k==='LD'?'6':'10')+' % rule).']);
+  if(f.ack)d.rec.push([f.ack[1],f.ack[0],'Acknowledged. Rope state unchanged.']);
+  if(f.rev)d.rec.push([fmtD(TODAY),'System','Flagged for review: '+f.rev+'. Rope state unchanged.']);
+  if(f.dis)d.rec.push([f.dis.d,f.dis.role,'Dismissed: '+f.dis.why+'. Evidence: '+f.dis.ev+'.'])});
+ d.rec.sort((a,b)=>a[0]<b[0]?1:a[0]>b[0]?-1:0);
+ derive(d);cache[i]=d;return d}
+function derive(d){d.act=d.F.filter(f=>!f.dis);d.unack=d.act.some(f=>!f.ack);d.rev=d.act.some(f=>f.rev);
+ d.ldInd=d.ind.reduce((m,f)=>Math.max(m,f.v),0);
+ d.ldAct=d.act.filter(f=>f.k==='LD').reduce((m,f)=>Math.max(m,f.worst),0);
+ d.lmaAct=d.act.filter(f=>f.k==='LMA').reduce((m,f)=>Math.max(m,f.worst),0);
+ d.ldShow=Math.max(d.ldInd,d.ldAct);d.lmaShow=Math.max(d.lmaMax,d.lmaAct);
+ d.lvl=d.act.length?2:d.bothOut?3:0;
+ d.why=d.act.map(f=>f.k+' '+f.worst.toFixed(1)+' % at '+f.p+' m')}
+const hcache={};
+function hist(i){if(hcache[i])return hcache[i];const d=gen(i),r=mulberry32(i*31+7),R=d.R,out=[];
+ for(let k=0;k<R;k++){const t=R>1?k/(R-1):0,row=[];
+  for(let s=0;s<NS;s++){let m=-1,n=0;
+   for(let x=s*SEC;x<(s+1)*SEC&&x<=L;x++){let v;
+    if(k===R-1)v=d.latest[x];else if(k===0)v=d.first[x];else v=d.first[x]+d.wear[x]*Math.pow(t,1.3)+(r()-.5)*.2;
+    if(!isNaN(v)){m=Math.max(m,v);n++}}
+   row.push(n?m:NaN)}
+  out.push(row)}
+ if(i===41){let best=0,bd=1e18;d.runDates.forEach((t,k)=>{const dd=Math.abs(t-Dp('2026-08-11'));if(dd<bd){bd=dd;best=k}});out[best][52]=10.3}
+ hcache[i]=out;return out}
+const ICP={
+ norm:'<circle cx="6" cy="6" r="2.2" fill="currentColor"/>',
+ conc:'<rect x=".6" y=".6" width="10.8" height="10.8" rx="1" style="fill:var(--cc);stroke:var(--on-cc);stroke-width:.6"/><rect x="5" y="2.3" width="2" height="4.9" style="fill:var(--on-cc)"/><rect x="5" y="8.3" width="2" height="1.8" style="fill:var(--on-cc)"/>',
+ unk:'<rect x="1" y="1" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 1.4"/><text x="6" y="9" text-anchor="middle" font-size="8" font-weight="700" style="fill:currentColor">?</text>',
+ watch:'<path d="M6 .8 11.4 11H.6z" style="fill:var(--caut);stroke:var(--on-caut);stroke-width:.6"/>',
+ dism:'<rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 1.5"/><path d="M3 9 9 3" stroke="currentColor" stroke-width="1.2"/>',
+ ok:'<circle cx="6" cy="6" r="2.2" fill="currentColor"/>',
+ deg:'<circle cx="6" cy="6" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 1.6a4.4 4.4 0 0 0 0 8.8z" fill="currentColor"/>',
+ oos:'<circle cx="6" cy="6" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.9 9.1 9.1 2.9" stroke="currentColor" stroke-width="1.4"/>',
+ nod:'<circle cx="6" cy="6" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.2 1.6"/>',
+ clock:'<circle cx="6" cy="6" r="4.8" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v3.3l2.3 1.5" fill="none" stroke="currentColor" stroke-width="1.3"/>'};
+function ic(n,t){return '<span class="ic'+(n==='norm'||n==='ok'?' q':'')+'"'+(t?' title="'+t+'"':'')+'><svg viewBox="0 0 12 12" aria-hidden="true">'+ICP[n]+'</svg></span>'}
+function stIcon(l){return ic(['norm','watch','conc','unk'][l],LVLW[l])}
+function hg(k,s){return '<span class="hs'+(s==='ok'?'':' bad')+'" title="SWS '+k+': '+HW[s]+'">'+ic(s)+'</span>'}
+function bar(v,max,rule){const c=v>=rule;return '<span class="v num">'+v.toFixed(1)+'</span><span class="bar"><i class="'+(c?'c':'')+'" style="width:'+Math.min(100,v/max*100).toFixed(1)+'%"></i><b style="left:'+(rule/max*100).toFixed(1)+'%"></b></span>'}
+const HD='<div class="row hd"><span></span><span>Rope</span><span></span><span>Local fault, worst<br>% of area in 6 d</span><span>Loss of metal, worst<br>% of area</span><span>SWS<br>A B</span><span class="r">Last<br>run</span></div>';
+function row(d){const hit=k=>d.act.some(f=>f.k===k)?' hit':'';
+ const tags=(d.unack?'<span class="tag" title="Not yet acknowledged">NEW</span>':'')+(d.rev?'<span class="tag rev" title="Finding not seen in the last 3 runs: for review; state unchanged">REV</span>':'');
+ return '<a class="row s'+d.lvl+'" href="#rope/'+d.i+'" title="'+d.name+': '+LVLW[d.lvl]+(d.why.length?' – '+d.why.join('; '):'')+' · SWS A '+HW[d.health.A]+', SWS B '+HW[d.health.B]+'">'
+ +'<span>'+stIcon(d.lvl)+'</span>'
+ +'<span class="id">'+d.name+(d.stale?' '+ic('clock','Not current'):'')+'</span>'
+ +'<span>'+tags+'</span>'
+ +'<span class="cell'+hit('LD')+'">'+bar(d.ldShow,8,RULE.ld)+'</span>'
+ +'<span class="cell'+hit('LMA')+'">'+bar(d.lmaShow,12,RULE.lma)+'</span>'
+ +'<span>'+hg('A',d.health.A)+hg('B',d.health.B)+'</span>'
+ +'<span class="num r">'+d.lastDays+' d</span></a>'}
+function legend(){return '<div class="legend"><span>'+stIcon(2)+' Concern: an active finding has reached a discard rule; stays until dismissed with evidence or the rope is replaced</span><span><span class="tag">NEW</span> not acknowledged</span><span><span class="tag rev">REV</span> finding not seen in the last 3 runs: for review, state unchanged</span><span>'+stIcon(0)+' Normal</span><span>'+stIcon(3)+' Not known: both SWS out, no active finding</span><span>'+ic('clock')+' Not current: no run for '+STALE+'+ days (placeholder; a flag, not a state)</span><span>SWS: '+ic('ok')+' in service '+ic('deg')+' degraded '+ic('oos')+' out of service '+ic('nod')+' no data; boxed in the low-integrity colour</span><span>Bar tick = discard rule</span><span>Marks are my own, not OpenBridge icons</span><span>Invented data</span></div>'}
+function renderOv(){const all=[];for(let i=1;i<=N;i++)all.push(gen(i));
+ const cnt=[0,0,0,0];all.forEach(d=>cnt[d.lvl]++);
+ const unack=all.filter(d=>d.unack).length,stale=all.filter(d=>d.stale);
+ const hl={oos:[],deg:[],nod:[]};let live=0;
+ all.forEach(d=>['A','B'].forEach(k=>{const s=d.health[k];if(s==='ok'||s==='deg')live++;if(hl[s])hl[s].push(d.name+' '+k)}));
+ const late=all.filter(d=>d.cycSt!=='ok');
+ let h='<div class="sum">'
+ +'<span class="big">'+stIcon(2)+' Concern <b class="num">'+cnt[2]+'</b>'+(unack?' <span class="tag">'+unack+' NEW</span>':'')+'</span>'
+ +'<span class="dim"><span class="off">'+ic('watch')+'</span> Watch: not active, levels not set</span>'
+ +'<span>'+stIcon(0)+' Normal <b class="num">'+cnt[0]+'</b></span>'
+ +'<span>'+stIcon(3)+' Not known <b class="num">'+cnt[3]+'</b></span>'
+ +'<span>'+ic('clock')+' Not current <b class="num">'+stale.length+'</b></span>'
+ +'<span>Monitoring: <b class="num">'+live+'</b> of 102 SWS delivering'+(hl.oos.length?' · '+ic('oos')+' '+hl.oos.join(', '):'')+(hl.nod.length?' · '+ic('nod')+' '+hl.nod.join(', '):'')+(hl.deg.length?' · '+ic('deg')+' '+hl.deg.join(', '):'')+'</span>'
+ +'<span>Bending cycles (winch control system): <b class="num">'+(N-late.length)+'</b> of 51 current'+late.map(d=>' · '+d.name+' '+(d.cycSt==='late'?'last '+CYCLATE:'none yet for new rope')).join('')+'</span>'
+ +'<span class="dim">Fatigue: no method yet</span></div>';
+ const att=all.filter(d=>d.lvl===2).sort((a,b)=>(b.unack-a.unack)||a.i-b.i);
+ h+='<div class="chips"><span class="dim">Needs a look:</span>'
+ +att.map(d=>'<a class="chip c" href="#rope/'+d.i+'">'+stIcon(2)+'<b>'+d.name+'</b><span>'+d.why.join(', ')+'</span>'+(d.unack?'<span class="tag">NEW</span>':'')+(d.rev?'<span class="tag rev">REV</span>':'')+'</a>').join('')
+ +all.filter(d=>d.lvl===3).map(d=>'<a class="chip u" href="#rope/'+d.i+'">'+stIcon(3)+'<b>'+d.name+'</b><span>both SWS out of service</span></a>').join('')
+ +stale.map(d=>'<a class="chip" href="#rope/'+d.i+'">'+ic('clock')+'<b>'+d.name+'</b><span>no run for '+d.lastDays+' d</span></a>').join('')+'</div>';
+ h+='<div class="cols">';
+ for(let c=0;c<3;c++){h+='<div>'+HD;for(let i=c*17+1;i<=c*17+17;i++)h+=row(gen(i));h+='</div>'}
+ h+='</div>'+legend();
+ document.getElementById('ov').innerHTML=h}
+let cur=1;
+function go(h){location.hash=h}
+function renderRope(){const d=gen(cur),prev=cur>1?cur-1:N,next=cur<N?cur+1:1;
+ document.getElementById('rope').innerHTML='<div class="rhead"><button onclick="go(\'\')">← All ropes</button><h2>'+d.name+'</h2><span>'+stIcon(d.lvl)+' <b>'+LVLW[d.lvl]+'</b></span>'+(d.unack?'<span class="tag">NEW</span>':'')+(d.rev?'<span class="tag rev">REV</span>':'')+(d.stale?'<span>'+ic('clock')+' Not current</span>':'')+'<span class="dim">'+d.ident+' · Ø '+DIA+' mm · 6 d = 0.312 m · '+d.R+' run'+(d.R>1?'s':'')+' since '+fmtD(d.runDates[0])+'</span><span style="margin-left:auto"><button onclick="go(\'#rope/'+prev+'\')">◀ '+gen(prev).name+'</button> <button onclick="go(\'#rope/'+next+'\')">'+gen(next).name+' ▶</button></span></div><div class="rbody"><div id="chart"></div><aside id="side"></aside></div>';
+ side();drawRope()}
+function ackRope(i){const d=gen(i);d.F.forEach(f=>{if(!f.dis&&!f.ack){f.ack=['Operator (this screen)',fmtD(TODAY)];d.rec.unshift([fmtD(TODAY),'Operator (this screen)','Acknowledged. Rope state unchanged.'])}});derive(d);renderRope()}
+function side(){const d=gen(cur),v=x=>x==null||isNaN(x)?'—':x.toFixed(1);
+ let h='<div class="state s'+d.lvl+'">'+stIcon(d.lvl)+' <b>'+LVLW[d.lvl]+'</b>';
+ if(d.lvl===2)h+='<div class="sm">'+d.act.map(f=>kname(f.k)+' '+f.worst.toFixed(1)+' % at '+f.p+' m, recorded '+f.first+(f.ack?', acknowledged '+f.ack[1]:', NOT acknowledged')).join('<br>')+'<br>Stays Concern until each active finding is dismissed with evidence, or the rope is replaced.</div>';
+ else if(d.lvl===3)h+='<div class="sm">Both SWS out of service and no active finding. Figures below are from the last usable run, '+fmtD(d.runDates[d.R-1])+'.</div>';
+ else if(d.F.length)h+='<div class="sm">Every finding on this rope has been dismissed; see the table.</div>';
+ h+='</div>';
+ if(d.act.length)h+='<div class="acts">'+(d.unack?'<button onclick="ackRope('+d.i+')">Acknowledge</button>':'')+'<button disabled title="Rope engineer or expert only. Needs reason and evidence. Not built in this mock-up.">Dismiss a finding…</button><span class="dim sm">Acknowledging removes NEW only; the state stays.</span></div>';
+ if(d.old)h+='<div class="old sm">'+d.old+'</div>';
+ const cyTxt=d.cycSt==='none'?'no data':d.cycMax.toLocaleString('en-US')+' at '+d.cycAt+'–'+(d.cycAt+SEC)+' m'+(d.cycSt==='late'?' (as of '+CYCLATE+')':'');
+ h+='<h3>Key figures · latest usable run '+fmtD(d.runDates[d.R-1])+' ('+d.lastDays+' d ago)</h3><table><tr><th>Measure</th><th>Active worst</th><th>Latest run</th><th>Rule</th></tr>'
+ +'<tr><td>Local fault</td><td class="num">'+(d.ldAct?'<b>'+v(d.ldAct)+' %</b>':'none')+'</td><td class="num">'+v(d.ldInd)+' %</td><td>6 % in 6 d</td></tr>'
+ +'<tr><td>Loss of metal</td><td class="num">'+(d.lmaAct?'<b>'+v(d.lmaAct)+' %</b>':'none')+'</td><td class="num">'+v(d.lmaMax)+' % at '+d.lmaAt+' m</td><td>10 % (owner)</td></tr>'
+ +'<tr><td>Change since first run</td><td></td><td class="num">'+(d.drMax==null?'first run is reference':'+'+v(d.drMax)+' pp at '+d.drAt+' m')+'</td><td>none: context</td></tr>'
+ +'<tr><td>Bending cycles, busiest 5 m</td><td></td><td class="num">'+cyTxt+'</td><td>none: context</td></tr>'
+ +'<tr><td>Fatigue</td><td></td><td>no method yet</td><td>none</td></tr></table>';
+ h+='<h3>Cursor</h3><div id="read" class="num dim">Point at the chart to read every track at one position.</div>';
+ h+='<h3>Findings on this rope ('+d.F.length+' recorded, '+d.act.length+' active)</h3>';
+ h+=!d.F.length?'<div class="dim">None recorded on this rope.</div>':'<table><tr><th>Status</th><th>What, where</th><th>Worst</th><th>Latest</th></tr>'+d.F.map(f=>'<tr class="'+(f.dis?'dis':'')+'"><td>'+(f.dis?ic('dism')+' Dismissed '+f.dis.d:stIcon(2)+' Active'+(f.ack?', ack.':' <span class="tag">NEW</span>')+(f.rev?' <span class="tag rev">REV</span>':''))+'</td><td>'+kname(f.k)+' at '+f.p+' m, since '+f.first+'<br><span class="dim">seen by '+f.by+'</span></td><td class="num">'+(f.dis?'<s>'+f.worst.toFixed(1)+' %</s>':'<b>'+f.worst.toFixed(1)+' %</b>')+'</td><td class="num">'+(f.latest==null?'not seen':f.latest.toFixed(1)+' %')+'</td></tr>'+(f.dis?'<tr class="dis"><td colspan="4">Reason: '+f.dis.why+'. Evidence: '+f.dis.ev+'. Decided by: '+f.dis.role+'.</td></tr>':'')+(f.rev?'<tr><td colspan="4" class="dim">'+f.rev+'. This does not clear it: a person reviews it and keeps it, or arranges an approved check.</td></tr>':'')).join('')+'</table>';
+ h+='<h3>Monitors on this rope</h3><table>'+['A','B'].map(k=>'<tr><td>'+hg(k,d.health[k])+' SWS '+k+'</td><td class="num">'+COV[k][0]+'–'+COV[k][1]+' m</td><td>'+d.hText[k]+'</td></tr>').join('')+'</table>';
+ h+='<h3>Record (newest first)</h3>'+(d.rec.length?'<ul class="rec sm">'+d.rec.map(e=>'<li><span class="num">'+e[0]+'</span> · <b>'+e[1]+'</b> · '+e[2]+'</li>').join('')+'</ul>':'<div class="dim">Nothing recorded beyond routine runs.</div>');
+ h+='<div class="note">No watch levels are set, so no rope is shown in Watch. Bending cycles come from the winch control system, a separate source; its sections are drawn 1:1 on SWS position until the alignment is agreed. SWS stretches, rope length and all data are invented.</div>';
+ document.getElementById('side').innerHTML=h}
+function pth(arr,Y,X){let s='',pen=false;for(let x=0;x<arr.length;x++){const v=arr[x];if(isNaN(v)){pen=false;continue}s+=(pen?'L':'M')+X(x).toFixed(1)+' '+Y(v).toFixed(1);pen=true}return s}
+function areaP(arr,Y,X,base){let s='',seg=[];const flush=()=>{if(seg.length>1){s+='M'+X(seg[0][0]).toFixed(1)+' '+base.toFixed(1);seg.forEach(p=>{s+='L'+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)});s+='L'+X(seg[seg.length-1][0]).toFixed(1)+' '+base.toFixed(1)+'Z'}seg=[]};for(let x=0;x<arr.length;x++){if(isNaN(arr[x]))flush();else seg.push([x,arr[x]])}flush();return s}
+function drawRope(){const box=document.getElementById('chart');if(!box)return;
+ const d=gen(cur),H0=hist(cur);
+ const fs=parseFloat(getComputedStyle(document.body).fontSize);
+ const W=Math.max(500,box.clientWidth);
+ const H=Math.max(fs*34,window.innerHeight-box.getBoundingClientRect().top-fs*.8);
+ const x0=fs*11,x1=W-fs*.6,X=p=>x0+p/L*(x1-x0),rr=fs*.38;
+ const T=[{k:'cov',w:.7,t:'Seen by SWS',u:'latest usable run'},{k:'ld',w:1.6,t:'Local faults (LD)',u:'% of area in 6 d'},{k:'lma',w:2,t:'Loss of metal (LMA)',u:'% of new area'},{k:'dr',w:1.1,t:'Change since first run',u:'LMA, pp · context'},{k:'cyc',w:1.1,t:'Bending cycles',u:'per 5 m section'},{k:'fat',w:.55,t:'Fatigue',u:''},{k:'hist',w:1.8,t:'LMA over time',u:'one row per run'}];
+ const gap=fs*.6,axH=fs*2.4,top=fs*.2,sw=T.reduce((a,t)=>a+t.w,0),avail=H-top-axH-gap*T.length;
+ let y=top;T.forEach(t=>{t.y=y;t.h=avail*t.w/sw;y+=t.h+gap});
+ const yAx=y-gap+fs*.3;
+ const thr=(yy,txt)=>'<line x1="'+x0+'" x2="'+x1+'" y1="'+yy+'" y2="'+yy+'" class="thd"/><text x="'+(x1-4)+'" y="'+(yy-3)+'" text-anchor="end" class="tu">'+txt+'</text>';
+ const sq=(x,yy,dis)=>'<rect x="'+(x-rr)+'" y="'+(yy-rr)+'" width="'+2*rr+'" height="'+2*rr+'" class="'+(dis?'mkd':'mkc')+'"/>';
+ const lab=(x,yy,txt,cls)=>{const rt=x>x1-fs*18;return '<text x="'+(rt?x-fs*.7:x+fs*.7)+'" y="'+yy+'" text-anchor="'+(rt?'end':'start')+'" class="'+cls+'">'+txt+'</text>'};
+ const flab=f=>f.dis?'dismissed '+f.dis.d+' (was '+f.worst.toFixed(1)+' %)':f.worst.toFixed(1)+' % worst · latest '+(f.latest==null?'not seen, 3 runs (REV)':f.latest.toFixed(1)+' %')+(f.ack?'':' · NEW');
+ const note=(t,txt)=>'<text x="'+(x0+6)+'" y="'+(t.y+fs)+'" class="tu">'+txt+'</text>';
+ const DR={
+  cov(t){let s='';['A','B'].forEach((k,j)=>{const lh=t.h/2-3,ly=t.y+2+j*(t.h/2),a=COV[k][0],b=COV[k][1];
+   s+='<text x="'+(x0-6)+'" y="'+(ly+lh*.8)+'" text-anchor="end" class="tu">'+k+'</text><rect x="'+X(a)+'" y="'+ly+'" width="'+(X(b)-X(a))+'" height="'+lh+'" fill="url(#hatch)"/>';
+   d.seen[k].forEach(g=>{s+='<rect x="'+X(g[0])+'" y="'+ly+'" width="'+(X(g[1])-X(g[0]))+'" height="'+lh+'" class="seen"/>'});
+   if(d.health[k]!=='ok')s+='<text x="'+((X(a)+X(b))/2)+'" y="'+(ly+lh*.8)+'" text-anchor="middle" class="tb2">SWS '+k+': '+HW[d.health[k]]+(d.bothOut?' · shown: last usable run '+fmtD(d.runDates[d.R-1]):'')+'</text>'});return s},
+  ld(t){const Y=v=>t.y+t.h-Math.min(v,8)/8*t.h;let s=thr(Y(RULE.ld),'6 % in 6 d – discard rule (ISO 4309 annex, as given in round 1)');
+   d.ind.forEach(f=>{const x=X(f.p),yy=Y(f.v);s+='<line x1="'+x+'" x2="'+x+'" y1="'+(t.y+t.h)+'" y2="'+yy+'" class="stem"/><circle cx="'+x+'" cy="'+yy+'" r="'+(rr*.7)+'" class="mk0"/>'});
+   const fl=d.F.filter(f=>f.k==='LD');
+   fl.forEach(f=>{const x=X(f.p),yy=Y(f.worst);s+='<line x1="'+x+'" x2="'+x+'" y1="'+(t.y+t.h)+'" y2="'+yy+'" class="stem '+(f.dis?'d':'c')+'"/>'+sq(x,yy,f.dis)+lab(x,yy+fs*.3,flab(f),f.dis?'tu':'labc')});
+   if(!d.ind.length&&!fl.length)s+='<text x="'+(x0+6)+'" y="'+(t.y+t.h-6)+'" class="tu">No local fault indications in the latest run</text>';
+   return s+note(t,'grey stems: indications in latest run · squares: recorded findings')},
+  lma(t){const Y=v=>t.y+t.h-Math.min(v,12)/12*t.h,pl=pth(d.latest,Y,X);
+   let s=thr(Y(RULE.lma),'10 % – owner discard rule');
+   s+='<clipPath id="cd"><rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+(Y(RULE.lma)-t.y)+'"/></clipPath>';
+   s+='<path d="'+pth(d.first,Y,X)+'" class="pref"/><path d="'+pl+'" class="pnow"/><path d="'+pl+'" class="pnow c" clip-path="url(#cd)"/>';
+   d.F.filter(f=>f.k==='LMA').forEach(f=>{const x=X(f.p),yy=Y(f.worst);s+=sq(x,yy,f.dis)+lab(x,yy-fs*.5,flab(f),f.dis?'tu':'labc')});
+   return s+note(t,'solid: latest usable run · dashed: first run of this rope (reference) · scale 0–12 %')},
+  dr(t){if(d.drMax==null)return '<text x="'+(x0+6)+'" y="'+(t.y+t.h/2+fs*.3)+'" class="tu">Only one run on this rope: it is the reference. Change appears from the next run.</text>';
+   const tp=Math.max(4,Math.ceil(d.drMax+1)),Y=v=>t.y+t.h-Math.max(0,Math.min(v,tp))/tp*t.h,arr=d.latest.map((v,x)=>v-d.first[x]);
+   return '<path d="'+areaP(arr,Y,X,t.y+t.h)+'" class="ar"/>'+note(t,'scale 0–'+tp+' pp · no level set: shows how fast, raises nothing')},
+  cyc(t){if(d.cycSt==='none')return '<rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+t.h+'" fill="url(#hatch)"/><text x="'+(x0+6)+'" y="'+(t.y+t.h/2+fs*.3)+'" class="tb2">No data from the winch control system for this rope yet. Not drawn as zero.</text>';
+   const mx=d.cycMax*1.1,lt=d.cycSt==='late';let s='';
+   d.cyc.forEach((v,k)=>{const a=X(k*SEC),b=X(Math.min(L,(k+1)*SEC)),hh=v/mx*t.h;s+='<rect x="'+(a+.5).toFixed(1)+'" y="'+(t.y+t.h-hh).toFixed(1)+'" width="'+Math.max(1,b-a-1).toFixed(1)+'" height="'+hh.toFixed(1)+'" class="cb'+(lt?' late':'')+'"/>'});
+   return s+'<text x="'+(x0+6)+'" y="'+(t.y+fs)+'" class="'+(lt?'tb2':'tu')+'">'+(lt?'As of '+CYCLATE+': not delivered since · ':'')+'max '+d.cycMax.toLocaleString('en-US')+' at '+d.cycAt+'–'+(d.cycAt+SEC)+' m · from winch control system · drawn 1:1 (alignment not agreed)</text>'},
+  fat(t){return '<rect x="'+(x0+2)+'" y="'+(t.y+2)+'" width="'+(x1-x0-4)+'" height="'+(t.h-4)+'" class="fatb"/><text x="'+(x0+8)+'" y="'+(t.y+t.h/2+fs*.3)+'" class="tu">No method yet. Nothing is calculated here, and nothing here can raise a state.</text>'},
+  hist(t){const R=H0.length,rh=t.h/R,cw=(x1-x0)/NS;let s='';
+   H0.forEach((rw,k)=>{const yy=t.y+t.h-(k+1)*rh;rw.forEach((v,j)=>{const a='x="'+(x0+j*cw).toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+(cw+.4).toFixed(1)+'" height="'+(rh+.4).toFixed(1)+'"';
+    s+=isNaN(v)?'<rect '+a+' fill="url(#hatch)"/>':v>=RULE.lma?'<rect '+a+' class="hm c"/>':'<rect '+a+' class="hm" fill-opacity="'+(.06+Math.max(0,Math.min(v,RULE.lma))/RULE.lma*.6).toFixed(2)+'"/>'})});
+   return s+'<text x="2" y="'+(t.y+fs*3)+'" class="tu">top: '+fmtD(d.runDates[R-1])+'</text><text x="2" y="'+(t.y+t.h-3)+'" class="tu">bottom: '+fmtD(d.runDates[0])+'</text>'}
+ };
+ let s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" font-size="'+(fs*.85).toFixed(1)+'" role="img" aria-label="Rope '+d.name+' along its length"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hl"/></pattern></defs>';
+ T.forEach(t=>{s+='<rect x="'+x0+'" y="'+t.y+'" width="'+(x1-x0)+'" height="'+t.h+'" class="tb"/><text x="2" y="'+(t.y+fs)+'" class="tt">'+t.t+'</text>'+(t.u?'<text x="2" y="'+(t.y+fs*2)+'" class="tu">'+t.u+'</text>':'')+DR[t.k](t)});
+ for(let p=0;p<=L;p+=10){const xx=X(p);s+='<line x1="'+xx+'" x2="'+xx+'" y1="'+yAx+'" y2="'+(yAx+(p%50?fs*.3:fs*.6))+'" class="ax"/>';if(p%50===0)s+='<text x="'+xx+'" y="'+(yAx+fs*1.6)+'" text-anchor="middle" class="tu">'+p+'</text>'}
+ s+='<text x="2" y="'+(yAx+fs*1.6)+'" class="tu">Position along rope, m</text>';
+ s+='<line id="xh" class="xh" x1="0" x2="0" y1="0" y2="'+yAx+'" visibility="hidden"/><rect id="hit" x="'+x0+'" y="0" width="'+(x1-x0)+'" height="'+yAx+'" fill="transparent"/></svg>';
+ box.innerHTML=s;
+ const svg=box.querySelector('svg'),xh=svg.querySelector('#xh'),hit=svg.querySelector('#hit');
+ hit.addEventListener('pointermove',e=>{const rc=svg.getBoundingClientRect(),p=Math.max(0,Math.min(L,(e.clientX-rc.left-x0)/(x1-x0)*L)),xx=X(p);xh.setAttribute('x1',xx);xh.setAttribute('x2',xx);xh.setAttribute('visibility','visible');readout(p)});
+ hit.addEventListener('pointerleave',()=>xh.setAttribute('visibility','hidden'))}
+function readout(p){const d=gen(cur),el=document.getElementById('read');if(!el)return;
+ const xi=Math.round(p),sec=Math.min(NS-1,Math.floor(p/SEC)),lt=d.latest[xi],fi=d.first[xi];
+ const by=d.seenBy(xi).map(k=>'SWS '+k).join(' + ')||'no SWS (no data)';
+ const ni=d.ind.filter(f=>Math.abs(f.p-p)<=2),nf=d.F.filter(f=>Math.abs(f.p-p)<=2);
+ el.innerHTML='<b>At '+p.toFixed(1)+' m</b><br>Loss of metal, latest: '+(isNaN(lt)?'no data':lt.toFixed(1)+' %')+' · first run '+fi.toFixed(1)+' %<br>Change since first run: '+(isNaN(lt)||d.R<2?'—':(lt-fi>=0?'+':'')+(lt-fi).toFixed(1)+' pp')+'<br>Bending cycles, '+sec*SEC+'–'+(sec*SEC+SEC)+' m: '+(d.cycSt==='none'?'no data':d.cyc[sec].toLocaleString('en-US')+(d.cycSt==='late'?' (as of '+CYCLATE+')':''))+' <span class="dim">(alignment assumed)</span><br>Seen by: '+by+(ni.length?'<br>LD indication: '+ni.map(f=>f.v.toFixed(1)+' % at '+f.p+' m').join(', '):'')+(nf.length?'<br>Finding: '+nf.map(f=>f.k+' '+f.worst.toFixed(1)+' % '+(f.dis?'(dismissed)':'(active)')).join('; '):'');
+ el.classList.remove('dim')}
+function setTheme(t){document.documentElement.setAttribute('data-obc-theme',t);document.querySelectorAll('button[data-t]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===t))}
+function setConcern(c){document.documentElement.setAttribute('data-concern',c);document.querySelectorAll('button[data-c]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===c))}
+function applyOpts(o){if(o.t&&THEMES.includes(o.t))setTheme(o.t);if(o.c)setConcern(o.c==='alarm'?'alarm':'warning')}
+function hashOpts(){const o={t:null,c:null,r:null};location.hash.replace(/^#/,'').split('&').forEach(p=>{let m;if((m=p.match(/^theme=(\w+)$/)))o.t=m[1];else if((m=p.match(/^concern=(\w+)$/)))o.c=m[1];else if((m=p.match(/^rope\/(\d+)$/)))o.r=+m[1]});return o}
+function route(){const o=hashOpts();applyOpts(o);const ov=document.getElementById('ov'),rp=document.getElementById('rope');
+ if(o.r&&o.r>=1&&o.r<=N){cur=o.r;ov.hidden=true;rp.hidden=false;document.getElementById('h1').textContent='Rope view – '+gen(cur).name;renderRope()}
+ else{rp.hidden=true;ov.hidden=false;document.getElementById('h1').textContent='Rope condition – all 51 ropes';renderOv()}
+ window.scrollTo(0,0)}
+document.addEventListener('click',e=>{const b=e.target.closest('button[data-t],button[data-c]');if(!b)return;if(b.dataset.t)setTheme(b.dataset.t);else setConcern(b.dataset.c)});
+window.addEventListener('hashchange',route);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!document.getElementById('rope').hidden)drawRope()},150)});
+document.addEventListener('keydown',e=>{const inRope=!document.getElementById('rope').hidden;
+ if(e.key==='Escape')go('');
+ else if(inRope&&e.key==='ArrowRight')go('#rope/'+(cur%N+1));
+ else if(inRope&&e.key==='ArrowLeft')go('#rope/'+(cur===1?N:cur-1))});
+document.getElementById('asof').textContent='SWS data as of 2026-11-20 05:52 · invented data';
+setTheme(document.documentElement.getAttribute('data-obc-theme'));setConcern('warning');
+(function(){const q=new URLSearchParams(location.search);applyOpts({t:q.get('theme'),c:q.get('concern')})})();
+route();
+</script>
+</body>
+</html>
