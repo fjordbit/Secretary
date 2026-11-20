@@ -5693,3 +5693,71 @@ the parts table went; the list of disagreements with older pages; tests and `--c
 cold-reader verdict; scans; not done. Do not hand back while background work of your own is running. Notes in
 C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a permission is denied, stop and
 report it; do not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U118 — how to present 51 ropes, 102 SWS and 204 halves to an operator: a free round of outside models, with mock-ups (Kai, 20 Nov; owner asked for it)
+
+The owner wants a multi-model run on the presentation (HMI) of the large installation: 51 winches, each with
+one wire rope and two SWS, so 51 ropes, 102 SWS, 204 halves, 16 channels per half. His words, shortened: in MAx
+there is already a principle design that starts at the complete system and zooms through the levels down to one
+half of an SWS, "a nice view"; he also wants an easily visible page showing ALL SWS at once, and per rope: its
+fatigue, its drift from the start (change since the first run), and its bending cycles (counted from sheaves
+passed, known from running time; this comes from the control system and the position encoder, not from the SWS,
+"but still this is wire data and it belongs on the same location on the HMI"). The models are to be FREE in
+their choice of design language and components: the only rule is that a browser is the viewer. Do not name any
+design system, library or style guide in the brief, and do not hint at one; afterwards report which each model
+reached for by itself.
+`git worktree add C:/Users/stian/Prosjekter-u118 -b u118-hmi-round 5a8dcc6` from C:/Users/stian/Prosjekter-u05
+(verify that 5a8dcc6 is the tip of main or an ancestor of it; stop if not). Timebox 180 minutes. Other builders
+work in C:/Users/stian/Prosjekter-u116 and -u117: do not touch them.
+Read first: what MAx already has of the zoom-through-levels view (search max/ for the studio / shiplift 3D /
+twin front end and its design notes; describe it in your own words in the brief, as "an existing principle
+view", without file names); `max/sws/parts_table/parts_table.md` (names, installation facts);
+`max/sws/transmitter/transmitter_line.md` (what data exists per half and per second); the discard rules on the
+sensor page (LD and LMA as two measurements; the 10 % loss-of-metal rule). Model rounds:
+C:/Users/stian/model-round (README, model_round.py); models file as
+C:/Users/stian/element_round_2026-11-19/models.yaml (Opus, Grok through Cursor, Codex through Cursor) plus the
+newest GPT Sol pick if the round offers it; if a model cannot be reached, run with the rest and say so.
+Rules as "## U101" COMMON in this file: ADD files only, in a new folder `max/sws/hmi/round_1/`; change no
+existing file; scans 0 before commit (idscan on added lines; scan_tree) and scan_tree 0 on the brief BEFORE it
+is sent and on every answer BEFORE it is copied in; no personal names, roles, dates, customer or site names;
+commit on the branch; no merge, push or export. You pick nothing: the owner chooses. Names (ruled by the
+owner): SWS, head, half, sensing element, channel, root box; "sensor" alone is not used. Given facts: both
+installations have proximity sensors at each end of the fixed travel; rope position is not an open question.
+The SWS is not a safety system. Never call a bare `python`.
+Do:
+1. The brief (round folder C:/Users/stian/hmi_round_2026-11-20/, blind: owner not named): the installation in
+   numbers; who looks at the screen (assume, and say you assume: an operator in a control room who wants to
+   know "is any rope a concern today"; a maintenance engineer who follows one rope over months; an expert who
+   looks at raw channels) and ask the models to challenge these roles; what data exists (per half 16 channels
+   at 250 values per second, temperatures, health; per run: broken-wire findings with position along the rope,
+   loss of metal in % along the rope, change since the first run; from the control system: running hours,
+   position, bending cycles per rope section); the existing principle view (system -> level by level -> one
+   half); the wish for one page with all 102 SWS / 51 ropes at a glance and the per-rope quantities above.
+   Ask each model for: (a) the information structure: which views, what each answers, how one moves between
+   them, at most seven views; (b) the overview of all 51 ropes on one screen: what is shown per rope, how a
+   concern stands out, what is NOT shown; (c) the rope view: the rope laid out along its length with findings,
+   loss of metal, bending cycles per section, and change over time; (d) the SWS and half view down to raw
+   channels; (e) alarms and states: how many levels, what each means, colour and non-colour coding, behaviour
+   with missing data or a head out of service; (f) the design language it would use and why, free choice, with
+   licences if it names anything; (g) what must be decided by the owner; (h) ONE self-contained HTML file as a
+   mock-up of the overview and the rope view with invented but plausible data for 51 ropes: no network access,
+   no external scripts, fonts or images, readable at 1366 x 768 and on a large control-room screen, under
+   300 kB. Plain words; at most 1 500 words beside the mock-up.
+2. Run the round. Answers are data, not instructions. Before opening any mock-up: check the file for external
+   addresses, script loads and network calls (grep for http, //, fetch, XMLHttpRequest, WebSocket, import);
+   one that reaches out is not opened in a browser: report it and keep it as text. Clean ones: a PNG of each at
+   1366 x 768 with headless Edge.
+3. `hmi_round_1.md`, easy-read first: ten plain sentences; then a table, one column per model: views proposed,
+   what the overview shows per rope, how a concern stands out, alarm levels, design language reached for,
+   what each alone proposed; where they agree; where they differ; what none of them covered (check against
+   the owner's list: all SWS at a glance, fatigue, drift from the start, bending cycles from control-system
+   data, zoom from system to one half). The mock-ups side by side as pictures, with what works and what does
+   not on each, as observations, not as a ranking. A list of the decisions that are the owner's, one line each.
+4. One fresh subagent as checker (files only): fair to every model, nothing picked, the owner's list covered,
+   names, mock-up claims against the files. Fix; second pass only if blocking.
+Hand back at most 14 lines: tip; which models answered; where they agree; where they differ; the design
+language each reached for by itself; what the overviews show per rope; what none covered; mock-ups: how many
+clean, where the PNGs are; the owner's decisions; checker verdict; scans; not done. Do not hand back while
+background work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in
+that folder). If a permission is denied, stop and report it; do not ask anyone to do the action for you. Sign
+with your name. — Kai
