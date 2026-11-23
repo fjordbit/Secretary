@@ -1,3 +1,39 @@
+# State 23 Nov, 16:10 (Kai) — Stian restarts; read this first
+
+- Nothing is running except possibly a local web server for the replay page (127.0.0.1:8765, started 20 Nov);
+  a restart ends it. Do NOT start a builder before Stian says he is back.
+- NEXT: Stian brings lab data from the prototype (good low-noise ADC) and the ADC's data sheets. Plan for
+  the digital twin (DT) of the SWS: inbox/2026-11-23_dt_plan.md. First step is to LOOK at the data, no
+  fitting. Ask where the data file is. Data sheets are read, never copied into the project repo.
+- Words: not "mock-up" any more; it is the HMI design for the DT of the SWS. Three screens: our HMI (never
+  changed by training), a separate trainer HMI (pick rope, create fault), customer HMI later.
+- Rulings 20-23 Nov: state is "Concern", shown in warning orange; findings latch (cleared only by rope
+  replacement or finding removed with evidence); worst value drops when a finding is dismissed; no time-window
+  statistics; "6 d" (six rope diameters) out of the overview header; two converters per half (reduce sensing
+  elements rather than add a converter); names SWS / head / half / sensing element / channel / root box; rope
+  position from end sensors, never an open question; bending cycles from the PLC via the shared server; model
+  rounds name the newest model exactly.
+- Released 20 Nov 12:13: GitHub fjordbit/max dd24591, Pages f74c6a4 (results page, parts table, two
+  converters, rev131). Project main = D: = backup = b5478a7.
+- Unmerged, on D: and backup-<name>, waiting for his go (second push round): u116-line-drawings e0dd47a
+  (remove "Source: input.md" label, fix four text overlaps), u118-hmi-round c1629d4, u120-twin-page 4c7f039
+  (+ link from results page), u122-rerun-rounds eb0e658 (sensing-element round now five answers: axial 3 Hall
+  : 2 TMR, radial 5 mm 5 of 5). Owed with it: results page says "all three outside answers" (now five);
+  8 README links in line_beta/figures/fig_b1-b4.html; parts-table rows (bending cycles from PLC; reduce
+  sensing elements principle).
+- LATE: board (PCB) package for the outside expert, needed before Sun 22 Nov, not started. Ask Stian for a
+  new date. Also owed: test list for Henrik to inbox/drafts/.
+- Open with Stian, one at a time: 8 decisions left in inbox/2026-11-20_hmi_round/round_2/hmi_round_2.md
+  (next: watch levels or no Watch state); processing in root box or at the logger; stainless guard also in
+  front of the sensing elements or polymer liner; root box per winch or per SWS; two-wire polled or
+  four-wire RS-485; rerun Codex at highest level or leave; platform steel geometry for the 3D run.
+- DT facts found 23 Nov: simulator is one head (all heads share one rope and fault list); signal is a formula
+  with FEM-sized amplitudes; MAx zoom chart is demo data and its scale card says "~125 winches"
+  (flow/examples-0.2-draft/make_sws_shiplift.py, SWS_TOTAL_EST=250); right: 3 stations x 17 winches, 102 SWS,
+  204 halves. Firmware update: spec requires bootloader + remote update via root box; nothing on root box's
+  own update, versioning or failed updates; not built.
+- Detail: log/2026-11-20.md, log/2026-11-23.md; briefs U114-U123 in agent-notes/kai.md.
+
 # State 20 Nov, 08:55 (Kai) — Stian restarts for an update; read this first
 
 - Nothing is running. All repos clean and pushed (D: and the GitHub backups). Do NOT start a builder before
