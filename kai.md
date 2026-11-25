@@ -6429,3 +6429,135 @@ Hand back at most 14 lines: tip; exact model and level; rounds run and input siz
 failed; its findings per question in a line each; check table summary; scans; not done. If a permission is
 denied or the model cannot be reached, stop and report it; do not ask anyone to do the action for you. Notes
 in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
+
+## U132-U134 COMMON — three parallel additions to the simulator of the data line (Kai, 25 Nov; owner: "Just start what you can in parallel")
+
+Rules as "## U124-U127 COMMON" (read it; the paragraph on THE MEASURED DATA does not concern you: do not open
+that data or any analysis of it). Base b5478a7; each unit its own worktree and branch; commit on the branch;
+no merge, push or export. The simulator is `max/sws/line_beta/` (read README.md in full, run_beta.py,
+linebeta/, settings.toml, tests, c_half/README.md; builder notes C:/Users/stian/agent-notes/spritsail.md and
+pawl.md; make the venv as the README says, inside your worktree, not committed). THREE builders change this
+simulator at the same time on separate branches, and Kai joins them afterwards. So: put your work in NEW
+modules and NEW test files wherever possible; in shared files (settings.toml, pipeline.py, rope_sim.py,
+root_box.py, run_beta.py, README.md) make the smallest additive change, in one clearly marked block per file
+headed with your unit number, and list every shared-file change with line ranges in your hand-back. Every new
+behaviour is OFF by default, so that with default settings every existing test and every existing proof gives
+exactly the result it gives on b5478a7 (run the full suite before and after and show the counts; the one
+known failing proof, position from ripple, stays as it is). Every new behaviour is a SETTABLE PARAMETER in
+settings.toml with unit and default, also reachable by `--set`. Nothing is "selected / chosen / decided". The
+owner's direction, to be stated as such: no powerful machine at each winch; the root box does simple things
+that limit what is sent; heavier analysis sits after it; everything settable in the root box and in the twin.
+One fresh subagent as falsifier per unit (files only, plus running the suite): defaults unchanged; every new
+figure's arithmetic; names; nothing picked. Fix. Hand back at most 12 lines.
+
+## U132 — every rope its own identity: the full-scale twin of the large installation
+
+Branch `u132-dt-full-scale`, worktree C:/Users/stian/Prosjekter-u132. Timebox 300 minutes. Today every head
+gets the same rope and the same fault list; with many heads, head 0's frames are replayed. The owner wants the
+full-scale twin: 3 main stations x 17 winches = 51 ropes, 2 SWS per rope = 102 SWS, 204 halves, each rope
+with its own identity, its own faults and its own history, so that a later trainer screen can pick a rope
+and create a fault on it (the trainer screen is NOT this unit; the main screen is never changed by training).
+Do:
+1. A plant description (new file, e.g. `plant.toml`, and a new module): stations, winches, one rope per
+   winch, the two SWS on each rope with their places along the travel, root box per winch (the arrangement
+   stays a setting), and the first installation (6 SWS, 12 halves) as a second plant file. Names for ropes,
+   SWS and halves that a screen can show (propose a scheme, say so, keep it a setting).
+2. Per rope: its own seed, strand pitch within a stated tolerance, its own fault list (kinds as today: break,
+   lma), empty by default; per SWS and half its own noise, drift and hum seeds as today. Two SWS on one rope
+   see the SAME rope faults at their own places and times: prove it with a test (a fault passes SWS A, then
+   SWS B, at the times the geometry and speed give; show the arithmetic).
+3. A fault interface for later use by a trainer screen: a small API and a command-line form to add, list and
+   remove a fault on a named rope at a position (kind, size, angle, start time), written to a scenario file
+   that the run reads; removing is possible only in the twin's scenario, and the record of what was added
+   and removed is kept (who/when fields present, filled by the caller). No screen.
+4. Running at scale: how the full plant is run in practical time (per-rope generation on demand, in
+   parallel, or recorded; say what you did and measure it: wall time and memory for one full pass of 250 m at
+   3.2 m/min for 1, 6 and 51 ropes, or a shorter stretch scaled with the arithmetic shown). No frame may be a
+   replay of another head's frame in full-scale mode: a test proves two ropes differ and one rope repeats
+   exactly for the same seed.
+5. What comes out: per rope and SWS the same messages the line already produces, on the topics on record, so
+   a screen cannot tell twin from real; plus a small "truth" file per run (which faults exist where) kept
+   apart from the line's output, for scoring later.
+Hand-back: tip; plant files; the naming scheme; the two-SWS proof with its numbers; scale measurements;
+shared-file changes; suite counts before and after; falsifier verdict; scans; not done.
+
+## U133 — temperature in the twin: two digital temperature sensors per half and four weather days
+
+Branch `u133-dt-temperature`, worktree C:/Users/stian/Prosjekter-u133. Timebox 300 minutes. The owner: each
+half gets two digital temperature sensors to start with, one at each end, because the head stands vertically
+and they are cheap; during maintenance the head may not be fully covered; the twin shall show how
+temperature reacts, for four days: a general summer day, a general winter day, a worst-case summer day and a
+worst-case winter day, for a hot, humid, subtropical coastal site at the waterline. Do not write a place,
+customer or site name in any file; describe the climate only. On record already (find and cite): the
+temperature work of the earlier team run and its notes under `max/sws/3d/` (magnet strength against
+temperature for N52 and N48SH, the scale change of the reading, the warm empty head), the simulator's magnet
+temperature factor and temperature field in the frame, the specification's temperature range and "maximum
+45 degrees C in service" where stated, the sensing-element data-sheet figures for offset and sensitivity
+against temperature as far as the record holds them (a known ambiguity for one part: say so, do not resolve
+it).
+Do:
+1. Four day profiles, 24 h each, at a step you justify: air temperature, sun (direct and diffuse), wind,
+   humidity; from public climate normals and records for that kind of climate (general queries only: climate
+   type and "hourly temperature typical summer day" style; no project words); state the source type and the
+   numbers; mark them ASSUMED until the owner gives site data. Profiles are data files, settable.
+2. A simple thermal model of one head, new module: a few lumped masses (yoke and magnets, board, housing) with
+   the two temperature sensors at the upper and lower end; inputs: the day profile, covered or uncovered
+   (sun on the housing or not, as a setting and as a time window for maintenance), vertical position effects
+   you can justify (sun on one end, a gradient), water nearby. Give every coefficient with its arithmetic and
+   mark it ASSUMED or from the record. Output: temperature of magnets, board and the two sensors over the day.
+   State plainly that this is a lumped estimate, not a thermal simulation of the real housing.
+3. Into the twin, OFF by default: the magnet temperature drives the existing magnet factor (both grades, N52
+   and N48SH, always shown together); the board temperature drives the sensing elements' offset and
+   sensitivity terms as far as the record gives figures (else a settable term at zero, named); the two
+   sensor readings go out in the frame. The frame today carries one temperature: propose how the second one
+   travels (options side by side, e.g. the rotating auxiliary slot against a frame change), implement the one
+   that does not change the frame layout, and keep the test that the C half and the Python half give the
+   same bytes passing; if you cannot, say exactly what is left.
+4. Runs: for each of the four days, covered and uncovered, both grades: the temperatures over the day, the
+   change of the loss-of-metal level and of the ripple size it causes (in % and in "% of metal" by the
+   simulator's own scale), and whether "maximum 45 degrees C" is exceeded and for how long. Figures by the
+   plot standard (`max/sws/3d/groove_plots/plotstandard.py`). A note `temperature_in_the_twin.md`, easy-read
+   first, with "what is assumed" and "what a measurement would replace".
+Hand-back: tip; the four days in numbers (min/max air, peak sun); peak magnet and board temperature covered
+and uncovered; the change of level per case in two lines; hours above 45 degrees C; how the second sensor
+travels; shared-file changes; suite counts before and after; falsifier verdict; scans; not done.
+
+## U134 — the root box limits what is sent: dead band, compression without loss, and sending only around movement
+
+Branch `u134-rootbox-reduction`, worktree C:/Users/stian/Prosjekter-u134. Timebox 300 minutes. The owner's
+direction: the root box does straightforward things that limit the data actually sent: (1) a hysteresis /
+dead band so that changes that are only converter noise are not sent; (2) compression that loses no data;
+(3) a memory in the root box, so that data is transferred only around movement, from a little before the
+movement starts to a little after it stops, not all the time. He does not want to lose data, and notes that
+there may be more noise than converter jitter. All of it settable in the root box and the same in the twin.
+On the large installation a movement signal from the machine is available and may start the logging; the
+SWS shall also be able to find the start of movement in its own data; the first installation has no such
+signal. A note from Kai for the design, to be shown as an option and not as a ruling: a dead band loses data
+by its nature; one way to hold both wishes is a dead band only while the rope stands still and everything
+sent, compressed without loss, during a run.
+Do, in the Python root box and logger of the simulator (new modules; smallest hooks in root_box.py):
+1. Movement detection from the SWS data itself (the strand ripple): a simple detector a small processor can
+   run (state the operations per sample), with settable threshold, minimum duration, and hold-off; a ring
+   memory with settable pre-roll and post-roll seconds (give the memory needed: bytes = halves x channels x
+   rate x bytes x seconds, arithmetic shown, for 2 and 4 halves); an external movement input as an
+   alternative or in addition (setting). Measure on simulated runs: delay of detection, missed starts, false
+   starts at rest with hum, drift and the noise of the simulator raised by settable factors 1x, 5x, 20x, and
+   what pre-roll makes a missed first metre impossible at 3.2 and 5 m/min (arithmetic).
+2. Dead band per channel, settable width (in counts and in multiples of the measured rest noise, which is a
+   setting), with modes: off / at rest only / always. For each mode: what is sent, what is lost, and a proof
+   by test that in "at rest only" every sample of a run arrives bit for bit. While at rest, a keep-alive
+   value at a settable interval so drift and health are still seen.
+3. Compression without loss of the frames that are sent: at least two simple schemes a small processor can
+   run (for example differences between samples with variable-length coding; a general byte compressor from
+   the standard library as the comparison), settable; a test that decompression gives the same bytes; the
+   ratio on simulated runs and at rest, at noise 1x, 5x, 20x; the processor work per sample.
+4. The result per day in bytes for the large installation and for the first one, with the arithmetic: today
+   (everything sent) against each combination, for a settable number of runs per day and hours at rest;
+   what the logger must do to rebuild the full record, and how it knows that a gap is "at rest, nothing
+   sent" and not "data lost" (a marker in the stream: propose it; the existing lost-frame accounting must
+   still work: test it with dropped frames and a network stop during a run).
+5. A note `root_box_reduction.md`, easy-read first: the options side by side, the settable parameters in one
+   table (name, unit, default, range), what each loses, "open, for the owner" (at most six questions).
+Hand-back: tip; detector delay and false starts; memory for the pre-roll; compression ratios in a line; bytes
+per day today against the combinations; the marker for "nothing sent"; shared-file changes; suite counts
+before and after; falsifier verdict; scans; not done. — Kai
