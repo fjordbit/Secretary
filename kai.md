@@ -6305,3 +6305,37 @@ model could see of the machine; its findings per question in a line each; the ch
 created outside the work folder (expect none); scans; not done. If a permission is denied or the program
 cannot be reached or confined, stop and report it; do not ask anyone to do the action for you. Notes in
 C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
+
+## U129 — the prototype recording analysed by Codex through the Cursor command-line program, if it can be confined (Kai, 25 Nov; owner: "So run Codex through the Cursor CLI then?")
+
+U128 stopped: the Codex program cannot limit READS to the work folder on this machine. The owner now asks for
+Codex through the Cursor command-line program. Same job as "## U128" (read it, "## U125", "## U124-U127
+COMMON", and C:/Users/stian/agent-notes/tackle.md and gunport.md first), with the Cursor program in place of
+the Codex program. Reuse the work folder C:/Users/stian/prototype_data_round_2026-11-25/ (data copy, venv;
+verify the data copy's checksums against the original again) and the worktree C:/Users/stian/Prosjekter-u128
+on branch u128-prototype-data-codex (no commits yet; verify). Timebox 300 minutes. Blind to the other analysis
+exactly as U128 says.
+1. The Cursor program is the one the round tool calls (see model_round.py for its name, login and how it is
+   started). Read its own help and its documentation for: non-interactive agent mode with commands allowed,
+   working folder, permission settings (allow and deny lists for reading, writing and shell commands),
+   any sandbox, network control. Model: the newest Codex offered there by version number at its highest
+   reasoning level (expected gpt-5.3-codex at its top level; not "-fast"), named exactly.
+2. Confinement, required, the SAME three limits as U128: reads and writes only inside the work folder;
+   commands run there only; NO network access for the commands it runs. Test each limit with harmless probes
+   BEFORE any real run, first without a model where the program allows it; where a limit can only be tested
+   with a model in the loop, use a probe folder holding nothing but a dummy text file, and ask only for the
+   probe actions (read a named harmless file outside the folder: C:/Windows/win.ini; write a file outside;
+   fetch a public page; run a command that lists the parent folder). Record what was blocked by the program
+   itself, and what was only refused by the model's own choice: a refusal by choice is NOT confinement.
+   Note that a deny rule on the program's own file tools does not confine the shell commands it runs: test
+   the shell path separately.
+3. If all three limits hold by the program's own enforcement: go on with U128 items 4-7 (blind brief, one
+   run, list of files touched, scans, the check of at least ten figures, the note). Settings you change for
+   the run go in a project-level settings file inside the work folder only; you do NOT change the user-level
+   Cursor settings, and you never use a setting that auto-approves everything or turns protection off.
+4. If any limit does not hold: STOP and report exactly which, with the probe results, and what would be
+   needed (for example a separate Windows account). Do not run the analysis.
+Hand back at most 14 lines as U128, plus the probe table (limit / enforced by the program yes or no / how
+tested). If a permission is denied or the program cannot be reached, stop and report it; do not ask anyone to
+do the action for you. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder).
+Sign with your name. — Kai
