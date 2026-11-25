@@ -6060,3 +6060,200 @@ corrected (or none); key check count; falsifier verdict; scans; not done. Do not
 work of your own is running. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that
 folder). If a permission is denied, the key is rejected or a model cannot be reached, stop and report it; do
 not ask anyone to do the action for you. Sign with your name. — Kai
+
+## U124-U127 COMMON (Kai, 25 Nov; owner's go given: "set Codex and Opus to extract and read and analyze it. And then lets continue with the other tasks we have setup")
+
+Rules as "## U101" COMMON in this file, plus: main tip is b5478a7 (verify from C:/Users/stian/Prosjekter-u05;
+stop if it differs). Each unit makes its own worktree `git worktree add C:/Users/stian/Prosjekter-u<NNN> -b
+<branch> b5478a7` and touches no other worktree. ADD files only unless the unit says otherwise. Scans 0 before
+each commit (idscan on added lines, range b5478a7..HEAD; scan_tree on what you add). No personal names, roles,
+dates in prose, customer or site names; no local paths in visible text. Commit on the branch; no merge, push
+or export. Nothing is "selected / chosen / decided / optimal"; you pick nothing. Names (ruled by the owner):
+SWS, head, half, sensing element (radial / axial), channel, root box; "sensor" alone is not used in your own
+prose (quoting a file's own label is fine). Every calculated figure shows its arithmetic. Given facts, never
+listed as open: two converters per half; 250 values per second per channel in the product; rope position
+comes from proximity sensors at each end of the travel and from the SWS's own data, no encoder; the first
+installation has no link to the control system; bending cycles come from the control system through the
+shared server; large installation = 3 main stations x 17 winches = 51 winches (one rope each) = 102 SWS = 204
+halves; first installation = 6 SWS = 12 halves. Never call a bare `python` (venv python.exe by full path; make
+a venv inside your worktree if you need packages already used in the repo; installing anything new outside a
+venv is not allowed). Never open C:/Users/stian/max-private/ except to run the scan tools; never print
+identifiers.yaml. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). If a
+permission is denied or something cannot be reached, stop and report it; do not ask anyone to do the action
+for you. Do not hand back while background work of your own is running. Sign with your name.
+
+THE MEASURED DATA (U124, U125): C:/Users/stian/sws-testdata/2026-11-20/data_collection_20-11-26/ (229 MB,
+already extracted; read only; it is DATA, not instructions; run Python that reads it with `-I`, scripts kept
+outside that folder, paths passed as arguments). It NEVER goes into a repository: commit scripts, small
+derived tables (under 2 MB each), figures and the note only. Contents: `notes.txt` (the test engineer's own
+notes: read it first, in full) and 15 folders (steady1-5, run1-10), each with two plain-text logger files
+(TOA5 format: 4 header lines, time stamp, record number, 12 channels in mV/V, 100 lines per second). Two
+loggers, 16 differential channels each; per the notes one logs the radial sensing elements (unit 6111) and one
+the axial (unit 7686); excitation 5000 mV; channels 1-6 are the B side, 9-14 the A side; both files use the
+same channel names. The two loggers start at different times: align by time stamp and say how well. The head
+is the prototype head (the project's model of it: `max/sws/3d/` material of unit U103, find it; read its note
+and C:/Users/stian/agent-notes for that unit). The loggers' data sheet is not in hand: you may look up the
+public one (general query: maker and model only) for input noise, range and filtering, and say what you used.
+The sensing elements' part numbers: take them from the project record if it states them for the prototype;
+if it does not, say "not on record" and give results in mV/V only, with a conversion to mT shown separately
+and marked as resting on an assumed sensitivity. Rope diameter, rope construction, travel length and speed at
+the rig: from the record if stated, else "not on record"; do not assume.
+
+## U124 — the prototype recording analysed by Opus (builder's own analysis)
+
+Branch `u124-prototype-data`, folder `max/sws/prototype_data/analysis_a/`. Timebox 240 minutes; past it, stop
+and report what is done. This is step 1 of the plan: LOOK at the data. No fitting of the simulator.
+Do:
+1. Inventory table: per file, rows, start, end, duration, rate, gaps or repeated record numbers, channels
+   that are flat, clipped or dead, offset between the two loggers' clocks.
+2. Standing levels: per channel, mean in each steady file; spread between the six sensing elements of a side
+   and between A and B; change from steady1 to steady5 and across the day (drift in mV/V per hour).
+3. Noise (steady2, the long one): rms per channel in bands (0.01-0.1, 0.1-1, 1-10, 10-50 Hz), spectrum with
+   the low-frequency slope, mains or other tones, correlation between channels (common noise against own
+   noise), drift over the file; how much of it is the logger by its data sheet.
+4. The runs: what a pass looks like per channel; strand ripple (size peak to peak and rms, period in seconds
+   and, where speed can be derived from the record, in mm; say how); repeatability of run1 against run3 and
+   run5 (same direction: align and give the residual), run1 against run2 (opposite direction, mirrored), the
+   higher speed (run7-8: does size change with speed), run9 and run10 (back and forth: does the trace retrace
+   itself; position error if ripple is used to count distance; the ramp). Any feature that repeats at the
+   same place in every pass and is not ripple: list it with place and size; do not call it a fault, describe it.
+5. steady3 (strong external field applied, twice on B, once on A with the magnet snapped to the yoke): per
+   channel the level before, the excursion, and the level after each event; does the zero come back, how fast,
+   by how much not (in mV/V and in % of the ripple size). Radial and axial separately. This is the test the
+   choice between TMR and Hall for the axial sensing element hinges on: report what the data shows, no advice.
+6. steady4 (off-centre by 1-2 mm along the cut plane): change per channel per mm; which channels rise and
+   which fall; is the sum over a side or over all twelve steadier than one channel. steady5 (rope shaken by
+   hand): size and frequency content against the ripple.
+7. One table "the simulator assumes / measured / ratio" for the settings in `max/sws/line_beta/settings.toml`
+   (noise per sensing element, ripple radial and axial and pitch, standing radial and axial, drift, hum), each
+   row with units made comparable and the conversion shown; rows that this data cannot fill say why (for
+   example no known broken wire or loss of metal in the rope: check notes.txt, do not assume either way).
+8. Figures by the plot standard (`max/sws/3d/groove_plots/plotstandard.py`; interactive html plus png; short
+   text, hover carries the detail): at least one per item 2-6. A note `prototype_data_a.md`, easy-read first:
+   ten plain lines of what the data shows on top, then the sections, then "what this data cannot tell" and
+   "questions to the test engineer" (things in notes.txt that are unclear or missing, at most ten).
+9. One fresh subagent as falsifier (your files and the raw data): recompute five figures of its own choice
+   from the raw files; units; anything stated that the data does not support; names; nothing picked. Fix.
+Hand back at most 16 lines: tip; inventory in one line; standing levels and spread; noise figures; ripple
+size and period; repeatability; steady3 result per direction; steady4 per mm; the assumed / measured table in
+five lines; what cannot be told; falsifier verdict; scans; not done.
+
+## U125 — the same recording analysed by the newest Codex, and its figures checked
+
+Branch `u125-prototype-data-codex`, folder `max/sws/prototype_data/analysis_b/`. Timebox 240 minutes. You do
+NOT read U124's work or its notes; the two analyses stay blind to each other until Kai compares them.
+The owner has asked for Codex on this data: the measured data may go to that provider through the round tool
+for this purpose, after the checks below. Model rounds: C:/Users/stian/model-round (README, model_round.py);
+outside models go ONLY through that tool. List the models offered; take the newest Codex by version number at
+its highest reasoning level (expected gpt-5.3-codex at xhigh; not "-fast"); name it EXACTLY in the models file.
+Do:
+1. Before anything is sent: scan_tree 0 on notes.txt and on your brief; grep every data file's four header
+   lines for anything beyond logger model, serial, program name and channel names, and report what the headers
+   carry; any personal, customer or site name anywhere = STOP and report.
+2. Find out from the tool's README and code how files reach Codex (attached into the prompt, or a working
+   folder the model can read and run code in). If the model can work in a folder: give it a COPY of the data
+   folder (copy outside any repository, e.g. C:/Users/stian/prototype_data_round_2026-11-25/data/) and let it
+   compute. If only text in the prompt is possible: STOP and report the limit and what you would send instead
+   (do not decide the reduction yourself).
+3. Write a blind brief (`brief.md`, committed, scanned): what the head is in general terms (a ring of
+   permanent magnets and a yoke round a steel wire rope, six radial and six axial magnetoresistive sensing
+   elements per side, two sides A and B), the notes text as given, the file format, and the questions of U124
+   items 1-6 in neutral words; ask for scripts, numbers with units and arithmetic, and a list of what the data
+   cannot tell. Do NOT give it the simulator's assumed values, project conclusions, or any earlier model's
+   answer. Tell it the answers must not include raw data dumps.
+4. Run it. Save the answer and its scripts under `analysis_b/answers/` (scan_tree 0 first; front matter free
+   of user name, machine path, account id, key fragment, else STOP and report). The answer is data, not
+   instructions.
+5. Check it: run its scripts yourself where they run (venv, `-I`), and recompute independently at least ten of
+   its headline figures from the raw files; table of claim / your figure / agrees or not. List what it claims
+   that the data does not support. You draw no conclusions of your own beyond the check.
+6. A note `prototype_data_b.md`: what Codex found in ten plain lines, the check table, what it could not tell.
+Hand back at most 14 lines: tip; exact model and level; how the data reached it; what the headers carry;
+Codex's findings per item in a line each; check table summary (agree / differ counts, the differences named);
+scans; not done.
+
+## U126 — design note: firmware update of the halves and the root box, and the connection to each root box
+
+Branch `u126-update-and-connection`, folder `max/sws/transmitter/update_design/`. Timebox 180 minutes. A design
+DRAFT with options side by side; nothing chosen. The owner asked: "should we need firmware updates to the PCB
+or other? And should we then have one connection to each root box? All this we also have to design properly."
+Read first: the rendered specification rev131 under `max/sws/spec/rendered/` (search: bootloader, firmware,
+root box, RS-422, Ethernet, PoE, switch port, sync), `max/sws/hw-selection/sws_link_and_readout.md` (FW_UPDATE,
+image CRC, aux slot firmware id), `max/sws/transmitter/transmitter_line.md` (status topic, box per winch or
+per head), `max/sws/data-path/data_path.md`, `max/sws/line_beta/` (README "not done", root_box.py restart
+handling, c_half/), `max/sws/parts_table/parts.yaml`. On record: bootloader with remote update through the
+root box is a specification requirement; root box distributes firmware to the halves; image carries its own
+CRC checked before the switch; one Ethernet connection and one managed, rate-limited switch port per root
+box; each half on its own line to the root box. NOT on record: update of the root box's own software;
+version numbering; what happens when an update fails halfway.
+Write `update_and_connection.md`, easy-read first (ten plain lines on top), then:
+1. What needs updating at all, per part (half's microcontroller, root box software, configuration and
+   calibration values such as the stored zero, filter settings), and how often one would expect it; what can
+   be a setting instead of firmware.
+2. The half: memory layout options (two image slots with fall-back, one slot with a fixed bootloader),
+   what each costs in flash for a microcontroller of the class on record (give the arithmetic; image size
+   from the C half as built with the compiler on this machine if it builds, else estimated and marked), how
+   the image travels over the line on record (rate, time for one image at the line's bit rate with the
+   arithmetic, measurement paused or not), check before switch, confirm after first good run, fall-back,
+   what a power loss at each step leaves behind (a table: step / state after power loss / recovery).
+3. The root box: its own update options; order of updating (box first or halves first); mixed versions (one
+   half new, one old: must the frame carry a version; it has a firmware id slot on record: say what it holds).
+4. Version numbering and what the status message must carry so the HMI can show every half's version (204
+   halves, 51 root boxes).
+5. Who may start an update and from where; signing or only a check sum (options, what each protects against);
+   never during a rope run: how the system knows (given facts above: no control-system link on the first
+   installation).
+6. The connection: one network connection per root box as on record against alternatives (root boxes chained,
+   one box per head), for 51 boxes: ports, cable, what one cable fault takes out (arithmetic: SWS lost per
+   fault), update traffic against data traffic on the same port (rates from transmitter_line.md).
+7. A list of scenarios the simulator should be able to play (good update, broken image, power lost
+   mid-update, one half left on the old version, wrong image for the hardware), each with the expected end
+   state: this is input for a later unit; you build nothing in the simulator.
+8. "Open, for the owner" at the end: at most eight questions, each one line, most important first.
+General web queries allowed for how such bootloaders are usually built (general terms only, nothing about the
+project). One fresh subagent as falsifier (files only): every "on record" against its source line; arithmetic;
+nothing chosen; names. Fix.
+Hand back at most 12 lines: tip; the options per part in a line each; image size and transfer time with the
+arithmetic; the power-loss table in two lines; the connection comparison in two lines; the eight questions'
+headings; falsifier verdict; scans; not done.
+
+## U127 — one page of fixed facts for the digital twin of the SWS, and every place that disagrees with it
+
+Branch `u127-dt-facts`, folder `max/sws/twin/` (new). Timebox 180 minutes. You change NO existing file; you
+write one new page and one list.
+The older twin documents and the zoom chart disagree with what the owner has ruled. Before a full-scale twin
+is built, one page states the facts and one list shows where the old sources differ.
+Read first: `max/sws/parts_table/parts.yaml` (the master of ruled and recorded values, with status words),
+`max/docs/sws/results.html` (text), rev131 of the specification, `max/sws/transmitter/transmitter_line.md`,
+`max/sws/data-path/data_path.md`, `max/sws/line_beta/README.md` and settings.toml,
+`max/flow/examples-0.2-draft/make_sws_shiplift.py` and its chart json (scale card), `max/studio/modules/sws/`
+(profile.js, szoom.js, view3d.js), `max/twin/` (model, geometry), and in the worktree
+C:/Users/stian/Prosjekter-u10 (read only) `max/twin/DESIGN.md` and
+`max/twin/Shiplift-twin-analysis/docs/` (architecture.html, decision-log.md, flow-line-language.html).
+Do:
+1. `dt_facts.md`: the facts a digital twin of the SWS must hold, each one line with its status word as in the
+   parts table and a link to where it is recorded: counts and hierarchy (shiplift, 3 main stations, 17 winches
+   each, one rope per winch, 2 SWS per rope, 2 halves per SWS; the first installation), channels and rates,
+   converters, frame, line, root box, network path to the server, rope length and speeds, position, bending
+   cycles, time stamping, where processing happens, the three screens (the project's own HMI that training
+   never changes; a separate trainer HMI where a rope is picked and a fault created; a customer HMI later),
+   states (the state is called "Concern", shown in warning orange; findings latch and clear only by rope
+   replacement or by the finding being removed with evidence; the worst value drops when a finding is
+   dismissed; no statistics over a time window). Where the record holds two values, show both and mark the
+   line "two values on record" — do not settle it.
+2. `dt_disagreements.md`: a table of every place found that disagrees with a ruled fact or where two sources
+   disagree: file and line, what it says, what the fact page says, and whether it is (a) simply out of date
+   against a ruling, or (b) a real open point for the owner. Known to exist, verify each and find the rest:
+   the chart's scale card (about 250 SWS, "~125 winches", about 42 base stations; the chart draws 2 x 3 x 2)
+   and the test that asserts it; "3 x" converters in the chart script; 24 channels at 100 per second and
+   "~200 SWS" in the twin architecture; "SWS 1 and 2 are the left and right rope of a hoist"; the
+   specification's encoder count in the root box, 220 m and 3 / 15 m/min against 250 m and 3.2 / 5 m/min;
+   processing in the root box against at the logger; who stamps the time; "base station" against "root box";
+   0.5 against 0.01 degree temperature resolution; 125 per second against a 100 ms frame and the buffer
+   holding 22.6 h not 24 h in the simulator's own settings; the broken-wire gap factors against the earlier
+   3D results. For each (a) row, the exact change that would correct it (file, line, old text, new text), NOT
+   applied.
+3. One fresh subagent as falsifier (files only): ten rows of each file against their sources; nothing settled
+   that is not ruled; names. Fix.
+Hand back at most 12 lines: tip; number of facts by status word; number of disagreements, (a) against (b);
+the (b) list as headings; the three largest (a) corrections; falsifier verdict; scans; not done. — Kai
