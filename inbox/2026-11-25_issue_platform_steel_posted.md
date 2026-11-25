@@ -1,4 +1,4 @@
-# Draft issue for fjordbit/max — assign: hmssyncro — NOT posted
+# Posted 25 Nov as fjordbit/max issue #5, assigned hmssyncro
 
 **Title:** Steel near the SWS during a lift: geometry needed for a 3D run
 

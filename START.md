@@ -1,6 +1,6 @@
 # State 25 Nov, 20:00 (Kai) — end of the day in the desktop UI; next session in the terminal; read this first
 
-**Open with Stian, first thing:** the task to Henrik (platform steel geometry) has his go ("yes post it to
+**Posted 25 Nov evening:** the task to Henrik (platform steel geometry) is fjordbit/max issue #5, assigned hmssyncro. U135 (root box brief for Henrik, Opus) was started 20:15; Stian reads the draft after Kai's check. Old text:
 Henrik", 25 Nov) but is NOT posted: the Chrome extension was not connected. Draft:
 `inbox/drafts/2026-11-25_issue_platform_steel.md` (name scan 0). Post as an issue on fjordbit/max through the
 browser, assign hmssyncro. No `gh` program here.
