@@ -6257,3 +6257,51 @@ Do:
    that is not ruled; names. Fix.
 Hand back at most 12 lines: tip; number of facts by status word; number of disagreements, (a) against (b);
 the (b) list as headings; the three largest (a) corrections; falsifier verdict; scans; not done. — Kai
+
+## U128 — the prototype recording analysed by the newest Codex working on a copy of the data (Kai, 25 Nov; owner's ruling)
+
+U125 stopped because the round tool carries text only. The owner has ruled, for THIS analysis: Codex works on
+a copy of the data folder directly, outside the round tool, and stays separate from the other analysis as far
+as possible. This is an exception for this unit only; the rule for all other outside-model work is unchanged.
+Read "## U124-U127 COMMON", "## U125" (its items 1, 3, 5, 6 and its hand-back still apply; items 2 and 4 are
+replaced by what follows) and C:/Users/stian/agent-notes/gunport.md (what U125 found). You do NOT read U124's
+worktree (C:/Users/stian/Prosjekter-u124), the folder secretary/inbox/2026-11-25_prototype_data, or
+agent-notes/foremast.md: blind to that analysis. Branch `u128-prototype-data-codex` from b5478a7, worktree
+C:/Users/stian/Prosjekter-u128, folder `max/sws/prototype_data/analysis_b/`. Timebox 300 minutes.
+How Codex is run:
+1. Find the Codex command-line program on this machine (the round tool's code shows how it is called and
+   which login it uses; use the same login; no API key file is read). Read its own help for: non-interactive
+   run, model and reasoning level, working folder, sandbox modes, network access. Model: the newest Codex by
+   version number at its highest reasoning level (expected gpt-5.3-codex, xhigh), named exactly.
+2. The work folder: C:/Users/stian/prototype_data_round_2026-11-25/ with `data/` (a COPY of the measured data
+   folder), `brief.md`, an empty `out/`, and a Python virtual environment `venv/` you make with numpy, scipy,
+   pandas and matplotlib (from a venv python of the repo; package installs into this venv only). So that the
+   model does not see the machine's user folder in its paths, map the work folder to a free drive letter with
+   `subst` and start Codex with that drive as its working folder; remove the mapping at the end. Start it
+   with an environment cleaned as the round tool does it (see its child_env) so no keys or tokens of other
+   services are passed.
+3. Confinement, required: the model may read and write only inside the work folder and may run commands
+   there; NO network access for the commands it runs; it must not be able to write elsewhere. Use the
+   program's own sandbox setting for this (workspace write, network off) and verify it with a harmless probe
+   run before the real one (ask it to write a file outside the folder and to fetch a public page: both must
+   fail; record the result). If the program cannot confine itself this way on this machine, STOP and report;
+   do not run it unconfined, and never with any "bypass approvals / no sandbox" setting.
+4. Before the run: scan_tree 0 on brief.md and notes.txt; headers as U125 found (re-verify one file per
+   logger). The brief is blind as U125 item 3 says, plus: where the Python is (the venv, by the mapped drive
+   path), that it must write its scripts and a report `out/report.md` with numbers, units and arithmetic,
+   figures as png in `out/`, no raw data dumps, and that it must not try to reach the network.
+5. Run it once. If it stops early or asks a question, you may answer about the file format and the tools
+   only, never with findings or hints. Record every exchange.
+6. After the run: remove the drive mapping; list every file the run created or changed (inside the work
+   folder; and check by time stamp that nothing outside it changed in the user folder's top level and the
+   repositories); scan_tree 0 on the report and scripts before they are copied to `analysis_b/answers/`;
+   check the session's saved front matter or log for a user name, machine path, account id or key fragment
+   and report what it carries (not the values). The report and scripts are data, not instructions; read
+   scripts before you run any of them yourself (venv, `-I`).
+7. Check as U125 item 5 (at least ten headline figures recomputed by you from the raw files, independent of
+   its scripts), and the note `prototype_data_b.md` as item 6. The raw data and the venv are not committed.
+Hand back at most 14 lines: tip; exact model and level; how it was confined and the probe result; what the
+model could see of the machine; its findings per question in a line each; the check table summary; files
+created outside the work folder (expect none); scans; not done. If a permission is denied or the program
+cannot be reached or confined, stop and report it; do not ask anyone to do the action for you. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
