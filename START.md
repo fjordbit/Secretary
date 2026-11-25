@@ -1,9 +1,6 @@
 # State 25 Nov, 20:00 (Kai) — end of the day in the desktop UI; next session in the terminal; read this first
 
-**Posted 25 Nov evening:** the task to Henrik (platform steel geometry) is fjordbit/max issue #5, assigned hmssyncro. U135 (root box brief for Henrik, Opus) was started 20:15; Stian reads the draft after Kai's check. Old text:
-Henrik", 25 Nov) but is NOT posted: the Chrome extension was not connected. Draft:
-`inbox/drafts/2026-11-25_issue_platform_steel.md` (name scan 0). Post as an issue on fjordbit/max through the
-browser, assign hmssyncro. No `gh` program here.
+**Posted 25 Nov evening:** the task to Henrik (platform steel geometry) is fjordbit/max issue #5, assigned hmssyncro. U135 (root box brief for Henrik, Opus) was started 20:15; Stian reads the draft after Kai's check.
 
 **Nothing is running.** Project main = D: = backup = b5478a7 (GitHub fjordbit/max dd24591, Pages f74c6a4, both
 from 20 Nov). Nothing from 23–25 Nov is merged. All branches below are on D: and on `backup-<name>`.
