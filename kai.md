@@ -6339,3 +6339,45 @@ Hand back at most 14 lines as U128, plus the probe table (limit / enforced by th
 tested). If a permission is denied or the program cannot be reached, stop and report it; do not ask anyone to
 do the action for you. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder).
 Sign with your name. — Kai
+
+## U130 — the prototype recording analysed by Claude Fable 5.2 through the API key, blind to the other analyses (Kai, 25 Nov; owner's go given)
+
+The owner wants a further independent look at the measured data: Claude Fable 5.2 through the Anthropic API
+key, working on a copy of the data on this machine. Read "## U124-U127 COMMON", "## U124" (the questions:
+items 1-7), "## U125" item 5 (the check) and "## U123" (how the key is handled) first. You do NOT read: the
+worktrees C:/Users/stian/Prosjekter-u124 and -u128, the folders secretary/inbox/2026-11-25_prototype_data and
+C:/Users/stian/prototype_data_round_2026-11-25, or the notes foremast.md, gunport.md, tackle.md and any notes
+of unit U129. Another builder works in C:/Users/stian/prototype_data_round_2026-11-25 and Prosjekter-u128: do
+not touch them. Branch `u130-prototype-data-fable` from b5478a7, worktree C:/Users/stian/Prosjekter-u130,
+folder `max/sws/prototype_data/analysis_c/`. Timebox 300 minutes.
+1. Work folder C:/Users/stian/prototype_data_round_fable_2026-11-25/ with `data/` (a COPY of the measured
+   data; verify by checksum), `brief.md`, `out/`, and a venv `venv/` with numpy, scipy, pandas, matplotlib
+   (made from a venv python of the repo; installs into this venv only).
+2. The model runs as the Claude Code command-line program in non-interactive mode, model id
+   `claude-fable-5-2`, started in the work folder, on the API key, NOT the login: the key is loaded from
+   C:/Users/stian/max-private/anthropic_key.txt into ANTHROPIC_API_KEY for that one child process only, in one
+   command, never printed, echoed, logged, written to any file or set in the Windows environment. Verify from
+   the program's own output that the key was used and which model answered; if it falls back to another model
+   or to the login, stop and report. After the run: 0 hits for the key's first 12 characters in the work
+   folder, your worktree and your notes (a script that prints only a count).
+3. Limits for the run, by a project-level settings file inside the work folder (never the user-level
+   settings; never a mode that skips permission checks): tools allowed are reading, writing and editing files
+   inside the work folder and running commands; deny rules for reading C:/Users/stian/max-private,
+   C:/Users/stian/secretary, C:/Users/stian/agent-notes, every C:/Users/stian/Prosjekter* folder and
+   C:/Users/stian/prototype_data_round_2026-11-25; no web tools. Probe first with a dummy prompt that the deny
+   rules hold for the file tools, and say plainly in the hand-back that shell commands are not confined by
+   them (the brief tells the model to stay in the folder; that is an instruction, not a limit).
+4. The brief is blind as U125 item 3 (the head in general terms, the notes text, the file format, the
+   questions of U124 items 1-6 in neutral words; no simulator values, no project conclusions, no other
+   answer), plus: where the Python is (the venv by full path; a bare `python` hangs on this machine), stay
+   inside the work folder, write scripts and `out/report.md` with numbers, units and arithmetic, figures as
+   png in `out/`, no raw data dumps, no network. scan_tree 0 on the brief and notes.txt before the run.
+5. Run it once; answer only questions about format and tools; record every exchange. Then: list files
+   created; scan_tree 0 on report and scripts before copying them to `analysis_c/answers/`; read scripts
+   before running any yourself (venv, `-I`); recompute at least ten headline figures from the raw files
+   independently; note `prototype_data_c.md` (ten plain lines, check table, what it could not tell). Raw data
+   and venv are never committed.
+Hand back at most 14 lines: tip; model and that the key was used; limits and probe result; findings per
+question in a line each; check table summary; key check count; scans; not done. If a permission is denied,
+the key is rejected or the program cannot be reached, stop and report it; do not ask anyone to do the action
+for you. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign. — Kai
