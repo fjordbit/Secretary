@@ -1,3 +1,45 @@
+# State 25 Nov, 20:00 (Kai) — end of the day in the desktop UI; next session in the terminal; read this first
+
+**Open with Stian, first thing:** the task to Henrik (platform steel geometry) has his go ("yes post it to
+Henrik", 25 Nov) but is NOT posted: the Chrome extension was not connected. Draft:
+`inbox/drafts/2026-11-25_issue_platform_steel.md` (name scan 0). Post as an issue on fjordbit/max through the
+browser, assign hmssyncro. No `gh` program here.
+
+**Nothing is running.** Project main = D: = backup = b5478a7 (GitHub fjordbit/max dd24591, Pages f74c6a4, both
+from 20 Nov). Nothing from 23–25 Nov is merged. All branches below are on D: and on `backup-<name>`.
+
+| Branch | Tip | What |
+|---|---|---|
+| u124-prototype-data | 8c9b948 | Opus analysis of Henrik's recording |
+| u128-prototype-data-codex | 181b99c | Codex (script loop) analysis |
+| u130-prototype-data-fable | 9ed9bf5 | Fable analysis (API key; cost 82 USD) |
+| u126-update-and-connection | 6c85176 | firmware update and connection note |
+| u127-dt-facts | 591e1ab | DT facts page + 34 disagreements |
+| u132-dt-full-scale | 4f341b5 | 51 ropes / 102 SWS / 204 halves, fault interface |
+| u133-dt-temperature | dd874bc | two temperature sensors per half, four days |
+| u134-rootbox-reduction | 71426a2 | dead band, lossless compression, send around movement |
+| u116, u118, u120, u122 | e0dd47a, c1629d4, 4c7f039, eb0e658 | from 20 Nov; u122 now five answers |
+
+**Next for Kai:** join u132 + u133 + u134 (all change `max/sws/line_beta/`; marked blocks, line ranges in the
+log of 25 Nov). After that, on Stian's go: root box code in C++, main HMI design v3 and trainer HMI, fit the
+twin to the measured data, second push round. Details and the full list: `log/2026-11-25.md`.
+
+**Measured data:** three analyses agree (Grok not needed). Notes in `inbox/2026-11-25_prototype_data/`. Raw
+data at `C:/Users/stian/sws-testdata/2026-11-20/`, never in a repository. Open: axial step size after the
+strong magnet (3.2 vs 6 mV/V), 134 vs 136 ripple cycles; ask Henrik travel length, speed, rope construction.
+
+**Rulings 20–25 Nov (not yet in the parts table):** state is "Concern", orange, latches; worst value drops when
+a finding is dismissed; no time-window statistics; no "6 d" in the header; not "mock-up" but the HMI design of
+the DT of the SWS; three screens (main, trainer, customer later); root box does simple reduction, all settable,
+also in the twin; two temperature sensors per half; encoder available on 52 mm; any API-key run gets a cost limit;
+outside models are not run unconfined on this machine.
+
+**Late:** board (PCB) package for the outside expert (was due before 22 Nov) — ask Stian for a new date.
+
+**Open questions, one at a time:** dead band only at rest (my proposal); MQTT or iba; Watch levels (hmi_round_2);
+eight in `inbox/2026-11-25_update_design/update_and_connection.md`; nine in
+`inbox/2026-11-25_dt_facts/dt_disagreements.md`; remove probe leftovers; ADC data sheets (he promised them).
+
 # State 23 Nov, 16:10 (Kai) — Stian restarts; read this first
 
 - Nothing is running except possibly a local web server for the replay page (127.0.0.1:8765, started 20 Nov);
