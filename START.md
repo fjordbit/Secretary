@@ -2,7 +2,7 @@
 
 **Posted 25 Nov evening:** the task to Henrik (platform steel geometry) is fjordbit/max issue #5, assigned hmssyncro. U135 (root box brief for Henrik, Opus) was started 20:15; Stian reads the draft after Kai's check.
 
-**Nothing is running.** Project main = D: = backup = b5478a7 (GitHub fjordbit/max dd24591, Pages f74c6a4, both
+**Nothing is running.** Joined simulator branch: u136-dt-joined 1c3e57f (u132+u133+u134+u135; waits for go to merge). Brief for Henrik: inbox/2026-11-25_reduction_brief/ (Stian reads first). Project main = D: = backup = b5478a7 (GitHub fjordbit/max dd24591, Pages f74c6a4, both
 from 20 Nov). Nothing from 23–25 Nov is merged. All branches below are on D: and on `backup-<name>`.
 
 | Branch | Tip | What |
