@@ -20,7 +20,7 @@ first names allowed when not negative (leads in `plan.json`), never last names; 
 **Not merged:** `u137-two-sides` f7c72d4 (twin at two sides; 75 old-size lines in 23 files outside line_beta
 still to correct, list in agent-notes/bunt.md). **Not started:** life cycle data run; load model round (held
 for mechanical inputs, `inbox/2026-11-26_load_model/`). **With Stian:** detail read of the Henrik brief; plan
-drafts in `inbox/drafts/2026-11-26_*`; new date for the board package. DT first version target Wed 2 Dec.
+drafts in `inbox/drafts/2026-11-26_*`; board package out 1 Dec (ruled 27 Nov). DT first version target Wed 2 Dec.
 Details: `log/2026-11-26.md`.
 
 ---
