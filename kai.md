@@ -6633,3 +6633,37 @@ No merge to main, no push, no export. idscan and scan_tree 0 on added lines. Han
 conflicts and how resolved; suite counts (alone and joined); the byte check; what happened in item 3; not
 done. If a permission is denied, stop and report; do not ask anyone to do the action for you. Notes in
 C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
+
+## U137 — the large installation has two sides: 102 winches, 6 stations (Kai, 26 Nov; owner's ruling)
+
+Rules as "## U132-U134 COMMON" (read it). Owner's ruling today: the large installation has TWO SIDES, each
+with 51 winches and 3 stations, so 102 winches and 6 stations in all; with 2 SWS per rope 204 SWS and 408
+halves. The layout on record numbers the positions 1A to 51A on one side and 1B to 51B on the other (so "A"
+and "B" mean the SIDE). The twin today has one side only: `max/sws/line_beta/plants/plant_large.toml` (51
+ropes, 102 SWS, 204 halves) with names like S1-W01-A where the letter means the SWS on the rope: that letter
+now clashes. Branch `u137-two-sides` from main (67866d8), worktree C:/Users/stian/Prosjekter-u137; commit on
+the branch; no merge, push or export. Timebox 150 minutes. Builder note of the plant: ballast.md, of the join:
+whipstaff.md (C:/Users/stian/agent-notes/).
+Do:
+1. Plant: two sides x 3 stations x 17 winches. Hierarchy for a screen: shiplift -> side (A, B) -> station ->
+   winch -> SWS -> half. Propose a naming scheme that follows the layout (winch position 1A..51A, 1B..51B) and
+   names the two SWS on a rope and the two halves WITHOUT the letters A/B (say so as a proposal, keep it a
+   setting); which stations belong to which side and their numbering is a setting, marked ASSUMED. The first
+   installation's plant file changes only as far as the naming scheme requires. Keep a one-side plant file
+   if tests need it, clearly named.
+2. Everything that is computed from the size: update code, tests, README and notes UNDER max/sws/line_beta/
+   (root_box_reduction.md and reduction_for_review.md day figures and the "large installation =" lines,
+   twin_scale figures, the connection counts if they are there), each with its arithmetic. Re-measure or
+   scale with shown arithmetic: one full pass wall time and bytes for 102 ropes; bytes per day for each
+   reduction option. Do not change logic. Defaults: the default run's output stays byte for byte as on main.
+3. Outside line_beta: change NOTHING, but list every place in max/ (docs, twin facts, parts table,
+   transmitter notes, pages) that states 51 winches / 3 stations / 102 SWS / 204 halves / 102 heads, with
+   file and line, in your note, for a later correction.
+4. Full suite before and after (expect 125 passed + 1 known failure before); fix tests that assert the old
+   size, list them.
+Falsifier: one fresh subagent, files only: every total recomputed; names clash-free; nothing outside
+line_beta changed. Fix. idscan and scan_tree 0 on added lines. Hand back at most 10 lines: tip; the naming
+scheme in one line with three example names; new totals (ropes, SWS, halves, pass time, bytes, GB per day per
+option); suite counts; number of places outside line_beta that still say the old size; not done. If a
+permission is denied, stop and report; do not ask anyone to do the action for you. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
