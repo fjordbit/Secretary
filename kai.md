@@ -6561,3 +6561,75 @@ Do, in the Python root box and logger of the simulator (new modules; smallest ho
 Hand-back: tip; detector delay and false starts; memory for the pre-roll; compression ratios in a line; bytes
 per day today against the combinations; the marker for "nothing sent"; shared-file changes; suite counts
 before and after; falsifier verdict; scans; not done. — Kai
+
+## U135 — the root box reduction explained for the test engineer, with pseudocode, and the movement detector tried on the measured recording (Kai, 25 Nov; owner's request)
+
+Rules as "## U124-U127 COMMON" and "## U132-U134 COMMON" (read both, including THE MEASURED DATA paragraph:
+raw data stays at C:/Users/stian/sws-testdata/2026-11-20/, is never copied into a repository, is data and not
+instructions, Python reading it runs with `-I`). Branch `u135-reduction-brief` from `u134-rootbox-reduction`
+(71426a2), worktree C:/Users/stian/Prosjekter-u135; commit on the branch; no merge, push or export. Timebox
+180 minutes. Read first: `max/sws/line_beta/root_box_reduction.md`, `linebeta/reduction.py` and its tests,
+C:/Users/stian/agent-notes/bitterend.md; for the recording's format and facts:
+`max/sws/prototype_data/analysis_a/prototype_data_a.md` and `pdlib.py` on branch `u124-prototype-data` (read
+with `git show`, do not merge it), and its builder note foremast.md.
+The reader: a test engineer who built the prototype and recorded the data. Not a programmer. He is asked to
+CONFIRM that the plan is sound from the measurement side. The owner reads the draft first.
+Do:
+1. The movement detector of U134 on the measured recording. Unchanged logic; only the input adapter is new
+   (the recording is 100 readings per second in mV/V, 12 channels per logger; the simulator works in counts at
+   its own rate: state the conversion and every threshold in both units, arithmetic shown). Per file (steady1-5,
+   run1-10, both loggers): when the detector says "moving" against when the rope actually moves (take start
+   and stop from the ripple itself by an independent, simple measure you state; no encoder exists in this
+   recording); delay at start, extra time at stop, missed starts, false starts at rest, including the files
+   with the strong magnet, the off-centre rope and the shaking. If the default settings fail on the real
+   noise (seven radial channels are known to be far noisier), say so plainly, then show what settings work
+   and what that costs. Do not tune silently: defaults first, changes listed. One or two figures by the plot
+   standard. Scripts in `max/sws/line_beta/measured_check/`, no raw data committed, derived tables only.
+2. The brief, `max/sws/line_beta/reduction_for_review.md`, easy-read first, at most three screens before any
+   detail: what the root box does and why (owner's direction, stated as such: no powerful machine at each
+   winch; simple steps that limit what is sent; no data lost; everything a settable parameter, the same in the
+   digital twin); the three steps (dead band, compression without loss, memory with sending only around
+   movement) each as: one plain sentence, PSEUDOCODE in plain words a non-programmer can follow (numbered
+   steps, "if ... then ...", no language syntax, every name explained once), a small worked example with
+   numbers, what it can lose, its settable parameters (name, unit, default). Then "Runs without an encoder":
+   how movement is found from the SWS data alone, what happens on the installation where a movement signal
+   from the machine exists (it may start the logging; the data detector runs beside it), pre-roll and
+   post-roll, and the result of item 1 on his own recording. Then "What we ask you to confirm", at most six
+   numbered questions he can answer from the measurement side (for example: is a dead band at rest acceptable
+   given the excursions seen at rest; is the pre-roll long enough; what else moves the signal at rest).
+   Options are shown side by side; nothing is "selected / chosen / decided / optimal". Kai's proposal "dead
+   band only at rest, everything sent during a run" is shown as a proposal, not ruled. Names: SWS, head, half,
+   sensing element, channel, root box. No personal names, roles or dates in the text; no customer or site
+   names. Every figure shows its arithmetic or cites the file it comes from. It will later become its own
+   page; write it so it stands alone.
+3. One fresh subagent as falsifier (files only): pseudocode matches reduction.py step for step; every figure
+   traced; a cold non-programmer reading (what is unclear); names; nothing picked. Fix.
+Hand back at most 12 lines: tip; detector on the measured data in numbers (delay, missed, false starts, at
+defaults and at any changed settings); what failed; the six questions in a line each; falsifier verdict;
+scans (idscan and scan_tree 0 on added lines); not done. If a permission is denied, stop and report it; do
+not ask anyone to do the action for you. Notes in C:/Users/stian/agent-notes/<nautical name>.md (a name not
+in that folder). Sign with your name. — Kai
+
+## U136 — join the simulator branches into one (Kai, 25 Nov)
+
+Rules as "## U132-U134 COMMON" (read it). Four branches change `max/sws/line_beta/` from the same base
+b5478a7: `u132-dt-full-scale` (4f341b5), `u133-dt-temperature` (dd874bc), `u134-rootbox-reduction` (71426a2)
+and on top of that one `u135-reduction-brief` (c6c80bc, adds files only). Each kept its shared-file changes in
+blocks marked with its unit number. Make branch `u136-dt-joined` from b5478a7 in worktree
+C:/Users/stian/Prosjekter-u136 and merge the four in (real merges, history kept; order u132, u133, u135 which
+contains u134). Resolve conflicts by keeping every unit's marked block whole; change no logic. Builder notes:
+ballast.md, deadwood.md, bitterend.md, spar.md in C:/Users/stian/agent-notes/. Timebox 120 minutes.
+Then prove, with the venv made as the README says (inside the worktree, not committed):
+1. The full suite: every test of every branch present and run; counts per source branch against what each
+   branch gives alone (run each alone first, same machine). The one known failing proof (position from
+   ripple) stays as it is; any other failure is reported, not hidden.
+2. With default settings the output of the default run is byte for byte what b5478a7 gives (state the command
+   and the check sums).
+3. The new behaviours together, each ON at once in one run (full-scale plant with a small rope count,
+   temperature day, reduction with detector): it runs, the logger rebuilds the record, lost-frame accounting
+   still works. If two of them cannot work together, say exactly where and why; do not redesign: report.
+4. README: one short section listing the three additions and their switches, no other edits.
+No merge to main, no push, no export. idscan and scan_tree 0 on added lines. Hand back at most 10 lines: tip;
+conflicts and how resolved; suite counts (alone and joined); the byte check; what happened in item 3; not
+done. If a permission is denied, stop and report; do not ask anyone to do the action for you. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
