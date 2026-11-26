@@ -451,6 +451,11 @@ Each question stands on its own.
 15. **What you would do differently.** Looking at the whole chain, what would you change first?
 16. **What you need from us.** What is missing for you to give firm advice: drawings, measured fields, part
     samples, the prototype board?
+17. **Position of the head.** The head hangs on the rope from a pivoting, sprung arm, so it can swing a few
+    degrees sideways relative to fixed steel nearby, which may shift the steady field at the elements (being
+    calculated now). If the swing has to be measured, what would you use at the pivot or in the head, as simple
+    as possible: a sealed potentiometer, a contactless inductive angle sensor, or an accelerometer used as an
+    inclinometer? What would you avoid next to magnets of this strength?
 
 ---
 

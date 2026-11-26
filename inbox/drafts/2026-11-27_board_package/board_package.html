@@ -1,0 +1,846 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>SWS sensing board: a package for an outside review</title><style>body{font:11pt/1.45 Segoe UI,Arial,sans-serif;max-width:17cm;margin:auto;color:#111}table{border-collapse:collapse;font-size:9.5pt;margin:8px 0}td,th{border:1px solid #999;padding:3px 6px;vertical-align:top;text-align:left}img{max-width:100%}h1{font-size:18pt}h2{font-size:14pt;margin-top:22px}h3{font-size:12pt}@page{size:A4;margin:18mm 16mm}</style></head><body><h1>SWS sensing board: a package for an outside review</h1>
+<p>Every figure carries a unit and a tag in square brackets, such as [S1 §4]. The tags point to our internal
+source documents; ask for any one of them and we will send the source. "Calculated" means a finite-element field model, not a measurement. "Measured" means read on hardware. Nothing
+in this package has been selected. Where something is "proposed", it is a proposal for you to challenge.</p>
+<hr />
+<h2>Easy read: the whole thing on one page</h2>
+<ol>
+<li>The <strong>SWS</strong> (Safe Wire Sensor) is a permanent-magnet rope tester. It clamps round a steel wire rope on a
+   winch and watches the rope pass at up to 15 m/min. It is built as two identical <strong>halves</strong> that close
+   round the rope like a clamshell. Each half has its own electronics and its own cable to a <strong>root box</strong>.</li>
+<li>The magnets drive the rope's steel close to saturation, about 2 T. Where a wire is broken, or steel has
+   worn away, some field leaks out of the rope. The board reads that leakage.</li>
+<li>Each half carries <strong>8 positions</strong>, so there are 16 round the rope at 22.5°. Each position has two
+   <strong>sensing elements</strong>. A <strong>radial</strong> element sits close to the rope and finds broken wires. An <strong>axial</strong>
+   element sits further out and follows the loss of steel over a length.</li>
+<li>The board design under study is <strong>one thin board per half</strong>: a half-ring lying across the rope, halfway
+   between the two magnet rings. On that board the radial field lies <em>in</em> the board and the axial field goes
+   <em>through</em> it. So the two elements of a position need two kinds of package, or one of them mounted in
+   another plane.</li>
+<li>The hard part is the field the parts sit in. It is a steady field of tens of millitesla, and the parts must
+   resolve changes of about a tenth of a millitesla on top of it.</li>
+<li>Two 8-channel, 24-bit, simultaneous-sampling delta-sigma converters per half read the 16 elements. Two
+   digital temperature sensors per half are read separately. The converter count is fixed. The exact
+   converter part, the reference scheme and the sampling scheme are open for your advice.</li>
+<li>The board is potted or sealed inside a non-magnetic housing. It must work from −40 to +50 °C ambient, and
+   the magnets stay at or below 45 °C in service.</li>
+<li><strong>Our main question to you</strong>, beyond the details in section 7: which part technology for the axial element
+   (TMR or Hall), and how to lay out, ground and protect a precision 16-channel analogue board that sits in a
+   strong static magnetic field.</li>
+</ol>
+<p>The first heads to be built are for a 40 mm rope: ten heads, six of them for the first installation (38 mm
+rope) [S5 I04, I05]. The larger series is for the large installation (52 mm rope). <strong>Most calculated figures
+below are for the 52 mm head</strong>, because that is where the model work is furthest along. The 40 mm figures we
+have are given where they exist.</p>
+<p><img alt="Figure 1" src="fig1_board.png" /></p>
+<p><em>Figure 1. One half seen along the rope (a), a section along the rope at the board (b), and the spoke layout
+written into an early specification, for comparison only (S). This is the 52 mm head as modelled. The board
+thickness (1.6 mm) and the package sizes are assumed; "record: ±4 mm" is the old spoke layout's offset. Blue: a part that senses in its own plane (radial).
+Orange: a part that senses through its package (axial). [S1 Figure E3]</em></p>
+<hr />
+<h2>1. What the SWS is and what the board must do</h2>
+<p><strong>The head.</strong> Two magnet rings face each other along the rope. Each ring is made of one-piece sintered NdFeB
+half-rings, radially magnetised, with no pole shoe and no segments [S5 M01]. A steel yoke closes the circuit
+outside them. On the 52 mm head the magnets sit at z = ±50 to ±90 mm from the board plane (40 mm long, 100 mm
+between the inner pole faces) [S5 M07]. The rope passes through a free bore of Ø60 mm [S5 B01]. The yoke wall
+is 12.0 mm [S5 Y01]. The two magnet grades <strong>N52 and N48SH are always carried side by side</strong>; no grade is
+chosen [S5 M02].</p>
+<p><strong>The board's job.</strong>
+- Read 16 field signals per half (8 radial + 8 axial) continuously while the rope moves. The signal band is
+  0–125 Hz (1 mm of rope per sample at 15 m/min) [S1 §1].
+- Read two digital temperature sensors per half (fixed [S13]). The specification places one on the board or
+  carrier and one on the yoke [S6 §7].
+- Time-stamp against a 1 Hz sync edge from the root box [S6 §10].
+- Stream raw values to the root box. The half does no fault detection [S6 §7].</p>
+<p><strong>What is fixed by us and what is not.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fixed by us</th>
+<th>Not fixed (yours to advise on)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One thin board per half carries the elements, mounted in different planes (where the digital and power parts go is open). The spoke layout in an early specification was never confirmed.</td>
+<td>Board thickness, outline detail and stack-up (ours to propose: no outside dimension is given) [S13]</td>
+</tr>
+<tr>
+<td>Two 8-channel converters per half; 16 channels; temperature on digital parts, two per half</td>
+<td>Converter part, gain, reference scheme, sampling and filter settings</td>
+</tr>
+<tr>
+<td>Search order for the elements: TMR first; Hall only if no TMR fits, and then argued</td>
+<td>Axial element technology (section 6); the exact parts</td>
+</tr>
+<tr>
+<td>N52 and N48SH shown side by side; magnets at most 45 °C in service</td>
+<td>5 V rail: only if a part needs it [S13]</td>
+</tr>
+<tr>
+<td>Names: SWS, head, half, sensing element, channel, root box</td>
+<td>Line from the half to the root box: RS-485 is <strong>proposed</strong>, not fixed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. The sensing elements</h2>
+<h3>2.1 Quantities, count and positions</h3>
+<ul>
+<li><strong>Radial element</strong> (one per position, 8 per half). It reads B_r, the field pointing at the rope, and finds
+  local faults such as broken wires. It sits on the board plane (the mid-plane between the magnets), where
+  the steady radial field is zero by symmetry [S1 §1].</li>
+<li><strong>Axial element</strong> (one per position, 8 per half). It reads B_z, the field along the rope, and follows the
+  loss of metal over a length (LMA). It sits at the radius where a groove in the yoke brings the steady axial
+  field to zero (section 4.1) [S1 §1, §2].</li>
+<li>Both elements of a position lie on one radius line, at the same angle and on the same mid-plane. So they read
+  the same spot of rope at the same moment. That is the reason for the thin board [S1 §2].</li>
+</ul>
+<p><strong>Positions on the 52 mm head</strong> (rope surface at r 26 mm; lift-off is measured from the rope surface) [S1 §2]:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Radius (mm)</th>
+<th>Lift-off (mm)</th>
+<th>Pitch between the 16 positions (mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rope surface, nominal / at +4 %</td>
+<td>26.0 / 27.0</td>
+<td>0 / 1.0</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Radial element at 3 mm (the specification's floor; not a chosen position)</td>
+<td>29.0</td>
+<td>3</td>
+<td>11.4</td>
+</tr>
+<tr>
+<td>Pole bore (free bore)</td>
+<td>30.0</td>
+<td>4</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Radial element at 5 mm (the specification's design stand-off)</td>
+<td>31.0</td>
+<td>5</td>
+<td>12.2</td>
+</tr>
+<tr>
+<td>Radial element at 8 mm</td>
+<td>34.0</td>
+<td>8</td>
+<td>13.4</td>
+</tr>
+<tr>
+<td>Axial element, groove zero at 13 / 16 / 19 mm</td>
+<td>39.0 / 42.0 / 45.0</td>
+<td>13 / 16 / 19</td>
+<td>15.3 / 16.5 / 17.7</td>
+</tr>
+<tr>
+<td>Yoke inner face between the magnets, N52 / N48SH model</td>
+<td>50.1 / 51.1</td>
+<td>24.1 / 25.1</td>
+<td>19.7 / 20.1</td>
+</tr>
+</tbody>
+</table>
+<p>On the 40 mm head with the radial element at 5 mm, the element radius is 25.0 mm and the pitch is 9.82 mm
+[S9; S5 D04]. On the old 40 mm prototype the axial element is reported at 16.5 mm lift-off. That position is
+not confirmed [S5 A02].</p>
+<p>The 8 positions of a half are at 22.5° pitch. The split between the halves falls midway between two positions,
+11.25° from each [S5 D03]. A radial element at 3 mm lies inside the pole bore (r 29 &lt; 30). At 5 mm it is 1 mm
+outside the bore [S1 §2].</p>
+<h3>2.2 The field at each element (all calculated, 52 mm head)</h3>
+<p>The model is a 2D axisymmetric field model with a homogenised rope, placeholder steel curves and a large model
+box. The wire-break signals come from a 3D model. Nothing in this table has been measured in the head. The
+grades are given as N52 / N48SH [S1 §1].</p>
+<p><strong>Radial element</strong>, with the groove set for the axial zero at 16 mm:</p>
+<table>
+<thead>
+<tr>
+<th>Lift-off</th>
+<th>Steady B_r along its axis (on the mid-plane)</th>
+<th>B_r per mm off the mid-plane</th>
+<th>Steady B_z <em>across</em> its axis (through the board)</th>
+<th>Spread of B_z (rope curves, −40…+50 °C, magnets 1 % weaker, steel near the head)</th>
+<th>Without a groove, cold (−40 °C)</th>
+<th>Short strong fault, peak ΔB_r</th>
+<th>One broken outer-strand wire, 3D</th>
+<th>One broken inner-rope wire, 3D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 mm</td>
+<td>0 (≤ 0.08)</td>
+<td>2.5 / 2.4 mT/mm</td>
+<td>−36.6 / −36.4 mT</td>
+<td>−42.3…−32.2 / −42.3…−31.9 mT</td>
+<td>−50.9 / −52.2 mT</td>
+<td>9.51 / 9.47 mT</td>
+<td>1.95–2.46 mT</td>
+<td>0.158–0.464 mT</td>
+</tr>
+<tr>
+<td>5 mm</td>
+<td>0 (≤ 0.04)</td>
+<td>2.9 / 2.9 mT/mm</td>
+<td>−30.7 / −30.5 mT</td>
+<td>−36.2…−26.3 / −36.3…−26.1 mT</td>
+<td>−45.4 / −46.8 mT</td>
+<td>5.07 / 5.05 mT</td>
+<td>1.17–1.36 mT</td>
+<td>0.113–0.301 mT</td>
+</tr>
+<tr>
+<td>8 mm</td>
+<td>0 (≤ 0.05)</td>
+<td>2.7 / 2.7 mT/mm</td>
+<td>−23.4 / −23.4 mT</td>
+<td>−28.8…−19.2 / −28.9…−19.0 mT</td>
+<td>−38.8 / −40.5 mT</td>
+<td>2.68 / 2.67 mT</td>
+<td>about 0.6–0.7 mT (derived)</td>
+<td>about 0.06–0.16 mT (derived)</td>
+</tr>
+</tbody>
+</table>
+<p>The 3D wire columns are at rope inductions of 1.881 / 1.989 / 2.093 T. They are one magnet case, not per grade
+[S1 §1]. Strand ripple from a sound rope: B_r 4 mm off the plane 0.32–0.49 mT p-p at 3 mm; B_z at 3 mm
+0.15–0.20 mT p-p [S1 §1].</p>
+<p><strong>Axial element</strong>, each at the zero of its own groove:</p>
+<table>
+<thead>
+<tr>
+<th>Position (groove depth)</th>
+<th>Steady B_z along its axis</th>
+<th>Spread (min…max)</th>
+<th>Level per 1 % of metal lost</th>
+<th>Short fault ΔB_z</th>
+<th>One wire (3D), outer / inner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13 mm (4.34 mm), N52</td>
+<td>+0.45 mT</td>
+<td>−5.8…+5.3 mT</td>
+<td>−0.881 mT</td>
+<td>−1.60 mT</td>
+<td>—</td>
+</tr>
+<tr>
+<td>16 mm (3.58 mm), N52</td>
+<td>+0.09 mT</td>
+<td>−5.3…+4.5 mT</td>
+<td>−0.774 mT</td>
+<td>−1.04 mT</td>
+<td>0.140–0.158 / 0.031–0.064 mT</td>
+</tr>
+<tr>
+<td>16 mm (3.92 mm), N48SH</td>
+<td>+0.09 mT</td>
+<td>−5.8…+4.7 mT</td>
+<td>−0.802 mT</td>
+<td>−1.07 mT</td>
+<td>—</td>
+</tr>
+<tr>
+<td>19 mm (2.77 mm), N52</td>
+<td>−0.07 mT</td>
+<td>−3.8…+3.4 mT</td>
+<td>−0.522 mT</td>
+<td>−0.62 mT</td>
+<td>—</td>
+</tr>
+<tr>
+<td>No groove at 16 mm, N52 / N48SH</td>
+<td>−16.1 / −17.9 mT</td>
+<td>−18.3…−14.9 / −20.4…−16.7 mT</td>
+<td>−0.201 / −0.217 mT</td>
+<td>−0.96 mT</td>
+<td>0.14–0.17 mT</td>
+</tr>
+</tbody>
+</table>
+<p>Across the axial element's axis, B_r is 0 on the mid-plane and 2.9–3.3 mT per mm off it [S1 §1].</p>
+<h3>2.3 Range and resolution each element needs</h3>
+<p>The arithmetic is shown so that you can redo it. "(d)" means derived here from the figures above.</p>
+<p><strong>Axial element, range along its axis</strong> (groove for 16 mm, N52) [S1 §1]:
+- spread −5.3…+4.5 mT;
+- plus build tolerance ±2.6 mT (groove depth ±0.1 mm moves the zero ±0.41 mm; element ±0.5 mm; ±0.91 mm ×
+  2.9 mT/mm);
+- plus a 10 % loss passing (10 × −0.774 = −7.7 mT);
+- total <strong>−15.6…+7.1 mT</strong>.</p>
+<p>If the zero is trimmed in place at installation, this narrows to −8.0…+0.1 mT. Without a groove it is
+−21.3…−13.9 mT.</p>
+<p><strong>Axial element, resolution.</strong> The quantity it serves is % of metal, at 0.774 mT (N52) or 0.802 mT (N48SH) per
+1 %. So the error budget is set by zero drift, not by noise. A change of 0.77 mT in the zero over
+−40…+50 °C reads as 1 % of metal [S1 §1, §5]. LMA is a DC value, compared against a base trace taken months
+earlier [S1 §1].</p>
+<p><strong>Radial element, along its axis.</strong> At 3 mm it needs about 10.7 mT (9.5 mT short-fault signal plus 1.2 mT for
+0.5 mm off the mid-plane) [S1 §4]. At 5 mm it needs about 6.5 mT (d: 5.07 + 0.5 × 2.9).</p>
+<p><strong>Radial element, across its axis (the critical number).</strong> 32–42 mT of steady axial field passes through the
+package with the groove, and up to 51–52 mT without one [S1 §4]. No sheet we read says what that does to an
+in-plane TMR part (section 8).</p>
+<p><strong>Radial element, resolution.</strong> There are two requirements on record:
+- The specification asks for <strong>≤ 0.11 mT p-p</strong> after the template subtraction in 0–125 Hz on the 52 mm rope.
+  That figure is set on a 0.22 mT smallest signal at the worst angle, which comes from a literature transfer
+  [S6 §7; S5 E13].
+- The 3D model's weakest case, one broken inner-rope wire at 5 mm, is 0.113 mT zero-peak. With the acceptance
+  rule "zero-peak ≥ 2 × noise p-p" this asks for <strong>≤ 0.056 mT p-p</strong> (d: 0.113 / 2) [S1 §4].</p>
+<p>The two signal estimates differ several-fold and are not reconciled (section 8). The specification's noise
+budget is the one on record.</p>
+<p><strong>The numbers in electrical terms</strong> (d, using the prototype parts' sheet figures at a 3.3 V supply [S1 §3]):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Radial (TMR2185 class, 3.4 mV/V/mT)</th>
+<th>Axial (TMR2584 class, 5 mV/V/mT)</th>
+<th>Axial (DRV5055-A1 class Hall, 60 mV/mT)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensitivity at 3.3 V</td>
+<td>11.2 mV/mT</td>
+<td>16.5 mV/mT</td>
+<td>60 mV/mT</td>
+</tr>
+<tr>
+<td>Full signal needed</td>
+<td>±10.7 mT → ±120 mV</td>
+<td>−15.6…+7.1 mT → −257…+117 mV</td>
+<td>→ −936…+426 mV around mid-supply</td>
+</tr>
+<tr>
+<td>Smallest step</td>
+<td>0.056 mT → 0.63 mV p-p</td>
+<td>1 % of metal, 0.774 mT → 12.8 mV</td>
+<td>1 % → 46 mV</td>
+</tr>
+</tbody>
+</table>
+<p>One LSB of a 24-bit converter at ±1.2 V full scale is 143 nV (d: 2.4 V / 2^24). The converter's resolution is
+not the limit. The limits are the noise and drift of the element and of the front end.</p>
+<h3>2.4 Candidate parts found so far (from the makers' data sheets)</h3>
+<p>"n/s" means not on the sheet. All parts below are candidates; none is selected [S1 §3].</p>
+<p><strong>Radial element: parts that sense in the package plane</strong> (they lie flat, with the axis along the radius):</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Range</th>
+<th>Sensitivity</th>
+<th>Noise</th>
+<th>Offset drift</th>
+<th>Supply / current</th>
+<th>Package</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TMR2185 (MultiDimension)</td>
+<td>±20 mT spec., ±100 mT saturation</td>
+<td>3.4 mV/V/mT</td>
+<td>n/s</td>
+<td>n/s</td>
+<td>bridge; 77 µA at 3.3 V (d)</td>
+<td>SOP8 / LGA4L 2.0 × 1.5 × 0.73 mm</td>
+<td>on the old prototype</td>
+</tr>
+<tr>
+<td>CT100 (Allegro)</td>
+<td>±20 mT linear, ±50 mT operating</td>
+<td>4.5 mV/V/mT</td>
+<td>0.16 µT/√Hz; 0.012 mT p-p in 0–125 Hz (d)</td>
+<td>±4.0 µV/V/K max</td>
+<td>bridge; 0.3 mW at 3 V</td>
+<td>SOT23-6, DFN6</td>
+<td>only radial part with noise on its sheet</td>
+</tr>
+<tr>
+<td>TLI55910-A6E (Infineon)</td>
+<td>±35 mT (in-plane magnitude)</td>
+<td>4.8 mV/V/mT</td>
+<td>density n/s</td>
+<td>±4 µV/V/K</td>
+<td>bridge; about 0.4 mA at 3.3 V (d)</td>
+<td>SOT23-6</td>
+<td></td>
+</tr>
+<tr>
+<td>TMR2084S (MultiDimension)</td>
+<td>±40 mT</td>
+<td>6 mV/V/mT</td>
+<td>n/s</td>
+<td>0.008 mV/V/K</td>
+<td>bridge; 100 kΩ</td>
+<td>SOT23-5</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Axial element: parts that sense through the package</strong> (they lie flat, with the axis along the rope):</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Range</th>
+<th>Sensitivity</th>
+<th>Noise 0–125 Hz</th>
+<th>Zero drift over temperature</th>
+<th>Supply / current</th>
+<th>Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TMR2584 (Z-axis TMR)</td>
+<td>±20 mT spec.; saturation ±30 mT (electrical table) or ±20 mT (selection guide)</td>
+<td>5 mV/V/mT</td>
+<td>n/s</td>
+<td>"0.5 mV max" over −40…125 °C; unit unclear (total or per K)</td>
+<td>bridge; 1.1 mA at 3.3 V (d)</td>
+<td>SOT23-5</td>
+</tr>
+<tr>
+<td>TMR2583 (Z-axis TMR)</td>
+<td>±20 mT fit, ±100 mT saturation</td>
+<td>−1.5 mV/V/mT</td>
+<td>n/s</td>
+<td>unit truncated on the sheet</td>
+<td>bridge; 3.3 mA at 3.3 V (d)</td>
+<td>SOT23-5 / TO94</td>
+</tr>
+<tr>
+<td>DRV5055 A1 / Z1 (TI Hall)</td>
+<td>±21 mT (5 V figure)</td>
+<td>60 mV/mT at 3.3 V</td>
+<td>0.016 mT p-p (d)</td>
+<td>±1 % × VCC, typical only (±0.55 mT, d)</td>
+<td>ratiometric single-ended; 2 mA typ</td>
+<td>SOT-23</td>
+</tr>
+<tr>
+<td>TMAG5253 BA1 (TI Hall)</td>
+<td>±20 mT</td>
+<td>60 mV/mT</td>
+<td>0.016 mT p-p (d)</td>
+<td>±50 mV over −40…125 °C (±0.83 mT, d)</td>
+<td>ratiometric; 2.6 mA, enable pin</td>
+<td>X2SON-4, 0.4 mm high</td>
+</tr>
+<tr>
+<td>A1304 (Allegro Hall)</td>
+<td>±37.5 mT</td>
+<td>40 mV/mT</td>
+<td>0.017 mT p-p (d)</td>
+<td>±40 mV, 25→85 °C (±1 mT, d)</td>
+<td>ratiometric; 7.7 mA</td>
+<td>SOT23-W; rated to 85 °C only</td>
+</tr>
+<tr>
+<td>MLX91377 (Melexis Hall)</td>
+<td>±10…80 mT programmed</td>
+<td>programmed</td>
+<td>density n/s</td>
+<td>about 0.08 mT (d)</td>
+<td>analog, <strong>5 V</strong>, 11 mA</td>
+<td>TSSOP-16</td>
+</tr>
+</tbody>
+</table>
+<p>Set aside on the sheets [S1 §3]:
+- digital-output Hall parts (PWM, SENT, SPI, I²C), because they bypass the converters;
+- three-axis parts, because one package sits at one radius, while radial and axial want 5 and 16 mm. The Hall
+  ones also have 0.11–0.16 mT p-p in-plane noise;
+- omnipolar or narrow-range parts.</p>
+<hr />
+<h2>3. Converters and signal chain, as proposed</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>As on record</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Count</td>
+<td>Two 8-channel converters per half: 8 radial + 8 axial = 16 channels, none spare</td>
+<td>fixed [S5 K01]</td>
+</tr>
+<tr>
+<td>Part</td>
+<td>ADS131M08 (TI): 24-bit delta-sigma, 8 simultaneous channels, PGA 1–128; ADS131E08 the other candidate in the simultaneous family</td>
+<td>proposal [S5 K02; S8]</td>
+</tr>
+<tr>
+<td>Sampling</td>
+<td>Our current leaning: simultaneous sampling, no multiplexer. One 8.192 MHz clock shared as CLKIN by both converters of a half, and one SYNC/RESET pulse at start</td>
+<td>leaning, not a choice; you advise [S6 §10; S5 K08]</td>
+</tr>
+<tr>
+<td>Multiplexed alternative</td>
+<td>Considered in-house: ADS114S08 (16-bit), with ADS124S08 (24-bit) as a drop-in. 12 inputs per chip, one at a time. Its sheet gives at most 362–407 samples/s per bridge on three chips at 4000 SPS (d), and adjacent elements are not read at the same instant</td>
+<td>on record as an alternative [S8]</td>
+</tr>
+<tr>
+<td>Rate</td>
+<td>Converter runs faster and is averaged down. On record: 4000/s decimated (simulation work) or 500/s at OSR 8192 (read-out note). Line rate about 250 values/s per channel (proposal; the specification asks ≥ 250, 500 preferred)</td>
+<td>several values [S5 K04, V01]</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>Our position: ratiometric, with the element supply as reference where the part allows. The ADS131M08 has an external REFIN of 1.1–1.3 V (data sheet), so a 3.3 V bridge supply needs a divider. The specification text still says "internal 1.2 V only"; the data sheet says otherwise.</td>
+<td>ratiometric fixed with the converter count [S5 K01]; how it is fed is open; two statements on record [S7 §2; S5 K03]</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>ADS131M08 input impedance 330 kΩ differential at gain 1–4, ≥ 1 MΩ at gain 8–128. Bridges in the kΩ range (TMR2584 about 3 kΩ) load it lightly; a Hall output is single-ended around half supply.</td>
+<td>data sheet [S7 §2]</td>
+</tr>
+<tr>
+<td>Temperature</td>
+<td>Two digital parts per half on I²C/SPI (TMP117 class most named; priced only). 1-wire was judged workable but weak (750 ms conversion, accuracy at −40 °C).</td>
+<td>fixed: two per half, digital; part open [S5 T01, T02; S14]</td>
+</tr>
+<tr>
+<td>Gain on record</td>
+<td>A proposal for the simulator only: radial gain 1, axial gain 2, on assumed sensitivities</td>
+<td>not a design [S5 K05]</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>Specification: 0.2–0.4 W per half in total. A later page: under about 0.5 W. ADS131M08 21.5 mW typ in high-resolution mode (data sheet), against 6.0 mW in the register (the low-power headline).</td>
+<td>several values [S5 S03, K07]</td>
+</tr>
+<tr>
+<td>Supply</td>
+<td>24 V from the root box over the same cable; local 3.3 V regulation; LDOs; no ferrite or iron-cored inductors near the poles</td>
+<td>on record [S5 S01, D05]</td>
+</tr>
+<tr>
+<td>Microcontroller</td>
+<td>One per half, Cortex-M class with SPI, DMA, UART, CRC. No part named. The half's code needs about 3.4 kB RAM at 250/s (calculated on a PC).</td>
+<td>open [S5 U01, U02]</td>
+</tr>
+<tr>
+<td>Other on record</td>
+<td>3-axis accelerometer and a reed/Hall "halves closed" switch "to consider"; a small test loop beside each element for in-place checks (proposal)</td>
+<td>proposals [S5 Q01, D06]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Element currents, 8 per half</strong> [S1 §4]:
+- radial TMR parts: 0.3–3.2 mA;
+- axial Z-axis TMR: 8.8–26 mA;
+- axial 3.3 V Hall: 16–62 mA;
+- axial 5 V Hall or digital parts: 48–88 mA (0.24–0.44 W at 5 V; the top of that alone exceeds the specification's 0.2–0.4 W per half).</p>
+<hr />
+<h2>4. The space and the environment</h2>
+<h3>4.1 The groove and the zero (corrected figures)</h3>
+<p>A groove 20 mm wide is cut all round the outside of the yoke at the board plane. It moves the zero of the
+steady axial field in towards the rope, so the axial element can sit on a near-zero background. It also raises
+the loss-of-metal reading. Earlier groove figures came from a model box that was too small and were about
+1.1 mm too deep; <strong>all figures here are from the corrected large-box model</strong> [S3 Table 1].</p>
+<table>
+<thead>
+<tr>
+<th>Zero at lift-off</th>
+<th>Groove depth, modelled magnet</th>
+<th>N52, 18.1 mm magnet</th>
+<th>N48SH, 19.1 mm magnet</th>
+<th>Old small-box value (superseded)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13 mm</td>
+<td>4.98 mm</td>
+<td>4.34 mm</td>
+<td>—</td>
+<td>6.08 mm</td>
+</tr>
+<tr>
+<td>16 mm</td>
+<td>4.25 mm</td>
+<td>3.58 mm</td>
+<td>3.92 mm</td>
+<td>5.36 mm</td>
+</tr>
+<tr>
+<td>19 mm</td>
+<td>3.53 mm</td>
+<td>2.77 mm</td>
+<td>—</td>
+<td>4.64 mm</td>
+</tr>
+</tbody>
+</table>
+<p>[S3 Table 1; S1 §1; S5 Y04]</p>
+<p>The depths differ by magnet and by how the magnet was scaled in each study. They are not reconciled, and the
+element-run values are the later ones. Other figures for this table:
+- Each 0.1 mm of depth moves the zero about 0.41 mm [S5 Y07].
+- Without a groove the zero is at 24.5 mm [S3 Table 1].
+- 40 mm head (model): 4.00 / 3.23 / 2.64 mm for a zero at 10 / 13 / 16 mm [S3 Table 1].
+- On the 40 mm head, a groove cut for a 40 mm rope leaves about −6 mT at the 16 mm element with a 38 mm rope
+  [S10].
+- The old 40 mm prototype has a 10 × 2 mm groove. Its zero, as drawn and calculated, is at 16.7 mm
+  [S5 Y08; S4 Figure D].</p>
+<h3>4.2 Board outline and thickness</h3>
+<ul>
+<li><strong>In the board plane (radial):</strong> the board runs from the bore (r 30 mm) to the yoke face (r 50.1–51.1 mm in
+  the model). A half-ring from about r 30 to r 49.5 mm is 19.5 mm wide radially. At the radial element there is
+  12.2 mm of arc per position (r 31) for the part, its decoupling and its traces [S1 §2].</li>
+<li><strong>Along the rope (thickness):</strong> 100 mm between the magnet faces, so board plus parts (a few mm) is not limited
+  there [S1 §2]. Board thickness is ours to propose; 0.8–1.6 mm is assumed in the sketches [S5 D02].</li>
+<li><strong>The squeeze is radial at the radial element.</strong> The rope grows +4 % (1 mm) and moves 2–3 mm. A guard or
+  liner sits in front of the element, and the die sits some depth inside its package. The record has two
+  stand-off stacks for 5 mm (liner 1.5 + recess 2.5 + die 1.0; or movement 3 + guard 1 + die 0.7 = 4.7) and does
+  not say which the carrier follows [S1 §2; S5 L02].</li>
+<li><strong>Protection.</strong> On the prototype the radial elements had no protection, sat too close to the rope and broke
+  [S1 §2]. The guard over the magnets is non-magnetic metal (Nitronic 60 or annealed 316L, 1.5–2 mm). The
+  rope-contact liner is a replaceable polymer (UHMW-PE, PA6 or PEEK, about 2 mm) [S6 §9]. A thin stainless
+  sleeve costs nothing in 0–125 Hz by eddy currents (1 mm of 316L: under 25 µs, corner above 6 kHz,
+  calculated). It costs only its thickness, and each millimetre costs roughly 15–27 % of signal near 3–8 mm
+  [S1 §2].</li>
+<li><strong>Connectors and cable.</strong> No connector inside the head is stated for a thin board [S5 N04]. Cable entry on the
+  prototype design: a Ø12 mm radial hole at z +41.5 mm [S5 N05]. No cable crosses the split; the halves are
+  independent [S6 §10].</li>
+<li><strong>Where the converters and microcontroller sit on a thin board is not on record.</strong> The early layout put them
+  on a backplane outside the pole fringing field [S6 §6]. On the thin board, the steady axial field at r 36–48
+  mm (10–22 mm lift-off) runs from about −18 to +19 mT with the groove (calculated, Figure 3). Outside the yoke
+  it is not calculated.</li>
+</ul>
+<h3>4.3 The field the parts live in</h3>
+<p><img alt="Figure 2" src="fig2_radial_field.png" /></p>
+<p><em>Figure 2. Radial element: the field along its sensing axis (blue) and the steady field across it, through the
+board (orange band), against lift-off. 52 mm head, N52, calculated. N48SH is within 0–1.4 mT of these values
+(table 2.2). The grey band is the prototype part's specified range along its axis; no
+sheet gives a limit across the axis. "Standing" in the figures means steady. [S1 Figure E1]</em></p>
+<p><img alt="Figure 3" src="fig3_axial_field.png" /></p>
+<p><em>Figure 3. Axial element: the steady field along its axis against lift-off, with the groove for 16 mm, its
+spread, a 10 % loss passing, and no groove. 52 mm head, N52, calculated. The caption's ±30 mT for the TMR2584 is
+one of two figures on its sheet (±20 or ±30 mT); the 3.3 V Hall options in section 2.4 are ±20–37.5 mT. [S1 Figure E1]</em></p>
+<ul>
+<li><strong>Field across a TMR film.</strong> On the thin board the 30–50 mT axial field goes <em>through</em> the radial part's film.
+  On a spoke the same field would lie <em>in</em> the film plane, across the axis. Neither case is on any sheet
+  [S1 §2, §8].</li>
+<li><strong>Exposure while open.</strong> The head ships open and empty [S6 §9]. When it is opened beside the magnets, or
+  handled, the parts see larger fields. On the old prototype, a strong magnet once snapped onto the yoke. The
+  readings moved by up to 11 mT and stayed changed: radial by 0.4–2.5 mT, axial by up to 0.64 mT. The cause
+  could not be separated (element, yoke, rope or a moved head). This is <strong>measured</strong>, from a first analysis of
+  one recording; the mT values rest on the sheet sensitivities [S12].</li>
+<li><strong>Measured on the old 40 mm prototype</strong> (TMR2185 radial, TMR2584 axial; same first analysis, mT from the sheet
+  sensitivities) [S12]:</li>
+<li>steady axial field at the elements −3 to −10 mT; radial within ±3.4 mT;</li>
+<li>axial noise 0.6–1.0 µT rms in 1–10 Hz; five radial channels as quiet, seven 5–13 times noisier;</li>
+<li>axial drift 1–7 µT per hour at rest;</li>
+<li>level shifts with the direction of travel: radial up to 2.4 mT, axial up to 0.9 mT;</li>
+<li>strand ripple 0.17–2.33 mT p-p radial, 0.08–0.15 mT p-p axial;</li>
+<li>axial up to 0.25 mT per mm of rope off centre.
+  The rig's speed, travel, temperature and fault sizes are not on record, so none of this is yet in % of metal.</li>
+<li><strong>Nearby steel.</strong> A steel shell, a beam within about half a metre, or a second head on the same rope shifts
+  the axial element's steady field by up to about 5.5 mT. That reads as about 1–8 % of metal. A calibration at
+  installation removes this only while the surroundings stay as they were [S3 Table 2]. Housing and covers
+  are to be non-magnetic [S6 §9].</li>
+<li><strong>Stray field</strong> of the head: 0.5 mT at about 0.5 m from the axis [S5 H07].</li>
+</ul>
+<h3>4.4 Temperature, sealing, potting</h3>
+<ul>
+<li><strong>Temperature.</strong> −40…+50 °C at most ("real life −40 … 50 max", fixed; whether this is the ambient at the head
+  is open). Magnets are at most 45 °C in
+  service, with the head fully covered (fixed) [S5 H10, M06]. Electronics parts are rated −40…+85 °C
+  [S6 §9]. +80 °C stays as a qualification reference only [S6 §9]. Total dissipation is 0.2–0.4 W per half;
+  the self-heating is called negligible [S6 §7]. The sun is not: a light-coloured unit in full sun runs up to
+  +16 K above air (+5 K under a shade), at night −5 K below it, and a closed hoist house adds 5–10 K [S6 §9]. The rule on record is to keep the line driver and regulator against the housing
+  wall, away from the elements [S6 §9].</li>
+<li><strong>TMR sensitivity drift</strong> of 0.1–0.3 %/K is named as the dominant thermal error. It is handled by ratiometric
+  read-out, differencing and the temperature channel [S6 §9].</li>
+<li><strong>Ingress.</strong> IP66/IP67 (fixed). The head is never submerged but gets water cast at it in a storm [S5 P02].</li>
+<li><strong>Potting.</strong> Open [S5 P01]. The specification advises a soft polyurethane or silicone gel over the board, with
+  hard epoxy only as a shell, because hard epoxy cracks and stresses dies over −40…+85 °C cycles [S6 §9].
+  One proposal on record: soft silicone gel in a closed shell, room-temperature cure capped at 35–40 °C; its volume
+  changes +2.7 % to +50 °C and −6.3 % to −40 °C [S5 P03].</li>
+<li><strong>Cure-temperature limit.</strong> About 64 °C for 85 °C-rated parts, or about 60 °C with N52 magnets nearby
+  [S5 P04].</li>
+<li><strong>EMC and earthing.</strong> Qualification to IEC 61000-6-2 / -4 [S6 §2]. Cable length from half to root box is set
+  by the hoist layout (not set; up to about 100 m on record) [S6 §10]. Whether the yoke or the structure is
+  earthed is not on record.</li>
+<li><strong>Mechanical.</strong> Rope slap, vibration, ferrous wear dust drawn to the poles, and rope lubricant on the bore
+  [S6 §9].</li>
+</ul>
+<hr />
+<h2>5. What leaves the board (short)</h2>
+<p>Each half sends raw values only:
+- 16 channels as 24-bit samples, about 250 values per second per channel (proposal);
+- the temperature readings and status, packed into 100 ms frames of 1 229 bytes (1 235 on the wire) with a CRC-32C;
+- about 123.5 kbit/s on a 460.8 kbit/s line (27 %) [S5 V01, Z02, Z03].</p>
+<p>The line to the root box is <strong>proposed as RS-485</strong> (the specification still has RS-422, one per half). It runs
+with 24 V on the same shielded cable and a separate pair for a 1 Hz sync edge, which each half latches against
+its sample counter (80 µs residual) [S5 N01, N02, Z04]. The root box does all detection [S6 §10].</p>
+<hr />
+<h2>6. The open point: Hall or TMR for the axial element</h2>
+<p>Both options lie flat on the thin board. The radial element stays an in-plane TMR part in both [S1 §2].
+Figures are for the groove case.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Option A: Z-axis TMR bridge</strong> (TMR2584 / TMR2583)</th>
+<th><strong>Option B: 3.3 V linear Hall, ratiometric</strong> (DRV5055 A1/Z1, TMAG5253 BA1, A1304)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fits the search order (TMR first)</td>
+<td>yes</td>
+<td>only if A fails, and then argued</td>
+</tr>
+<tr>
+<td>Range against need (−15.6…+7.1 mT; no groove −21.3 mT)</td>
+<td>±20 mT specified, saturates at ±30 (or ±20) mT: groove only</td>
+<td>±20–37.5 mT, no saturation stated: groove; A1304 also without a groove</td>
+</tr>
+<tr>
+<td>Zero drift −40…+50 °C, as % of metal</td>
+<td>0.4 % if the TMR2584's offset figure is a total; <strong>12 % if it is per kelvin</strong> (the sheet does not say)</td>
+<td>0.7–1.3 % (DRV5055 figure typical only; could reach about 1.4 %); needs a per-part temperature table</td>
+</tr>
+<tr>
+<td>Noise</td>
+<td>not on the sheets; measured on the prototype 0.6–1.0 µT rms in 1–10 Hz [S12]</td>
+<td>0.016–0.017 mT p-p in 0–125 Hz (d), about 0.02 % of metal</td>
+</tr>
+<tr>
+<td>Drift over life</td>
+<td>not on the sheets</td>
+<td>stated on the sheets (e.g. 0.17 mT, TMAG5253)</td>
+</tr>
+<tr>
+<td>After a strong field</td>
+<td>risk of a shifted zero (pinned / free layer); not on the sheets</td>
+<td>Hall die has no magnetic memory; lead frame magnetisation named as a risk</td>
+</tr>
+<tr>
+<td>Current, 8 per half</td>
+<td>9–26 mA</td>
+<td>16–62 mA</td>
+</tr>
+<tr>
+<td>Into the converter</td>
+<td>bridge, differential, ratiometric: direct</td>
+<td>single-ended around half supply: negative input to a half-supply divider of the element supply</td>
+</tr>
+<tr>
+<td>Prototype experience</td>
+<td>the old prototype carries it (TMR2584)</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>[S1 §4, §5; S2 easy read and Hall paragraph]</p>
+<p><strong>Proposed</strong> (for you to challenge, not a decision):
+- Keep a <strong>Z-axis TMR bridge (Option A) as the first line</strong> for the axial element. It follows the search order,
+  fits the range with the groove, reads ratiometrically like the radial bridges, and is the part the
+  prototype already carries.
+- Lay out the axial position so that a <strong>3.3 V ratiometric Hall part (Option B)</strong> can be fitted instead. That
+  means room for the footprint and a half-supply divider at the converter input.
+- Let <strong>two prototype measurements decide</strong>: the axial zero over temperature (at least −20…+45 °C, extended to −40 °C by
+  the fitted slope until a cold run is made), and the
+  axial zero before and after exposure to a strong field.
+- Move to Hall if the TMR part's zero moves by more than 0.77 mT (1 % of metal) over −40…+50 °C or after
+  exposure.</p>
+<p><em>Pros of the proposal:</em> nothing is built on Hall before TMR has been tried; the decision rests on one measured
+number.</p>
+<p><em>Cons:</em> a board that takes either part costs layout room in a 16.5 mm pitch. The TMR2584's drift unit is
+unclear until measured. The one strong-field event on the prototype already moved an axial channel by 0.64 mT,
+close to the 0.77 mT limit, with the cause not separated.</p>
+<hr />
+<h2>7. What we ask you</h2>
+<p>Each question stands on its own.</p>
+<ol>
+<li><strong>Architecture.</strong> Is one thin half-ring board per half, carrying elements, two converters, the
+   microcontroller, regulators and line driver, sound in this field? Or would you put the digital and power
+   parts on a second board further from the poles, and why?</li>
+<li><strong>Converter.</strong> For 16 bridge or Hall signals at 0–125 Hz, would you use two simultaneous 8-channel
+   delta-sigma converters (ADS131M08 or ADS131E08 class) or a multiplexed converter (ADS124S08 class)? Which
+   one would you use, and with what output rate and decimation?</li>
+<li><strong>Reference.</strong> The ADS131M08's external reference is 1.1–1.3 V. Is a divider from the 3.3 V element supply a
+   sound ratiometric reference, or would you use a separate reference and read the supply? What does each cost
+   in noise and drift?</li>
+<li><strong>Hall into a delta-sigma.</strong> If the axial element is a single-ended ratiometric Hall part, is the negative
+   input at a half-supply divider sound? What does it cost in noise and common-mode error?</li>
+<li><strong>Field across a TMR film.</strong> What does 30–50 mT through the film of an in-plane TMR bridge (the thin board)
+   do to its gain, zero and hysteresis? And the same field lying in the film plane across its axis (as on the old spoke layout)?</li>
+<li><strong>Zero after a strong field.</strong> Does a Z-axis TMR bridge keep its zero after the head is opened, handled or
+   exposed to a near magnet? Is a set/reset or a check procedure needed?</li>
+<li><strong>TMR2584 offset.</strong> Is its "0.5 mV max" offset temperature figure over −40…125 °C a total or per kelvin? What
+   long-term offset drift does a Z-axis TMR bridge show in your experience?</li>
+<li><strong>Hall drift.</strong> How much of a 3.3 V ratiometric Hall part's 0.5–1 mT zero drift does a per-part temperature
+   table remove? Do you know a 3.3 V analog Hall part with under 0.1 mT drift over −40…+50 °C?</li>
+<li><strong>Layout in a strong static field.</strong> What rules would you set for parts in tens of mT: regulators,
+   decoupling capacitors, crystals, ferrite, magnetic lead frames and solder finishes, current loops near the
+   elements? Is an LDO-only supply in the head the right rule?</li>
+<li><strong>Grounding and shielding.</strong> How would you ground and shield a 16-channel low-noise front end with a 24 V
+    feed and an RS-485 line on one shielded cable, in a steel structure with two independent halves that never
+    share a cable?</li>
+<li><strong>Potting and reliability.</strong> Soft silicone gel, polyurethane, or a sealed housing with a vent: what would you
+    use over small SOT/DFN magnetic parts for 10 years at −40…+50 °C, outdoors, with a cure limit near 60 °C?</li>
+<li><strong>Element protection.</strong> For a radial element at 3–5 mm from a rope that moves 2–3 mm, would you protect
+    it with a polymer liner or a thin non-magnetic stainless sleeve? What thickness would you use?</li>
+<li><strong>In-place self-test.</strong> Is a small printed loop beside each element, driven to give a known field, worth its
+    cost for checking gain in service?</li>
+<li><strong>Board thickness and stack-up.</strong> What thickness and layer count would you choose, given that a thicker
+    board moves the die further from the mid-plane?</li>
+<li><strong>What you would do differently.</strong> Looking at the whole chain, what would you change first?</li>
+<li><strong>What you need from us.</strong> What is missing for you to give firm advice: drawings, measured fields, part
+    samples, the prototype board?</li>
+<li><strong>Position of the head.</strong> The head hangs on the rope from a pivoting, sprung arm, so it can swing a few
+    degrees sideways relative to fixed steel nearby, which may shift the steady field at the elements (being
+    calculated now). If the swing has to be measured, what would you use at the pivot or in the head, as simple
+    as possible: a sealed potentiometer, a contactless inductive angle sensor, or an accelerometer used as an
+    inclinometer? What would you avoid next to magnets of this strength?</li>
+</ol>
+<hr />
+<h2>8. What is not yet known</h2>
+<ul>
+<li><strong>No field has been measured in a new head.</strong> Every field figure above is calculated. The models use
+  placeholder steel and rope curves, and the yoke steel grade is not on record [S5 Y02].</li>
+<li><strong>The broken-wire signal size.</strong> A literature transfer gives 0.39 mT at 5 mm. The 3D model gives 1.17–1.36 mT
+  for one outer wire and 0.113–0.301 mT for one inner wire. The noise budget is set on the smaller literature
+  figure. A single-wire test on a known rope is needed [S5 E15; S1 §1].</li>
+<li><strong>What a field across the sensing axis does to any part</strong>, at 30–52 mT. No TMR or Hall sheet read gives a
+  figure [S1 §8].</li>
+<li><strong>Noise of the Z-axis TMR parts and the wide-range in-plane TMR parts</strong>, and the long-term offset drift of any
+  TMR bridge, are not on the sheets [S1 §8]. The prototype gives a first measured noise and short-term drift
+  for the TMR2584 (section 4.3), not yet over temperature or over months.</li>
+<li><strong>The TMR2584's offset unit</strong>, and whether it saturates at ±20 or ±30 mT. Its own sheet has both [S5 A07].</li>
+<li><strong>The zero after a strong field</strong>, for either technology. The one prototype event is not separated by cause
+  [S12].</li>
+<li><strong>Where the die sits in each package.</strong> Its depth from the edge facing the rope, and its tilt, are not on
+  the sheets. A 1° tilt puts 1.7 % of the across-axis field (0.5–0.9 mT) into the reading [S1 §2, §8].</li>
+<li><strong>Which stand-off stack the carrier follows</strong>, the liner bore, and the board thickness [S5 L03, D02].</li>
+<li><strong>The magnet thickness.</strong> It is a working window, not a size, so the yoke face radius (the board's outer
+  edge) moves with it [S5 M08, M10].</li>
+<li><strong>Board outline for the 40 mm head</strong>, which is built first. Only the pitch (9.82 mm at r 25) and the
+  prototype's reported 16.5 mm axial lift-off are on record [S5 D04, A02].</li>
+<li><strong>Converter rate, line rate, line type and bit rate.</strong> These are proposals, not settled [S5 K04, V01, N02,
+  Z01].</li>
+<li><strong>Whether the 5 V rail exists.</strong> It exists only if a part needs it [S5 S02].</li>
+<li><strong>Power per half.</strong> The specification gives 0.2–0.4 W, a later page under about 0.5 W, and the converter
+  power has two figures on record [S5 S03, K07].</li>
+<li><strong>Price and availability</strong> of the newly read element parts [S1 §8].</li>
+</ul></body></html>
