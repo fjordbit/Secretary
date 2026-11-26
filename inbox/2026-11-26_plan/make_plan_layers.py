@@ -65,7 +65,7 @@ p.sub{{color:var(--mut);margin:0 0 16px}} .dates{{display:grid;grid-template-col
 .dates div{{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px}} .dates b{{display:block;color:var(--acc)}}
 details.group{{border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:0 12px;background:var(--card)}}
 details.group>summary{{padding:12px 0;cursor:pointer;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
-details.task{{border-top:1px solid var(--line);padding:0 4px}} details.task>summary{{padding:8px 0;cursor:pointer;display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}}
+details.task{{border-top:1px solid var(--line);padding:0 4px}} details.task>summary{{padding:8px 0;cursor:pointer;display:grid;grid-template-columns:2.4em 1fr auto;gap:8px;align-items:start}}
 details.task.crit>summary{{border-left:3px solid var(--crit);padding-left:8px}} details.task.done>summary{{color:var(--mut)}} details.task.done .when{{color:var(--ok)}}
 .id{{color:var(--mut);min-width:2.2em;display:inline-block}} .when{{color:var(--mut);white-space:nowrap;margin-left:auto;font-variant-numeric:tabular-nums}}
 table{{border-collapse:collapse;margin:4px 0 12px 2.6em;font-size:.93rem}} th{{text-align:left;color:var(--mut);font-weight:500;padding:2px 14px 2px 0;vertical-align:top;white-space:nowrap}} td{{padding:2px 0}}
