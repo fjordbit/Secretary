@@ -34,6 +34,34 @@ NEED = [
     "Stored data over the life of a rope: maximum, minimum and proposed size (own run, in preparation).",
 ]
 e = html.escape
+# Layer 4: the record of work done, read from the history file (third argument)
+HIST_TO_GROUP = {
+    "Specification and requirements": 7, "Magnetic circuit and FEM (2D, 3D)": 1, "Magnet grade and temperature": 1,
+    "Sensing elements and converters (PCB architecture)": 2, "Potting / encapsulation": 3,
+    "Data line, half firmware (C), root box, logger": 4, "Digital twin and simulator": 5,
+    "HMI / presentation design": 5, "Prototype rig measurement and its analysis": 0,
+    "Reviews by outside models (model rounds)": 7, "Pages / documentation": 7,
+    "Standards (EN 12927, ISO 4309) reading": 7, "Tasks issued to colleagues (GitHub issues)": 7,
+}
+record = {i: [] for i in range(len(GROUPS))}; rulings = []; n_rows = 0
+if len(sys.argv) > 3:
+    sec = None; part = 0
+    for line in open(sys.argv[3], encoding='utf8'):
+        line = line.rstrip('\n')
+        if line.startswith('## '): part = int(line[3]) if line[3].isdigit() else 0; sec = None
+        elif line.startswith('### '): sec = line[4:].strip(); assert sec in HIST_TO_GROUP, sec; record[HIST_TO_GROUP[sec]].append((sec, []))
+        elif part == 1 and sec and line.startswith('| ') and not line.startswith('| Dates') and not line.startswith('|---'):
+            c = [x.strip() for x in line.strip('|').split('|')]
+            record[HIST_TO_GROUP[sec]][-1][1].append(c[:3]); n_rows += 1
+        elif part == 2 and line.startswith('- '): rulings.append(line[2:])
+def rec_html(gi):
+    out = ''
+    for name, rows in record[gi]:
+        if not rows: continue
+        body = ''.join(f"<tr><td class='d'>{e(a)}</td><td>{e(b)}</td><td>{e(c)}</td></tr>" for a, b, c in rows)
+        out += (f"<details class='task rec'><summary><span class='id'></span>Record: {e(name)}<span class='when'>{len(rows)} pieces of work</span></summary>"
+                f"<table class='rec'><tr><th>When</th><th>What was done</th><th>Result</th></tr>{body}</table></details>")
+    return out
 def fmt(dt):
     y, m, dd = dt.split('-'); return f"{int(dd)} {['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][int(m)-1]}"
 def task(t):
@@ -45,7 +73,7 @@ def task(t):
     body = ''.join(f"<tr><th>{e(k)}</th><td>{e(v)}</td></tr>" for k, v in rows if v)
     return (f"<details class='task {cls}'><summary><span class='id'>{t['id']}</span> {e(t['task'])}"
             f"<span class='when'>{fmt(t['deadline'])} · {mark}</span></summary><table>{body}</table></details>")
-def group(name, ids):
+def group(name, ids, gi=0):
     ts = [T[i] for i in ids]
     open_ = [t for t in ts if t['status'] != 'Completed']; done = [t for t in ts if t['status'] == 'Completed']
     nxt = min((t['deadline'] for t in open_), default=None)
@@ -53,6 +81,8 @@ def group(name, ids):
     out = f"<details class='group'><summary><b>{e(name)}</b><span class='when'>{head}</span></summary>"
     if open_: out += "<h4>Open</h4>" + ''.join(task(t) for t in sorted(open_, key=lambda t: t['deadline']))
     if done: out += "<h4>Done</h4>" + ''.join(task(t) for t in done)
+    r = rec_html(gi)
+    if r: out += "<h4>Layer 4: everything done, piece by piece</h4>" + r
     return out + "</details>"
 n_open = sum(1 for t in T.values() if t['status'] != 'Completed'); n_done = len(T) - n_open
 page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -69,14 +99,16 @@ details.task{{border-top:1px solid var(--line);padding:0 4px}} details.task>summ
 details.task.crit>summary{{border-left:3px solid var(--crit);padding-left:8px}} details.task.done>summary{{color:var(--mut)}} details.task.done .when{{color:var(--ok)}}
 .id{{color:var(--mut);min-width:2.2em;display:inline-block}} .when{{color:var(--mut);white-space:nowrap;margin-left:auto;font-variant-numeric:tabular-nums}}
 table{{border-collapse:collapse;margin:4px 0 12px 2.6em;font-size:.93rem}} th{{text-align:left;color:var(--mut);font-weight:500;padding:2px 14px 2px 0;vertical-align:top;white-space:nowrap}} td{{padding:2px 0}}
+table.rec{{margin-left:0;width:100%}} table.rec td{{padding:3px 12px 3px 0;vertical-align:top;border-top:1px solid var(--line)}} table.rec td.d{{white-space:nowrap;color:var(--mut)}} table.rec th{{padding-bottom:4px}}
 ol{{padding-left:1.3em}} footer{{color:var(--mut);font-size:.85rem;margin-top:28px}}
 </style></head><body><main>
 <h1>SWS plan in layers</h1>
-<p class="sub">Draft, 26 Nov 2026. Layer 1: the dates. Layer 2: the eight areas, open one to see its tasks. Layer 3: open a task for lead, dates, dependencies and risk. {n_open} tasks open, {n_done} areas of work done. Dates are targets: correct before fast. A task with a bar on the left is on the critical path.</p>
+<p class="sub">Draft, 26 Nov 2026. Layer 1: the dates. Layer 2: the eight areas, open one to see its tasks. Layer 3: open a task for lead, dates, dependencies and risk. Layer 4: inside each area, every piece of work done with its result. {n_open} tasks open, {n_done} areas of work done. Dates are targets: correct before fast. A task with a bar on the left is on the critical path.</p>
 <h2>Layer 1 — the dates</h2><div class="dates">{''.join(f"<div><b>{e(a)}</b>{e(b)}</div>" for a, b in DATES)}</div>
 <h2>Rulings and inputs needed</h2><ol>{''.join(f"<li>{e(x)}</li>" for x in NEED)}</ol>
-<h2>Layer 2 and 3 — areas and tasks</h2>{''.join(group(n, ids) for n, ids in GROUPS)}
-<footer>Layer 4, the record: every piece of work done with its figure and source, 131 rows, in sws_history.md. Large installation: two sides, 102 winches, 6 stations, 204 SWS, 408 halves. Task numbers 1-20 are those of the schedule of 19 Nov; 21-34 are added; 101-115 are work done.</footer>
+<h2>Layer 2 to 4 — areas, tasks and the record</h2>{''.join(group(n, ids, gi) for gi, (n, ids) in enumerate(GROUPS))}
+<h2>Rulings made so far</h2><details class='group'><summary><b>{len(rulings)} rulings, in date order</b><span class='when'>open to read</span></summary><ul>{''.join(f"<li>{e(x)}</li>" for x in rulings)}</ul></details>
+<footer>Layer 4 holds {n_rows} pieces of work done between 22 Oct and 26 Nov 2026, each with its result; all figures are calculated unless marked measured. Work before 22 Oct is not in this record.Large installation: two sides, 102 winches, 6 stations, 204 SWS, 408 halves. Task numbers 1-20 are those of the schedule of 19 Nov; 21-34 are added; 101-115 are work done.</footer>
 </main></body></html>"""
 open(sys.argv[2], 'w', encoding='utf8').write(page)
 print(len(page), 'bytes', n_open, 'open', n_done, 'done')
