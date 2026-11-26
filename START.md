@@ -1,6 +1,6 @@
 # State 26 Nov, 23:40 (Kai) — read this first; the block of 25 Nov below is older
 
-**Project main = D: = backup = 0a26739** (u136 joined work + u139 Progress plan page). GitHub fjordbit/max
+**Project main = D: = backup = ab5e2f1; GitHub fjordbit/max = 83d83fd; Pages repos = c0d72f9 (pushed 27 Nov 00:42), but the Pages deploy FAILED on billing: live site is still the 20 Nov snapshot until Stian fixes Billing and plans and the job is re-run.**
 still dd24591, Pages f74c6a4 (20 Nov). **Release not done:** waits on Stian's answer whether it may carry the
 simulator work and the Henrik brief along with the Progress plan page; after release, post the write-up to
 Ramin as an issue (go given).
