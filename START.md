@@ -1,3 +1,30 @@
+# State 26 Nov, 23:40 (Kai) — read this first; the block of 25 Nov below is older
+
+**Project main = D: = backup = 0a26739** (u136 joined work + u139 Progress plan page). GitHub fjordbit/max
+still dd24591, Pages f74c6a4 (20 Nov). **Release not done:** waits on Stian's answer whether it may carry the
+simulator work and the Henrik brief along with the Progress plan page; after release, post the write-up to
+Ramin as an issue (go given).
+
+**Running:** two steel-nearby solver queues in `C:/Users/stian/Prosjekter-u138/max/sws/3d/steel_nearby/`
+(Stian: "let them both run"). At 23:37: N52 on mesh B6, N48SH on mesh W; F, P, N, N2 done for both. Results in
+`results/`, queue state in `logs/queue_<grade>.log`. Nothing is committed on `u138-steel-nearby`. When done:
+tell Stian, then a builder writes `steel_nearby.md` (curves, tables, pros/cons, marked proposal). No watcher
+runs (the system stopped my helpers for low memory at 19:20; not restarted).
+
+**Rulings 26 Nov:** large installation is two sides: 102 winches, 6 stations, design for 2 SWS per rope
+(204 SWS, 408 halves; may be 1); RS-485 to the root box is ours to propose; first 10 runs always kept, runs
+with a finding kept in full plus the next n; life cycle data management is its own run and page; holder and
+arm at the SWS stainless, main bed ferromagnetic; every study ends with options AND a marked proposal;
+first names allowed when not negative (leads in `plan.json`), never last names; dates are targets.
+
+**Not merged:** `u137-two-sides` f7c72d4 (twin at two sides; 75 old-size lines in 23 files outside line_beta
+still to correct, list in agent-notes/bunt.md). **Not started:** life cycle data run; load model round (held
+for mechanical inputs, `inbox/2026-11-26_load_model/`). **With Stian:** detail read of the Henrik brief; plan
+drafts in `inbox/drafts/2026-11-26_*`; new date for the board package. DT first version target Wed 2 Dec.
+Details: `log/2026-11-26.md`.
+
+---
+
 # State 25 Nov, 20:00 (Kai) — end of the day in the desktop UI; next session in the terminal; read this first
 
 **Posted 25 Nov evening:** the task to Henrik (platform steel geometry) is fjordbit/max issue #5, assigned hmssyncro. U135 (root box brief for Henrik, Opus) was started 20:15; Stian reads the draft after Kai's check.
