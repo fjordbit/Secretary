@@ -61,7 +61,7 @@ our own screen shows it live; a second screen lets us put a fault on a chosen ro
 
 | When | Step | Needs |
 |---|---|---|
-| Thu 26 – Fri 27 Nov | Plant size corrected (winches, stations, SWS per rope); fixed facts page applied | ruling 5.2 |
+| Thu 26 – Fri 27 Nov | Plant size corrected to two sides: 102 winches, 6 stations, 204 SWS, 408 halves; fixed facts page applied | ruled 26 Nov |
 | Thu 26 – Mon 30 Nov | Twin fitted to the measured recording: ripple size, low-frequency noise, level shift with direction of travel; table "assumed / measured" | — |
 | Fri 27 Nov – Mon 30 Nov | Main screen, design version 3 with the rulings applied, fed live from the twin through the same server path the real system will use | — |
 | Mon 30 Nov – Tue 1 Dec | Trainer screen: pick a rope, a position and a fault kind, create it; the main screen is not changed by it | — |
@@ -108,7 +108,8 @@ twin, the customer screen, bending cycles from the control system as a second so
 ## 5. Rulings and inputs needed
 
 1. **Board package for the specialist.** Was due 22 Nov, not started. A new date is needed; task 7 ends 4 Dec.
-2. **Size of the large installation.** The layout drawing reads as 51 positions on each side and six motor
+2. ~~Size of the large installation.~~ **Ruled 26 Nov: two sides, each 51 winches and 3 stations: 102 winches,
+   6 stations, 204 SWS, 408 halves.** The twin is being corrected. Earlier text: the layout drawing read as six motor
    control centres; the twin has 51 winches and three stations.
 3. **Axial sensing element, Hall or TMR.** The measured recording shows the zero stays moved after a strong
    field. Needed before the board design (task 8).
