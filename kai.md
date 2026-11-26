@@ -6667,3 +6667,118 @@ scheme in one line with three example names; new totals (ropes, SWS, halves, pas
 option); suite counts; number of places outside line_beta that still say the old size; not done. If a
 permission is denied, stop and report; do not ask anyone to do the action for you. Notes in
 C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
+
+## U138 — steel near the SWS in 3D: a screening sweep, and what can be done about it (Kai, 26 Nov)
+
+Rules as "## U124-U127 COMMON" (read it; the measured-data paragraph does not concern you). Branch
+`u138-steel-nearby` from main (67866d8), worktree C:/Users/stian/Prosjekter-u138; commit on the branch; no
+merge, push or export. Timebox 360 minutes; this is a SCREENING run on the present machine (a finer run
+follows when more memory is installed), so choose meshes that finish, state the memory used and the mesh
+error you estimate, and say what a machine with 256 GB would allow. Read first: the 3D record under
+`max/sws/3d/` (README, the large-box rerun and the falsification notes, in particular the result "steel
+within about half a metre shifts the reading by 1 to 8 % of metal": find how it was computed and reuse that
+model and solver settings), the groove notes for the 52 mm head, `plotstandard.py`. Standing rules: both
+grades N52 and N48SH always shown side by side, nothing "selected / chosen / optimal"; magnet half-rings are
+one sintered piece; names SWS, head, half, sensing element (radial / axial), channel; every figure with its
+arithmetic; calculated, not measured, said plainly.
+The situation (owner, from the installation's 3D model; all dimensions below are read off pictures and are
+ASSUMED until the geometry arrives; make each a parameter):
+- The 52 mm head sits on one vertical rope fall. Fixed steel: a bracket plate whose nearest face is about
+  143 mm from the rope axis, on one side only (ASSUME a plate 300 x 300 x 15 mm, structural steel, centred on
+  the head's mid-plane; sweep it).
+- Moving steel: a large flat horizontal steel structure that comes up towards the head from below; at its
+  closest the distance from the head to the plate is about 986 mm; the rope passes through an opening in it
+  (ASSUME a plate 2 x 2 m, 20 mm thick, with a 300 mm opening round the rope). The owner earlier spoke of
+  0.4 m: cover 4 m down to 0.4 m.
+- Neighbouring rope falls of the same rope run parallel beside the head (ASSUME one neighbour at 200 mm
+  centre distance on one side, and the case of one on each side; sweep 150 to 400 mm).
+The owner's questions: how much do these change what the sensing elements read; can the steel wall be
+shielded, or the instrument shielded from it or from the platform; the axial sensing elements are perhaps
+80 to 100 mm from the bracket.
+Do:
+1. Baseline (no steel) and each disturbance alone, then the realistic combination. For each: the change of
+   the standing field at EVERY sensing element position round the rope (the positions on record for the
+   52 mm head: radial and axial, state radius and angle), in mT and in "% of metal" by the record's own
+   scale (state the scale and its source); the pattern round the rope (mean, first harmonic, the rest); and
+   the change of the signal of the reference faults (one broken outer wire; 1 % loss of area) if the model
+   allows it in the time, else say so.
+2. Sweeps: bracket distance 80 / 100 / 143 / 200 / 300 mm and plate size; platform distance 4 / 2 / 1 / 0.7 /
+   0.4 m; neighbour rope 150 / 200 / 300 / 400 mm. Curves by the plot standard.
+3. What helps, each as its own case with what it costs (side by side, none picked): (a) the bracket in
+   non-magnetic material near the head; (b) more distance; (c) a ferromagnetic shell round the head (state
+   thickness and radius; show also what it does to the head's own field and to the fault signal); (d) a
+   steel plate between head and disturbance; (e) making the surroundings symmetric (a matching dummy plate
+   on the other side); (f) by signal: the mean of the sensing elements round the rope and removal of the
+   first harmonic: how much of each disturbance that removes, for the fixed and for the moving steel;
+   (g) a zero taken in place for the fixed steel, and a term that follows platform position for the moving
+   steel: the residual if the term is known to 10 %.
+4. A note `steel_nearby.md` in a new folder `max/sws/3d/steel_nearby/`, easy-read first (at most one screen
+   before any detail): the answer to each of the owner's questions in one line with its number, then the
+   table of cases, then "what is assumed" and "what the geometry would replace", then the list of runs for
+   the finer sweep on the larger machine with estimated memory and time each.
+One fresh subagent as falsifier (files only, may re-run one case): box size and boundary far enough (show
+the test: the baseline with the box doubled), symmetry not wrongly assumed (the disturbances are one-sided),
+every figure traced, both grades shown, nothing picked. Fix. idscan and scan_tree 0 on added lines.
+Hand back at most 12 lines: tip; the three disturbances in mT and % of metal at the worst sensing element and
+as the mean round the rope (both grades); which measures remove how much; memory and time per solve; the
+mesh error; what the larger machine is needed for; falsifier verdict; not done. If a permission is denied,
+stop and report; do not ask anyone to do the action for you. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
+
+## U139 — a "Progress plan" page on the team site, with everything done in plain words (Kai, 26 Nov; owner's request)
+
+Rules as "## U124-U127 COMMON" (read it; the measured-data paragraph does not concern you). Branch
+`u139-progress-plan` from main (67866d8), worktree C:/Users/stian/Prosjekter-u139; commit on the branch; NO
+merge, push, export or publish (Kai does those after his check and the owner's go). Timebox 240 minutes.
+The owner wants the project plan and the record of everything done kept in ONE place, as a page "Progress
+plan" on the team's site, in git, so that a colleague with write access can keep it up to date.
+Sources (read only; they are in the secretary folder and contain personal names and a site name, which must
+NOT reach the repository):
+- C:/Users/stian/secretary/inbox/drafts/2026-11-26_sws_plan_layers.html (the page as it is now: layers 1-4)
+- C:/Users/stian/secretary/inbox/drafts/2026-11-26_SWS_MRT_backup_detailed.json (the 49 tasks)
+- C:/Users/stian/secretary/inbox/2026-11-26_plan/sws_history.md (131 pieces of work, 42 rulings, open items)
+- C:/Users/stian/secretary/inbox/2026-11-26_plan/make_plan_layers.py (how the page is generated)
+- C:/Users/stian/secretary/inbox/drafts/2026-11-26_sws_detailed_plan.md (the readable plan)
+Do:
+1. Find how the site's pages are made and released (the existing pages under `max/docs/sws/`, their shared
+   style and navigation, the export / release notes of the last release; builder notes of the release units
+   in C:/Users/stian/agent-notes/). The new page follows the same style, navigation, light and dark theme,
+   easy-read first, and is linked from the landing page and navigation the way the other pages are.
+2. Data in git, kept apart from the page, so it can be edited in the web editor without running anything:
+   `plan.json` (tasks) and `record.json` (work done, rulings, open items) next to the page, read by the page
+   when it loads (check that the release procedure carries such files; if the site cannot load them, embed
+   them at build time and say how the colleague then updates it; state which you did and why). A short
+   "How to update this page" section at the bottom, in plain words: which file, which fields, what the
+   allowed values are; and a small check script that says whether an edited file is still valid.
+3. The page: layer 1 the controlling dates and the rulings and inputs needed; layer 2 the eight areas with
+   open / done counts and the next date; layer 3 the tasks (lead, dates, state, progress, depends on, risk);
+   layer 4 inside each area everything done, piece by piece; then the rulings made so far, and the open items
+   from the record. Layers open and close; one "open all" control for printing; prints cleanly.
+4. Layer 4 and the rulings REWRITTEN IN PLAIN WORDS for readers outside the daily work: no unit numbers
+   (U34 and the like), no names of AI models or tools, no branch names, commit ids, file paths or cost
+   figures, no working slang ("verifier fail", "small box"); say what was done and what it showed, one line
+   each, keeping every figure with its unit exactly as in the history file (do not round, do not add
+   figures); "calculated" or "measured" stated per row where the history says so. The reviews by outside
+   models become "independent review rounds", with the count and what each round concluded. Keep all 131
+   pieces unless two rows are the same piece of work told twice (then merge and say how many you merged).
+   The standing wording rule applies to anything not ruled by the owner: "proposed", never "selected /
+   decided / chosen"; rulings by the owner are called rulings. Both magnet grades shown.
+5. Names: NO personal names, no customer or site names, anywhere in the repository files. The first
+   installation is "the first installation (38 mm rope)", the large one "the large installation (52 mm
+   rope)". Leads: the page takes the lead text from a `lead` field; fill it with FUNCTION labels you derive
+   from the sources (for example "Project lead", "Measurement and head design", "Project management",
+   "Mechanical design", "Rope supplier contact", "Team") and give Kai the mapping table name -> label in your
+   note (the note may hold the names; the repository may not). Whether real names are shown is the owner's
+   ruling, still open: make it a one-line change in plan.json.
+   Plan dates stay (they are the content); no "who said what when" in the prose.
+6. Check: the page opened in a headless browser if one is available in the repo's tooling, else by parsing:
+   0 console errors, 0 broken links, all 49 tasks and all record rows present (counts shown), both themes,
+   phone width. idscan (range) and scan_tree (the new folder and the page) 0.
+One fresh subagent as falsifier (files only): a cold reader from management reads layer 1 to 4: what is
+unclear, what is jargon; ten figures traced back to the history file; names and site names absent; nothing
+"selected". Fix.
+Hand back at most 12 lines: tip; where page and data files are; how the data reaches the page (loaded or
+embedded); counts (tasks, record rows, merged rows, rulings); the lead mapping (labels only); what the
+release needs from Kai (exact steps as the last release did them); falsifier verdict; scans; not done. If a
+permission is denied, stop and report; do not ask anyone to do the action for you. Notes in
+C:/Users/stian/agent-notes/<nautical name>.md (a name not in that folder). Sign with your name. — Kai
