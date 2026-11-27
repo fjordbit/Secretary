@@ -1,6 +1,6 @@
 # State 27 Nov, 12:26 (Kai) — read this first; older blocks below
 
-**Project main = D: = backup = 5bf2362 (27 Nov 16:45: steel and movement in the simulator, older documents at two sides, data over the rope's life, network and time round, rerun rounds, two sides, steel study, prototype analyses, update note, drawings, HMI round, twin facts, twin page merged; not released). GitHub fjordbit/max = 83d83fd. Pages repos = c0d72f9** (pushed 27 Nov
+**Project main = D: = backup = 5bf2362 (27 Nov 18:15: steel and movement in the simulator, older documents at two sides, data over the rope's life, network and time round, rerun rounds, two sides, steel study, prototype analyses, update note, drawings, HMI round, twin facts, twin page merged; not released). GitHub fjordbit/max = 83d83fd. Pages repos = c0d72f9** (pushed 27 Nov
 00:42: Progress plan page without the rulings list, simulator joined work, review brief for Henrik). **The
 live site did NOT update:** the deploy job on MAx-Flow/SWS-Documentation is refused, "account's billing is
 currently locked" (enterprise trial expired; account deleted in 88 days from 27 Nov). Stian sent the note to
