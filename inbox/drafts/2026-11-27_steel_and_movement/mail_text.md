@@ -92,12 +92,29 @@ Two numbers a / b are the two magnet grades, N52 / N48SH.
   14. The lower sheave block: how close to the SWS does it come, and its size and material.
   15. Any other steel within 600 mm of the head that the pictures do not show.
 
+  Calibration and limits
+  17. Can the head be moved by hand through its full travel when the rope stands still, and how much force does
+      that take? With an angle sensor on the pin we could then record the reading against the angle on site
+      and remove the effect of the beam by measurement.
+  18. Is there a guide or a stop that limits the travel of the head, or could one be added?
+
   The second proposed position
-  16. Where is the second proposed position for the SWS? Please send the same for it: the three pictures with
-      dimensions, and points 5 and 11 to 15.
+  19. Where is the second proposed position for the SWS? Please send the same for it: the three pictures with
+      dimensions, and points 5 to 15.
 
   Format: dimensions written on pictures are enough. A STEP file of the area round the head is better, if it
   is allowed to send one.
+
+6. WHAT WE ASSUMED (please correct what is wrong)
+
+  - Head for the 52 mm rope: steel yoke to radius 63 mm (about 126 mm across), about 180 mm long along the
+    rope; sensing elements in the middle of its length, 31 mm and 42 mm from the rope centre. The first heads
+    are for 40 mm rope and are smaller.
+  - Beam face: a flat steel plate 1 x 1 m, 20 mm thick, 143 mm from the rope centre, parallel to the rope.
+  - Holder: a plate 300 x 300 x 15 mm at 143 mm.
+  - Platform: a steel plate 2 x 2 m, 20 mm thick, with an opening of 300 mm round the rope.
+  - Neighbouring rope fall: a 52 mm rope 200 mm away, centre to centre.
+  - All steel as ordinary structural steel; the real grades change the numbers a little.
 
 This continues the task already on GitHub (issue 5, geometry for the 3D run). Answers can go there or by mail.
 
