@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SWS progress plan</title>
+<style>
+/* Layout: summary first, then the full source documents as numbered parts; contents in a sticky side column
+   on wide screens, inline above the parts on narrow ones. */
+:root {
+  --bg: #fbfaf7; --surface: #ffffff; --ink: #1d1f23; --ink2: #4a4d55; --muted: #7a7d85; --line: #e4e2dc;
+  --accent: #2a6fd6; --alert: #c8423f; --chip: #eef3fb; --gl: 16px; --gr: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1116; --surface: #161a21; --ink: #e8e6e1; --ink2: #b5b2aa; --muted: #8a877f; --line: #2a2f38;
+    --accent: #6aa5f5; --alert: #ef6b68; --chip: #1b2433; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1116; --surface: #161a21; --ink: #e8e6e1; --ink2: #b5b2aa; --muted: #8a877f; --line: #2a2f38;
+  --accent: #6aa5f5; --alert: #ef6b68; --chip: #1b2433; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.page { max-width: 1320px; margin: 0 auto; padding-block: 48px 96px; padding-left: var(--gl); padding-right: var(--gr);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+@media (min-width: 1180px) { .page { grid-template-columns: 250px minmax(0, 1fr); } }
+aside.toc { font-size: 13.5px; line-height: 1.45; }
+@media (min-width: 1180px) { aside.toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; } }
+aside.toc ol { list-style: none; padding: 0; margin: 0; }
+aside.toc > ol > li { margin: 0 0 10px; }
+aside.toc ol ol { margin: 4px 0 0 12px; }
+aside.toc ol ol li { margin: 2px 0; }
+aside.toc ol ol a { color: var(--ink2); }
+@media (max-width: 1179px) { aside.toc ol ol { display: none; } }
+aside.toc .label { color: var(--muted); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; font-size: 12px; margin: 0 0 10px; }
+main { min-width: 0; max-width: 1000px; }
+header .eyebrow { color: var(--accent); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; font-size: 13px; }
+h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 8px 0 16px; text-wrap: balance; }
+h2 { font-size: 24px; margin: 64px 0 12px; padding-top: 8px; border-top: 1px solid var(--line); text-wrap: balance; }
+h3 { font-size: 19px; margin: 36px 0 8px; }
+h4, h5, h6 { font-size: 16px; margin: 24px 0 6px; }
+p, li { max-width: 78ch; }
+p { margin: 0 0 12px; }
+.lede { font-size: 18px; color: var(--ink2); }
+.muted { color: var(--muted); }
+.status { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; }
+.status span { background: var(--chip); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--ink2); }
+a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.abstract { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; margin-top: 32px; }
+.abstract h2 { border: 0; margin: 0 0 8px; padding: 0; font-size: 20px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 24px 0 0; }
+.tile { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.tile .v { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 14px; color: var(--ink2); }
+video { width: 100%; max-width: 100%; border-radius: 12px; background: #000; display: block; }
+.wrap { overflow-x: auto; margin: 0 0 16px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 13px; }
+code { font: 12.5px/1.4 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--ink2); overflow-wrap: anywhere; }
+pre { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow-x: auto; }
+pre code { overflow-wrap: normal; }
+blockquote { margin: 12px 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--line); color: var(--ink2); }
+img { max-width: 100%; height: auto; }
+.part img { display: block; margin: 16px 0 6px; border-radius: 8px; background: #fff; border: 1px solid var(--line); }
+ol.find { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+ol.find li { display: flex; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; max-width: none; }
+ol.find .n { flex: 0 0 32px; height: 32px; border-radius: 50%; background: var(--chip); color: var(--accent);
+  display: grid; place-items: center; font-weight: 700; }
+ol.find p { margin: 0 0 4px; }
+.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 18px 0 0; font-size: 14px; }
+.gloss dt { font-weight: 600; color: var(--ink2); }
+.gloss dd { margin: 0; color: var(--ink2); }
+.note { border-left: 3px solid var(--alert); padding: 4px 0 4px 14px; color: var(--ink2); margin: 16px 0; }
+.divider { margin: 96px 0 0; padding: 20px 0 0; border-top: 3px solid var(--ink); }
+.divider h2 { border: 0; margin: 0 0 4px; padding: 0; font-size: 28px; }
+.part { margin-top: 72px; }
+.part > h2:first-of-type { margin-top: 6px; border: 0; padding: 0; font-size: 26px; }
+.partno { font-size: 13px; color: var(--muted); padding-top: 16px; border-top: 1px solid var(--line); }
+.corr { font-style: italic; color: var(--muted); }
+footer { margin-top: 72px; color: var(--muted); font-size: 13px; }
+.formats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; font-size: 13.5px; }
+.formats a { padding: 4px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink2); background: var(--surface); }
+.formats a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.formats a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+@media print { .formats { display: none; } }
+
+.page { max-width: 1060px; grid-template-columns: minmax(0, 1fr) !important; }
+main { max-width: none; }
+h2 { margin-top: 40px; }
+aside.inshort { border: 1px solid var(--accent); border-radius: 6px; padding: 8px 14px 6px; margin: 14px 0 6px; }
+aside.inshort p.lab { margin: 0 0 4px; font-weight: 700; }
+aside.inshort ul { margin: 0; padding-left: 18px; }
+aside.inshort li { margin: 0 0 4px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.controls button { font: inherit; font-size: 13.5px; padding: 4px 14px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--ink2); cursor: pointer; }
+.controls button:hover { border-color: var(--accent); color: var(--accent); }
+.controls button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.warn { border-left: 4px solid var(--alert); background: var(--surface); padding: 8px 14px; margin: 14px 0; }
+.warn ul { margin: 4px 0 0; padding-left: 18px; }
+.dates { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; margin: 8px 0 0; }
+.dates div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.dates b { display: block; color: var(--accent); font-variant-numeric: tabular-nums; }
+.dates span.s { display: block; color: var(--muted); font-size: 13px; }
+details > summary { cursor: pointer; }
+details.area { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; padding: 0 14px; background: var(--surface); }
+details.area > summary { padding: 12px 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; }
+details.area > summary b { font-size: 17px; }
+.when { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+h4.lab { margin: 14px 0 4px; color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; }
+details.task { border-top: 1px solid var(--line); }
+details.task > summary { padding: 8px 0; display: grid; grid-template-columns: 2.6em minmax(0, 1fr) auto; gap: 4px 10px; align-items: start; }
+details.task.crit > summary { box-shadow: inset 3px 0 0 var(--alert); padding-left: 8px; }
+details.task.done > summary { color: var(--ink2); }
+.tid { color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar { display: inline-block; width: 64px; height: 8px; border-radius: 4px; background: var(--line); vertical-align: middle; margin-left: 6px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+table.kv { width: auto; margin: 2px 0 12px 2.6em; font-size: 14px; }
+table.kv th { white-space: nowrap; padding: 3px 14px 3px 0; border: 0; }
+table.kv td { padding: 3px 0; border: 0; }
+details.topic { border-top: 1px solid var(--line); }
+details.topic > summary { padding: 8px 0; }
+table.rec { font-size: 14px; margin: 0 0 12px; }
+table.rec td { padding: 5px 10px 5px 0; }
+table.rec td.d { white-space: nowrap; color: var(--muted); }
+.basis { display: inline-block; font-size: 12px; padding: 0 6px; border-left: 3px solid var(--line); white-space: nowrap; color: var(--ink2); }
+.basis.calculated { border-color: #56B4E9; } .basis.measured { border-color: #009E73; } .basis.datasheet { border-color: #E69F00; }
+.merged { display: block; color: var(--muted); font-size: 12.5px; }
+ul.open li { margin: 0 0 6px; }
+ul.open .d { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 6px; }
+details.list { border: 1px solid var(--line); border-radius: 10px; padding: 0 14px; background: var(--surface); }
+details.list > summary { padding: 12px 0; }
+section#p-update dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; font-size: 14.5px; }
+section#p-update dt { font-weight: 600; } section#p-update dd { margin: 0; }
+@media (max-width: 640px) {
+  details.task > summary { grid-template-columns: 2.2em minmax(0, 1fr); }
+  details.task > summary .when { grid-column: 2; }
+  table.kv { margin-left: 0; }
+  table.rec, table.rec tbody, table.rec tr, table.rec td { display: block; width: 100%; }
+  table.rec thead { display: none; }
+  table.rec tr { border-bottom: 1px solid var(--line); padding: 6px 0; }
+  table.rec td { border: 0; padding: 1px 0; }
+  section#p-update dl { grid-template-columns: minmax(0, 1fr); }
+}
+@page { size: A4; margin: 12mm 12mm 14mm; }
+@media print {
+  body { font-size: 10px; line-height: 1.4; background: #fff; color: #000; }
+  .page { padding: 0; max-width: none; }
+  .controls, .formats { display: none; }
+  h1 { font-size: 19px; margin: 4px 0 6px; } h2 { font-size: 13.5px; margin: 12px 0 4px; padding-top: 2px; }
+  p, li { max-width: none; } p { margin: 0 0 5px; }
+  .lede { font-size: 11px; }
+  details.area, details.list { border: 0; padding: 0; background: none; }
+  details.area > summary { padding: 6px 0 2px; border-bottom: 1px solid #999; break-after: avoid; }
+  details.task > summary, details.topic > summary { padding: 3px 0; break-after: avoid; }
+  summary { list-style: none; } summary::-webkit-details-marker { display: none; }
+  table.kv, table.rec { font-size: 8.5px; } table.rec td { padding: 1px 6px 1px 0; }
+  tr, details.task { break-inside: avoid; }
+  .dates div { padding: 3px 6px; break-inside: avoid; }
+  footer { font-size: 9px; margin-top: 12px; }
+  aside.inshort { padding: 4px 8px 2px; margin: 6px 0 4px; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<main>
+<header>
+  
+  <div class="eyebrow">Safe Wire Sensor · progress plan</div>
+  <h1>Progress plan</h1>
+  <p class="lede">The plan of the SWS and the record of everything done so far, in one place. Read it in layers: the dates that control the plan first, then the eight areas of the work, then the tasks in each area, then, inside each area, every piece of work done and what it showed. Dates are targets: correct before fast.</p>
+  <div class="controls"><button type="button" id="open-all">Open all (for printing)</button><button type="button" id="close-all">Close all</button></div>
+</header>
+<noscript><div class="warn">This page builds its content from two data files when it opens, which needs JavaScript.</div></noscript>
+<div class="warn" id="loadfail" hidden><b>The plan could not be loaded.</b> The page reads <code>plan.json</code> and
+<code>record.json</code> next to it when it opens. On the team site this works; a browser blocks it for a page opened
+straight from a disk. Open the page through the site, or through a local web server started in this folder.</div>
+<div class="warn" id="problems" role="alert" hidden></div>
+<aside class="inshort" id="p-short"><p class="lab">In short</p><ul id="short"><li>Loading the plan…</li></ul></aside>
+
+<section id="p-dates">
+<h2>Layer 1: the dates that control the plan</h2>
+<div class="dates" id="dates"></div>
+<h3>Decisions and inputs needed</h3>
+<ol id="needed"></ol>
+</section>
+
+<section id="p-areas">
+<h2>Layers 2 to 4: the areas, their tasks, and everything done</h2>
+<p>Open an area to see its tasks; open a task for its lead, dates, state, progress, what it depends on and its risk. At
+the end of each area, everything done so far, piece by piece, with what it showed. A red bar on the left marks a task
+of priority Critical. The independent review rounds, the requests to colleagues and the pages are filed under
+Specification, standards and documentation, whatever their subject.</p>
+<p class="muted"><b>Terms.</b> LD: local damage (a broken wire, a short fault). LMA: loss of metallic area (steel lost
+over a length). B_rope: the magnetic induction in the rope; Br and Bz (or B_r): the radial and the axial field at a
+sensing element. lm: magnet length (thickness). Hcj: the magnet's resistance to demagnetisation; the knee: the point
+past which a magnet loses strength for good. Hard and easy wire: rope steel that magnetises with difficulty or easily
+(the two ends of the range the models assume). Hall, TMR, GMR, AMR: kinds of magnetic sensing element. Basis
+"calculated": a model result; "measured": from the prototype recording; "data sheet": read from a maker's data sheet;
+no basis: counts, readings of standards and review answers.</p>
+<div id="areas"></div>
+</section>
+
+<section id="p-open">
+<h2>Open items from the record</h2>
+<details class="list"><summary id="open-sum">Open items</summary><ul class="open" id="open"></ul></details>
+</section>
+
+<section id="p-update">
+<h2>How to update this page</h2>
+
+<p>The page holds no plan of its own. It reads two files that sit next to it, <code>plan.json</code> and
+<code>record.json</code>, every time it opens. The files are kept in the repository fjordbit/max, folder
+<code>docs/sws</code>: edit them there (the web editor of the repository is enough) and save; nothing has to be built.
+An edit made there reaches this page at the next release of the pages, not at once. A wrong edit does not break the
+page silently: it lists the problem in a red box at the top. For a check on a computer, run
+<code>python docs/sws/check_plan_data.py</code> in that repository: it prints <i>ok</i> or the problems.</p>
+<p class="lab"><b>plan.json: one entry per task in <code>tasks</code></b></p>
+<dl>
+<dt>id</dt><dd>a whole number, used once (1 to 20: the schedule; 21 to 100: added; 101 and up: work done)</dd>
+<dt>area</dt><dd>one of the ids in <code>areas</code>: <span id="u-areas">(the list in plan.json)</span></dd>
+<dt>task</dt><dd>one line: what is to be done</dd>
+<dt>lead</dt><dd>who leads the task, first names only, several separated by " / "; a group may be named as a group; "To name" when nobody is named yet</dd>
+<dt>start, end</dt><dd>dates written YYYY-MM-DD, start not after end</dd>
+<dt>state</dt><dd><code>Not started</code>, <code>In progress</code>, <code>Completed</code></dd>
+<dt>progress</dt><dd>a whole number from 0 to 100 (100 when the state is Completed)</dd>
+<dt>priority</dt><dd><code>Critical</code>, <code>High</code>, <code>Medium</code>, <code>Low</code>; Critical tasks carry a red bar on the left</dd>
+<dt>depends_on, risk</dt><dd>free text; may be empty ("")</dd>
+</dl>
+<p>Also in plan.json: <code>updated</code> (the date of your edit, YYYY-MM-DD: change it every time; the page counts
+the open tasks past their end date against it and shows it at the bottom), <code>dates</code> (the controlling dates:
+<code>when</code>, <code>what</code>, <code>state</code>; the first one is shown as the next controlling date, so take a
+date out once it has passed),
+<code>needed</code> (the decisions and inputs needed, one sentence each) and <code>areas</code> (an id and a name each; a
+new area needs an id before a task can use it).</p>
+<p class="lab"><b>record.json</b></p>
+<dl>
+<dt>work</dt><dd>everything done, one entry per piece of work: <code>area</code> (as above), <code>topic</code> (rows with
+the same topic are grouped), <code>when</code>, <code>what</code> (what was done), <code>result</code> (what it showed,
+figures with their units), <code>basis</code> (<code>calculated</code>, <code>measured</code>, <code>data sheet</code>, or empty); optional <code>review_round</code> (true for an independent
+review round) and <code>merged</code> (a note when two rows were joined)</dd>
+<dt>open</dt><dd><code>since</code> and <code>item</code></dd>
+<dt>period</dt><dd>the span the record covers, shown in the "In short" box</dd>
+</dl>
+<p>Plain words for readers outside the daily work. Anything not yet settled is "proposed", never "selected" or
+"decided". No last names anywhere; first names only in the <code>lead</code> field of a task, nowhere else. No customer or site
+names: the first installation is "the first installation (38 mm rope)", the large one "the large installation (52 mm
+rope)".</p>
+
+</section>
+<footer id="foot"></footer>
+</main>
+</div>
+<script>
+(function () {
+const STATES = ["Not started", "In progress", "Completed"], PRIORITIES = ["Critical", "High", "Medium", "Low"], BASIS = ["calculated", "measured", "data sheet", ""];
+const TASK_FIELDS = ["id", "area", "task", "lead", "start", "end", "state", "progress", "priority", "depends_on", "risk"], WORK_FIELDS = ["area", "topic", "when", "what", "result", "basis"], WORK_OPTIONAL = ["review_round", "merged"];
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) { if (k === 'class') e.className = v; else e.setAttribute(k, v); }
+  for (const k of kids) if (k !== null && k !== undefined && k !== '') e.append(k instanceof Node ? k : String(k));
+  return e;
+}
+const isText = (v) => typeof v === 'string';
+const filled = (v) => isText(v) && v.trim() !== '';
+const isInt = (v) => Number.isInteger(v);
+function fmt(iso, withYear) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return d + ' ' + MON[m - 1] + (withYear ? ' ' + y : '');
+}
+// the same checks as check_plan_data.py
+function check(plan, rec) {
+  const p = [];
+  for (const k of ['areas', 'dates', 'needed', 'tasks'])
+    if (!(k in plan)) p.push('plan.json: the field "' + k + '" is missing');
+  if (p.length) return p;
+  const areas = (plan.areas || []).map((a) => a && a.id);
+  if (!areas.every(isText) || new Set(areas).size !== areas.length) p.push('plan.json: every area needs a unique id and a name');
+  for (const a of plan.areas) if (a && !filled(a.name)) p.push('plan.json: area ' + a.id + ' has no name');
+  plan.dates.forEach((d, i) => { if (!(d && filled(d.when) && filled(d.what))) p.push('plan.json: dates, entry ' + (i + 1) + ': needs "when" and "what"');
+    else if ('state' in d && !isText(d.state)) p.push('plan.json: dates, entry ' + (i + 1) + ': "state" must be text'); });
+  if (!plan.needed.every(filled)) p.push('plan.json: needed must be a list of sentences');
+  const seen = new Set();
+  plan.tasks.forEach((t, n) => {
+    if (!t || typeof t !== 'object') { p.push('plan.json: task entry ' + (n + 1) + ' is not an object'); return; }
+    const where = 'plan.json: task ' + ('id' in t ? t.id : 'entry ' + (n + 1));
+    const missing = TASK_FIELDS.filter((f) => !(f in t)), extra = Object.keys(t).filter((f) => !TASK_FIELDS.includes(f));
+    if (missing.length) { p.push(where + ': missing field(s) ' + missing.join(', ')); return; }
+    if (extra.length) p.push(where + ': unknown field(s) ' + extra.join(', '));
+    if (!isInt(t.id)) p.push(where + ': id must be a whole number'); else if (seen.has(t.id)) p.push(where + ': the id is used twice');
+    seen.add(t.id);
+    if (!areas.includes(t.area)) p.push(where + ': area "' + t.area + '" is not one of ' + areas.join(', '));
+    for (const f of ['task', 'lead', 'depends_on', 'risk']) if (!isText(t[f])) p.push(where + ': ' + f + ' must be text');
+    if (isText(t.task) && !t.task.trim()) p.push(where + ': task is empty');
+    if (isText(t.lead) && !t.lead.trim()) p.push(where + ': lead is empty (write "To name" if nobody is named yet)');
+    let okd = true;
+    for (const f of ['start', 'end']) if (!(isText(t[f]) && /^\d{4}-\d{2}-\d{2}$/.test(t[f]))) { p.push(where + ': ' + f + ' must be a date written YYYY-MM-DD'); okd = false; }
+    if (okd && t.start > t.end) p.push(where + ': start is after end');
+    if (!STATES.includes(t.state)) p.push(where + ': state "' + t.state + '" is not one of ' + STATES.join(', '));
+    if (!PRIORITIES.includes(t.priority)) p.push(where + ': priority "' + t.priority + '" is not one of ' + PRIORITIES.join(', '));
+    if (!isInt(t.progress) || t.progress < 0 || t.progress > 100) p.push(where + ': progress must be a whole number from 0 to 100');
+    else if (t.state === 'Completed' && t.progress !== 100) p.push(where + ': a completed task has progress 100');
+  });
+  for (const k of ['work', 'open']) if (!Array.isArray(rec[k])) { p.push('record.json: the list "' + k + '" is missing'); return p; }
+  rec.work.forEach((w, n) => {
+    const where = 'record.json: work, entry ' + (n + 1);
+    if (!w || typeof w !== 'object') { p.push(where + ': not an object'); return; }
+    const missing = WORK_FIELDS.filter((f) => !(f in w)), extra = Object.keys(w).filter((f) => !WORK_FIELDS.includes(f) && !WORK_OPTIONAL.includes(f));
+    if (missing.length) { p.push(where + ': missing field(s) ' + missing.join(', ')); return; }
+    if (extra.length) p.push(where + ': unknown field(s) ' + extra.join(', '));
+    if (areas.length && !areas.includes(w.area)) p.push(where + ': area "' + w.area + '" is not one of ' + areas.join(', '));
+    for (const f of ['topic', 'when', 'what', 'result']) if (!filled(w[f])) p.push(where + ': ' + f + ' must be filled in');
+    if (!BASIS.includes(w.basis)) p.push(where + ': basis "' + w.basis + '" is not one of calculated, measured, data sheet, or empty');
+    if ('review_round' in w && typeof w.review_round !== 'boolean') p.push(where + ': review_round must be true or false');
+    if ('merged' in w && !isText(w.merged)) p.push(where + ': merged must be text');
+  });
+  rec.open.forEach((o, n) => { if (!(o && Object.keys(o).sort().join() === 'item,since' && filled(o.since) && filled(o.item))) p.push('record.json: open, entry ' + (n + 1) + ': needs exactly "since" and "item"'); });
+  return p;
+}
+function showProblems(list, head) {
+  const box = $('problems');
+  box.replaceChildren(el('b', {}, head), el('ul', {}, ...list.map((x) => el('li', {}, x))));
+  box.hidden = false;
+}
+function render(plan, rec) {
+  const year = (plan.updated || '').slice(0, 4);
+  const d = (iso) => fmt(iso, iso.slice(0, 4) !== year);
+  const tasks = plan.tasks, open = tasks.filter((t) => t.state !== 'Completed'), done = tasks.filter((t) => t.state === 'Completed');
+  const reviews = rec.work.filter((w) => w.review_round).length, merged = rec.work.filter((w) => w.merged).length;
+  const nextOpen = open.map((t) => t.end).sort()[0];
+  const late = plan.updated ? open.filter((t) => t.end < plan.updated).length : 0;
+  // in short
+  $('short').replaceChildren(
+    el('li', {}, tasks.length + ' tasks: ' + open.length + ' open, ' + done.length + ' done' + (nextOpen ? '; the nearest end date of an open task is ' + d(nextOpen) + '.' : '.') +
+      (late ? ' ' + late + (late === 1 ? ' open task is' : ' open tasks are') + ' past its end date (as of the last edit of the plan).' : '')),
+    el('li', {}, 'Next controlling date: ' + plan.dates[0].when + ', ' + plan.dates[0].what.charAt(0).toLowerCase() + plan.dates[0].what.slice(1) + '.'),
+    el('li', {}, plan.needed.length + ' decisions or inputs are needed before work can move (layer 1).'),
+    el('li', {}, rec.work.length + ' pieces of work done' + (rec.period ? ' (' + rec.period + ')' : '') + ', ' + reviews + ' of them independent review rounds; ' + rec.open.length + ' open items.'));
+  // layer 1
+  $('dates').replaceChildren(...plan.dates.map((x) => el('div', {}, el('b', {}, x.when), x.what, x.state ? el('span', { class: 's' }, x.state) : null)));
+  $('needed').replaceChildren(...plan.needed.map((x) => el('li', {}, x)));
+  // layers 2 to 4
+  const areasBox = $('areas');
+  areasBox.replaceChildren();
+  for (const a of plan.areas) {
+    const ts = tasks.filter((t) => t.area === a.id), o = ts.filter((t) => t.state !== 'Completed').sort((x, y) => x.end < y.end ? -1 : x.end > y.end ? 1 : x.id - y.id);
+    const dn = ts.filter((t) => t.state === 'Completed'), work = rec.work.filter((w) => w.area === a.id);
+    const nxt = o.length ? o[0].end : null;
+    const det = el('details', { class: 'area', id: 'a-' + a.id },
+      el('summary', {}, el('b', {}, a.name), el('span', { class: 'when' }, o.length + ' open, ' + dn.length + ' done' + (nxt ? ' · next date ' + d(nxt) : '') + ' · ' + work.length + ' pieces of work done')));
+    if (o.length) det.append(el('h4', { class: 'lab' }, 'Open tasks'), ...o.map((t) => task(t)));
+    if (dn.length) det.append(el('h4', { class: 'lab' }, 'Done'), ...dn.map((t) => task(t)));
+    if (work.length) {
+      det.append(el('h4', { class: 'lab' }, 'Everything done, piece by piece'));
+      const topics = [...new Set(work.map((w) => w.topic))];
+      for (const tp of topics) {
+        const rows = work.filter((w) => w.topic === tp), rr = rows.filter((w) => w.review_round).length;
+        let extra = rows.length + (rows.length === 1 ? ' piece' : ' pieces') + ' of work';
+        if (rr && rr === rows.length && reviews > rr) extra = rr + ' independent review rounds here; ' + (reviews - rr) + ' more are listed under the area they concern';
+        const tb = el('tbody', {}, ...rows.map((w) => el('tr', {},
+          el('td', { class: 'd' }, w.when),
+          el('td', {}, w.what, w.merged ? el('span', { class: 'merged' }, w.merged) : null),
+          el('td', {}, w.result, w.review_round && rr !== rows.length ? el('span', { class: 'merged' }, 'An independent review round.') : null),
+          el('td', {}, w.basis ? el('span', { class: 'basis ' + w.basis.replace(' ', '') }, w.basis) : '—'))));
+        det.append(el('details', { class: 'topic' }, el('summary', {}, tp + ' ', el('span', { class: 'when' }, '(' + extra + ')')),
+          el('div', { class: 'wrap' }, el('table', { class: 'rec' }, el('thead', {}, el('tr', {}, el('th', {}, 'When'), el('th', {}, 'What was done'), el('th', {}, 'What it showed'), el('th', {}, 'Basis'))), tb))));
+      }
+    }
+    areasBox.append(det);
+  }
+  function task(t) {
+    const isDone = t.state === 'Completed';
+    const rows = [['Lead', t.lead], ['Dates', d(t.start) + ' to ' + d(t.end)], ['State', t.state],
+      ['Progress', t.progress + ' %'], ['Priority', t.priority], ['Depends on', t.depends_on], ['Risk or what is missing', t.risk]];
+    const bar = el('span', { class: 'bar', 'aria-hidden': 'true' }, el('i', { style: 'width:' + t.progress + '%' }));
+    return el('details', { class: 'task' + (isDone ? ' done' : t.priority === 'Critical' ? ' crit' : ''), id: 't-' + t.id },
+      el('summary', {}, el('span', { class: 'tid' }, t.id), el('span', {}, t.task), el('span', { class: 'when' }, d(t.end) + ' · ' + (isDone ? 'done' : t.progress + ' %'), isDone ? null : bar)),
+      el('table', { class: 'kv' }, el('tbody', {}, ...rows.filter((r) => r[1] !== '').map((r) => el('tr', {}, el('th', {}, r[0]), el('td', {}, r[1]))))));
+  }
+  // open items
+  $('open-sum').replaceChildren(rec.open.length + ' open items from the record ', el('span', { class: 'when' }, '(open to read)'));
+  $('open').replaceChildren(...rec.open.map((o) => el('li', {}, el('span', { class: 'd' }, 'since ' + o.since), o.item)));
+  $('foot').textContent = 'Plan last edited ' + (plan.updated ? fmt(plan.updated, true) : '(no date)') + '. ' + tasks.length + ' tasks, ' + rec.work.length +
+    ' pieces of work done' + (merged ? ' (' + merged + ' rows that the record told twice are merged and marked)' : '') + ', ' + rec.open.length +
+    ' open items. Each work row states its basis (see Terms). Tasks 1 to 20 keep the wording of the schedule they come from.';
+  const codes = (xs) => xs.flatMap((x, i) => i ? [', ', el('code', {}, x)] : [el('code', {}, x)]);
+  $('u-areas').replaceChildren(...codes(plan.areas.map((a) => a.id)));
+  document.body.dataset.loaded = 'yes';
+}
+function setAll(open) { for (const x of document.querySelectorAll('main details')) x.open = open; }
+$('open-all').addEventListener('click', () => setAll(true));
+$('close-all').addEventListener('click', () => setAll(false));
+let before = null;
+window.addEventListener('beforeprint', () => { before = [...document.querySelectorAll('main details')].map((x) => x.open); setAll(true); });
+window.addEventListener('afterprint', () => { if (before) document.querySelectorAll('main details').forEach((x, i) => { x.open = before[i]; }); before = null; });
+const EMBEDDED = {"plan.json": {"about": "The SWS progress plan: controlling dates, areas and tasks. Read by plan.html when it loads.", "updated": "2026-11-27", "areas": [{"id": "rope", "name": "Rope and measured data"}, {"id": "magnet", "name": "Magnetic circuit and magnets"}, {"id": "elements", "name": "Sensing elements and board"}, {"id": "housing", "name": "Housing, potting and mechanical"}, {"id": "dataline", "name": "Data line, root box and controls"}, {"id": "twin", "name": "Digital twin and screens"}, {"id": "test", "name": "Test, calibration and installation"}, {"id": "spec", "name": "Specification, standards and documentation"}], "dates": [{"when": "27 Nov", "what": "Detailed plan circulated (target, not forced)", "state": "draft"}, {"when": "30 Nov", "what": "Magnetic analysis issued", "state": "figures exist; note to write"}, {"when": "2 Dec", "what": "Digital twin of the SWS, first version (target)", "state": "in work"}, {"when": "4 Dec", "what": "Board architecture with the specialist; potting method", "state": "board package goes out 1 Dec, draft in work; potting: reading done, no trial yet"}, {"when": "14 Dec", "what": "Magnet geometry and grade final; controls rechecked", "state": "needs decisions"}, {"when": "15 Dec", "what": "Orders: magnets (10 heads), control and logging hardware", "state": ""}, {"when": "29 Jan", "what": "Mechanical design released", "state": ""}, {"when": "10 Mar", "what": "Assembly starts", "state": ""}, {"when": "24 Mar", "what": "Readiness decision", "state": ""}, {"when": "29-31 Mar", "what": "First installation (38 mm rope): six heads", "state": ""}], "needed": ["Board package for the specialist: goes out 1 Dec; the draft is to be read before it is sent.", "Axial sensing element: Hall or TMR, before the board design.", "Magnet grade for the order of 15 Dec (N52 and N48SH are shown side by side; neither is picked).", "The link and the box at the winch: RS-485 to a root box, own line per half or one shared polled line.", "Stored data over the life of a rope: maximum, minimum and proposed size (own run, in preparation)."], "tasks": [{"id": 1, "area": "rope", "task": "Obtain outstanding rope magnetic properties and raw test data", "lead": "Marius / Henrik", "start": "2026-11-19", "end": "2026-11-25", "state": "In progress", "progress": 40, "priority": "Critical", "depends_on": "Magnetic analysis", "risk": "Late/incomplete supplier or raw data delays magnetic definition"}, {"id": 2, "area": "magnet", "task": "Complete rope magnetic analysis and issue results", "lead": "Stian", "start": "2026-11-25", "end": "2026-11-30", "state": "Not started", "progress": 15, "priority": "Critical", "depends_on": "Rope data", "risk": "Uncertain common limit values may reduce confidence"}, {"id": 3, "area": "rope", "task": "Send preferred test specification to suppliers and source closest 40 mm comparison rope", "lead": "Ramin", "start": "2026-11-19", "end": "2026-12-04", "state": "In progress", "progress": 35, "priority": "High", "depends_on": "Supplier response; rope construction confirmation", "risk": "Wrong diameter/construction could invalidate comparison and create cost"}, {"id": 4, "area": "elements", "task": "Build magnetic-property sensor and collect parallel measurement data", "lead": "Stian", "start": "2026-11-19", "end": "2027-02-28", "state": "In progress", "progress": 25, "priority": "High", "depends_on": "PCB; sensor availability; rope data", "risk": "Axial sensor availability and sensor failures"}, {"id": 5, "area": "magnet", "task": "Finalize magnetic geometry, magnet size and grade", "lead": "Stian / Henrik", "start": "2026-11-30", "end": "2026-12-14", "state": "In progress", "progress": 45, "priority": "Critical", "depends_on": "Magnetic analysis; rope properties", "risk": "Late definition misses long-lead magnet order gate"}, {"id": 6, "area": "magnet", "task": "Order long-lead magnets, target quantity 10", "lead": "Stian / Henrik", "start": "2026-12-15", "end": "2026-12-15", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Magnetic circuit frozen", "risk": "Minimum eight-week lead time threatens March assembly"}, {"id": 7, "area": "elements", "task": "Confirm simultaneous-ADC and SPI architecture with PCB specialist", "lead": "Stian", "start": "2026-11-19", "end": "2026-12-04", "state": "In progress", "progress": 65, "priority": "High", "depends_on": "Specialist review", "risk": "Hidden architecture issue could force redesign"}, {"id": 8, "area": "elements", "task": "Complete PCB design and producer discussions", "lead": "Stian", "start": "2026-12-05", "end": "2027-01-31", "state": "In progress", "progress": 30, "priority": "Critical", "depends_on": "Architecture confirmed; sensing elements settled", "risk": "PCB yield and component availability"}, {"id": 9, "area": "housing", "task": "Qualify epoxy/potting method and curing conditions", "lead": "Stian", "start": "2026-11-23", "end": "2026-12-04", "state": "Not started", "progress": 10, "priority": "High", "depends_on": "Available sensors; test samples", "risk": "Curing temperature/force may damage sensors; three failures observed"}, {"id": 10, "area": "dataline", "task": "Recheck ET200SP, RS-422, power, logging, networking and remote access architecture", "lead": "Stian", "start": "2026-11-19", "end": "2026-12-14", "state": "In progress", "progress": 60, "priority": "High", "depends_on": "Data bandwidth; cabinet space; site independence", "risk": "Missing hardware or integration issue delays test setup"}, {"id": 11, "area": "dataline", "task": "Order control and logging hardware", "lead": "Stian / Project", "start": "2026-12-15", "end": "2026-12-15", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Controls architecture and quantities confirmed", "risk": "Long lead or missing module blocks integrated test"}, {"id": 12, "area": "test", "task": "Sketch calibration-station PCB and decide whether to include it", "lead": "Stian", "start": "2026-11-19", "end": "2026-12-14", "state": "Not started", "progress": 15, "priority": "Medium", "depends_on": "PCB concept; cost estimate", "risk": "No solid reference may mix rope variability with sensor/PCB error"}, {"id": 13, "area": "housing", "task": "Complete suspension, attachment and steel-housing production drawings", "lead": "Torbjørn / Mechanical team", "start": "2027-01-04", "end": "2027-01-31", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Magnet/PCB envelope; interface to the first installation (38 mm rope)", "risk": "Late interfaces or fit changes delay steel production"}, {"id": 14, "area": "housing", "task": "Manufacture steel housing and mechanical parts", "lead": "Mechanical supplier", "start": "2027-02-01", "end": "2027-03-05", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Released production drawings", "risk": "One-month production estimate leaves little float"}, {"id": 15, "area": "housing", "task": "Verify dimensions and mounting arrangement against the first installation (38 mm rope)", "lead": "Ramin / Stian", "start": "2027-02-15", "end": "2027-03-05", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Final mechanical layout; site interface data", "risk": "Known open compatibility risk before shipment"}, {"id": 16, "area": "test", "task": "Integrate magnets, housing, PCB and control hardware", "lead": "SWS/MRT team", "start": "2027-03-06", "end": "2027-03-10", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "All long-lead components and mechanical parts received", "risk": "Any upstream slip moves the integrated prototype date"}, {"id": 17, "area": "test", "task": "Assemble and test prototype on available 40 mm rope", "lead": "SWS/MRT team", "start": "2027-03-10", "end": "2027-03-17", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Integrated prototype; test rope; logger/software", "risk": "Less than one week testing reduces confidence before site"}, {"id": 18, "area": "test", "task": "Prepare, ship, mount and commission first units at the first installation (38 mm rope)", "lead": "Ramin / Stian / Henrik", "start": "2027-03-18", "end": "2027-03-31", "state": "Not started", "progress": 0, "priority": "Critical", "depends_on": "Internal test passed; site fit confirmed", "risk": "Prototype quantity, six positions and site readiness remain open"}, {"id": 19, "area": "twin", "task": "Refine processing and simulation from measured raw data", "lead": "Stian / SWS team", "start": "2026-11-19", "end": "2027-03-31", "state": "In progress", "progress": 30, "priority": "High", "depends_on": "Sensor, logger and physical test data", "risk": "Noise, hysteresis and movement effects may require continued work"}, {"id": 20, "area": "spec", "task": "Circulate detailed action plan and simplified management schedule", "lead": "Ramin / Stian / Henrik", "start": "2026-11-19", "end": "2026-11-27", "state": "In progress", "progress": 60, "priority": "High", "depends_on": "Contributors add missing activities", "risk": "Incomplete plan may hide smaller implementation tasks"}, {"id": 21, "area": "twin", "task": "Digital twin of the SWS, first version: large installation (102 winches, 204 SWS), each rope its own faults, main screen fed live, trainer screen", "lead": "Stian", "start": "2026-11-23", "end": "2026-12-02", "state": "In progress", "progress": 45, "priority": "High", "depends_on": "Plant size corrected; twin fitted to measured data", "risk": "Target date, not forced: correct before fast"}, {"id": 22, "area": "twin", "task": "Correct the plant to two sides (2 x 3 stations x 17 winches) and recompute all totals", "lead": "Stian", "start": "2026-11-26", "end": "2026-11-27", "state": "In progress", "progress": 20, "priority": "High", "depends_on": "Layout drawing", "risk": "Totals in notes were for one side only"}, {"id": 23, "area": "twin", "task": "Fit the twin to the prototype recording: ripple size, low-frequency noise, level shift with direction of travel", "lead": "Stian", "start": "2026-11-26", "end": "2026-11-30", "state": "In progress", "progress": 10, "priority": "High", "depends_on": "Prototype recording (received)", "risk": "Prototype is 40 mm with other elements; transfer to 52 mm is an assumption"}, {"id": 24, "area": "twin", "task": "Main screen (design version 3) fed live from the twin; trainer screen to place a fault on a rope the trainer picks", "lead": "Stian", "start": "2026-11-27", "end": "2026-12-01", "state": "In progress", "progress": 15, "priority": "High", "depends_on": "Task 22; presentation decisions", "risk": "Presentation decisions still open"}, {"id": 25, "area": "dataline", "task": "Root box data reduction: review from the measurement side (brief with pseudocode)", "lead": "Henrik", "start": "2026-11-27", "end": "2026-12-04", "state": "Not started", "progress": 0, "priority": "Medium", "depends_on": "Brief read by the project lead first", "risk": "Dead band at rest may hide slow changes"}, {"id": 26, "area": "magnet", "task": "Steel near the SWS: geometry (issue 5), 3D run, term in the twin", "lead": "Henrik / Stian", "start": "2026-11-25", "end": "2026-12-11", "state": "In progress", "progress": 15, "priority": "High", "depends_on": "Geometry; CAD pictures received 26 Nov", "risk": "Fixed steel 143 mm from the rope; moving steel within 1 m"}, {"id": 27, "area": "rope", "task": "Questions on the recording: travel length, speed, rope construction, strong-magnet steps, noisy radial channels", "lead": "Henrik", "start": "2026-11-27", "end": "2026-12-04", "state": "Not started", "progress": 0, "priority": "High", "depends_on": "Three analyses (done)", "risk": "Zero stays moved after a strong field; cause not separated"}, {"id": 28, "area": "elements", "task": "Decision on the axial sensing element: Hall or TMR", "lead": "Stian", "start": "2026-11-27", "end": "2026-12-11", "state": "In progress", "progress": 40, "priority": "Critical", "depends_on": "Task 27; strong-field test", "risk": "Needed before board design (task 8)"}, {"id": 29, "area": "elements", "task": "Board package for the specialist", "lead": "Stian", "start": "2026-11-20", "end": "2026-12-01", "state": "In progress", "progress": 10, "priority": "Critical", "depends_on": "Architecture on record", "risk": "Goes out 1 Dec; task 7 depends on it"}, {"id": 30, "area": "dataline", "task": "Propose the link and the box at the winch: RS-485 to a root box (own line per half, or one shared polled line) against RS-422 into a PLC rack as in the minutes", "lead": "Stian", "start": "2026-11-26", "end": "2026-12-14", "state": "In progress", "progress": 50, "priority": "High", "depends_on": "Update and connection note; data line simulator", "risk": "Minutes and design on record differ"}, {"id": 31, "area": "dataline", "task": "Root box logic in C++ (including the data reduction)", "lead": "Stian", "start": "2026-12-03", "end": "2026-12-18", "state": "Not started", "progress": 5, "priority": "Medium", "depends_on": "Digital twin first version", "risk": ""}, {"id": 32, "area": "dataline", "task": "Firmware update and connection design: eight open questions closed", "lead": "Stian", "start": "2026-11-25", "end": "2026-12-14", "state": "In progress", "progress": 40, "priority": "Medium", "depends_on": "Task 30", "risk": "Nothing on record for a failed update of the root box itself"}, {"id": 33, "area": "test", "task": "Acceptance, factory test and site test procedures; recalibration interval", "lead": "To name", "start": "2027-01-04", "end": "2027-03-09", "state": "Not started", "progress": 5, "priority": "High", "depends_on": "EN 12927 reading (done)", "risk": "Not started; needed before assembly"}, {"id": 34, "area": "rope", "task": "Second measurement of the same rope with the reference instrument", "lead": "To name", "start": "2026-12-01", "end": "2027-01-15", "state": "Not started", "progress": 0, "priority": "Medium", "depends_on": "Instrument availability", "risk": "Without it the twin has one measured source only"}, {"id": 101, "area": "spec", "task": "Specification revisions 123-131, decision register, live parts table (28 parts)", "lead": "Stian", "start": "2026-10-22", "end": "2026-11-20", "state": "Completed", "progress": 100, "priority": "Medium", "depends_on": "", "risk": "Word master not yet updated by hand"}, {"id": 102, "area": "magnet", "task": "In-house 2D checked against two other solvers (18 cases, within 0.33 mT)", "lead": "Stian", "start": "2026-10-23", "end": "2026-10-26", "state": "Completed", "progress": 100, "priority": "Medium", "depends_on": "", "risk": ""}, {"id": 103, "area": "magnet", "task": "3D: stranded rope, broken wires, long loss, yoke groove, falsification run, 40 mm head on 38-40 mm rope (378 solves)", "lead": "Stian", "start": "2026-10-26", "end": "2026-11-20", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": "Real B-H data for the rope still missing"}, {"id": 104, "area": "magnet", "task": "Magnet grades N52 and N48SH against temperature: knee checks, sun model, both shown side by side", "lead": "Stian", "start": "2026-11-07", "end": "2026-11-19", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": "Supplier data (issue 4) open"}, {"id": 105, "area": "elements", "task": "Converter architecture: two simultaneous 8-channel 24-bit converters per half (5 of 5 in a blind round), data sheets checked", "lead": "Stian", "start": "2026-11-10", "end": "2026-11-20", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": ""}, {"id": 106, "area": "elements", "task": "Sensing element candidates and placement on one thin board; two rounds, five answers", "lead": "Stian", "start": "2026-11-12", "end": "2026-11-20", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": "Axial element still open (task 28)"}, {"id": 107, "area": "housing", "task": "Housing, sealing and resin options read against data sheets", "lead": "Stian", "start": "2026-11-11", "end": "2026-11-19", "state": "Completed", "progress": 100, "priority": "Medium", "depends_on": "", "risk": "No trial yet (task 9)"}, {"id": 108, "area": "dataline", "task": "Frame and line study; half core in C; running simulator of half, root box and logger", "lead": "Stian", "start": "2026-11-10", "end": "2026-11-19", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": "Position from ripple: 27 mm against a 10 mm target"}, {"id": 109, "area": "dataline", "task": "Root box data reduction (dead band, lossless compression, sending around movement) and firmware update note", "lead": "Stian", "start": "2026-11-25", "end": "2026-11-25", "state": "Completed", "progress": 100, "priority": "Medium", "depends_on": "", "risk": "Review pending (task 25)"}, {"id": 110, "area": "rope", "task": "Test procedure and rig sheet; prototype recording of 20 Nov analysed three times independently", "lead": "Stian / Henrik", "start": "2026-11-12", "end": "2026-11-25", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": "Questions open (task 27)"}, {"id": 111, "area": "twin", "task": "Simulator of the large installation with each rope its own identity, temperature days and reduction, joined and tested (125 tests)", "lead": "Stian", "start": "2026-10-29", "end": "2026-11-26", "state": "Completed", "progress": 100, "priority": "High", "depends_on": "", "risk": "Was sized for one side; corrected in task 22"}, {"id": 112, "area": "twin", "task": "Screen design, two rounds, four designs; states and colours settled", "lead": "Stian", "start": "2026-11-18", "end": "2026-11-23", "state": "Completed", "progress": 100, "priority": "Medium", "depends_on": "", "risk": ""}, {"id": 113, "area": "spec", "task": "EN 12927 chapter 14 and ISO 4309 read and mapped to requirements", "lead": "Stian", "start": "2026-11-09", "end": "2026-11-18", "state": "Completed", "progress": 100, "priority": "Medium", "depends_on": "", "risk": ""}, {"id": 114, "area": "spec", "task": "16 independent review rounds, each checked against data sheets or recomputed", "lead": "Stian", "start": "2026-11-07", "end": "2026-11-20", "state": "Completed", "progress": 100, "priority": "Low", "depends_on": "", "risk": ""}, {"id": 115, "area": "spec", "task": "Eleven pages for the team in three reading levels; last release 20 Nov", "lead": "Stian", "start": "2026-10-29", "end": "2026-11-20", "state": "Completed", "progress": 100, "priority": "Low", "depends_on": "", "risk": ""}]}, "record.json": {"about": "The record of the SWS work: everything done, piece by piece, and the open items. Read by plan.html when it loads.", "period": "22 Oct to 26 Nov 2026", "work": [{"area": "spec", "topic": "Specification and requirements", "when": "22 Oct", "what": "The incoming specification taken into the project; the positions of the sensing elements set", "result": "16 positions (specification revision 115, section 6)", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "23 Oct", "what": "Specification revisions 123 and 124 replaced revision 115", "result": "revision 115 moved to the archive", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "30 Oct", "what": "Specification revision 127 cleaned of names and shown on the full report page", "result": "23/23 tables, 7/7 + 10 figures, 16/16 plots", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "7 Nov", "what": "All 3D work checked against specification revision 127 and the decision register (reading only)", "result": "reference defect redefined (0.62 % vs < 0.5 %); values carried over from the 40 mm prototype head found; +80 °C used throughout", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "7 Nov", "what": "Proposed changes to the specification drawn up from the 2D re-run", "result": "24 rows put forward for a decision", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "8 Nov", "what": "Register rows applied; specification revision 128 built", "result": "15 rows applied, 17 superseded; magnet length lm 19.1 mm on record", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "8 Nov", "what": "Specification revision 129: notices at the head of the affected sections", "result": "notices only, register unchanged", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "8 Nov", "what": "Specification revision 130: the temperature range", "result": "operating −40/+50 °C; ±80 °C marked historical; proposed change rows 32–40", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "10 Nov", "what": "The register brought up to date", "result": "rope induction B_rope is the reading; the working area is the deliverable; the names LD (local damage) and LMA (loss of metallic area)", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "11 Nov", "what": "The register and the housing page brought up to date", "result": "the head is never under water; IP66/IP67", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "18 Nov", "what": "LD/LMA wording corrected everywhere", "result": "21 places, discard rules, proposed change rows 7–12", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "20 Nov", "what": "Live parts table: every part, its material, size and figures, each with its source", "result": "28 parts, 153 rows: 15 settled, 19 open", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "20 Nov", "what": "Two converters per half in all live documents", "result": "specification revision 131 rendered; price and link figures recomputed", "basis": ""}, {"area": "spec", "topic": "Specification and requirements", "when": "25 Nov", "what": "Fixed facts for the digital twin, and every place that disagrees with them", "result": "47 facts; 34 disagreements (25 out of date, 9 open)", "basis": ""}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "22–23 Oct", "what": "3D set up as a real magnetostatic finite-element model, with a main solver and a second solver for cross-checks", "result": "main solver and cross-check put in the design record", "basis": ""}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "23 Oct", "what": "Corrected in-house 2D code applied (an error with ferromagnetic rings)", "result": "regression check 5/5", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "25–26 Oct", "what": "In-house 2D model compared with two independent finite-element programs", "result": "B_rope agrees ≤ 3.3e-4 T in 18 cases; accepted 26 Oct", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "26–29 Oct", "what": "First 3D model: the intact ring, and the questions it closes", "result": "bond line, demagnetisation, off-centre rope, force between halves", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "3 Nov", "what": "Axial field against radius, and the groove in the 40 mm prototype yoke", "result": "groove 10×2 mm: B_rope −0.2 %; Bz(36.5 mm) = −11 mT", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "3 Nov", "what": "Stranded rope in 3D, and broken wires", "result": "2 hidden outer wires B_r 4.40 / 2.66 mT at 3 / 5 mm; margins 20 / 12", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "4 Nov", "what": "Stranded rope section under the magnet poles", "result": "B_rope ≈ 1.915 T at hard wire (rope steel that magnetises with difficulty), +80 °C (floor 1.92 not held)", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "4 Nov", "what": "Solver stopping early fixed; stage 4 of the run finished", "result": "solver setting eps_reg 1e-4; easy wire at −40 °C ≈ 2.023 T", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "7 Nov", "what": "52 mm prototype head (withdrawn the same day: it assumed segmented magnets)", "result": "20.5 mm magnet → 1.927 T", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "7 Nov", "what": "52 mm prototype head redone with one-piece magnets", "result": "magnet length lm for 1.92 T: N52 16.72 / N48SH 17.45 / N40SH 19.02 mm; force on the halves −664…−670 N", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "7 Nov", "what": "2D re-run on the configuration on record, at +45 °C", "result": "lm N52 15.84 / N48SH 16.58 / N40SH 18.15 mm; 0.5 mT at ~490–520 mm", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "7 Nov", "what": "Results joined into the record; nine figures; 3D model files (STEP)", "result": "STEP at 16.73 / 17.45 / 19.02 / 19.1 / 20.5 mm; a figure comparing the 40 mm prototype head with the project's head", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "8 Nov", "what": "3D main set and appendix runs", "result": "B_rope 1.9222 T at the 3D magnet length; steel mean 1.906 T; fault margins 20.1–20.3 / 12.2–12.3", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "8–9 Nov", "what": "Seven appendix runs folded in", "result": "−40 °C easy wire reads 13–30 % above +45 °C hard wire", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "18 Nov", "what": "Long loss of metal (300 mm) through the head", "result": "per 1 % lost: rope flux −0.93 %, axial TMR +0.4–0.5 %", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "18 Nov", "what": "Axial element at different distances from the rope (lift-off), 40 mm head", "result": "standing Bz −41.9 mT at 3 mm; inside ±20 mT from 13 mm", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "18 Nov", "what": "Cut-out in the yoke: 45 cases in 2D", "result": "outer groove w18 d5 (width 18, depth 5): Bz inside ±20 mT at 3 mm", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "18 Nov", "what": "Why the groove in the yoke works", "result": "zero at 10/13/16 mm needs 4.5/3.7/3.1 mm groove (40 mm head, in a model box later found too small)", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "18 Nov", "what": "Working point: where in the induction window the rope should sit", "result": "LMA drift null near 1.90 T; short-fault signal +60 % from 1.90 to 2.10 T", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "19 Nov", "what": "52 mm head, fine sweep (in a model box later found too small; corrected the same day)", "result": "groove 6.1/5.4/4.6 mm for zero at 13/16/19 mm", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "19 Nov", "what": "Six independent attempts to break the day's findings", "result": "the size of the model box changed the groove depths; inner-wire margin ~1 at 2.0 T", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "19 Nov", "what": "Re-run in a model box that is large enough", "result": "52 mm head groove 4.98/4.25/3.53 mm; steel within 0.5 m shifts the reading 1–8 % of metal", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "19 Nov", "what": "40 mm prototype head as drawn", "result": "standing-field zero at 16.67 mm lift-off (15.9–17.8)", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "19 Nov", "what": "Groove plots redrawn with the large-box numbers", "result": "72 solves; level at 16 mm −0.675 / −0.768 / −0.806 mT per 1 %", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "19 Nov", "what": "Groove trade-off map", "result": "540 solves; zero at 16 mm holds up to ~2.04 T; groove costs 9 % radial", "basis": "calculated"}, {"area": "magnet", "topic": "Magnetic circuit, 2D and 3D models", "when": "20 Nov", "what": "40 mm head on 38–40 mm rope", "result": "378 solves; rope 1.865–2.067 T; groove N52 2.54 mm", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "7 Nov", "what": "Knee screening per grade (the point where a magnet starts to lose strength for good)", "result": "N52 knee at +62 °C on 52 mm, +28 °C on 40 mm, −27 °C empty head", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "7 Nov", "what": "Empty head: the knee in 2D", "result": "N52 82–100 % past knee at 45–80 °C; needs Hcj20 ≈ 1.19 MA/m", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "8 Nov", "what": "Knee re-solved with a second method after the first failed its check", "result": "N52 empty +45 °C −29/−28 mT; loss < 1 mT at Hcj ≥ 1.14/1.12", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "8 Nov", "what": "Sun model on the head on record", "result": "shielded 43.1–43.4 / 48.6–48.9 °C", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "8 Nov", "what": "2D table of temperature excursions", "result": "N52 (Hcj 0.88) empty loses 29–60 mT at +45…+80 °C; N48SH 0", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "19 Nov", "what": "Demagnetisation and forces with the real, thicker magnet", "result": "N52 empty head 57–88 % past knee; N48SH fine", "basis": "calculated"}, {"area": "magnet", "topic": "Magnet grade and temperature", "when": "25 Nov", "what": "Temperature in the digital twin", "result": "magnets above 45 °C only in the worst summer, uncovered (5.6 h)", "basis": "calculated"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "10 Nov", "what": "Note on the link and the read-out", "result": "ADS131M08 data sheet checked: external reference yes; 24 ch at 500/s needs 1 Mbit/s", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "10 Nov", "what": "Multiplexed case checked on data sheets", "result": "≤ 362–407 samples/s per bridge on three chips", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "11 Nov", "what": "Price against complexity", "result": "converters per half A 15, B 21, C 22, D 22–40 USD", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "12 Nov", "what": "Candidate sensing elements against their data sheets", "result": "no part passes cleanly; linear range 94–141 mT needed", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "12 Nov", "what": "Prototype parts read (TMR2185, TMR2584)", "result": "specified ±20 mT; saturate ±100 / ±30 mT", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "12 Nov", "what": "Literature sweep: what other rope testers use", "result": "14 makers, 17 papers; no GMR/TMR/AMR in any product", "basis": ""}, {"area": "elements", "topic": "Sensing elements and converters", "when": "12 Nov", "what": "Review round on sensing elements folded in, parts checked", "result": "DRV5055A4 (±176 mT) and TMAG5253 reach 150 mT", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "12 Nov", "what": "Placement page for the sensing elements", "result": "six placements A–F, three combinations, none picked", "basis": ""}, {"area": "elements", "topic": "Sensing elements and converters", "when": "16 Nov", "what": "Chapter \"What the sensing element measures\"", "result": "break signal 0.39 mT on record against 1.27 / 2.69 mT in the project's own 3D", "basis": "calculated"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "16–17 Nov", "what": "Second round on sensing elements checked against data sheets", "result": "DRV5055A2 ±44 mT at 3.3 V; rig sheet gets gap and identity steps", "basis": "data sheet"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "18 Nov", "what": "Board arrangement marked \"not settled\"", "result": "spokes not confirmed; thin board across the rope", "basis": ""}, {"area": "elements", "topic": "Sensing elements and converters", "when": "19 Nov", "what": "Sensing elements on one thin board, recalculated", "result": "axial at 16 mm 0.77 mT per 1 %; groove cuts −40 °C error 11 % → 0.4 %", "basis": "calculated"}, {"area": "elements", "topic": "Sensing elements and converters", "when": "19 Nov", "what": "Semi-blind review round on the sensing elements, compared with the run above", "result": "in-plane radial + through-package axial on one board (3 of 3)", "basis": "", "review_round": true, "merged": "Told twice in the history (here and under the review rounds); merged into one row."}, {"area": "elements", "topic": "Sensing elements and converters", "when": "20 Nov", "what": "Review round on the sensing elements rerun with the newest models, five answers", "result": "axial Hall/TMR split flipped, then 3 Hall : 2 TMR; radial at 5 mm 5 of 5", "basis": "", "review_round": true, "merged": "Told twice in the history (here and under the review rounds); merged into one row."}, {"area": "housing", "topic": "Potting and sealing", "when": "11 Nov", "what": "Housing and sealing page, four cases", "result": "example epoxy Tg 49 °C (glass transition), inside the service range", "basis": "data sheet"}, {"area": "housing", "topic": "Potting and sealing", "when": "11 Nov", "what": "Sealant review round checked against data sheets", "result": "Stycast 2850FT Tg 40 °C (room-temperature cure), 55 °C after 4 h at 65 °C", "basis": "data sheet"}, {"area": "housing", "topic": "Potting and sealing", "when": "19 Nov", "what": "Resins of the Scotchcast family", "result": "2123 soft re-enterable gel, 24 h at 21 °C; no −40 °C figure", "basis": "data sheet"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "10 Nov", "what": "Software page with pseudocode for the half and the root box", "result": "pseudocode walked through twice, 9 blocking faults fixed", "basis": ""}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "19 Nov", "what": "Data path: three independent answers, and the traffic", "result": "250/s per channel; 102 heads 25.2 Mbit/s serial", "basis": "calculated"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "19 Nov", "what": "The line from the half to the root box", "result": "frame 1 229 B per 100 ms = 123.5 kbit/s per half (27 % of the 460.8k line rate)", "basis": "calculated"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "19 Nov", "what": "Core of the half written in C, with a clamp at full scale", "result": "frames byte-identical to the Python simulator; 35 ns per result set", "basis": "calculated"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "20 Nov", "what": "Principle drawings, and a levelled drawing of the data flow", "result": "6 + 11 drawings; buffer cap holds 22.6 h, not 24 h", "basis": "calculated"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "25 Nov", "what": "Firmware update and the connection to each root box", "result": "two-slot fall-back (the old firmware kept); 32 kB image 13.6 s; with the cables in a ring, 0 SWS lost per fault", "basis": "calculated"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "25 Nov", "what": "Data reduction in the root box", "result": "movement found in 1.1 s, 0 misses in 36 starts; 218 → 30.5–42.5 GB/day", "basis": "calculated"}, {"area": "dataline", "topic": "Data line, half firmware, root box and logger", "when": "25 Nov", "what": "The reduction explained for the measurement side, and the movement detector tried on the measured recording", "result": "20 of 20 passes, 0 false starts in 106 min", "basis": "measured"}, {"area": "twin", "topic": "Digital twin and simulator", "when": "29 Oct–1 Nov", "what": "Design of the twin, and a shiplift chart that zooms in to the SWS", "result": "design only, no twin code; zoom shiplift → half → channels", "basis": ""}, {"area": "twin", "topic": "Digital twin and simulator", "when": "19 Nov", "what": "The data line as a running simulator in Python", "result": "67× real time; 6 of 7 proofs pass; position 27.3 mm vs 10 mm fails", "basis": "calculated"}, {"area": "twin", "topic": "Digital twin and simulator", "when": "20 Nov", "what": "Replay page for the twin", "result": "12 scenarios, 6.7 MB, 0 console errors", "basis": ""}, {"area": "twin", "topic": "Digital twin and simulator", "when": "23 Nov", "what": "Twin documents swept, and a plan in 8 steps", "result": "the simulator is one head; signal by formula", "basis": ""}, {"area": "twin", "topic": "Digital twin and simulator", "when": "25 Nov", "what": "Full-scale plant (one side of the large installation, as then on record)", "result": "51 ropes / 102 SWS / 204 halves; one pass 59 min, 12.4 GB", "basis": "calculated"}, {"area": "twin", "topic": "Digital twin and simulator", "when": "25–26 Nov", "what": "Simulator parts joined into one", "result": "125 tests pass + 1 known failure", "basis": "calculated"}, {"area": "twin", "topic": "Screen design", "when": "18–19 Nov", "what": "Layout for interactive plots, then a plot standard", "result": "research and presentation types; 38 tests", "basis": ""}, {"area": "twin", "topic": "Screen design", "when": "20 Nov", "what": "Screen design, round 1: four independent designs", "result": "12 points for a decision listed", "basis": ""}, {"area": "twin", "topic": "Screen design", "when": "20 Nov", "what": "Screen design, round 2, on the OpenBridge maritime design standard", "result": "palette only; findings latch; 9 points for a decision", "basis": ""}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "16 Nov", "what": "Rig sheet, and a guide for a helper", "result": "4 A4; rope fixed, head moves", "basis": ""}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "16 Nov", "what": "Fault list for a 52 mm test rope", "result": "21 faults (32 breaks), ~22.1 m", "basis": ""}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "17 Nov", "what": "Rig sheet read from the runs; the review round on the test sheet into the record", "result": "live/dead/not-fitted column; rig sheet 5 A4", "basis": ""}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "18–20 Nov", "what": "Prototype test at the rig", "result": "on record: thin board in two halves; TMR2185 radial, TMR2584 axial", "basis": ""}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "19 Nov", "what": "Drawing of the prototype yoke received and read", "result": "yoke 105 mm, Ø102, groove 10 × 2 mm", "basis": ""}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "25 Nov", "what": "First independent analysis of the recording", "result": "30 files at 100/s; ripple 0.644 s; strong field shifts zero up to 11 mT", "basis": "measured"}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "25 Nov", "what": "Second independent analysis of the recording, by a script loop", "result": "8 of 15 figures agree; a reading error in its parser found", "basis": "measured"}, {"area": "rope", "topic": "Prototype measurement and its analysis", "when": "25 Nov", "what": "Third independent analysis of the recording, blind to the other two", "result": "15 of 20 agree; three analyses agree", "basis": "measured"}, {"area": "test", "topic": "Procedures for test, calibration and installation", "when": "12 Nov", "what": "Procedures page, and the data list for the 40 mm test", "result": "12 stages as placeholders; 16-row data list", "basis": ""}, {"area": "spec", "topic": "Independent review rounds", "when": "7 Nov", "what": "Review of the 52 mm head redo and the 2D re-run, and a run on the record", "result": "both returned \"fix\"; the review was right on the 15.84 vs 15.93 mm gap", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "8 Nov", "what": "Peer read of the whole SWS", "result": "75 input fields, 11 knowledge bases", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "8 Nov", "what": "Outside review of the pack with names masked", "result": "10 findings: 9 confirmed, 1 partly", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "8–9 Nov", "what": "Review round with nine models, and a synthesis", "result": "20 findings, 7 contradictions, scorecard", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "10 Nov", "what": "Electronics, round 1 (blind, five models)", "result": "5 of 5: two simultaneous 8-ch 24-bit converters per half", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "10 Nov", "what": "Electronics, round 2 (challenge, cases A–D)", "result": "case A first 3 of 5; multiplexed case D last for four", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "11 Nov", "what": "Sealants (five models)", "result": "4 of 5: gasket-sealed shell + soft silicone gel", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "12 Nov", "what": "Sensing elements, round 1 (three models)", "result": "3 of 3 proposed silicon Hall", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "16 Nov", "what": "Sensing elements, round 2 (two steps)", "result": "all end on placement B with DRV5055A4 axial", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "17 Nov", "what": "Test sheet (two steps)", "result": "only a hand probe gives the standing field in mT", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "17 Nov", "what": "Release mechanism, and the force between the halves", "result": "solid bar net ~500 N closed; real rope may be near zero", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "18 Nov", "what": "Groove physics (two models, a third checks)", "result": "working point not derivable without real B–H curves", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "18 Nov", "what": "Board arrangement (three models, two steps)", "result": "six answers", "basis": "", "review_round": true}, {"area": "spec", "topic": "Independent review rounds", "when": "19 Nov", "what": "Data line (three models)", "result": "250/s, raw 24-bit frame per 100 ms, one line per half", "basis": "", "review_round": true}, {"area": "spec", "topic": "Pages and documentation", "when": "26 Oct", "what": "Delivery of the specification site checked", "result": "out-of-date pages rejected; rebuilt", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "29–30 Oct", "what": "SWS published to the private repositories and the team site", "result": "220 files; 59 links repointed", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "4 Nov", "what": "Names removed from the published history", "result": "placeholders; 70 commits (saved versions) rewritten", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "9 Nov", "what": "Sweep for names, a new export, the short page", "result": "short page 4 A4", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "9 Nov", "what": "Format switch, short page as the landing page, easy read", "result": "easy read 3 A4; three formats", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "9 Nov", "what": "Wording for standards on file", "result": "register notes; analogy", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "10 Nov", "what": "Pages about the task, not about people", "result": "\"owner\" 24 → 1–2; easy read in four parts", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "10 Nov", "what": "Working-area plot, and the terms LD and LMA", "result": "lower edge of working area stated", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "10–11 Nov", "what": "Hardware and software pages", "result": "0 broken links on five pages", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "11 Nov", "what": "Housing page, price plot, sealants", "result": "six pages live", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "12 Nov", "what": "Procedures page and sensing-element page", "result": "eight pages live", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "16–18 Nov", "what": "Releases of the pages", "result": "nine pages; two-part demo video v2 (42.8 s)", "basis": ""}, {"area": "spec", "topic": "Pages and documentation", "when": "20 Nov", "what": "Results page and parts page, released", "result": "results 8 A4; eleven pages, 0 broken links", "basis": ""}, {"area": "spec", "topic": "Standards", "when": "9 Nov", "what": "EN 12927:2019 chapter 14 extracted", "result": "Annex B (1.9–2.3 T) informative; test piece 0.5 % of metallic area", "basis": ""}, {"area": "spec", "topic": "Standards", "when": "9 Nov", "what": "EN 12927 clause map", "result": "57 of 68 pages read", "basis": ""}, {"area": "spec", "topic": "Standards", "when": "12 Nov", "what": "EN 12927 check intervals, from the literature sweep", "result": "function check 3 years; performance test ≤ 12 months", "basis": ""}, {"area": "spec", "topic": "Standards", "when": "18 Nov", "what": "ISO 4309:2017 and crane rope standards extracted", "result": "discard LMA 10 % over 30d; LD 6 % over 6d (d = rope diameter)", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "3 Nov", "what": "Reply to the head design's questions", "result": "notch 10×2, R 36.5, N42 asked to confirm", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "3 Nov", "what": "Request 1: rope construction data", "result": "7 items; open", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "3 Nov", "what": "Request 2: noise floor of the prototype", "result": "assigned to the head design 19 Nov; open", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "8 Nov", "what": "Magnet specification sent to the head design", "result": "sent 8 Nov", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "19 Nov", "what": "Request 3: groove dimensions of the prototype", "result": "drawing received the same day", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "19 Nov", "what": "Request 4: magnet supplier data N52/N48SH", "result": "open", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "19 Nov", "what": "Comment on request 1; enquiry to the rope maker drafted", "result": "52 mm reference rope, L4 added (10 % over 1 560 mm)", "basis": ""}, {"area": "spec", "topic": "Requests to colleagues", "when": "25 Nov", "what": "Request 5: geometry of the platform steel, for a 3D run", "result": "posted, assigned", "basis": ""}], "open": [{"since": "20 Nov", "item": "Board package for the outside specialist: not started; a new date is not set."}, {"since": "6 Nov", "item": "52 mm yoke and magnet prototype, due ≈ 21 Nov: no record of delivery; its questions still open."}, {"since": "8 Nov", "item": "Word master of the specification (revisions 128–131) not yet updated by hand."}, {"since": "10 Nov", "item": "Specification section 7: \"internal reference only\" is wrong by the data sheet; \"AMR wider range\" is also wrong."}, {"since": "17 Nov", "item": "Specification revision 130 still says the halves \"snap together\" / \"attract\"; the side-force row 0.12 kN/mm is not fixed."}, {"since": "9 Nov", "item": "Register and revision 130 storage lines still say the range is to be set, although the range is now −40/+50."}, {"since": "9 Nov", "item": "Register wording in four places; EN 12927 chapter 14 rows not yet in the register."}, {"since": "3 Nov", "item": "Rope construction data (request 1) open; needed before the last complete run."}, {"since": "19 Nov", "item": "Magnet supplier data and the N52 Hcj (request 4) open; further finite-element runs wait on them."}, {"since": "3 Nov", "item": "Noise floor of the prototype (request 2) open."}, {"since": "19 Nov", "item": "Request 3 partly answered: steel grade, the other cut-out, the radii of the sensing elements still missing."}, {"since": "25 Nov", "item": "3D run on the platform steel waits on the geometry (request 5)."}, {"since": "8 Nov", "item": "3D model of the Ø48 head: no decision yet."}, {"since": "16 Nov", "item": "FMECA, factory test, harbour and site tests, installation, recalibration: not started."}, {"since": "16 Nov", "item": "Break signal 0.39 mT (record) against 1.27 / 2.69 mT (own 3D): not reconciled."}, {"since": "16 Nov", "item": "Rethink of the temperature range (−40…+80 °C) to be discussed; no change made."}, {"since": "19 Nov", "item": "Position-from-ripple proof fails (27.3 mm vs 10 mm); the pass figure is not set."}, {"since": "20 Nov", "item": "Hall or TMR for the axial sensing element: open; it hinges on a strong-field test of the prototype."}, {"since": "20 Nov", "item": "The figures in the data-path note lack their arithmetic."}, {"since": "23 Nov", "item": "Owed on the results page: \"all three\" → five; 8 links in the four simulator figures B1–B4; two parts-table rows."}, {"since": "25 Nov", "item": "Ten pieces of work not yet joined to the main record; the second release waits on them."}, {"since": "25 Nov", "item": "Next twin steps not started: root box in C++, main screen version 3 and trainer screen, twin fitted to measured data."}, {"since": "25 Nov", "item": "Open on the measured data: axial step after the strong magnet (3.2 vs 6 mV/V), 134 vs 136 ripple cycles."}, {"since": "25 Nov", "item": "9 disagreements in the twin's facts, and 8 firmware and connection questions, wait for a decision."}, {"since": "19 Nov", "item": "Clamp status bit not added (it clashes with the bits of the health word)."}, {"since": "5 Nov", "item": "Scientific paper through the internal analysis workflow: not run."}]}};
+const get = (f) => Promise.resolve(EMBEDDED[f]);
+Promise.all([get('plan.json'), get('record.json')]).then(([plan, rec]) => {
+  const probs = check(plan, rec);
+  if (probs.length) { showProblems(probs, 'The data files have ' + probs.length + ' problem(s); the page shows what it can. Fix the file named in each line:'); }
+  try { render(plan, rec); } catch (e) { showProblems([String(e.message || e)], 'The page could not show the plan:'); }
+}).catch((e) => {
+  const m = String(e.message || e);
+  if (/not valid JSON/.test(m)) showProblems([m], 'A data file could not be read:');
+  else { $('loadfail').hidden = false; document.body.dataset.loaded = 'no'; }
+});
+})();
+</script>
+</body>
+</html>
