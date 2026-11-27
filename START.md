@@ -1,27 +1,36 @@
-# State 26 Nov, 23:40 (Kai) — read this first; the block of 25 Nov below is older
+# State 27 Nov, 12:26 (Kai) — read this first; older blocks below
 
-**Project main = D: = backup = ab5e2f1; GitHub fjordbit/max = 83d83fd; Pages repos = c0d72f9 (pushed 27 Nov 00:42), but the Pages deploy FAILED on billing: live site is still the 20 Nov snapshot until Stian fixes Billing and plans and the job is re-run.**
-still dd24591, Pages f74c6a4 (20 Nov). **Release not done:** waits on Stian's answer whether it may carry the
-simulator work and the Henrik brief along with the Progress plan page; after release, post the write-up to
-Ramin as an issue (go given).
+**Project main = D: = backup = ab5e2f1. GitHub fjordbit/max = 83d83fd. Pages repos = c0d72f9** (pushed 27 Nov
+00:42: Progress plan page without the rulings list, simulator joined work, review brief for Henrik). **The
+live site did NOT update:** the deploy job on MAx-Flow/SWS-Documentation is refused, "account's billing is
+currently locked" (enterprise trial expired; account deleted in 88 days from 27 Nov). Stian sent the note to
+Ramin, who takes the billing over. When fixed: re-run the failed job, check the page, then post the issue to
+Ramin about the plan page (go given, held).
 
-**Running:** two steel-nearby solver queues in `C:/Users/stian/Prosjekter-u138/max/sws/3d/steel_nearby/`
-(Stian: "let them both run"). At 23:37: N52 on mesh B6, N48SH on mesh W; F, P, N, N2 done for both. Results in
-`results/`, queue state in `logs/queue_<grade>.log`. Nothing is committed on `u138-steel-nearby`. When done:
-tell Stian, then a builder writes `steel_nearby.md` (curves, tables, pros/cons, marked proposal). No watcher
-runs (the system stopped my helpers for low memory at 19:20; not restarted).
+**Nothing is running.** Builders back tonight: U140 (rulings out), U141 (MAx history, private:
+inbox/2026-11-27_max_history/), U142 (board package draft: inbox/drafts/2026-11-27_board_package/, mailed to
+Stian; out to the expert 1 Dec), U143 (release), U144 (steel near the SWS + tilt: branch u138-steel-nearby
+4342a71, not merged; numbers not yet traced by Kai).
 
-**Rulings 26 Nov:** large installation is two sides: 102 winches, 6 stations, design for 2 SWS per rope
-(204 SWS, 408 halves; may be 1); RS-485 to the root box is ours to propose; first 10 runs always kept, runs
-with a finding kept in full plus the next n; life cycle data management is its own run and page; holder and
-arm at the SWS stainless, main bed ferromagnetic; every study ends with options AND a marked proposal;
-first names allowed when not negative (leads in `plan.json`), never last names; dates are targets.
+**Rulings 26-27 Nov:** large installation two sides, 102 winches, 6 stations, design for 2 SWS per rope;
+rulings and his AI method are private (never on the site or in the project repo); first names allowed when
+not negative, never next to a delay; every study ends with options and a marked proposal; backup history is
+not rewritten; vessel library and Oracle integration have their own private repos (fjordbit/vessel-library,
+fjordbit/oracle-integration, also D:/git/); RAM 4 x 64 GB OK to order, delivered to his home; one platform
+for MAx (my advice, not ruled); the MAx / agentic section stays out of the SWS site until he rules on the 12
+sensitive items.
 
-**Not merged:** `u137-two-sides` f7c72d4 (twin at two sides; 75 old-size lines in 23 files outside line_beta
-still to correct, list in agent-notes/bunt.md). **Not started:** life cycle data run; load model round (held
-for mechanical inputs, `inbox/2026-11-26_load_model/`). **With Stian:** detail read of the Henrik brief; plan
-drafts in `inbox/drafts/2026-11-26_*`; board package out 1 Dec (ruled 27 Nov). DT first version target Wed 2 Dec.
-Details: `log/2026-11-26.md`.
+**Waiting on Stian (in order):** 1 go to merge u137-two-sides (f7c72d4) and then u138-steel-nearby; 2 read
+and send the board package (1 Dec); 3 forward the steel and movement mail to Henrik and the mechanical
+colleague (add question 17: can the head be moved by hand); 4 detail read of the Henrik brief; 5 the 12
+sensitive items of the MAx plan section; 6 two-factor on GitHub before 11 Dec; add Ramin to vessel-library
+(password step); 7 Bitwarden plan (Teams bought; Families fits the household).
+**Next for Kai after the merge go:** movement settings (shift toward the wall, sideways, tilt) and the steel
+term in the twin; correct the 75 old-size lines (list in agent-notes/bunt.md); life cycle data run; fit the
+twin to the measured data; DT first version target Wed 2 Dec (not forced).
+**Browser:** Stian gave Kai a Chrome window on a second virtual desktop (27 Nov) so his work does not put it
+to sleep. Mail: check the shared mailbox when awake; advertising to trash; Bitwarden mails kept.
+Details: log/2026-11-26.md, log/2026-11-27.md.
 
 ---
 
